@@ -82,6 +82,8 @@ return [
 
     'locale' => 'en',
 
+    'locales' => ['en', 'de'],
+
     /*
     |--------------------------------------------------------------------------
     | Application Fallback Locale
@@ -173,6 +175,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
+        App\Providers\TelescopeServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
     ],

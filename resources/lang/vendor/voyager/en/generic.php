@@ -53,6 +53,7 @@ return [
     'last_modified'          => 'Last modified',
     'length'                 => 'Length',
     'locale'                 => 'Locale',
+    'log'                    => 'Log',
     'login'                  => 'Login',
     'logout'                 => 'Logout',
     'media'                  => 'Media',
