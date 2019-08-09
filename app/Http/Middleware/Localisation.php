@@ -15,12 +15,11 @@ class Localisation
      */
     public function handle($request, Closure $next)
     {
-        if(session('locale')) {
-            app()->setLocale(session('locale'));
-            dd(session('locale'));
+        if(session()->has('locale')) {
+            app()->setLocale(session()->get('locale'));
+            app('VoyagerAuth')->user()->locale = session()->get('locale');
         }
-        
-        // dd(session('locale'));
+
         return $next($request);
     }
 }

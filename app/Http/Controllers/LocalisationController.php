@@ -11,10 +11,11 @@ class LocalisationController extends Controller
      * 
      */
     public function index($lang) {
+        
         app()->setLocale($lang);
         app('VoyagerAuth')->user()->locale = $lang;
 
-        session('locale', $lang);
+        session()->put('locale', $lang);
         return redirect()->route('voyager.dashboard');
     }
 }
