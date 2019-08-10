@@ -13,7 +13,7 @@ class CreateSalesOdresTable extends Migration
      */
     public function up()
     {
-        Schema::create('sales_odres', function (Blueprint $table) {
+        Schema::create('sales_ordres', function (Blueprint $table) {
             $table->bigIncrements('id');
             // Contract
             $table->string('owner_full_name');
