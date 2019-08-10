@@ -16,6 +16,6 @@ class LocalisationController extends Controller
         app('VoyagerAuth')->user()->locale = $lang;
 
         session()->put('locale', $lang);
-        return redirect()->route('voyager.dashboard');
+        return redirect()->back();
     }
 }

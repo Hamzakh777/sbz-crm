@@ -14,7 +14,7 @@ class VoyagerController extends BaseVoyagerController
 {
     public function __construct()
     {
-        
+
         // for some reasn when we change the locale
         // it reverts back to its previous state 
         // se localisation controller and middleware
@@ -29,13 +29,9 @@ class VoyagerController extends BaseVoyagerController
             return $next($request);
         });
     }
-
+    
     public function index()
     {
-        // if (session()->has('locale')) {
-        //     app()->setLocale(session()->get('locale'));
-        // }
-        
         return Voyager::view('voyager::index');
     }
 }
