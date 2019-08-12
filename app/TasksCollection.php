@@ -18,7 +18,7 @@ class TasksCollection extends Model
      * Task collection belongs to many sales orders
      * @param void
      */
-    // public function salesOrders() {
-    //     $this->belongsToMany('App');
-    // }
+    public function salesOrders() {
+        $this->belongsToMany('App\SalesOrder', 'sales_order_tasks_collection', 'tasks_collection_id');
+    }
 }
