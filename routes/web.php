@@ -22,7 +22,11 @@ Route::group(['as' => 'voyager.'], function () {
         // User log
         Route::get('users/{id}/log', 'User\UserLogController@index')->name('user.log');
 
+        // Change the local
         Route::get('localisation/{lang}', 'LocalisationController@index')->name('localisation');
+
+        // Sales ordes routes
+        Route::post('sales-orders-api', 'SalesOrders\SalesOrderController@index')->name('salesOrdersApi.index');
 
         event(new RoutingAdminAfter());
     });

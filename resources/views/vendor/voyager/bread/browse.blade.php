@@ -37,59 +37,41 @@
 @stop
 
 @section('content')
-    <div class="page-content browse container-fluid" id='app'>
+    <div class="page-content browse container-fluid">
         @include('voyager::alerts')
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-primary panelbordered">
-                    <div class="panel-heading">
-                        {{-- appointments filter --}}
-                        <h3 class="panel-title panel-icon"><i class="voyager-search"></i>{{ __('voyager::sales_orders.filter_title') }}</h3>
-                        <div class="panel-actions">
-                            <a class="panel-action voyager-angle-up" data-toggle="panel-collapse" aria-hidden="true"></a>
-                        </div>
-                    </div>
-                    <div class="panel-body mt-2">
-                        <sales-orders-filter>
-                            @foreach ($dataType->addRows as $row)
-                                @if ($row->field == 'wanted_expert')
-                                    <template v-slot:experts>
-                                        @foreach ($row->details->options as $key => $option)
-                                            <option value="{{$key}}">{{ $option }}</option> 
-                                        @endforeach
-                                    </template>
-                                @elseif($row->field == 'canton_city')
-                                    <template v-slot:cities>
-                                        @foreach ($row->details->options as $key => $option)
-                                            <option value="{{$key}}">{{ $option }}</option> 
-                                        @endforeach
-                                    </template>
-                                @elseif($row->field == 'appointment_belongsto_user_relationship_1')
-                                    <template v-slot:users>
-                                        @foreach($users as $user)
-                                            <option value="{{ $user->id }}">{{ $user->user_name }}</option>
-                                        @endforeach
-                                    </template>
-                                @endif
-                            @endforeach
-                        </sales-orders-filter>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="panel panel-bordered panel-primary">
-                    <div class="panel-heading">
-                        {{-- appointments filter --}}
-                        <h3 class="panel-title panel-icon"><i class="voyager-search"></i>{{ __('voyager::sales_orders.title') }}</h3>
-                        <div class="panel-actions">
-                            <a class="panel-action voyager-angle-up" data-toggle="panel-collapse" aria-hidden="true"></a>
-                        </div>
-                    </div>
+                <div class="panel panel-bordered">
                     <div class="panel-body">
+                        {{-- @if ($isServerSide)
+                            <form method="get" class="form-search">
+                                <div id="search-input">
+                                    <select id="search_key" name="key">
+                                        @foreach($searchable as $key)
+                                            <option value="{{ $key }}" @if($search->key == $key || (empty($search->key) && $key == $defaultSearchKey)){{ 'selected' }}@endif>{{ ucwords(str_replace('_', ' ', $key)) }}</option>
+                                        @endforeach
+                                    </select>
+                                    <select id="filter" name="filter">
+                                        <option value="contains" @if($search->filter == "contains"){{ 'selected' }}@endif>contains</option>
+                                        <option value="equals" @if($search->filter == "equals"){{ 'selected' }}@endif>=</option>
+                                    </select>
+                                    <div class="input-group col-md-12">
+                                        <input type="text" class="form-control" placeholder="{{ __('voyager::generic.search') }}" name="s" value="{{ $search->value }}">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-info btn-lg" type="submit">
+                                                <i class="voyager-search"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                                @if (Request::has('sort_order') && Request::has('order_by'))
+                                    <input type="hidden" name="sort_order" value="{{ Request::get('sort_order') }}">
+                                    <input type="hidden" name="order_by" value="{{ Request::get('order_by') }}">
+                                @endif
+                            </form>
+                        @endif --}}
                         <div class="table-responsive">
-                            <table class="table table-hover">
+                            <table id="dataTable" class="table table-hover">
                                 <thead>
                                     <tr>
                                         @can('delete',app($dataType->model_name))
@@ -102,7 +84,9 @@
                                             @if ($isServerSide)
                                                 <a href="{{ $row->sortByUrl($orderBy, $sortOrder) }}">
                                             @endif
-                                            {{ $row->display_name }}
+                                            {{-- {{ $row->display_name }} --}}
+                                            {{-- to make the BREAD datatypes name translatable --}}
+                                            {{ __('voyager::' . strtolower($dataType->display_name_singular . '.' .$row->display_name)) }}
                                             @if ($isServerSide)
                                                 @if ($row->isCurrentSortField($orderBy))
                                                     @if ($sortOrder == 'asc')
@@ -273,6 +257,14 @@
                             </table>
                         </div>
                         @if ($isServerSide)
+                            <div class="pull-left">
+                                <div role="status" class="show-res" aria-live="polite">{{ trans_choice(
+                                    'voyager::generic.showing_entries', $dataTypeContent->total(), [
+                                        'from' => $dataTypeContent->firstItem(),
+                                        'to' => $dataTypeContent->lastItem(),
+                                        'all' => $dataTypeContent->total()
+                                    ]) }}</div>
+                            </div>
                             <div class="pull-right">
                                 {{ $dataTypeContent->appends([
                                     's' => $search->value,
@@ -288,7 +280,6 @@
                 </div>
             </div>
         </div>
-        <sales-orders-app></sales-orders-app>
     </div>
 
     {{-- Single delete modal --}}
@@ -323,7 +314,6 @@
     @if(!$dataType->server_side && config('dashboard.data_tables.responsive'))
         <script src="{{ voyager_asset('lib/js/dataTables.responsive.min.js') }}"></script>
     @endif
-    <script src="/js/pages/salesOrders.js"></script>
     <script>
         $(document).ready(function () {
             @if (!$dataType->server_side)

@@ -6,7 +6,6 @@ use TCG\Voyager\Http\Controllers\VoyagerUserController as BaseVoyagerUserControl
 
 class VoyagerUserController extends BaseVoyagerUserController
 {
-    //
     public function __construct()
     {
 

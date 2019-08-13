@@ -10,16 +10,32 @@ const getters = {
 
 // make a request, get a reponse and make a mutations
 const actions = {
+    /**
+     * Get all the sales orders
+     * @param {*} param0 
+     */
     async fetchSalesOrders({ commit }) {
-        const response = await axios.get('https://jsonplaceholder.typicode.com/todos');
-
-        commit('setTodos', response.data);
+        try {
+            const response = await axios.post('sales-orders-api');
+            
+            commit('setSalesOrders', response.data.salesOrders);
+        } catch (error) {
+            
+        }
     },
+
 };
 
 // mutations is how we mutate the state
 const mutations = {
-    setSalesOrders(state, salesOrders) {
-        state.salesOrders = salesOrders;
+    setSalesOrders(state, data) {
+        state.salesOrders = data;
     },
+};
+
+export default {
+    state,
+    getters,
+    actions,
+    mutations
 };

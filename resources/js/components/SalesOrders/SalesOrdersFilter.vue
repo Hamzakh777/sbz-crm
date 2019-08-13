@@ -46,7 +46,7 @@
         </div>
 
         <!-- user  -->
-        <div class="form-group col-md-4" v-if="!isAgentView">
+        <div class="form-group col-md-4">
           <label class="control-label">Sales Agent</label>
           <select class="form-control" name="wanted_expert" aria-hidden="true" v-model="userID">
             <option disabled value selected>Please select one</option>
@@ -100,17 +100,10 @@
 import Datepicker from 'vuejs-datepicker';
 
 export default {
-  name: "AppointmentFilter",
+  name: "SalesOrdersFilter",
 
   components: {
     Datepicker,
-  },
-
-  props: {
-    isAgentView: {
-      type: Boolean,
-      required: false
-    }
   },
 
   data() {

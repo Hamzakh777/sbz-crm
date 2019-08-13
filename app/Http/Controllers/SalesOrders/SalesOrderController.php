@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\SalesOrders;
 
+use App\SalesOrder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -32,7 +33,10 @@ class SalesOrderController extends Controller
      */
     public function index()
     {
-        return view('');
+        $salesOrders = SalesOrder::paginate('10');
+        return response()->json([
+            'salesOrders' => $salesOrders
+        ]);
     }
 
     /**

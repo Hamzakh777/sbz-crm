@@ -18,8 +18,8 @@ class Products extends Migration
             $table->string('name');
             $table->integer('insurance_id');
             $table->integer('products_category_id');
-            $table->enum('level', [1, 2, 3, 4]);
-            $table->enum('franchise', [0, 100, 200, 300, 400, 500, 600, 900, 1000, 1500, 2500, 3000]);
+            $table->string('level');
+            $table->string('franchise');
             $table->tinyInteger('age_range_from');
             $table->tinyInteger('age_range_to');
             $table->mediumText('comment');
