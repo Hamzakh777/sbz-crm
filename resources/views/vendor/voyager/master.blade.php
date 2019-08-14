@@ -114,9 +114,14 @@ if (starts_with(app('VoyagerAuth')->user()->avatar, 'http://') || starts_with(ap
 </div>
 @include('voyager::partials.app-footer')
 
+<!-- Javascript localisation files -->
+<script>
+    window.default_locale = "{{ config('app.locale') }}";
+    window.fallback_locale = "{{ config('app.fallback_locale') }}";
+</script>
+
+
 <!-- Javascript Libs -->
-
-
 <script type="text/javascript" src="{{ voyager_asset('js/app.js') }}"></script>
 
 <script>

@@ -15,6 +15,30 @@ if (token) {
 }
 
 /**
+ * Using laravel localisation files in vue js
+ */
+import Lang from 'lang.js';
+
+const default_locale = window.default_language;
+const fallback_locale = window.fallback_locale;
+
+Vue.prototype.trans = new Lang({
+    locale: default_locale,
+    fallback: fallback_locale
+});
+
+axios.get('js/localisation.js').then(response => {
+    window.messages = response.data;
+    Vue.prototype.trans.setMessages(response.data);
+});
+
+
+
+
+
+
+
+/**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
  * allows your team to easily build robust real-time web applications.

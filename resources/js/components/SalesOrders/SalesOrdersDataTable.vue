@@ -11,13 +11,13 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <td>
+                            <th>
                                 test
-                            </td>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr v-for="(salesOrder, index) in allSalesOrders.data" :key="index">
                             <td>
                                 test
                             </td>
@@ -30,9 +30,13 @@
 </template>
 
 <script>
-    export default {
-        name: 'SalesOrdersDataTables',
-    }
+import {mapGetters, mapActions} from 'vuex';
+
+export default {
+    name: 'SalesOrdersDataTables',
+
+    computed: mapGetters(['allSalesOrders']),
+}
 </script>
 
 <style lang="scss" scoped>

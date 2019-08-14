@@ -6,6 +6,7 @@ use TCG\Voyager\Events\RoutingAdmin;
 use TCG\Voyager\Events\RoutingAdminAfter;
 use TCG\Voyager\Events\RoutingAfter;
 use TCG\Voyager\Facades\Voyager;
+use KgBot\LaravelLocalization\Facades\ExportLocalizations;
 
 
 Auth::routes(['register' => false]);
@@ -33,3 +34,15 @@ Route::group(['as' => 'voyager.'], function () {
 
     event(new RoutingAfter());
 });
+
+if (config('laravel-localization.routes.enable')) {
+    /*
+     * Localization
+     */
+    Route::get(config('laravel-localization.routes.prefix'), function () {
+        $strings = ExportLocalizations::export()->toFlat();
+
+        return response()->json($strings);
+    })->name(config('laravel-localization.routes.name'))
+        ->middleware(config('laravel-localization.routes.middleware'));
+}

@@ -1,8 +1,22 @@
 <template>
-    <div class="row">
-        <div class="col-md-12">
-            <sales-orders-data-table>
-            </sales-orders-data-table>
+    <div>
+        <div class="row">
+            <div class="col-md-12">
+                <sales-orders-data-table>
+                </sales-orders-data-table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                {{ trans.get('auth.failed') }}
+                {{ trans.getLocale() }}
+                <pagination 
+                    :data="allSalesOrders" 
+                    @pagination-change-page="changePage"
+                    :limit="4"
+                    :size="'small'"
+                ></pagination>
+            </div>
         </div>
     </div>
 </template>
@@ -11,7 +25,7 @@
 import SalesOrdersDataTable from '../components/SalesOrders/SalesOrdersDataTable.vue';
 import Pagination from "laravel-vue-pagination";
 
-import { mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
     name: 'SalesOrdersApp',
@@ -21,8 +35,14 @@ export default {
         Pagination
     },
 
+    computed: mapGetters(['allSalesOrders']),
+
     methods: {
         ...mapActions(['fetchSalesOrders']),
+
+        changePage(page = 1) {
+            
+        }
     },
 
     mounted() {
