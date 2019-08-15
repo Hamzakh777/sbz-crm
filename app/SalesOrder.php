@@ -26,4 +26,11 @@ class SalesOrder extends Model
     public function taskCollection() {
         $this->belongsToMany('App\TasksCollection', 'sales_order_tasks_collection', 'sales_order_id');
     }
+
+    /**
+     * Scope filter sales orders
+     */
+    public function scopeFilterSalesOrders($query, $request) {
+        return $query;
+    }
 }

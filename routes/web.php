@@ -29,6 +29,9 @@ Route::group(['as' => 'voyager.'], function () {
         // Sales ordes routes
         Route::post('sales-orders-api', 'SalesOrders\SalesOrderController@index')->name('salesOrdersApi.index');
 
+        // Filter the appointments
+        Route::post('sales-orders/filter', 'SalesOrders\SalesOrderFilterController@index')->name('salesOrder.filter');
+
         event(new RoutingAdminAfter());
     });
 

@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Voyager;
 
 use TCG\Voyager\Http\Controllers\VoyagerBaseController as BaseVoyagerBaseController;
+use KgBot\LaravelLocalization\Facades\ExportLocalizations as ExportLocalization;
 
 class VoyagerBaseController extends BaseVoyagerBaseController
 {
-    //
     public function __construct()
     {
 
@@ -20,6 +20,9 @@ class VoyagerBaseController extends BaseVoyagerBaseController
             if (session()->has('locale')) {
                 app()->setLocale(session()->get('locale'));
             }
+
+            // making the localisation files vailable for vue js
+            view()->share('localisations', ExportLocalization::export()->toFlat());
 
             return $next($request);
         });

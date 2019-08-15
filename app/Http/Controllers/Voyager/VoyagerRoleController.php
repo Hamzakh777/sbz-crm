@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Voyager;
 
 use TCG\Voyager\Http\Controllers\VoyagerRoleController as BaseVoyagerRoleController;
+use KgBot\LaravelLocalization\Facades\ExportLocalizations as ExportLocalization;
 
 class VoyagerRoleController extends BaseVoyagerRoleController
 {
@@ -21,6 +22,9 @@ class VoyagerRoleController extends BaseVoyagerRoleController
                 app()->setLocale(session()->get('locale'));
             }
 
+            // making the localisation files vailable for vue js
+            view()->share('localisations', ExportLocalization::export()->toFlat());
+            
             return $next($request);
         });
     }

@@ -2,14 +2,6 @@
     <div>
         <div class="row">
             <div class="col-md-12">
-                <sales-orders-data-table>
-                </sales-orders-data-table>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                {{ trans.get('auth.failed') }}
-                {{ trans.getLocale() }}
                 <pagination 
                     :data="allSalesOrders" 
                     @pagination-change-page="changePage"

@@ -35,6 +35,22 @@ const actions = {
         } catch (error) {
 
         } 
+    },
+
+    async filterSalesOrders({ commit }, data) {
+        try {
+            const response = await axios.post(`sales-orders/filter`, data);
+
+            // the table is rendered in the backend
+            // we send it over and display it on the frontend
+            const table = document.querySelector("#table-wrapper");
+            table.innerHTML = response.data.table;
+
+            // update the paginator
+            commit('setSalesOrders', response.data.dataTypeContent);
+        } catch (error) {
+            console.warn(error);
+        }
     }
 
 };

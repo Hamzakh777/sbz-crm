@@ -52,22 +52,30 @@
                     <div class="panel-body mt-2">
                         <sales-orders-filter>
                             @foreach ($dataType->addRows as $row)
-                                @if ($row->field == 'wanted_expert')
-                                    <template v-slot:experts>
+                                @if (isset($insurances))
+                                    <template v-slot:insurances>
+                                        @foreach($insurances as $insurance)
+                                            <option value="{{ $insurance->id }}">{{ $insurance->name }}</option>
+                                        @endforeach
+                                    </template>
+                                @endif
+                                @if (isset($salesAgents))
+                                    <template v-slot:sales-users>
+                                        @foreach($salesAgents as $user)
+                                            <option value="{{ $user->id }}">{{ $user->username }}</option>
+                                        @endforeach
+                                    </template>
+                                @endif
+                                @if($row->field == 'insurance_status')
+                                    <template v-slot:insurance-statuses>
                                         @foreach ($row->details->options as $key => $option)
                                             <option value="{{$key}}">{{ $option }}</option> 
                                         @endforeach
                                     </template>
-                                @elseif($row->field == 'canton_city')
-                                    <template v-slot:cities>
+                                @elseif($row->field == 'sales_order_status')    
+                                    <template v-slot:sales-statuses>
                                         @foreach ($row->details->options as $key => $option)
                                             <option value="{{$key}}">{{ $option }}</option> 
-                                        @endforeach
-                                    </template>
-                                @elseif($row->field == 'appointment_belongsto_user_relationship_1')
-                                    <template v-slot:users>
-                                        @foreach($users as $user)
-                                            <option value="{{ $user->id }}">{{ $user->user_name }}</option>
                                         @endforeach
                                     </template>
                                 @endif
@@ -88,7 +96,7 @@
                         </div>
                     </div>
                     <div class="panel-body">
-                        <div class="table-responsive">
+                        <div class="table-responsive" id="table-wrapper">
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
@@ -100,7 +108,7 @@
                                         @foreach($dataType->browseRows as $row)
                                         <th>
                                             @if ($isServerSide)
-                                                <a href="{{ $row->sortByUrl($orderBy, $sortOrder) }}">
+                                                <p>
                                             @endif
                                             {{ $row->display_name }}
                                             @if ($isServerSide)
@@ -111,7 +119,7 @@
                                                         <i class="voyager-angle-down pull-right"></i>
                                                     @endif
                                                 @endif
-                                                </a>
+                                                </p>
                                             @endif
                                         </th>
                                         @endforeach

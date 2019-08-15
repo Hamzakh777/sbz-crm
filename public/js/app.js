@@ -32070,13 +32070,11 @@ if (token) {
 
 var default_locale = window.default_language;
 var fallback_locale = window.fallback_locale;
+var messages = window.messages;
 Vue.prototype.trans = new lang_js__WEBPACK_IMPORTED_MODULE_0___default.a({
+  messages: messages,
   locale: default_locale,
   fallback: fallback_locale
-});
-axios.get('js/localisation.js').then(function (response) {
-  window.messages = response.data;
-  Vue.prototype.trans.setMessages(response.data);
 });
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

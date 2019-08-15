@@ -7,7 +7,7 @@
     <meta name="assets-path" content="{{ route('voyager.voyager_assets') }}"/>
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    {{-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet"> --}}
 
     <!-- Favicon -->
     <?php $admin_favicon = Voyager::setting('admin.icon_image', ''); ?>
@@ -116,8 +116,11 @@ if (starts_with(app('VoyagerAuth')->user()->avatar, 'http://') || starts_with(ap
 
 <!-- Javascript localisation files -->
 <script>
-    window.default_locale = "{{ config('app.locale') }}";
+    window.default_locale = "{{ app()->getLocale() }}";
     window.fallback_locale = "{{ config('app.fallback_locale') }}";
+    @if(isset($localisations))
+        window.messages = @json($localisations);
+    @endif
 </script>
 
 

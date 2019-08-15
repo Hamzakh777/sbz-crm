@@ -2,94 +2,114 @@
   <div class="filter-form">
     <form id="form">
       <div class="row">
+        <!-- sales date from -->
         <div class="form-group col-md-4">
-          <label class="control-label">Anrufdatum von</label>
-          <Datepicker class="datePicker" input-class="form-control" v-model="callDateStart" :format="dateFormat"></Datepicker>
+          <label class="control-label">{{ trans.get('voyager.sales_orders.sales_date_from')}}</label>
+          <Datepicker
+            class="datePicker"
+            input-class="form-control"
+            v-model="salesDateFrom"
+            :format="dateFormat"
+          ></Datepicker>
         </div>
 
+        <!-- sales date to -->
         <div class="form-group col-md-4">
-          <label class="control-label">Anrufdatum bis</label>
-          <Datepicker class="datePicker" input-class="form-control" v-model="callDateEnd" :format="dateFormat"></Datepicker>
+          <label class="control-label">{{ trans.get('voyager.sales_orders.sales_date_to')}}</label>
+          <Datepicker
+            class="datePicker"
+            input-class="form-control"
+            v-model="salesDateTo"
+            :format="dateFormat"
+          ></Datepicker>
         </div>
 
+        <!-- sales order status -->
         <div class="form-group col-md-4">
-          <label class="control-label">Termindatum von</label>
-          <Datepicker class="datePicker" input-class="form-control" v-model="appointmentDateStart" :format="dateFormat"></Datepicker>
-        </div>
-
-        <div class="form-group col-md-4">
-          <label class="control-label">Termindatum bis</label>
-          <Datepicker class="datePicker" input-class="form-control" v-model="appointmentDateEnd" :format="dateFormat"></Datepicker>
-        </div>
-
-        <!-- wanted expert -->
-        <div class="form-group col-md-4">
-          <label class="control-label">Gewünschter Experte</label>
+          <label class="control-label">{{ trans.get('voyager.sales_orders.sales_order_status')}}</label>
           <select
             class="form-control"
             name="wanted_expert"
             aria-hidden="true"
-            v-model="wantedExpert"
+            v-model="salesOrderStatus"
           >
             <option disabled value selected>Please select one</option>
-            <slot name="experts"></slot>
+            <slot name="sales-statuses"></slot>
           </select>
         </div>
 
-        <!-- canton- city -->
+        <!-- Insurance status -->
         <div class="form-group col-md-4">
-          <label class="control-label">Kanton</label>
-          <select class="form-control" name="canton" aria-hidden="true" v-model="canton">
+          <label class="control-label">{{ trans.get('voyager.sales_orders.insurance_status')}}</label>
+          <select class="form-control" name="canton" aria-hidden="true" v-model="insuranceStatus">
             <option disabled value selected>Please select one</option>
-            <slot name="cities"></slot>
+            <slot name="insurance-statuses"></slot>
           </select>
         </div>
 
-        <!-- user  -->
+        <!-- sales  -->
         <div class="form-group col-md-4">
-          <label class="control-label">Sales Agent</label>
-          <select class="form-control" name="wanted_expert" aria-hidden="true" v-model="userID">
+          <label class="control-label">{{ trans.get('voyager.sales_orders.sales')}}</label>
+          <select
+            class="form-control"
+            aria-hidden="true"
+            v-model="salesUserId"
+          >
             <option disabled value selected>Please select one</option>
-            <slot name="users"></slot>
+            <slot name="sales-users"></slot>
           </select>
         </div>
 
-        <!-- Telephone number -->
+        <!-- Insurance -->
         <div class="form-group col-md-4">
-          <label class="control-label">Telefonnummer</label>
-          <input
-            type="number"
+          <label class="control-label">{{ trans.get('voyager.sales_orders.insurance')}}</label>
+          <select
             class="form-control"
-            name="telephone_number"
-            step="any"
-            min="0" 
-            oninput="validity.valid||(value='');"
-            v-model="phoneNumber"
-          />
+            aria-hidden="true"
+            v-model="insuranceId"
+          >
+            <option disabled value selected>Please select one</option>
+            <slot name="insurances"></slot>
+          </select>
         </div>
 
-        <!-- Appointment ID -->
+        <!-- Contract start year -->
         <div class="form-group col-md-4">
-          <label class="control-label">Termin ID</label>
-          <input
-            type="number"
+          <label class="control-label">{{ trans.get('voyager.sales_orders.contract_start_year')}}</label>
+          <select 
+            v-model="contractStartYear" 
             class="form-control"
-            name="telephone_number"
-            step="any"
-            v-model="appointmentID"
-          />
+          >
+            <option value="2019">2020</option>
+            <option value="2019">2019</option>
+            <option value="2019">2018</option>
+            <option value="2019">2017</option>
+            <option value="2019">2016</option>
+          </select>
+        </div>
+
+        <!-- Sales order completed -->
+        <div class="form-group col-md-4">
+          <label class="control-label">{{ trans.get('voyager.sales_orders.sales_order_completed')}}</label>
+          <div>
+            <toggle-button
+              v-model="salesOrderCompleted"
+              :value="false"
+              :labels="{checked: 'yes', unchecked: 'no'}"
+            />
+          </div>
         </div>
       </div>
       <div class="row pr-2">
         <button class="btn btn-light pull-right" @click.prevent="clearForm">
           <i class="voyager-trash"></i>
           <!-- clear filter -->
-          <span>Löschen</span>
+          <span>{{ trans.get('voyager.generic.clear_filter') }}</span>
         </button>
-        <button class="btn btn-primary pull-right" @click.prevent="$emit('filter', $data, isAgentView)">
+        <button class="btn btn-primary pull-right" @click.prevent="filterSalesOrders($data)">
           <i class="voyager-search"></i>
           <!-- filter results -->
-          <span>Suchen</span>
+          <span>{{ trans.get('voyager.generic.filter') }}</span>
         </button>
       </div>
     </form>
@@ -97,41 +117,45 @@
 </template>
 
 <script>
-import Datepicker from 'vuejs-datepicker';
+import Datepicker from "vuejs-datepicker";
+import { ToggleButton } from "vue-js-toggle-button";
+import { mapActions } from "vuex";
 
 export default {
   name: "SalesOrdersFilter",
 
   components: {
     Datepicker,
+    ToggleButton
   },
 
   data() {
     return {
-      callDateStart: null,
-      callDateEnd: null,
-      appointmentDateStart: null,
-      appointmentDateEnd: null,
-      wantedExpert: null,
-      canton: null,
-      userID: null,
-      phoneNumber: null,
-      appointmentID: null,
-      dateFormat: 'dd MM yyyy'
+        salesDateFrom: null,
+        salesDateTo: null,
+        salesOrderStatus: null,
+        insuranceStatus: null,
+        salesUserId: null,
+        insuranceId: null,
+        contractStartYear: null,
+        salesOrderCompleted: false,
+        dateFormat: "dd MM yyyy"
     };
   },
 
   methods: {
+    ...mapActions(["filterSalesOrders"]),
+
     clearForm() {
+      this.salesDateFrom = null,
+      this.salesDateTo = null,
+      this.salesOrderStatus = null,
+      this.insuranceStatus = null,
+      this.salesUserId = null,
+      this.insuranceId = null,
+      this.contractStartYear = null,
+      this.salesOrderCompleted = false,
       this.callDateStart = null;
-      this.callDateEnd = null;
-      this.appointmentDateStart = null;
-      this.appointmentDateEnd = null;
-      this.wantedExpert = null;
-      this.canton = null;
-      this.user = null;
-      this.phoneNumber = null;
-      this.appointmentID = null;
     }
   }
 };
