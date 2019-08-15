@@ -1700,121 +1700,6 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/SalesOrdersDataTable.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SalesOrders/SalesOrdersDataTable.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'SalesOrdersDataTables',
-  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['allSalesOrders'])
-});
-
-/***/ }),
-
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/SalesOrdersFilter.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SalesOrders/SalesOrdersFilter.vue?vue&type=script&lang=js& ***!
@@ -2015,72 +1900,35 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'SalesOrdersPaginator',
-  components: {
-    Pagination: laravel_vue_pagination__WEBPACK_IMPORTED_MODULE_1___default.a
-  },
-  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['allSalesOrders']),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['fetchSalesOrders']), {
-    changePage: function changePage() {
-      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+  props: {
+    initialPaginationData: {
+      type: Object
     }
-  })
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/SalesOrders.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/SalesOrders.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _components_SalesOrders_SalesOrdersDataTable_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/SalesOrders/SalesOrdersDataTable.vue */ "./resources/js/components/SalesOrders/SalesOrdersDataTable.vue");
-/* harmony import */ var laravel_vue_pagination__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! laravel-vue-pagination */ "./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js");
-/* harmony import */ var laravel_vue_pagination__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(laravel_vue_pagination__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'SalesOrdersApp',
+  },
   components: {
-    SalesOrdersDataTable: _components_SalesOrders_SalesOrdersDataTable_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     Pagination: laravel_vue_pagination__WEBPACK_IMPORTED_MODULE_1___default.a
   },
-  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['allSalesOrders']),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])(['fetchSalesOrders']), {
-    changePage: function changePage() {
-      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['allSalesOrders']), {
+    data: function data() {
+      if (this.isEmpty(this.allSalesOrders)) {
+        return this.initialPaginationData;
+      } else {
+        return this.allSalesOrders;
+      }
     }
   }),
-  mounted: function mounted() {
-    console.log('working');
-    this.fetchSalesOrders();
-  }
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['changePaginationPage']), {
+    /**
+     * Check if an object is empty
+     */
+    isEmpty: function isEmpty(obj) {
+      for (var key in obj) {
+        if (obj.hasOwnProperty(key)) return false;
+      }
+
+      return true;
+    }
+  })
 });
 
 /***/ }),
@@ -23978,249 +23826,6 @@ module.exports = function listToStyles (parentId, list) {
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/SalesOrdersDataTable.vue?vue&type=template&id=0039c27c&scoped=true&":
-/*!***********************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SalesOrders/SalesOrdersDataTable.vue?vue&type=template&id=0039c27c&scoped=true& ***!
-  \***********************************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "panel panel-bordered panel-primary" }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("div", { staticClass: "panel-body" }, [
-      _c("div", { staticClass: "table-responsive" }, [
-        _c("table", { staticClass: "table table-hover" }, [
-          _c("thead", [
-            _c("tr", [
-              _c("th", [
-                _vm._v(
-                  "\n                            " +
-                    _vm._s(_vm.trans.get("voyager.sales_orders.id")) +
-                    "\n                        "
-                )
-              ]),
-              _vm._v(" "),
-              _c("th", [
-                _vm._v(
-                  "\n                            " +
-                    _vm._s(_vm.trans.get("voyager.sales_orders.actions")) +
-                    "\n                        "
-                )
-              ]),
-              _vm._v(" "),
-              _c("th", [
-                _vm._v(
-                  "\n                            " +
-                    _vm._s(_vm.trans.get("voyager.sales_orders.full_name")) +
-                    "\n                        "
-                )
-              ]),
-              _vm._v(" "),
-              _c("th", [
-                _vm._v(
-                  "\n                            " +
-                    _vm._s(_vm.trans.get("voyager.sales_orders.phone_number")) +
-                    "\n                        "
-                )
-              ]),
-              _vm._v(" "),
-              _c("th", [
-                _vm._v(
-                  "\n                            " +
-                    _vm._s(_vm.trans.get("voyager.sales_orders.sales_date")) +
-                    "\n                        "
-                )
-              ]),
-              _vm._v(" "),
-              _c("th", [
-                _vm._v(
-                  "\n                            " +
-                    _vm._s(
-                      _vm.trans.get("voyager.sales_orders.contract_start_year")
-                    ) +
-                    "\n                        "
-                )
-              ]),
-              _vm._v(" "),
-              _c("th", [
-                _vm._v(
-                  "\n                            " +
-                    _vm._s(_vm.trans.get("voyager.sales_orders.sales")) +
-                    "\n                        "
-                )
-              ]),
-              _vm._v(" "),
-              _c("th", [
-                _vm._v(
-                  "\n                            " +
-                    _vm._s(_vm.trans.get("voyager.sales_orders.insurance")) +
-                    "\n                        "
-                )
-              ]),
-              _vm._v(" "),
-              _c("th", [
-                _vm._v(
-                  "\n                            " +
-                    _vm._s(
-                      _vm.trans.get("voyager.sales_orders.sales_order_status")
-                    ) +
-                    "\n                        "
-                )
-              ]),
-              _vm._v(" "),
-              _c("th", [
-                _vm._v(
-                  "\n                            " +
-                    _vm._s(
-                      _vm.trans.get("voyager.sales_orders.provison_done")
-                    ) +
-                    "\n                        "
-                )
-              ]),
-              _vm._v(" "),
-              _c("th", [
-                _vm._v(
-                  "\n                            " +
-                    _vm._s(
-                      _vm.trans.get(
-                        "voyager.sales_orders.cancellation_original"
-                      )
-                    ) +
-                    "\n                        "
-                )
-              ]),
-              _vm._v(" "),
-              _c("th", [
-                _vm._v(
-                  "\n                            " +
-                    _vm._s(
-                      _vm.trans.get("voyager.sales_orders.cancellation_stamped")
-                    ) +
-                    "\n                        "
-                )
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c(
-            "tbody",
-            _vm._l(_vm.allSalesOrders.data, function(salesOrder, index) {
-              return _c("tr", { key: index }, [
-                _c("td", [
-                  _vm._v(
-                    "\n                            test\n                        "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _vm._v(
-                    "\n                            test\n                        "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _vm._v(
-                    "\n                            test\n                        "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _vm._v(
-                    "\n                            test\n                        "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _vm._v(
-                    "\n                            test\n                        "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _vm._v(
-                    "\n                            test\n                        "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _vm._v(
-                    "\n                            test\n                        "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _vm._v(
-                    "\n                            test\n                        "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _vm._v(
-                    "\n                            test\n                        "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _vm._v(
-                    "\n                            test\n                        "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _vm._v(
-                    "\n                            test\n                        "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _vm._v(
-                    "\n                            test\n                        "
-                  )
-                ])
-              ])
-            }),
-            0
-          )
-        ])
-      ])
-    ])
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "panel-heading" }, [
-      _c("h3", { staticClass: "panel-title panel-icon" }, [
-        _c("i", { staticClass: "voyager-search" }),
-        _vm._v("Table")
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "panel-actions" }, [
-        _c("a", {
-          staticClass: "panel-action voyager-angle-up",
-          attrs: { "data-toggle": "panel-collapse", "aria-hidden": "true" }
-        })
-      ])
-    ])
-  }
-]
-render._withStripped = true
-
-
-
-/***/ }),
-
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/SalesOrdersFilter.vue?vue&type=template&id=62a36a70&":
 /*!********************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SalesOrders/SalesOrdersFilter.vue?vue&type=template&id=62a36a70& ***!
@@ -24631,50 +24236,12 @@ var render = function() {
     "div",
     [
       _c("pagination", {
-        attrs: { data: _vm.allSalesOrders, limit: 4 },
-        on: { "pagination-change-page": _vm.changePage }
+        attrs: { data: _vm.data, limit: 4 },
+        on: { "pagination-change-page": _vm.changePaginationPage }
       })
     ],
     1
   )
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/SalesOrders.vue?vue&type=template&id=004a3798&scoped=true&":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/SalesOrders.vue?vue&type=template&id=004a3798&scoped=true& ***!
-  \*********************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "row" }, [
-      _c(
-        "div",
-        { staticClass: "col-md-12" },
-        [
-          _c("pagination", {
-            attrs: { data: _vm.allSalesOrders, limit: 4, size: "small" },
-            on: { "pagination-change-page": _vm.changePage }
-          })
-        ],
-        1
-      )
-    ])
-  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -40352,75 +39919,6 @@ Vue.prototype.trans = new lang_js__WEBPACK_IMPORTED_MODULE_0___default.a({
 
 /***/ }),
 
-/***/ "./resources/js/components/SalesOrders/SalesOrdersDataTable.vue":
-/*!**********************************************************************!*\
-  !*** ./resources/js/components/SalesOrders/SalesOrdersDataTable.vue ***!
-  \**********************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _SalesOrdersDataTable_vue_vue_type_template_id_0039c27c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SalesOrdersDataTable.vue?vue&type=template&id=0039c27c&scoped=true& */ "./resources/js/components/SalesOrders/SalesOrdersDataTable.vue?vue&type=template&id=0039c27c&scoped=true&");
-/* harmony import */ var _SalesOrdersDataTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SalesOrdersDataTable.vue?vue&type=script&lang=js& */ "./resources/js/components/SalesOrders/SalesOrdersDataTable.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _SalesOrdersDataTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _SalesOrdersDataTable_vue_vue_type_template_id_0039c27c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _SalesOrdersDataTable_vue_vue_type_template_id_0039c27c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  "0039c27c",
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/components/SalesOrders/SalesOrdersDataTable.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/components/SalesOrders/SalesOrdersDataTable.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************!*\
-  !*** ./resources/js/components/SalesOrders/SalesOrdersDataTable.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersDataTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./SalesOrdersDataTable.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/SalesOrdersDataTable.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersDataTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/components/SalesOrders/SalesOrdersDataTable.vue?vue&type=template&id=0039c27c&scoped=true&":
-/*!*****************************************************************************************************************!*\
-  !*** ./resources/js/components/SalesOrders/SalesOrdersDataTable.vue?vue&type=template&id=0039c27c&scoped=true& ***!
-  \*****************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersDataTable_vue_vue_type_template_id_0039c27c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./SalesOrdersDataTable.vue?vue&type=template&id=0039c27c&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/SalesOrdersDataTable.vue?vue&type=template&id=0039c27c&scoped=true&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersDataTable_vue_vue_type_template_id_0039c27c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersDataTable_vue_vue_type_template_id_0039c27c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
 /***/ "./resources/js/components/SalesOrders/SalesOrdersFilter.vue":
 /*!*******************************************************************!*\
   !*** ./resources/js/components/SalesOrders/SalesOrdersFilter.vue ***!
@@ -40577,75 +40075,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/pages/SalesOrders.vue":
-/*!********************************************!*\
-  !*** ./resources/js/pages/SalesOrders.vue ***!
-  \********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _SalesOrders_vue_vue_type_template_id_004a3798_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SalesOrders.vue?vue&type=template&id=004a3798&scoped=true& */ "./resources/js/pages/SalesOrders.vue?vue&type=template&id=004a3798&scoped=true&");
-/* harmony import */ var _SalesOrders_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SalesOrders.vue?vue&type=script&lang=js& */ "./resources/js/pages/SalesOrders.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _SalesOrders_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _SalesOrders_vue_vue_type_template_id_004a3798_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _SalesOrders_vue_vue_type_template_id_004a3798_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  "004a3798",
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/pages/SalesOrders.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/pages/SalesOrders.vue?vue&type=script&lang=js&":
-/*!*********************************************************************!*\
-  !*** ./resources/js/pages/SalesOrders.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrders_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./SalesOrders.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/SalesOrders.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrders_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/pages/SalesOrders.vue?vue&type=template&id=004a3798&scoped=true&":
-/*!***************************************************************************************!*\
-  !*** ./resources/js/pages/SalesOrders.vue?vue&type=template&id=004a3798&scoped=true& ***!
-  \***************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrders_vue_vue_type_template_id_004a3798_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./SalesOrders.vue?vue&type=template&id=004a3798&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/SalesOrders.vue?vue&type=template&id=004a3798&scoped=true&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrders_vue_vue_type_template_id_004a3798_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrders_vue_vue_type_template_id_004a3798_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
 /***/ "./resources/js/pages/salesOrders.js":
 /*!*******************************************!*\
   !*** ./resources/js/pages/salesOrders.js ***!
@@ -40659,15 +40088,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../store */ "./resources/js/store/index.js");
 /* harmony import */ var _components_SalesOrders_SalesOrdersFilter_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/SalesOrders/SalesOrdersFilter.vue */ "./resources/js/components/SalesOrders/SalesOrdersFilter.vue");
 /* harmony import */ var _components_SalesOrders_SalesOrdersPaginator_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/SalesOrders/SalesOrdersPaginator.vue */ "./resources/js/components/SalesOrders/SalesOrdersPaginator.vue");
-/* harmony import */ var _pages_SalesOrders_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../pages/SalesOrders.vue */ "./resources/js/pages/SalesOrders.vue");
-
 
 
 
 
 new Vue({
   components: {
-    SalesOrdersApp: _pages_SalesOrders_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
     SalesOrdersPaginator: _components_SalesOrders_SalesOrdersPaginator_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
     SalesOrdersFilter: _components_SalesOrders_SalesOrdersFilter_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
@@ -40721,12 +40147,13 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 var state = {
-  salesOrders: {}
+  salesOrders: {},
+  filterData: {}
 }; // in order to get the state and be able to display it on our component we need to add a getter
 
 var getters = {
   allSalesOrders: function allSalesOrders(state) {
-    // since the paginator needs the whole collection 
+    // since the paginator needs the whole collection
     // we return it
     return state.salesOrders;
   }
@@ -40735,7 +40162,7 @@ var getters = {
 var actions = {
   /**
    * Get all the sales orders
-   * @param {*} param0 
+   * @param {*} param0
    */
   fetchSalesOrders: function () {
     var _fetchSalesOrders = _asyncToGenerator(
@@ -40749,11 +40176,11 @@ var actions = {
               commit = _ref.commit;
               _context.prev = 1;
               _context.next = 4;
-              return axios.post('sales-orders-api');
+              return axios.post("sales-orders-api");
 
             case 4:
               response = _context.sent;
-              commit('setSalesOrders', response.data.salesOrders);
+              commit("setSalesOrders", response.data.salesOrders);
               _context.next = 10;
               break;
 
@@ -40775,82 +40202,115 @@ var actions = {
 
     return fetchSalesOrders;
   }(),
+
+  /**
+   * Update the pagination page
+   * @param {*} param0
+   * @param {Number} page
+   */
   changePaginationPage: function () {
     var _changePaginationPage = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2, page) {
-      var commit, response;
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2) {
+      var commit,
+          page,
+          response,
+          table,
+          _args2 = arguments;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
               commit = _ref2.commit;
-              _context2.prev = 1;
-              _context2.next = 4;
-              return axios.post("sales-orders-api?page=".concat(page));
+              page = _args2.length > 1 && _args2[1] !== undefined ? _args2[1] : 1;
+              _context2.prev = 2;
+              _context2.next = 5;
+              return axios.post("sales-orders/filter?page=".concat(page), state.filterData);
 
-            case 4:
+            case 5:
               response = _context2.sent;
-              _context2.next = 9;
+              // the table is rendered in the backend
+              // we send it over and display it on the frontend
+              table = document.querySelector("#table-wrapper");
+              table.innerHTML = response.data.table; // update the paginator
+
+              commit("setSalesOrders", response.data.dataTypeContent);
+              _context2.next = 14;
               break;
 
-            case 7:
-              _context2.prev = 7;
-              _context2.t0 = _context2["catch"](1);
+            case 11:
+              _context2.prev = 11;
+              _context2.t0 = _context2["catch"](2);
+              alert(_context2.t0);
 
-            case 9:
+            case 14:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[1, 7]]);
+      }, _callee2, null, [[2, 11]]);
     }));
 
-    function changePaginationPage(_x2, _x3) {
+    function changePaginationPage(_x2) {
       return _changePaginationPage.apply(this, arguments);
     }
 
     return changePaginationPage;
   }(),
+
+  /**
+   * Filter sales orders
+   * we runder the view in the backend
+   * reason for such a decision is to save dev time
+   * @param {*} param0
+   * @param {Object} data
+   */
   filterSalesOrders: function () {
     var _filterSalesOrders = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3, data) {
-      var commit, response, table;
+      var commit,
+          page,
+          response,
+          table,
+          _args3 = arguments;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
               commit = _ref3.commit;
-              _context3.prev = 1;
-              _context3.next = 4;
-              return axios.post("sales-orders/filter", data);
+              page = _args3.length > 2 && _args3[2] !== undefined ? _args3[2] : 1;
+              _context3.prev = 2;
+              // update the filter data
+              state.filterData = data;
+              _context3.next = 6;
+              return axios.post("sales-orders/filter?page=".concat(page), data);
 
-            case 4:
+            case 6:
               response = _context3.sent;
               // the table is rendered in the backend
               // we send it over and display it on the frontend
               table = document.querySelector("#table-wrapper");
               table.innerHTML = response.data.table; // update the paginator
 
-              commit('setSalesOrders', response.data.dataTypeContent);
-              _context3.next = 13;
+              commit("setSalesOrders", response.data.dataTypeContent);
+              _context3.next = 15;
               break;
 
-            case 10:
-              _context3.prev = 10;
-              _context3.t0 = _context3["catch"](1);
+            case 12:
+              _context3.prev = 12;
+              _context3.t0 = _context3["catch"](2);
               console.warn(_context3.t0);
 
-            case 13:
+            case 15:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3, null, [[1, 10]]);
+      }, _callee3, null, [[2, 12]]);
     }));
 
-    function filterSalesOrders(_x4, _x5) {
+    function filterSalesOrders(_x3, _x4) {
       return _filterSalesOrders.apply(this, arguments);
     }
 

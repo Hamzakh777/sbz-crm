@@ -1,8 +1,8 @@
 <template>
     <div>
          <pagination 
-            :data="allSalesOrders" 
-            @pagination-change-page="changePage"
+            :data="data" 
+            @pagination-change-page="changePaginationPage"
             :limit="4"
         ></pagination>
     </div>
@@ -15,18 +15,41 @@
     export default {
         name: 'SalesOrdersPaginator',
 
+        props: {
+            initialPaginationData: {
+                type: Object
+            }
+        },
+
         components: {
             Pagination
         },
 
-        computed: mapGetters(['allSalesOrders']),
+        computed: {
+            ...mapGetters(['allSalesOrders']),
+
+            data() {
+                if(this.isEmpty(this.allSalesOrders)) {
+                    return this.initialPaginationData;
+                } else {
+                    return this.allSalesOrders;
+                }
+            }
+        },
 
          methods: {
-        ...mapActions(['fetchSalesOrders']),
+        ...mapActions(['changePaginationPage']),
 
-        changePage(page = 1) {
-            
-        }
+        /**
+         * Check if an object is empty
+         */
+        isEmpty(obj) {
+          for(var key in obj) {
+              if(obj.hasOwnProperty(key))
+                  return false;
+          }
+          return true;
+      }
     },
 
     }

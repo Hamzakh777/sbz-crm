@@ -282,21 +282,24 @@
                         </div>
                         @if ($isServerSide)
                             <div class="pull-right">
-                                {{ $dataTypeContent->appends([
+                                {{-- {{ $dataTypeContent->appends([
                                     's' => $search->value,
                                     'filter' => $search->filter,
                                     'key' => $search->key,
                                     'order_by' => $orderBy,
                                     'sort_order' => $sortOrder,
                                     'showSoftDeleted' => $showSoftDeleted,
-                                ])->links() }}
+                                ])->links() }} --}}
+                                <sales-orders-paginator
+                                    :initial-pagination-data="{{ $dataTypeContent->toJson() }}"
+                                >
+                                <sales-orders-paginator>
                             </div>
                         @endif
                     </div>
                 </div>
             </div>
         </div>
-        <sales-orders-app></sales-orders-app>
     </div>
 
     {{-- Single delete modal --}}

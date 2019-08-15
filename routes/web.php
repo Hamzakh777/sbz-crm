@@ -27,7 +27,7 @@ Route::group(['as' => 'voyager.'], function () {
         Route::get('localisation/{lang}', 'LocalisationController@index')->name('localisation');
 
         // Sales ordes routes
-        Route::post('sales-orders-api', 'SalesOrders\SalesOrderController@index')->name('salesOrdersApi.index');
+        Route::post('sales-orders/pagination', 'SalesOrders\SalesOrderController@pagination')->name('salesOrdersApi.index');
 
         // Filter the appointments
         Route::post('sales-orders/filter', 'SalesOrders\SalesOrderFilterController@index')->name('salesOrder.filter');

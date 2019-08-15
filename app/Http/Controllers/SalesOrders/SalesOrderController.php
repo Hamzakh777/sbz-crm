@@ -7,8 +7,15 @@ use App\Insurance;
 use App\SalesOrder;
 use TCG\Voyager\Models\Role;
 use Illuminate\Http\Request;
-use TCG\Voyager\Facades\Voyager;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 use TCG\Voyager\Database\Schema\SchemaManager;
+use TCG\Voyager\Events\BreadDataAdded;
+use TCG\Voyager\Events\BreadDataDeleted;
+use TCG\Voyager\Events\BreadDataRestored;
+use TCG\Voyager\Events\BreadDataUpdated;
+use TCG\Voyager\Events\BreadImagesDeleted;
+use TCG\Voyager\Facades\Voyager;
 use KgBot\LaravelLocalization\Facades\ExportLocalizations as ExportLocalization;
 use TCG\Voyager\Http\Controllers\VoyagerBaseController as BaseVoyagerBaseController;
 
