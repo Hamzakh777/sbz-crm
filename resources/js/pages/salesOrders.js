@@ -1,7 +1,7 @@
 import "../bootstrap";
 import store from "../store";
-import SalesOrdersFilter from "../components/SalesOrders/SalesOrdersFilter.vue";
-import SalesOrdersPaginator from '../components/SalesOrders/SalesOrdersPaginator.vue';
+import SalesOrdersFilter from "../components/SalesOrders/Browse/SalesOrdersFilter.vue";
+import SalesOrdersPaginator from '../components/SalesOrders/Browse/SalesOrdersPaginator.vue';
 
 new Vue({
     components: {

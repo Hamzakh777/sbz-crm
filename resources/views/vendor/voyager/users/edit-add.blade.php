@@ -74,6 +74,14 @@
                                 <input type="password" class="form-control" id="password" name="password" value="" autocomplete="new-password">
                             </div>
 
+                            @if (strtolower(auth()->user()->role->name) == 'sales_person')     
+                                <div class="form-group">
+                                    <label for="address">{{ __('voyager::generic.address') }}</label>
+                                    <input type="text" name="address">
+                                </div>
+
+
+                            @endif
 
                             @can('editRoles', $dataTypeContent)
                                 <div class="form-group">

@@ -1,6 +1,6 @@
 <template>
   <div class="filter-form">
-    <form id="form">
+    <div id="form">
       <div class="row">
         <!-- sales date from -->
         <div class="form-group col-md-4">
@@ -112,7 +112,7 @@
           <span>{{ trans.get('voyager.generic.filter') }}</span>
         </button>
       </div>
-    </form>
+    </div>
   </div>
 </template>
 
