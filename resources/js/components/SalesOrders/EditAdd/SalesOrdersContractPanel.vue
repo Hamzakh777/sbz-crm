@@ -1,7 +1,7 @@
 <template>
     <div class="panel panel-primary panelbordered">
         <div class="panel-heading">
-            <h3 class="panel-title panel-icon"><i class="voyager-search"></i>{{ __('voyager::sales_orders.contract') }}</h3>
+            <h3 class="panel-title panel-icon"><i class="voyager-search"></i>{{ trans.get('voyager.sales_orders.contract') }}</h3>
             <div class="panel-actions">
                 <a class="panel-action voyager-angle-up" data-toggle="panel-collapse" aria-hidden="true"></a>
             </div>
@@ -14,6 +14,7 @@
                     <label class="control-label">{{ trans.get('voyager.sales_ordres.current_insurance') }}</label>
                     <!-- load the insurances using ajax
                     which means we have to create a route for that -->
+                    <!-- or maybe instead of using ajax, we can server render that variable -->
                     <select 
                         class="form-control"
                         v-model="currentInsuranceId"
@@ -76,7 +77,6 @@
                     </div>
                 </div>
 
-
                 <!-- move to switzerland -->
                 <div class="form-group col-md-4">
                     <label class="control-label">{{ trans.get('voyager.sales_ordres.move_to_switzerland') }}</label>
@@ -120,7 +120,7 @@
                         class="datePicker"
                         input-class="form-control"
                         v-model="signDate"
-                        :format="dateFormat"
+                        :format="DateFormat"
                     ></Datepicker>
                 </div>
 
@@ -175,7 +175,7 @@
                 </div>
 
                 <!-- Insurance submitted date  -->
-
+                <p></p>
             </div>
         </div>
     </div>
@@ -185,6 +185,8 @@
     import Datepicker from "vuejs-datepicker";
     import { ToggleButton } from "vue-js-toggle-button";
 
+    import {mapGetters} from 'vuex';
+
     export default {
         name: 'SalesOrderContractPanel',
 
@@ -193,10 +195,14 @@
             ToggleButton
         },
 
+        computed: {
+            ...mapGetters(['DateFormat'])
+        },
+
         data() {
             return {
                 currentInsuranceId: null,
-                newInsuranceid: null,
+                newInsuranceId: null,
                 fullName: null,
                 address: null,
                 householdType: null,
@@ -210,14 +216,13 @@
                 insuranceStatus: null,
                 contractDurationVVG: null,
                 contractDurationKVG: null,
-                insuranceTrackingID: null,
-                
-                dateFormat: "dd MM yyyy"
+                insuranceTrackingID: null
             }
         },
     }
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="sass" scoped>
+.panel-body
+    padding-top: 2em
 </style>

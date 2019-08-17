@@ -20,11 +20,11 @@
 @stop
 
 @section('content')
-    <div class="page-content edit-add container-fluid">
+    <div class="page-content edit-add container-fluid" id="app">
         <div class="row">
             <div class="col-md-12">
 
-                <div class="panel panel-bordered">
+                {{-- <div class="panel panel-bordered">
                     <!-- form start -->
                     <form role="form"
                             class="form-edit-add"
@@ -67,17 +67,13 @@
                                     <legend class="text-{{ $row->details->legend->align ?? 'center' }}" style="background-color: {{ $row->details->legend->bgcolor ?? '#f0f0f0' }};padding: 5px;">{{ $row->details->legend->text }}</legend>
                                 @endif
 
-                                <div class="form-group @if($row->type == 'hidden') hidden @endif col-md-{{ $display_options->width ?? 4 }} {{ $errors->has($row->field) ? 'has-error' : '' }}" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
+                                <div class="form-group @if($row->type == 'hidden') hidden @endif col-md-{{ $display_options->width ?? 12 }} {{ $errors->has($row->field) ? 'has-error' : '' }}" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
                                     {{ $row->slugify }}
-                                    <label class="control-label" for="name">
-                                        {{-- {{ $row->display_name }} --}}
-                                        {{ __('voyager::' . strtolower(str_replace(" ","_",$dataType->display_name_singular) . '.' .$row->display_name)) }}
-                                    </label>
+                                    <label class="control-label" for="name">{{ $row->display_name }}</label>
                                     @include('voyager::multilingual.input-hidden-bread-edit-add')
                                     @if (isset($row->details->view))
                                         @include($row->details->view, ['row' => $row, 'dataType' => $dataType, 'dataTypeContent' => $dataTypeContent, 'content' => $dataTypeContent->{$row->field}, 'action' => ($edit ? 'edit' : 'add')])
                                     @elseif ($row->type == 'relationship')
-                                        {{-- use our own version of relationship formfields --}}
                                         @include('voyager::formfields.relationship', ['options' => $row->details])
                                     @else
                                         {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
@@ -113,7 +109,8 @@
                         {{ csrf_field() }}
                     </form>
 
-                </div>
+                </div> --}}
+                <app></app>
             </div>
         </div>
     </div>
@@ -143,6 +140,7 @@
 @stop
 
 @section('javascript')
+    <script src="/js/pages/salesOrders.js"></script>
     <script>
         var params = {};
         var $file;

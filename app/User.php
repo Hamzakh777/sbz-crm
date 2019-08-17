@@ -19,7 +19,7 @@ class User extends \TCG\Voyager\Models\User
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'start_date', 'end_date'
     ];
 
     /**
@@ -45,5 +45,40 @@ class User extends \TCG\Voyager\Models\User
      * 
      * @var array
      */
-    protected $dates = ['deleted_at'];
+    protected $dates = [
+        'deleted_at',
+        'start_date',
+        'end_date'
+    ];
+
+    /**
+     * MUTATOR
+     * The reason for needing this mutator is that
+     * mysql only accepts one date format for storing dates
+     * so we have to change the format of the date before storing it
+     * @param  string  $value
+     * @return void
+     */
+    public function setStartDateAttribute($value)
+    {
+        if (isset($value)) {
+            $this->attributes['start_date'] = \Carbon\Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+        }
+    }
+
+    /**
+     * MUTATOR
+     * The reason for needing this mutator is that
+     * mysql only accepts one date format for storing dates
+     * so we have to change the format of the date before storing it
+     * @param  string  $value
+     * @return void
+     */
+    public function setEndDateAttribute($value)
+    {   
+        if (isset($value)) {
+            dd($value);
+            $this->attributes['end_date'] = \Carbon\Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+        }
+    }
 }

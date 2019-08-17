@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class TasksCollection extends Model
 {
+    protected $table = 'tasks_collections';
     /**
      * Task collection has many tasks
      * @param void

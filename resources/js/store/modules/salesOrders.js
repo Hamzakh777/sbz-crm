@@ -1,6 +1,7 @@
 const state = {
     salesOrders: {},
-    filterData: {}
+    filterData: {},
+    dateFormat: "dd MM yyyy"
 };
 
 // in order to get the state and be able to display it on our component we need to add a getter
@@ -9,6 +10,13 @@ const getters = {
         // since the paginator needs the whole collection
         // we return it
         return state.salesOrders;
+    },
+    /**
+     * return the date format to use across the app
+     * @param {object} state 
+     */
+    DateFormat(state) {
+        return state.dateFormat;
     }
 };
 

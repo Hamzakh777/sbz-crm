@@ -86,7 +86,7 @@
                                             @endif
                                             {{-- {{ $row->display_name }} --}}
                                             {{-- to make the BREAD datatypes name translatable --}}
-                                            {{ __('voyager::' . strtolower($dataType->display_name_singular . '.' .$row->display_name)) }}
+                                            {{ __('voyager::' . strtolower(str_replace(" ","_",$dataType->display_name_singular) . '.' .$row->display_name)) }}
                                             @if ($isServerSide)
                                                 @if ($row->isCurrentSortField($orderBy))
                                                     @if ($sortOrder == 'asc')

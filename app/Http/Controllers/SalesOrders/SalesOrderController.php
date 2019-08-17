@@ -143,7 +143,7 @@ class SalesOrderController extends BaseVoyagerBaseController
         // filter needs all the insurances
         // and all the user with sales agent role
         $insurances = Insurance::all();
-        $sales_agent_role_id = Role::where('name', 'sales_agent')->first()->id;
+        $sales_agent_role_id = Role::where('name', 'sales_person')->first()->id;
         $salesAgents = User::where('role_id', $sales_agent_role_id)->get();
 
         return Voyager::view($view, compact(

@@ -56,13 +56,13 @@
                             <div class="form-group">
                                 <label for="user_name">{{ __('voyager::profile.user_name') }}</label>
                                 <input type="text" class="form-control" id="user_name" name="username" placeholder="{{ __('voyager::profile.user_name') }}"
-                                       value="{{ $dataTypeContent->user_name ?? '' }}">
+                                       value="{{ $dataTypeContent->username ?? '' }}">
                             </div>
 
                             <div class="form-group">
                                 <label for="email">{{ __('voyager::generic.email') }}</label>
                                 <input type="email" class="form-control" id="email" name="email" placeholder="{{ __('voyager::generic.email') }}"
-                                       value="{{ $dataTypeContent->email ?? '' }}">
+                                    value="{{ $dataTypeContent->email ?? '' }}">
                             </div>
 
                             <div class="form-group">
@@ -74,14 +74,55 @@
                                 <input type="password" class="form-control" id="password" name="password" value="" autocomplete="new-password">
                             </div>
 
-                            @if (strtolower(auth()->user()->role->name) == 'sales_person')     
-                                <div class="form-group">
-                                    <label for="address">{{ __('voyager::generic.address') }}</label>
-                                    <input type="text" name="address">
-                                </div>
+                            {{-- editing --}}
+                            @if (isset($dataTypeContent->id)) 
+                                {{-- only show these fields when the user that's been edited has 
+                                sales person role --}}
+                                @php
+                                    $salesPersonRole = \TCG\Voyager\Models\Role::where('name', 'sales_person')->first();
+                                @endphp
 
+                                @if ( $salesPersonRole->id  == $dataTypeContent->role_id)     
+                                    <div class="form-group">
+                                        <label for="address">{{ __('voyager::generic.address') }}</label>
+                                        <input type="text" class="form-control" name="address" value="{{ $dataTypeContent->address ?? '' }}">
+                                    </div>
 
+                                    <div class="form-group">
+                                        <label for="address">{{ __('voyager::generic.bank_name') }}</label>
+                                        <input type="text" class="form-control" name="bank_name" value="{{ $dataTypeContent->bank_name ?? '' }}">
+                                    </div>
+
+                                    
+                                    <div class="form-group">
+                                        <label for="address">{{ __('voyager::generic.bank_IBAN') }}</label>
+                                        <input type="text" class="form-control" name="bank_IBAN" value="{{ $dataTypeContent->bank_IBAN ?? '' }}">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="address">{{ __('voyager::generic.AHV_NO') }}</label>
+                                        <input type="text" class="form-control" name="bank_name" value="{{ $dataTypeContent->AHV_NO ?? '' }}">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="address">{{ __('voyager::generic.phone_number') }}</label>
+                                        <input type="number" class="form-control" name="phone_number" value="{{ $dataTypeContent->phone_number ?? '' }}">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="address">{{ __('voyager::generic.start_date') }}</label>
+                                        <input type="text" class="form-control datepicker--date-only" name="start_date" 
+                                            value="@if(isset($dataTypeContent->start_date)){{ \Carbon\Carbon::parse(old('start_date', $dataTypeContent->start_date))->format('Y-m-d') }}@else{{old('start_date')}}@endif">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="address">{{ __('voyager::generic.end_date') }}</label>
+                                        <input type="text" class="form-control datepicker--date-only" name="end_date" 
+                                            value="@if(isset($dataTypeContent->end_date)){{ \Carbon\Carbon::parse(old('end_date', $dataTypeContent->end_date))->format('Y-m-d') }}@else{{old('end_date')}}@endif">
+                                    </div>
+                                @endif
                             @endif
+                            
 
                             @can('editRoles', $dataTypeContent)
                                 <div class="form-group">
