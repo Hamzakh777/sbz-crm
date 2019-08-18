@@ -8,7 +8,8 @@ return [
     'contract_start_year'   => 'Contract start year',
     'insurance_status'      => 'Insurance status',
     'actions'               => 'Actions',
-    'add_product'           => 'Add person',
+    'add_product'           => 'Add product',
+    'add_person'            => 'Add person',
     'cancellation_stamped'  => 'Cancellation Stamped',
     'contract_start_year'   => 'Contract start year',
     'filter_title'          => 'Fitler Sales Orders',
@@ -20,6 +21,10 @@ return [
     'sales'                 => 'Sales',
     'insurance'             => 'Insurance',
     'sales_order_status'    => 'Sales Order Status',
+    'select_product'        => 'Select product',
     'provison_done'         => 'Provison Done',
     'cancellation_original' => 'Cancellation Original',
+    'family_member_type'    => 'Family member type',
+    'police_number'         => 'Police number',
+    'contract'              => 'Contract'
 ];

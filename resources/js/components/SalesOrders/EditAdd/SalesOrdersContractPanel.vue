@@ -17,7 +17,7 @@
                     <!-- or maybe instead of using ajax, we can server render that variable -->
                     <select 
                         class="form-control"
-                        v-model="currentInsuranceId"
+                        v-model="salesOrder.currentInsuranceId"
                     >
                         <option 
                             v-for="insurance in allInsurances" 
@@ -36,7 +36,7 @@
                     which means we have to create a route for that -->
                     <select 
                         class="form-control"
-                        v-model="newInsuranceId"
+                        v-model="salesOrder.newInsuranceId"
                     >
                         <option 
                             v-for="insurance in allInsurances" 
@@ -51,13 +51,13 @@
                 <!-- full name -->
                 <div class="form-group col-md-4">
                     <label class="control-label">{{ trans.get('voyager.sales_orders.full_name') }}</label>
-                    <input type="text" class="form-control" v-model="fullName">
+                    <input type="text" class="form-control" v-model="salesOrder.fullName">
                 </div>
 
                 <!-- address  -->
                 <div class="form-group col-md-4">
                     <label class="control-label">{{ trans.get('voyager.generic.address') }}</label>
-                    <input type="text" class="form-control" v-model="address">
+                    <input type="text" class="form-control" v-model="salesOrder.address">
                 </div>
                 
                 <!-- household type -->
@@ -65,7 +65,7 @@
                     <label class="control-label">{{ trans.get('voyager.sales_ordres.household_type') }}</label>
                     <select 
                         class="form-control"
-                        v-model="householdType"
+                        v-model="salesOrder.householdType"
                     >
                         <option value="single">{{ trans.get('voyager.generic.single') }}</option>
                         <option value="family">{{ trans.get('voyager.generic.family') }}</option>
@@ -75,7 +75,7 @@
                 <!-- number of family members in the same household  -->
                 <div class="form-group col-md-4">
                     <label class="control-label">{{ trans.get('voyager.sales_ordres.number_of_f_members') }}</label>
-                    <input type="number" class="form-control" v-model="numberOfFamilyMembers">
+                    <input type="number" class="form-control" v-model="salesOrder.numberOfFamilyMembers">
                 </div>
 
                 <!-- new born  -->
@@ -83,7 +83,7 @@
                     <label class="control-label">{{ trans.get('voyager.sales_ordres.new_born') }}</label>
                     <div>
                         <toggle-button
-                            v-model="newBorn"
+                            v-model="salesOrder.newBorn"
                             :value="false"
                             :labels="{checked: trans.get('voyager.generic.yes'), unchecked: trans.get('voyager.generic.no')}"
                         />
@@ -95,7 +95,7 @@
                     <label class="control-label">{{ trans.get('voyager.sales_ordres.move_to_switzerland') }}</label>
                     <div>
                         <toggle-button
-                            v-model="moveToSwitzerland"
+                            v-model="salesOrder.moveToSwitzerland"
                             :value="false"
                             :labels="{checked: trans.get('voyager.generic.yes'), unchecked: trans.get('voyager.generic.no')}"
                         />
@@ -107,7 +107,7 @@
                     <label class="control-label">{{ trans.get('voyager.sales_ordres.sales_lead_source') }}</label>
                     <select 
                         class="form-control"
-                        v-model="salesLeadSource"
+                        v-model="salesOrder.salesLeadSource"
                     >
                         <option value=""></option>
                     </select>
@@ -120,7 +120,7 @@
                     which means we have to create a route for that -->
                     <select 
                         class="form-control"
-                        v-model="salesPersonId"
+                        v-model="salesOrder.salesPersonId"
                     >
                         <option 
                             v-for="agent in allSalesAgents" 
@@ -138,7 +138,7 @@
                     <Datepicker
                         class="datePicker"
                         input-class="form-control"
-                        v-model="signDate"
+                        v-model="salesOrder.signDate"
                         :format="DateFormat"
                     ></Datepicker>
                 </div>
@@ -148,7 +148,7 @@
                     <label class="control-label">{{ trans.get('voyager.sales_ordres.sales_order_status') }}</label>
                     <select 
                         class="form-control"
-                        v-model="salesOrderStatus"
+                        v-model="salesOrder.salesOrderStatus"
                     >
                         <option value=""></option>
                     </select>
@@ -159,7 +159,7 @@
                     <label class="control-label">{{ trans.get('voyager.sales_ordres.insurance_status') }}</label>
                     <select 
                         class="form-control"
-                        v-model="insuranceStatus"
+                        v-model="salesOrder.insuranceStatus"
                     >
                         <option value=""></option>
                     </select>
@@ -170,7 +170,7 @@
                     <label class="control-label">{{ trans.get('voyager.sales_ordres.contract_duration__VVG') }}</label>
                     <select 
                         class="form-control"
-                        v-model="contractDurationVVG"
+                        v-model="salesOrder.contractDurationVVG"
                     >
                         <option value=""></option>
                     </select>
@@ -181,7 +181,7 @@
                     <label class="control-label">{{ trans.get('voyager.sales_ordres.contract_duration_KVG') }}</label>
                     <select 
                         class="form-control"
-                        v-model="contractDurationKVG"
+                        v-model="salesOrder.contractDurationKVG"
                     >
                         <option value=""></option>
                     </select>
@@ -190,7 +190,7 @@
                 <!-- Insurance tracking id -->
                 <div class="form-group col-md-4">
                     <label class="control-label">{{ trans.get('voyager.sales_ordres.insurance_tracking_id') }}</label>
-                    <input type="text" class="form-control" v-model="insuranceTrackingID">
+                    <input type="text" class="form-control" v-model="salesOrder.insuranceTrackingID">
                 </div>
 
                 <!-- Insurance submitted date  -->
@@ -215,33 +215,12 @@
         },
 
         computed: {
-            ...mapGetters(['DateFormat', 'allInsurances', 'allSalesAgents'])
-        },
-
-        data() {
-            return {
-                currentInsuranceId: null,
-                newInsuranceId: null,
-                fullName: null,
-                address: null,
-                householdType: null,
-                numberOfFamilyMembers: null,
-                newBorn: null,
-                moveToSwitzerland: null,
-                salesLeadSource: null,
-                salesPersonId: null,
-                signDate: null,
-                salesOrderStatus: null,
-                insuranceStatus: null,
-                contractDurationVVG: null,
-                contractDurationKVG: null,
-                insuranceTrackingID: null
-            }
-        },
+            ...mapGetters(['DateFormat', 'allInsurances', 'allSalesAgents', 'salesOrder'])
+        }
     }
 </script>
 
 <style lang="sass" scoped>
 .panel-body
-    padding-top: 2em
+    padding: 2em 1em
 </style>

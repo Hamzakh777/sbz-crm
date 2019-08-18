@@ -3,28 +3,27 @@ const state = {
     salesOrders: {},
     filterData: {},
     salesOrder: {
-        houseHoldType: "family",
-        contractPeople: [
-            {
-                name: "test",
-                description: "testing"
-            },
-            {
-                name: "test",
-                description: "testing"
-            },
-            {
-                name: "test",
-                description: "testing"
-            },
-            {
-                name: "test",
-                description: "testing"
-            }
-        ]
+        currentInsuranceId: null,
+        newInsuranceId: null,
+        fullName: null,
+        address: null,
+        householdType: null,
+        numberOfFamilyMembers: null,
+        newBorn: null,
+        moveToSwitzerland: null,
+        salesLeadSource: null,
+        salesPersonId: null,
+        signDate: null,
+        salesOrderStatus: null,
+        insuranceStatus: null,
+        contractDurationVVG: null,
+        contractDurationKVG: null,
+        insuranceTrackingID: null,
+        contractPeople: []
     },
     insurances: (window.insurances !== undefined) ? window.insurances : '',
     salesAgents: (window.salesAgents !== undefined) ? window.salesAgents : '',
+    isAddingPersonViewOpen: false,
     // global
     dateFormat: "dd MM yyyy"
 };
@@ -75,6 +74,10 @@ const getters = {
      */
     salesOrder(state) {
         return state.salesOrder;
+    },
+
+    isAddingPersonViewOpen(state) {
+        return state.isAddingPersonViewOpen;
     }
 };
 
@@ -143,6 +146,23 @@ const actions = {
         } catch (error) {
             console.warn(error);
         }
+    },
+
+    /**
+     * Add contract person to the 
+     * sales order
+     * @param {*} param0 
+     * @param {object} data 
+     */
+    addContractPerson({commit}, data) {
+        commit('setContractPerson', data);
+    },
+
+    /**
+     * 
+     */
+    showAddPersonCard() {
+        state.isAddingPersonViewOpen = true;
     }
 };
 
@@ -150,6 +170,9 @@ const actions = {
 const mutations = {
     setSalesOrders(state, data) {
         state.salesOrders = data;
+    },
+    setContractPerson(state, data) {
+        state.salesOrder.contractPeople.push(data);
     }
 };
 

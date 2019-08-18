@@ -2196,27 +2196,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     Datepicker: vuejs_datepicker__WEBPACK_IMPORTED_MODULE_0__["default"],
     ToggleButton: vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_1__["ToggleButton"]
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['DateFormat', 'allInsurances', 'allSalesAgents'])),
-  data: function data() {
-    return {
-      currentInsuranceId: null,
-      newInsuranceId: null,
-      fullName: null,
-      address: null,
-      householdType: null,
-      numberOfFamilyMembers: null,
-      newBorn: null,
-      moveToSwitzerland: null,
-      salesLeadSource: null,
-      salesPersonId: null,
-      signDate: null,
-      salesOrderStatus: null,
-      insuranceStatus: null,
-      contractDurationVVG: null,
-      contractDurationKVG: null,
-      insuranceTrackingID: null
-    };
-  }
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['DateFormat', 'allInsurances', 'allSalesAgents', 'salesOrder']))
 });
 
 /***/ }),
@@ -2250,6 +2230,27 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _SalesOrdersPersonCard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SalesOrdersPersonCard */ "./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPersonCard.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2274,11 +2275,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'SalesOrdersPeoplePanel',
   components: {
     SalesOrdersPersonCard: _SalesOrdersPersonCard__WEBPACK_IMPORTED_MODULE_0__["default"]
-  }
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['salesOrder', 'isAddingPersonViewOpen'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['showAddPersonCard']))
 });
 
 /***/ }),
@@ -2424,6 +2428,75 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2431,7 +2504,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   components: {
     Datepicker: vuejs_datepicker__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['DateFormat', 'salesOrder']), {
+  props: {
+    isEditAdd: {
+      type: Boolean,
+      required: true
+    },
+    person: {
+      type: Object
+    }
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['DateFormat', 'salesOrder', 'allInsurances']), {
     birthyear: function birthyear() {
       if (this.birthday !== null) {
         var date = new Date(this.birthday);
@@ -2454,9 +2536,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       birthday: null,
       age: null,
       familyMemberType: null,
-      policeNumber: null
+      policeNumber: null,
+      selectedInsurance: null
     };
-  }
+  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['addContractPerson']))
 });
 
 /***/ }),
@@ -2492,7 +2576,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".panel-body[data-v-685cb142] {\n  padding-top: 2em;\n}", ""]);
+exports.push([module.i, ".panel-body[data-v-685cb142] {\n  padding: 2em 1em;\n}", ""]);
 
 // exports
 
@@ -2511,7 +2595,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../node_module
 
 
 // module
-exports.push([module.i, ".panel-body[data-v-2d0be698] {\n  margin-top: 1em;\n}\n.panel-body .cards[data-v-2d0be698] {\n  margin-top: 1em;\n}", ""]);
+exports.push([module.i, ".panel-body[data-v-2d0be698] {\n  margin-top: 1em;\n}\n.panel-body .cards[data-v-2d0be698] {\n  margin-top: 1em;\n}\n.panel-body .panel-body[data-v-2d0be698] {\n  padding: 2em 1em;\n}", ""]);
 
 // exports
 
@@ -2530,7 +2614,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../node_module
 
 
 // module
-exports.push([module.i, ".card[data-v-7f3dd356] {\n  width: 100%;\n  border: 1px solid #e4eaec;\n  border-radius: 6px;\n  padding: 1.5em 0;\n}\n.card__title[data-v-7f3dd356] {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  margin-bottom: 1em;\n  padding: 0px 1em;\n}", ""]);
+exports.push([module.i, "/* global */\n.row[data-v-7f3dd356] {\n  padding: 0px 1em;\n}\n.form-group[data-v-7f3dd356] {\n  padding-left: 0;\n}\n.form-data[data-v-7f3dd356] {\n  display: block;\n  padding-left: 1em;\n  font-size: 18px;\n  min-height: 26px;\n  color: #58595f;\n  max-width: 100%;\n}\n.col-md-6[data-v-7f3dd356] {\n  padding-left: 0;\n}\n.products-col[data-v-7f3dd356] {\n  padding-right: 0;\n}\n.products-col .row[data-v-7f3dd356] {\n  padding-right: 0;\n}\n\n/* elt */\n.card[data-v-7f3dd356] {\n  width: 100%;\n  border-top: 1px solid #e4eaec;\n  padding: 2em 1em;\n  margin-bottom: 3em;\n  box-shadow: 0px 26px 34px -19px rgba(0, 0, 0, 0.12);\n}\n.card__title[data-v-7f3dd356] {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  margin-bottom: 1em;\n  padding: 0px 1em;\n}\n.card__title h3[data-v-7f3dd356] {\n  color: #58595f;\n}", ""]);
 
 // exports
 
@@ -24994,8 +25078,8 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.currentInsuranceId,
-                  expression: "currentInsuranceId"
+                  value: _vm.salesOrder.currentInsuranceId,
+                  expression: "salesOrder.currentInsuranceId"
                 }
               ],
               staticClass: "form-control",
@@ -25009,9 +25093,11 @@ var render = function() {
                       var val = "_value" in o ? o._value : o.value
                       return val
                     })
-                  _vm.currentInsuranceId = $event.target.multiple
-                    ? $$selectedVal
-                    : $$selectedVal[0]
+                  _vm.$set(
+                    _vm.salesOrder,
+                    "currentInsuranceId",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
                 }
               }
             },
@@ -25044,8 +25130,8 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.newInsuranceId,
-                  expression: "newInsuranceId"
+                  value: _vm.salesOrder.newInsuranceId,
+                  expression: "salesOrder.newInsuranceId"
                 }
               ],
               staticClass: "form-control",
@@ -25059,9 +25145,11 @@ var render = function() {
                       var val = "_value" in o ? o._value : o.value
                       return val
                     })
-                  _vm.newInsuranceId = $event.target.multiple
-                    ? $$selectedVal
-                    : $$selectedVal[0]
+                  _vm.$set(
+                    _vm.salesOrder,
+                    "newInsuranceId",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
                 }
               }
             },
@@ -25092,19 +25180,19 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.fullName,
-                expression: "fullName"
+                value: _vm.salesOrder.fullName,
+                expression: "salesOrder.fullName"
               }
             ],
             staticClass: "form-control",
             attrs: { type: "text" },
-            domProps: { value: _vm.fullName },
+            domProps: { value: _vm.salesOrder.fullName },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.fullName = $event.target.value
+                _vm.$set(_vm.salesOrder, "fullName", $event.target.value)
               }
             }
           })
@@ -25120,19 +25208,19 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.address,
-                expression: "address"
+                value: _vm.salesOrder.address,
+                expression: "salesOrder.address"
               }
             ],
             staticClass: "form-control",
             attrs: { type: "text" },
-            domProps: { value: _vm.address },
+            domProps: { value: _vm.salesOrder.address },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.address = $event.target.value
+                _vm.$set(_vm.salesOrder, "address", $event.target.value)
               }
             }
           })
@@ -25150,8 +25238,8 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.householdType,
-                  expression: "householdType"
+                  value: _vm.salesOrder.householdType,
+                  expression: "salesOrder.householdType"
                 }
               ],
               staticClass: "form-control",
@@ -25165,9 +25253,11 @@ var render = function() {
                       var val = "_value" in o ? o._value : o.value
                       return val
                     })
-                  _vm.householdType = $event.target.multiple
-                    ? $$selectedVal
-                    : $$selectedVal[0]
+                  _vm.$set(
+                    _vm.salesOrder,
+                    "householdType",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
                 }
               }
             },
@@ -25195,19 +25285,23 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.numberOfFamilyMembers,
-                expression: "numberOfFamilyMembers"
+                value: _vm.salesOrder.numberOfFamilyMembers,
+                expression: "salesOrder.numberOfFamilyMembers"
               }
             ],
             staticClass: "form-control",
             attrs: { type: "number" },
-            domProps: { value: _vm.numberOfFamilyMembers },
+            domProps: { value: _vm.salesOrder.numberOfFamilyMembers },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.numberOfFamilyMembers = $event.target.value
+                _vm.$set(
+                  _vm.salesOrder,
+                  "numberOfFamilyMembers",
+                  $event.target.value
+                )
               }
             }
           })
@@ -25230,11 +25324,11 @@ var render = function() {
                   }
                 },
                 model: {
-                  value: _vm.newBorn,
+                  value: _vm.salesOrder.newBorn,
                   callback: function($$v) {
-                    _vm.newBorn = $$v
+                    _vm.$set(_vm.salesOrder, "newBorn", $$v)
                   },
-                  expression: "newBorn"
+                  expression: "salesOrder.newBorn"
                 }
               })
             ],
@@ -25261,11 +25355,11 @@ var render = function() {
                   }
                 },
                 model: {
-                  value: _vm.moveToSwitzerland,
+                  value: _vm.salesOrder.moveToSwitzerland,
                   callback: function($$v) {
-                    _vm.moveToSwitzerland = $$v
+                    _vm.$set(_vm.salesOrder, "moveToSwitzerland", $$v)
                   },
-                  expression: "moveToSwitzerland"
+                  expression: "salesOrder.moveToSwitzerland"
                 }
               })
             ],
@@ -25287,8 +25381,8 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.salesLeadSource,
-                  expression: "salesLeadSource"
+                  value: _vm.salesOrder.salesLeadSource,
+                  expression: "salesOrder.salesLeadSource"
                 }
               ],
               staticClass: "form-control",
@@ -25302,9 +25396,11 @@ var render = function() {
                       var val = "_value" in o ? o._value : o.value
                       return val
                     })
-                  _vm.salesLeadSource = $event.target.multiple
-                    ? $$selectedVal
-                    : $$selectedVal[0]
+                  _vm.$set(
+                    _vm.salesOrder,
+                    "salesLeadSource",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
                 }
               }
             },
@@ -25324,8 +25420,8 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.salesPersonId,
-                  expression: "salesPersonId"
+                  value: _vm.salesOrder.salesPersonId,
+                  expression: "salesOrder.salesPersonId"
                 }
               ],
               staticClass: "form-control",
@@ -25339,9 +25435,11 @@ var render = function() {
                       var val = "_value" in o ? o._value : o.value
                       return val
                     })
-                  _vm.salesPersonId = $event.target.multiple
-                    ? $$selectedVal
-                    : $$selectedVal[0]
+                  _vm.$set(
+                    _vm.salesOrder,
+                    "salesPersonId",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
                 }
               }
             },
@@ -25374,11 +25472,11 @@ var render = function() {
               staticClass: "datePicker",
               attrs: { "input-class": "form-control", format: _vm.DateFormat },
               model: {
-                value: _vm.signDate,
+                value: _vm.salesOrder.signDate,
                 callback: function($$v) {
-                  _vm.signDate = $$v
+                  _vm.$set(_vm.salesOrder, "signDate", $$v)
                 },
-                expression: "signDate"
+                expression: "salesOrder.signDate"
               }
             })
           ],
@@ -25399,8 +25497,8 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.salesOrderStatus,
-                  expression: "salesOrderStatus"
+                  value: _vm.salesOrder.salesOrderStatus,
+                  expression: "salesOrder.salesOrderStatus"
                 }
               ],
               staticClass: "form-control",
@@ -25414,9 +25512,11 @@ var render = function() {
                       var val = "_value" in o ? o._value : o.value
                       return val
                     })
-                  _vm.salesOrderStatus = $event.target.multiple
-                    ? $$selectedVal
-                    : $$selectedVal[0]
+                  _vm.$set(
+                    _vm.salesOrder,
+                    "salesOrderStatus",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
                 }
               }
             },
@@ -25438,8 +25538,8 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.insuranceStatus,
-                  expression: "insuranceStatus"
+                  value: _vm.salesOrder.insuranceStatus,
+                  expression: "salesOrder.insuranceStatus"
                 }
               ],
               staticClass: "form-control",
@@ -25453,9 +25553,11 @@ var render = function() {
                       var val = "_value" in o ? o._value : o.value
                       return val
                     })
-                  _vm.insuranceStatus = $event.target.multiple
-                    ? $$selectedVal
-                    : $$selectedVal[0]
+                  _vm.$set(
+                    _vm.salesOrder,
+                    "insuranceStatus",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
                 }
               }
             },
@@ -25479,8 +25581,8 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.contractDurationVVG,
-                  expression: "contractDurationVVG"
+                  value: _vm.salesOrder.contractDurationVVG,
+                  expression: "salesOrder.contractDurationVVG"
                 }
               ],
               staticClass: "form-control",
@@ -25494,9 +25596,11 @@ var render = function() {
                       var val = "_value" in o ? o._value : o.value
                       return val
                     })
-                  _vm.contractDurationVVG = $event.target.multiple
-                    ? $$selectedVal
-                    : $$selectedVal[0]
+                  _vm.$set(
+                    _vm.salesOrder,
+                    "contractDurationVVG",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
                 }
               }
             },
@@ -25520,8 +25624,8 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.contractDurationKVG,
-                  expression: "contractDurationKVG"
+                  value: _vm.salesOrder.contractDurationKVG,
+                  expression: "salesOrder.contractDurationKVG"
                 }
               ],
               staticClass: "form-control",
@@ -25535,9 +25639,11 @@ var render = function() {
                       var val = "_value" in o ? o._value : o.value
                       return val
                     })
-                  _vm.contractDurationKVG = $event.target.multiple
-                    ? $$selectedVal
-                    : $$selectedVal[0]
+                  _vm.$set(
+                    _vm.salesOrder,
+                    "contractDurationKVG",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
                 }
               }
             },
@@ -25559,19 +25665,23 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.insuranceTrackingID,
-                expression: "insuranceTrackingID"
+                value: _vm.salesOrder.insuranceTrackingID,
+                expression: "salesOrder.insuranceTrackingID"
               }
             ],
             staticClass: "form-control",
             attrs: { type: "text" },
-            domProps: { value: _vm.insuranceTrackingID },
+            domProps: { value: _vm.salesOrder.insuranceTrackingID },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.insuranceTrackingID = $event.target.value
+                _vm.$set(
+                  _vm.salesOrder,
+                  "insuranceTrackingID",
+                  $event.target.value
+                )
               }
             }
           })
@@ -25644,7 +25754,7 @@ var render = function() {
     _c("div", { staticClass: "panel-heading" }, [
       _c("h3", { staticClass: "panel-title panel-icon" }, [
         _c("i", { staticClass: "voyager-search" }),
-        _vm._v(_vm._s(_vm.trans.get("voyager.sales_orders.contract")))
+        _vm._v(_vm._s(_vm.trans.get("voyager.generic.people")))
       ]),
       _vm._v(" "),
       _vm._m(0)
@@ -25652,16 +25762,39 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "panel-body mt-2" }, [
       _c("div", { staticClass: "row" }, [
-        _c("button", { staticClass: "btn btn-success pull-right" }, [
-          _vm._v(
-            "\n               " +
-              _vm._s(_vm.trans.get("voyager.sales_orders.add_person")) +
-              "\n           "
-          )
-        ])
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-success pull-right",
+            on: { click: _vm.showAddPersonCard }
+          },
+          [
+            _vm._v(
+              "\n               " +
+                _vm._s(_vm.trans.get("voyager.sales_orders.add_person")) +
+                "\n           "
+            )
+          ]
+        )
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "row cards" }, [_c("salesOrdersPersonCard")], 1)
+      _c(
+        "div",
+        { staticClass: "row cards" },
+        [
+          _vm.isAddingPersonViewOpen
+            ? _c("salesOrdersPersonCard", { attrs: { "is-edit-add": true } })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm._l(_vm.salesOrder.contractPeople, function(person, index) {
+            return _c("salesOrdersPersonCard", {
+              key: index,
+              attrs: { "is-edit-add": false, person: person }
+            })
+          })
+        ],
+        2
+      )
     ])
   ])
 }
@@ -25703,83 +25836,443 @@ var render = function() {
     _c("div", { staticClass: "card__title" }, [
       _c("h3", [_vm._v(_vm._s(_vm.trans.get("voyager.generic.person")))]),
       _vm._v(" "),
-      _c("div", {}, [
-        _c("button", { staticClass: "btn btn-light" }, [
-          _c("i", {}),
-          _vm._v(" "),
-          _c("span", [_vm._v(_vm._s(_vm.trans.get("voyager.generic.edit")))])
-        ]),
+      _c("div", [
+        !_vm.isEditAdd
+          ? _c("button", { staticClass: "btn btn-light" }, [
+              _c("i", {}),
+              _vm._v(" "),
+              _c("span", [
+                _vm._v(_vm._s(_vm.trans.get("voyager.generic.edit")))
+              ])
+            ])
+          : _vm._e(),
         _vm._v(" "),
-        _c("button", { staticClass: "btn btn-danger" }, [
-          _c("i", { staticClass: "voyager-trash" }),
-          _vm._v(" "),
-          _c("span", [_vm._v(_vm._s(_vm.trans.get("voyager.generic.delete")))])
-        ])
+        _vm.isAddingPersonViewOpen
+          ? _c("button", { staticClass: "btn btn-danger" }, [
+              _c("i", { staticClass: "voyager-trash" }),
+              _vm._v(" "),
+              _c("span", [
+                _vm._v(_vm._s(_vm.trans.get("voyager.generic.delete")))
+              ])
+            ])
+          : _vm._e()
       ])
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-6" }, [
+        _c("div", { staticClass: "form-group col-md-6" }, [
+          _c("label", { staticClass: "control-label" }, [
+            _vm._v(_vm._s(_vm.trans.get("voyager.generic.first_name")))
+          ]),
+          _vm._v(" "),
+          _vm.isEditAdd
+            ? _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.firstName,
+                    expression: "firstName"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text" },
+                domProps: { value: _vm.firstName },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.firstName = $event.target.value
+                  }
+                }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          !_vm.isEditAdd
+            ? _c("b", { staticClass: "form-data" }, [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(_vm.person.firstName) +
+                    "\n                "
+                )
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group col-md-6" }, [
+          _c("label", { staticClass: "control-label" }, [
+            _vm._v(_vm._s(_vm.trans.get("voyager.generic.last_name")))
+          ]),
+          _vm._v(" "),
+          _vm.isEditAdd
+            ? _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.lastName,
+                    expression: "lastName"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text" },
+                domProps: { value: _vm.lastName },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.lastName = $event.target.value
+                  }
+                }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          !_vm.isEditAdd
+            ? _c("b", { staticClass: "form-data" }, [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(_vm.person.lastName) +
+                    "\n                "
+                )
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group col-md-6" }, [
+          _c("label", { staticClass: "control-label" }, [
+            _vm._v(_vm._s(_vm.trans.get("voyager.generic.gender")))
+          ]),
+          _vm._v(" "),
+          _vm.isEditAdd
+            ? _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.gender,
+                      expression: "gender"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.gender = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                [
+                  _c("option", { attrs: { value: "male" } }, [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(_vm.trans.get("voyager.generic.male")) +
+                        "\n                    "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "male" } }, [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(_vm.trans.get("voyager.generic.female")) +
+                        "\n                    "
+                    )
+                  ])
+                ]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          !_vm.isEditAdd
+            ? _c("b", { staticClass: "form-data" }, [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(_vm.person.gender) +
+                    "\n                "
+                )
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "form-group col-md-6" },
+          [
+            _c("label", { staticClass: "control-label" }, [
+              _vm._v(_vm._s(_vm.trans.get("voyager.generic.birthday")))
+            ]),
+            _vm._v(" "),
+            _vm.isEditAdd
+              ? _c("Datepicker", {
+                  staticClass: "datePicker",
+                  attrs: {
+                    "input-class": "form-control",
+                    format: _vm.DateFormat
+                  },
+                  model: {
+                    value: _vm.birthday,
+                    callback: function($$v) {
+                      _vm.birthday = $$v
+                    },
+                    expression: "birthday"
+                  }
+                })
+              : _vm._e(),
+            _vm._v(" "),
+            !_vm.isEditAdd
+              ? _c("b", { staticClass: "form-data" }, [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(_vm.person.birthday) +
+                      "\n                "
+                  )
+                ])
+              : _vm._e()
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group col-md-6" }, [
+          _c("label", { staticClass: "control-label" }, [
+            _vm._v(_vm._s(_vm.trans.get("voyager.generic.birthyear")))
+          ]),
+          _vm._v(" "),
+          _vm.isEditAdd
+            ? _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.birthyear,
+                    expression: "birthyear"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text", readonly: "" },
+                domProps: { value: _vm.birthyear },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.birthyear = $event.target.value
+                  }
+                }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          !_vm.isEditAdd
+            ? _c("b", { staticClass: "form-data" }, [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(_vm.person.birthyear) +
+                    "\n                "
+                )
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group col-md-6" }, [
+          _c("label", { staticClass: "control-label" }, [
+            _vm._v(_vm._s(_vm.trans.get("voyager.generic.age")))
+          ]),
+          _vm._v(" "),
+          _vm.isEditAdd
+            ? _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.age,
+                    expression: "age"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "number" },
+                domProps: { value: _vm.age },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.age = $event.target.value
+                  }
+                }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          !_vm.isEditAdd
+            ? _c("b", { staticClass: "form-data" }, [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(_vm.person.age) +
+                    "\n                "
+                )
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _vm.isFamily
+          ? _c("div", { staticClass: "form-group col-md-6" }, [
+              _c("label", { staticClass: "control-label" }, [
+                _vm._v(
+                  _vm._s(
+                    _vm.trans.get("voyager.sales_orders.family_member_type")
+                  )
+                )
+              ]),
+              _vm._v(" "),
+              _vm.isEditAdd
+                ? _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.familyMemberType,
+                          expression: "familyMemberType"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.familyMemberType = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "father" } }, [
+                        _vm._v(
+                          "\n                        " +
+                            _vm._s(_vm.trans.get("voyager.generic.father")) +
+                            "\n                    "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "mother" } }, [
+                        _vm._v(
+                          "\n                        " +
+                            _vm._s(_vm.trans.get("voyager.generic.mother")) +
+                            "\n                    "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "daughter" } }, [
+                        _vm._v(
+                          "\n                        " +
+                            _vm._s(_vm.trans.get("voyager.generic.daughter")) +
+                            "\n                    "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "son" } }, [
+                        _vm._v(
+                          "\n                        " +
+                            _vm._s(_vm.trans.get("voyager.generic.son")) +
+                            "\n                    "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "new_born" } }, [
+                        _vm._v(
+                          "\n                        " +
+                            _vm._s(_vm.trans.get("voyager.generic.new_born")) +
+                            "\n                    "
+                        )
+                      ])
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              !_vm.isEditAdd
+                ? _c("b", { staticClass: "form-data" }, [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.person.familyMemberType) +
+                        "\n                "
+                    )
+                  ])
+                : _vm._e()
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group col-md-6" }, [
+          _c("label", { staticClass: "control-label" }, [
+            _vm._v(_vm._s(_vm.trans.get("voyager.sales_orders.police_number")))
+          ]),
+          _vm._v(" "),
+          _vm.isEditAdd
+            ? _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.policeNumber,
+                    expression: "policeNumber"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "policeNumber" },
+                domProps: { value: _vm.policeNumber },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.policeNumber = $event.target.value
+                  }
+                }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          !_vm.isEditAdd
+            ? _c("b", { staticClass: "form-data" }, [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(_vm.person.policeNumber) +
+                    "\n                "
+                )
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group col-md-6" }, [
+          _vm._v(
+            "\n                here we need to add form upload \n            "
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-6 products-col" }, [
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "form-group col-md-6" }, [
             _c("label", { staticClass: "control-label" }, [
-              _vm._v(_vm._s(_vm.trans.get("voyager.generic.first_name")))
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.firstName,
-                  expression: "firstName"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { type: "text" },
-              domProps: { value: _vm.firstName },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.firstName = $event.target.value
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-6" }, [
-            _c("label", { staticClass: "control-label" }, [
-              _vm._v(_vm._s(_vm.trans.get("voyager.generic.last_name")))
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.lastName,
-                  expression: "lastName"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { type: "text" },
-              domProps: { value: _vm.lastName },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.lastName = $event.target.value
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-6" }, [
-            _c("label", { staticClass: "control-label" }, [
-              _vm._v(_vm._s(_vm.trans.get("voyager.generic.gender")))
+              _vm._v(
+                _vm._s(_vm.trans.get("voyager.sales_orders.select_product"))
+              )
             ]),
             _vm._v(" "),
             _c(
@@ -25789,8 +26282,8 @@ var render = function() {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.gender,
-                    expression: "gender"
+                    value: _vm.selectedInsurance,
+                    expression: "selectedInsurance"
                   }
                 ],
                 staticClass: "form-control",
@@ -25804,237 +26297,29 @@ var render = function() {
                         var val = "_value" in o ? o._value : o.value
                         return val
                       })
-                    _vm.gender = $event.target.multiple
+                    _vm.selectedInsurance = $event.target.multiple
                       ? $$selectedVal
                       : $$selectedVal[0]
                   }
                 }
               },
-              [
-                _c("option", { attrs: { value: "male" } }, [
-                  _vm._v(
-                    "\n                            " +
-                      _vm._s(_vm.trans.get("voyager.generic.male")) +
-                      "\n                        "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "male" } }, [
-                  _vm._v(
-                    "\n                            " +
-                      _vm._s(_vm.trans.get("voyager.generic.female")) +
-                      "\n                        "
-                  )
-                ])
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "form-group col-md-6" },
-            [
-              _c("label", { staticClass: "control-label" }, [
-                _vm._v(_vm._s(_vm.trans.get("voyager.generic.birthday")))
-              ]),
-              _vm._v(" "),
-              _c("Datepicker", {
-                staticClass: "datePicker",
-                attrs: {
-                  "input-class": "form-control",
-                  format: _vm.DateFormat
-                },
-                model: {
-                  value: _vm.birthday,
-                  callback: function($$v) {
-                    _vm.birthday = $$v
-                  },
-                  expression: "birthday"
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-6" }, [
-            _c("label", { staticClass: "control-label" }, [
-              _vm._v(_vm._s(_vm.trans.get("voyager.generic.birthyear")))
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.birthyear,
-                  expression: "birthyear"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { type: "text", readonly: "" },
-              domProps: { value: _vm.birthyear },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.birthyear = $event.target.value
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-6" }, [
-            _c("label", { staticClass: "control-label" }, [
-              _vm._v(_vm._s(_vm.trans.get("voyager.generic.age")))
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.age,
-                  expression: "age"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { type: "number" },
-              domProps: { value: _vm.age },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.age = $event.target.value
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _vm.isFamily
-            ? _c("div", { staticClass: "form-group col-md-6" }, [
-                _c("label", { staticClass: "control-label" }, [
-                  _vm._v(
-                    _vm._s(
-                      _vm.trans.get("voyager.sales_orders.family_member_type")
-                    )
-                  )
-                ]),
-                _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.familyMemberType,
-                        expression: "familyMemberType"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.familyMemberType = $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      }
-                    }
-                  },
+              _vm._l(_vm.allInsurances, function(insurance) {
+                return _c(
+                  "option",
+                  { key: insurance.id, domProps: { value: insurance.id } },
                   [
-                    _c("option", { attrs: { value: "father" } }, [
-                      _vm._v(
-                        "\n                            " +
-                          _vm._s(_vm.trans.get("voyager.generic.father")) +
-                          "\n                        "
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "mother" } }, [
-                      _vm._v(
-                        "\n                            " +
-                          _vm._s(_vm.trans.get("voyager.generic.mother")) +
-                          "\n                        "
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "daughter" } }, [
-                      _vm._v(
-                        "\n                            " +
-                          _vm._s(_vm.trans.get("voyager.generic.daughter")) +
-                          "\n                        "
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "son" } }, [
-                      _vm._v(
-                        "\n                            " +
-                          _vm._s(_vm.trans.get("voyager.generic.son")) +
-                          "\n                        "
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "new_born" } }, [
-                      _vm._v(
-                        "\n                            " +
-                          _vm._s(_vm.trans.get("voyager.generic.new_born")) +
-                          "\n                        "
-                      )
-                    ])
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(insurance.name) +
+                        "\n                        "
+                    )
                   ]
                 )
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-6" }, [
-            _c("label", { staticClass: "control-label" }, [
-              _vm._v(
-                _vm._s(_vm.trans.get("voyager.sales_orders.police_number"))
-              )
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.policeNumber,
-                  expression: "policeNumber"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { type: "policeNumber" },
-              domProps: { value: _vm.policeNumber },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.policeNumber = $event.target.value
-                }
-              }
-            })
+              }),
+              0
+            )
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-6" }, [
-            _vm._v(
-              "\n                    here we need to add form upload \n                "
-            )
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-6" }, [
-        _c("div", { staticClass: "row" }, [
           _c(
             "button",
             { staticClass: "btn btn-success btn-add-new pull-right" },
@@ -26052,6 +26337,29 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "row" })
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("hr"),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-primary pull-right",
+          on: {
+            click: function($event) {
+              return _vm.addContractPerson(_vm.$data)
+            }
+          }
+        },
+        [
+          _vm._v(
+            "\n            " +
+              _vm._s(_vm.trans.get("voyager.generic.save")) +
+              "\n        "
+          )
+        ]
+      )
     ])
   ])
 }
@@ -42365,23 +42673,27 @@ var state = {
   salesOrders: {},
   filterData: {},
   salesOrder: {
-    houseHoldType: "family",
-    contractPeople: [{
-      name: "test",
-      description: "testing"
-    }, {
-      name: "test",
-      description: "testing"
-    }, {
-      name: "test",
-      description: "testing"
-    }, {
-      name: "test",
-      description: "testing"
-    }]
+    currentInsuranceId: null,
+    newInsuranceId: null,
+    fullName: null,
+    address: null,
+    householdType: null,
+    numberOfFamilyMembers: null,
+    newBorn: null,
+    moveToSwitzerland: null,
+    salesLeadSource: null,
+    salesPersonId: null,
+    signDate: null,
+    salesOrderStatus: null,
+    insuranceStatus: null,
+    contractDurationVVG: null,
+    contractDurationKVG: null,
+    insuranceTrackingID: null,
+    contractPeople: []
   },
   insurances: window.insurances !== undefined ? window.insurances : '',
   salesAgents: window.salesAgents !== undefined ? window.salesAgents : '',
+  isAddingPersonViewOpen: false,
   // global
   dateFormat: "dd MM yyyy"
 }; // in order to get the state and be able to display it on our component we need to add a getter
@@ -42430,6 +42742,9 @@ var getters = {
    */
   salesOrder: function salesOrder(state) {
     return state.salesOrder;
+  },
+  isAddingPersonViewOpen: function isAddingPersonViewOpen(state) {
+    return state.isAddingPersonViewOpen;
   }
 }; // make a request, get a reponse and make a mutations
 
@@ -42589,12 +42904,33 @@ var actions = {
     }
 
     return filterSalesOrders;
-  }()
+  }(),
+
+  /**
+   * Add contract person to the 
+   * sales order
+   * @param {*} param0 
+   * @param {object} data 
+   */
+  addContractPerson: function addContractPerson(_ref4, data) {
+    var commit = _ref4.commit;
+    commit('setContractPerson', data);
+  },
+
+  /**
+   * 
+   */
+  showAddPersonCard: function showAddPersonCard() {
+    state.isAddingPersonViewOpen = true;
+  }
 }; // mutations is how we mutate the state
 
 var mutations = {
   setSalesOrders: function setSalesOrders(state, data) {
     state.salesOrders = data;
+  },
+  setContractPerson: function setContractPerson(state, data) {
+    state.salesOrder.contractPeople.push(data);
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({

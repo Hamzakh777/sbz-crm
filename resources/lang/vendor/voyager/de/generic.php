@@ -77,6 +77,7 @@ return [
     'person'                 => 'Person',
     'profile'                => 'Profil',
     'public_url'             => 'Öffentliche URL',
+    'people'                 => 'People',
     'read'                   => 'Lesen',
     'rename'                 => 'Umbenennen',
     'remember_me'            => 'Angemeldet bleiben',

@@ -24,4 +24,5 @@ return [
     'sales_order_status'    => 'Sales Order Status',
     'provison_done'         => 'Provison Done',
     'cancellation_original' => 'Cancellation Original',
+    'contract'              => 'Vertrag'
 ];
