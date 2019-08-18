@@ -74,6 +74,7 @@ return [
     'options'                => 'Options',
     'password'               => 'Password',
     'permissions'            => 'Permissions',
+    'person'                 => 'Person',
     'profile'                => 'Profile',
     'public_url'             => 'Public URL',
     'read'                   => 'Read',

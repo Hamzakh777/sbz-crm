@@ -1,22 +1,22 @@
 <template>
     <div>
         <SalesOrdersContractPanel></SalesOrdersContractPanel>
-        <SalesOrdersPeople></SalesOrdersPeople>
+        <SalesOrdersPeoplePanel></SalesOrdersPeoplePanel>
     </div>
 </template>
 
 <script>
     import SalesOrdersContractPanel from './SalesOrdersContractPanel';
     import SalesOrdersContractPath from './SalesOrdersContractPath';
-    import SalesOrdersPeople from './SalesOrdersPeople/SalesOrdersPeople';
+    import SalesOrdersPeoplePanel from './SalesOrdersPeople/SalesOrdersPeoplePanel';
 
     export default {
         name: 'App',
 
         components: {
-            SalesOrdersContractPanel,
             SalesOrdersContractPath,
-            SalesOrdersPeople
+            SalesOrdersContractPanel,
+            SalesOrdersPeoplePanel,
         }
 
     }

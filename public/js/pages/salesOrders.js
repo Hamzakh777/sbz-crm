@@ -1944,7 +1944,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _SalesOrdersContractPanel__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SalesOrdersContractPanel */ "./resources/js/components/SalesOrders/EditAdd/SalesOrdersContractPanel.vue");
 /* harmony import */ var _SalesOrdersContractPath__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SalesOrdersContractPath */ "./resources/js/components/SalesOrders/EditAdd/SalesOrdersContractPath.vue");
-/* harmony import */ var _SalesOrdersPeople_SalesOrdersPeople__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SalesOrdersPeople/SalesOrdersPeople */ "./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeople.vue");
+/* harmony import */ var _SalesOrdersPeople_SalesOrdersPeoplePanel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SalesOrdersPeople/SalesOrdersPeoplePanel */ "./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeoplePanel.vue");
 //
 //
 //
@@ -1958,9 +1958,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'App',
   components: {
-    SalesOrdersContractPanel: _SalesOrdersContractPanel__WEBPACK_IMPORTED_MODULE_0__["default"],
     SalesOrdersContractPath: _SalesOrdersContractPath__WEBPACK_IMPORTED_MODULE_1__["default"],
-    SalesOrdersPeople: _SalesOrdersPeople_SalesOrdersPeople__WEBPACK_IMPORTED_MODULE_2__["default"]
+    SalesOrdersContractPanel: _SalesOrdersContractPanel__WEBPACK_IMPORTED_MODULE_0__["default"],
+    SalesOrdersPeoplePanel: _SalesOrdersPeople_SalesOrdersPeoplePanel__WEBPACK_IMPORTED_MODULE_2__["default"]
   }
 });
 
@@ -2168,6 +2168,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2177,7 +2196,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     Datepicker: vuejs_datepicker__WEBPACK_IMPORTED_MODULE_0__["default"],
     ToggleButton: vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_1__["ToggleButton"]
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['DateFormat'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['DateFormat', 'allInsurances', 'allSalesAgents'])),
   data: function data() {
     return {
       currentInsuranceId: null,
@@ -2221,15 +2240,16 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeople.vue?vue&type=script&lang=js&":
-/*!******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeople.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeoplePanel.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeoplePanel.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _SalesOrdersPersonCard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SalesOrdersPersonCard */ "./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPersonCard.vue");
 //
 //
 //
@@ -2249,13 +2269,201 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'SalesOrdersPeoplePanel',
+  components: {
+    SalesOrdersPersonCard: _SalesOrdersPersonCard__WEBPACK_IMPORTED_MODULE_0__["default"]
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPersonCard.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPersonCard.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuejs_datepicker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuejs-datepicker */ "./node_modules/vuejs-datepicker/dist/vuejs-datepicker.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'SalesOrdersPersonCard',
+  components: {
+    Datepicker: vuejs_datepicker__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['DateFormat', 'salesOrder']), {
+    birthyear: function birthyear() {
+      if (this.birthday !== null) {
+        var date = new Date(this.birthday);
+        return date.getYear();
+      }
+    },
+    isFamily: function isFamily() {
+      if (this.salesOrder.houseHoldType == 'family') {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }),
+  data: function data() {
+    return {
+      firstName: null,
+      lastName: null,
+      gender: null,
+      birthday: null,
+      age: null,
+      familyMemberType: null,
+      policeNumber: null
+    };
+  }
+});
 
 /***/ }),
 
 /***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/Browse/SalesOrdersFilter.vue?vue&type=style&index=0&lang=sass&":
 /*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/sass-loader/lib/loader.js??ref--8-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SalesOrders/Browse/SalesOrdersFilter.vue?vue&type=style&index=0&lang=sass& ***!
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--9-2!./node_modules/sass-loader/lib/loader.js??ref--9-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SalesOrders/Browse/SalesOrdersFilter.vue?vue&type=style&index=0&lang=sass& ***!
   \************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2274,7 +2482,7 @@ exports.push([module.i, ".filter-form {\n  margin-top: 1.6em;\n}\n.filter-form .
 
 /***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/SalesOrdersContractPanel.vue?vue&type=style&index=0&id=685cb142&lang=sass&scoped=true&":
 /*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/sass-loader/lib/loader.js??ref--8-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SalesOrders/EditAdd/SalesOrdersContractPanel.vue?vue&type=style&index=0&id=685cb142&lang=sass&scoped=true& ***!
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--9-2!./node_modules/sass-loader/lib/loader.js??ref--9-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SalesOrders/EditAdd/SalesOrdersContractPanel.vue?vue&type=style&index=0&id=685cb142&lang=sass&scoped=true& ***!
   \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2285,6 +2493,44 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 // module
 exports.push([module.i, ".panel-body[data-v-685cb142] {\n  padding-top: 2em;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeoplePanel.vue?vue&type=style&index=0&id=2d0be698&lang=sass&scoped=true&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--9-2!./node_modules/sass-loader/lib/loader.js??ref--9-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeoplePanel.vue?vue&type=style&index=0&id=2d0be698&lang=sass&scoped=true& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".panel-body[data-v-2d0be698] {\n  margin-top: 1em;\n}\n.panel-body .cards[data-v-2d0be698] {\n  margin-top: 1em;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPersonCard.vue?vue&type=style&index=0&id=7f3dd356&lang=sass&scoped=true&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--9-2!./node_modules/sass-loader/lib/loader.js??ref--9-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPersonCard.vue?vue&type=style&index=0&id=7f3dd356&lang=sass&scoped=true& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".card[data-v-7f3dd356] {\n  width: 100%;\n  border: 1px solid #e4eaec;\n  border-radius: 6px;\n  padding: 1.5em 0;\n}\n.card__title[data-v-7f3dd356] {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  margin-bottom: 1em;\n  padding: 0px 1em;\n}", ""]);
 
 // exports
 
@@ -22721,13 +22967,13 @@ try {
 
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/Browse/SalesOrdersFilter.vue?vue&type=style&index=0&lang=sass&":
 /*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/sass-loader/lib/loader.js??ref--8-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SalesOrders/Browse/SalesOrdersFilter.vue?vue&type=style&index=0&lang=sass& ***!
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--9-2!./node_modules/sass-loader/lib/loader.js??ref--9-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SalesOrders/Browse/SalesOrdersFilter.vue?vue&type=style&index=0&lang=sass& ***!
   \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../../../../node_modules/css-loader!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--8-2!../../../../../node_modules/sass-loader/lib/loader.js??ref--8-3!../../../../../node_modules/vue-loader/lib??vue-loader-options!./SalesOrdersFilter.vue?vue&type=style&index=0&lang=sass& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/Browse/SalesOrdersFilter.vue?vue&type=style&index=0&lang=sass&");
+var content = __webpack_require__(/*! !../../../../../node_modules/css-loader!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--9-2!../../../../../node_modules/sass-loader/lib/loader.js??ref--9-3!../../../../../node_modules/vue-loader/lib??vue-loader-options!./SalesOrdersFilter.vue?vue&type=style&index=0&lang=sass& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/Browse/SalesOrdersFilter.vue?vue&type=style&index=0&lang=sass&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -22751,13 +22997,13 @@ if(false) {}
 
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/SalesOrdersContractPanel.vue?vue&type=style&index=0&id=685cb142&lang=sass&scoped=true&":
 /*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/sass-loader/lib/loader.js??ref--8-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SalesOrders/EditAdd/SalesOrdersContractPanel.vue?vue&type=style&index=0&id=685cb142&lang=sass&scoped=true& ***!
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--9-2!./node_modules/sass-loader/lib/loader.js??ref--9-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SalesOrders/EditAdd/SalesOrdersContractPanel.vue?vue&type=style&index=0&id=685cb142&lang=sass&scoped=true& ***!
   \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../../../../node_modules/css-loader!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--8-2!../../../../../node_modules/sass-loader/lib/loader.js??ref--8-3!../../../../../node_modules/vue-loader/lib??vue-loader-options!./SalesOrdersContractPanel.vue?vue&type=style&index=0&id=685cb142&lang=sass&scoped=true& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/SalesOrdersContractPanel.vue?vue&type=style&index=0&id=685cb142&lang=sass&scoped=true&");
+var content = __webpack_require__(/*! !../../../../../node_modules/css-loader!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--9-2!../../../../../node_modules/sass-loader/lib/loader.js??ref--9-3!../../../../../node_modules/vue-loader/lib??vue-loader-options!./SalesOrdersContractPanel.vue?vue&type=style&index=0&id=685cb142&lang=sass&scoped=true& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/SalesOrdersContractPanel.vue?vue&type=style&index=0&id=685cb142&lang=sass&scoped=true&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -22772,6 +23018,66 @@ options.transform = transform
 options.insertInto = undefined;
 
 var update = __webpack_require__(/*! ../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeoplePanel.vue?vue&type=style&index=0&id=2d0be698&lang=sass&scoped=true&":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--9-2!./node_modules/sass-loader/lib/loader.js??ref--9-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeoplePanel.vue?vue&type=style&index=0&id=2d0be698&lang=sass&scoped=true& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../../node_modules/css-loader!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/src??ref--9-2!../../../../../../node_modules/sass-loader/lib/loader.js??ref--9-3!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./SalesOrdersPeoplePanel.vue?vue&type=style&index=0&id=2d0be698&lang=sass&scoped=true& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeoplePanel.vue?vue&type=style&index=0&id=2d0be698&lang=sass&scoped=true&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPersonCard.vue?vue&type=style&index=0&id=7f3dd356&lang=sass&scoped=true&":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--9-2!./node_modules/sass-loader/lib/loader.js??ref--9-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPersonCard.vue?vue&type=style&index=0&id=7f3dd356&lang=sass&scoped=true& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../../node_modules/css-loader!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/src??ref--9-2!../../../../../../node_modules/sass-loader/lib/loader.js??ref--9-3!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./SalesOrdersPersonCard.vue?vue&type=style&index=0&id=7f3dd356&lang=sass&scoped=true& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPersonCard.vue?vue&type=style&index=0&id=7f3dd356&lang=sass&scoped=true&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -24636,7 +24942,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    [_c("SalesOrdersContractPanel"), _vm._v(" "), _c("SalesOrdersPeople")],
+    [_c("SalesOrdersContractPanel"), _vm._v(" "), _c("SalesOrdersPeoplePanel")],
     1
   )
 }
@@ -24709,7 +25015,20 @@ var render = function() {
                 }
               }
             },
-            [_c("option", { attrs: { value: "" } })]
+            _vm._l(_vm.allInsurances, function(insurance) {
+              return _c(
+                "option",
+                { key: insurance.id, domProps: { value: insurance.id } },
+                [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(insurance.name) +
+                      "\n                    "
+                  )
+                ]
+              )
+            }),
+            0
           )
         ]),
         _vm._v(" "),
@@ -24746,7 +25065,20 @@ var render = function() {
                 }
               }
             },
-            [_c("option", { attrs: { value: "" } })]
+            _vm._l(_vm.allInsurances, function(insurance) {
+              return _c(
+                "option",
+                { key: insurance.id, domProps: { value: insurance.id } },
+                [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(insurance.name) +
+                      "\n                    "
+                  )
+                ]
+              )
+            }),
+            0
           )
         ]),
         _vm._v(" "),
@@ -24839,7 +25171,15 @@ var render = function() {
                 }
               }
             },
-            [_c("option", { attrs: { value: "" } })]
+            [
+              _c("option", { attrs: { value: "single" } }, [
+                _vm._v(_vm._s(_vm.trans.get("voyager.generic.single")))
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "family" } }, [
+                _vm._v(_vm._s(_vm.trans.get("voyager.generic.family")))
+              ])
+            ]
           )
         ]),
         _vm._v(" "),
@@ -25005,7 +25345,20 @@ var render = function() {
                 }
               }
             },
-            [_c("option", { attrs: { value: "" } })]
+            _vm._l(_vm.allSalesAgents, function(agent) {
+              return _c(
+                "option",
+                { key: agent.id, domProps: { value: agent.id } },
+                [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(agent.username) +
+                      "\n                    "
+                  )
+                ]
+              )
+            }),
+            0
           )
         ]),
         _vm._v(" "),
@@ -25272,10 +25625,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeople.vue?vue&type=template&id=5ae45d60&scoped=true&":
-/*!**********************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeople.vue?vue&type=template&id=5ae45d60&scoped=true& ***!
-  \**********************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeoplePanel.vue?vue&type=template&id=2d0be698&scoped=true&":
+/*!***************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeoplePanel.vue?vue&type=template&id=2d0be698&scoped=true& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -25297,7 +25650,19 @@ var render = function() {
       _vm._m(0)
     ]),
     _vm._v(" "),
-    _vm._m(1)
+    _c("div", { staticClass: "panel-body mt-2" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("button", { staticClass: "btn btn-success pull-right" }, [
+          _vm._v(
+            "\n               " +
+              _vm._s(_vm.trans.get("voyager.sales_orders.add_person")) +
+              "\n           "
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row cards" }, [_c("salesOrdersPersonCard")], 1)
+    ])
   ])
 }
 var staticRenderFns = [
@@ -25311,18 +25676,386 @@ var staticRenderFns = [
         attrs: { "data-toggle": "panel-collapse", "aria-hidden": "true" }
       })
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "panel-body mt-2" }, [
-      _c("div", { staticClass: "row" }),
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPersonCard.vue?vue&type=template&id=7f3dd356&scoped=true&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPersonCard.vue?vue&type=template&id=7f3dd356&scoped=true& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "card" }, [
+    _c("div", { staticClass: "card__title" }, [
+      _c("h3", [_vm._v(_vm._s(_vm.trans.get("voyager.generic.person")))]),
+      _vm._v(" "),
+      _c("div", {}, [
+        _c("button", { staticClass: "btn btn-light" }, [
+          _c("i", {}),
+          _vm._v(" "),
+          _c("span", [_vm._v(_vm._s(_vm.trans.get("voyager.generic.edit")))])
+        ]),
+        _vm._v(" "),
+        _c("button", { staticClass: "btn btn-danger" }, [
+          _c("i", { staticClass: "voyager-trash" }),
+          _vm._v(" "),
+          _c("span", [_vm._v(_vm._s(_vm.trans.get("voyager.generic.delete")))])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-6" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "form-group col-md-6" }, [
+            _c("label", { staticClass: "control-label" }, [
+              _vm._v(_vm._s(_vm.trans.get("voyager.generic.first_name")))
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.firstName,
+                  expression: "firstName"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "text" },
+              domProps: { value: _vm.firstName },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.firstName = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group col-md-6" }, [
+            _c("label", { staticClass: "control-label" }, [
+              _vm._v(_vm._s(_vm.trans.get("voyager.generic.last_name")))
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.lastName,
+                  expression: "lastName"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "text" },
+              domProps: { value: _vm.lastName },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.lastName = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group col-md-6" }, [
+            _c("label", { staticClass: "control-label" }, [
+              _vm._v(_vm._s(_vm.trans.get("voyager.generic.gender")))
+            ]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.gender,
+                    expression: "gender"
+                  }
+                ],
+                staticClass: "form-control",
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.gender = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
+                }
+              },
+              [
+                _c("option", { attrs: { value: "male" } }, [
+                  _vm._v(
+                    "\n                            " +
+                      _vm._s(_vm.trans.get("voyager.generic.male")) +
+                      "\n                        "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "male" } }, [
+                  _vm._v(
+                    "\n                            " +
+                      _vm._s(_vm.trans.get("voyager.generic.female")) +
+                      "\n                        "
+                  )
+                ])
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "form-group col-md-6" },
+            [
+              _c("label", { staticClass: "control-label" }, [
+                _vm._v(_vm._s(_vm.trans.get("voyager.generic.birthday")))
+              ]),
+              _vm._v(" "),
+              _c("Datepicker", {
+                staticClass: "datePicker",
+                attrs: {
+                  "input-class": "form-control",
+                  format: _vm.DateFormat
+                },
+                model: {
+                  value: _vm.birthday,
+                  callback: function($$v) {
+                    _vm.birthday = $$v
+                  },
+                  expression: "birthday"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group col-md-6" }, [
+            _c("label", { staticClass: "control-label" }, [
+              _vm._v(_vm._s(_vm.trans.get("voyager.generic.birthyear")))
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.birthyear,
+                  expression: "birthyear"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "text", readonly: "" },
+              domProps: { value: _vm.birthyear },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.birthyear = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group col-md-6" }, [
+            _c("label", { staticClass: "control-label" }, [
+              _vm._v(_vm._s(_vm.trans.get("voyager.generic.age")))
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.age,
+                  expression: "age"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "number" },
+              domProps: { value: _vm.age },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.age = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _vm.isFamily
+            ? _c("div", { staticClass: "form-group col-md-6" }, [
+                _c("label", { staticClass: "control-label" }, [
+                  _vm._v(
+                    _vm._s(
+                      _vm.trans.get("voyager.sales_orders.family_member_type")
+                    )
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.familyMemberType,
+                        expression: "familyMemberType"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.familyMemberType = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "father" } }, [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(_vm.trans.get("voyager.generic.father")) +
+                          "\n                        "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "mother" } }, [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(_vm.trans.get("voyager.generic.mother")) +
+                          "\n                        "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "daughter" } }, [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(_vm.trans.get("voyager.generic.daughter")) +
+                          "\n                        "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "son" } }, [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(_vm.trans.get("voyager.generic.son")) +
+                          "\n                        "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "new_born" } }, [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(_vm.trans.get("voyager.generic.new_born")) +
+                          "\n                        "
+                      )
+                    ])
+                  ]
+                )
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group col-md-6" }, [
+            _c("label", { staticClass: "control-label" }, [
+              _vm._v(
+                _vm._s(_vm.trans.get("voyager.sales_orders.police_number"))
+              )
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.policeNumber,
+                  expression: "policeNumber"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "policeNumber" },
+              domProps: { value: _vm.policeNumber },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.policeNumber = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group col-md-6" }, [
+            _vm._v(
+              "\n                    here we need to add form upload \n                "
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-6" }, [
+        _c("div", { staticClass: "row" }, [
+          _c(
+            "button",
+            { staticClass: "btn btn-success btn-add-new pull-right" },
+            [
+              _c("i", { staticClass: "voyager-plus" }),
+              _vm._v(" "),
+              _c("span", [
+                _vm._v(
+                  _vm._s(_vm.trans.get("voyager.sales_orders.add_product"))
+                )
+              ])
+            ]
+          )
+        ])
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "row" })
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -41060,10 +41793,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_lib_loader_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersFilter_vue_vue_type_style_index_0_lang_sass___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader!../../../../../node_modules/css-loader!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--8-2!../../../../../node_modules/sass-loader/lib/loader.js??ref--8-3!../../../../../node_modules/vue-loader/lib??vue-loader-options!./SalesOrdersFilter.vue?vue&type=style&index=0&lang=sass& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/Browse/SalesOrdersFilter.vue?vue&type=style&index=0&lang=sass&");
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_lib_loader_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersFilter_vue_vue_type_style_index_0_lang_sass___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_lib_loader_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersFilter_vue_vue_type_style_index_0_lang_sass___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_lib_loader_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersFilter_vue_vue_type_style_index_0_lang_sass___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_lib_loader_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersFilter_vue_vue_type_style_index_0_lang_sass___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_lib_loader_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersFilter_vue_vue_type_style_index_0_lang_sass___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_lib_loader_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersFilter_vue_vue_type_style_index_0_lang_sass___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader!../../../../../node_modules/css-loader!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--9-2!../../../../../node_modules/sass-loader/lib/loader.js??ref--9-3!../../../../../node_modules/vue-loader/lib??vue-loader-options!./SalesOrdersFilter.vue?vue&type=style&index=0&lang=sass& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/Browse/SalesOrdersFilter.vue?vue&type=style&index=0&lang=sass&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_lib_loader_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersFilter_vue_vue_type_style_index_0_lang_sass___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_lib_loader_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersFilter_vue_vue_type_style_index_0_lang_sass___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_lib_loader_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersFilter_vue_vue_type_style_index_0_lang_sass___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_lib_loader_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersFilter_vue_vue_type_style_index_0_lang_sass___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_lib_loader_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersFilter_vue_vue_type_style_index_0_lang_sass___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -41285,10 +42018,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_lib_loader_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersContractPanel_vue_vue_type_style_index_0_id_685cb142_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader!../../../../../node_modules/css-loader!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--8-2!../../../../../node_modules/sass-loader/lib/loader.js??ref--8-3!../../../../../node_modules/vue-loader/lib??vue-loader-options!./SalesOrdersContractPanel.vue?vue&type=style&index=0&id=685cb142&lang=sass&scoped=true& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/SalesOrdersContractPanel.vue?vue&type=style&index=0&id=685cb142&lang=sass&scoped=true&");
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_lib_loader_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersContractPanel_vue_vue_type_style_index_0_id_685cb142_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_lib_loader_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersContractPanel_vue_vue_type_style_index_0_id_685cb142_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_lib_loader_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersContractPanel_vue_vue_type_style_index_0_id_685cb142_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_lib_loader_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersContractPanel_vue_vue_type_style_index_0_id_685cb142_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_sass_loader_lib_loader_js_ref_8_3_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersContractPanel_vue_vue_type_style_index_0_id_685cb142_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_lib_loader_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersContractPanel_vue_vue_type_style_index_0_id_685cb142_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader!../../../../../node_modules/css-loader!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--9-2!../../../../../node_modules/sass-loader/lib/loader.js??ref--9-3!../../../../../node_modules/vue-loader/lib??vue-loader-options!./SalesOrdersContractPanel.vue?vue&type=style&index=0&id=685cb142&lang=sass&scoped=true& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/SalesOrdersContractPanel.vue?vue&type=style&index=0&id=685cb142&lang=sass&scoped=true&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_lib_loader_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersContractPanel_vue_vue_type_style_index_0_id_685cb142_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_lib_loader_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersContractPanel_vue_vue_type_style_index_0_id_685cb142_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_lib_loader_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersContractPanel_vue_vue_type_style_index_0_id_685cb142_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_lib_loader_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersContractPanel_vue_vue_type_style_index_0_id_685cb142_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_lib_loader_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersContractPanel_vue_vue_type_style_index_0_id_685cb142_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -41379,18 +42112,20 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeople.vue":
-/*!*********************************************************************************************!*\
-  !*** ./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeople.vue ***!
-  \*********************************************************************************************/
+/***/ "./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeoplePanel.vue":
+/*!**************************************************************************************************!*\
+  !*** ./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeoplePanel.vue ***!
+  \**************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _SalesOrdersPeople_vue_vue_type_template_id_5ae45d60_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SalesOrdersPeople.vue?vue&type=template&id=5ae45d60&scoped=true& */ "./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeople.vue?vue&type=template&id=5ae45d60&scoped=true&");
-/* harmony import */ var _SalesOrdersPeople_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SalesOrdersPeople.vue?vue&type=script&lang=js& */ "./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeople.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _SalesOrdersPeoplePanel_vue_vue_type_template_id_2d0be698_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SalesOrdersPeoplePanel.vue?vue&type=template&id=2d0be698&scoped=true& */ "./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeoplePanel.vue?vue&type=template&id=2d0be698&scoped=true&");
+/* harmony import */ var _SalesOrdersPeoplePanel_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SalesOrdersPeoplePanel.vue?vue&type=script&lang=js& */ "./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeoplePanel.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _SalesOrdersPeoplePanel_vue_vue_type_style_index_0_id_2d0be698_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SalesOrdersPeoplePanel.vue?vue&type=style&index=0&id=2d0be698&lang=sass&scoped=true& */ "./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeoplePanel.vue?vue&type=style&index=0&id=2d0be698&lang=sass&scoped=true&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -41398,51 +42133,154 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _SalesOrdersPeople_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _SalesOrdersPeople_vue_vue_type_template_id_5ae45d60_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _SalesOrdersPeople_vue_vue_type_template_id_5ae45d60_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _SalesOrdersPeoplePanel_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _SalesOrdersPeoplePanel_vue_vue_type_template_id_2d0be698_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _SalesOrdersPeoplePanel_vue_vue_type_template_id_2d0be698_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  "5ae45d60",
+  "2d0be698",
   null
   
 )
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeople.vue"
+component.options.__file = "resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeoplePanel.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeople.vue?vue&type=script&lang=js&":
-/*!**********************************************************************************************************************!*\
-  !*** ./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeople.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************************************************************/
+/***/ "./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeoplePanel.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************!*\
+  !*** ./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeoplePanel.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersPeople_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./SalesOrdersPeople.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeople.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersPeople_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersPeoplePanel_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./SalesOrdersPeoplePanel.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeoplePanel.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersPeoplePanel_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeople.vue?vue&type=template&id=5ae45d60&scoped=true&":
-/*!****************************************************************************************************************************************!*\
-  !*** ./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeople.vue?vue&type=template&id=5ae45d60&scoped=true& ***!
-  \****************************************************************************************************************************************/
+/***/ "./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeoplePanel.vue?vue&type=style&index=0&id=2d0be698&lang=sass&scoped=true&":
+/*!************************************************************************************************************************************************************!*\
+  !*** ./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeoplePanel.vue?vue&type=style&index=0&id=2d0be698&lang=sass&scoped=true& ***!
+  \************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_lib_loader_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersPeoplePanel_vue_vue_type_style_index_0_id_2d0be698_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/style-loader!../../../../../../node_modules/css-loader!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/src??ref--9-2!../../../../../../node_modules/sass-loader/lib/loader.js??ref--9-3!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./SalesOrdersPeoplePanel.vue?vue&type=style&index=0&id=2d0be698&lang=sass&scoped=true& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeoplePanel.vue?vue&type=style&index=0&id=2d0be698&lang=sass&scoped=true&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_lib_loader_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersPeoplePanel_vue_vue_type_style_index_0_id_2d0be698_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_lib_loader_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersPeoplePanel_vue_vue_type_style_index_0_id_2d0be698_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_lib_loader_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersPeoplePanel_vue_vue_type_style_index_0_id_2d0be698_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_lib_loader_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersPeoplePanel_vue_vue_type_style_index_0_id_2d0be698_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_lib_loader_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersPeoplePanel_vue_vue_type_style_index_0_id_2d0be698_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeoplePanel.vue?vue&type=template&id=2d0be698&scoped=true&":
+/*!*********************************************************************************************************************************************!*\
+  !*** ./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeoplePanel.vue?vue&type=template&id=2d0be698&scoped=true& ***!
+  \*********************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersPeople_vue_vue_type_template_id_5ae45d60_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./SalesOrdersPeople.vue?vue&type=template&id=5ae45d60&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeople.vue?vue&type=template&id=5ae45d60&scoped=true&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersPeople_vue_vue_type_template_id_5ae45d60_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersPeoplePanel_vue_vue_type_template_id_2d0be698_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./SalesOrdersPeoplePanel.vue?vue&type=template&id=2d0be698&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPeoplePanel.vue?vue&type=template&id=2d0be698&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersPeoplePanel_vue_vue_type_template_id_2d0be698_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersPeople_vue_vue_type_template_id_5ae45d60_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersPeoplePanel_vue_vue_type_template_id_2d0be698_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPersonCard.vue":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPersonCard.vue ***!
+  \*************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _SalesOrdersPersonCard_vue_vue_type_template_id_7f3dd356_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SalesOrdersPersonCard.vue?vue&type=template&id=7f3dd356&scoped=true& */ "./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPersonCard.vue?vue&type=template&id=7f3dd356&scoped=true&");
+/* harmony import */ var _SalesOrdersPersonCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SalesOrdersPersonCard.vue?vue&type=script&lang=js& */ "./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPersonCard.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _SalesOrdersPersonCard_vue_vue_type_style_index_0_id_7f3dd356_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SalesOrdersPersonCard.vue?vue&type=style&index=0&id=7f3dd356&lang=sass&scoped=true& */ "./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPersonCard.vue?vue&type=style&index=0&id=7f3dd356&lang=sass&scoped=true&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _SalesOrdersPersonCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _SalesOrdersPersonCard_vue_vue_type_template_id_7f3dd356_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _SalesOrdersPersonCard_vue_vue_type_template_id_7f3dd356_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "7f3dd356",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPersonCard.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPersonCard.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************!*\
+  !*** ./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPersonCard.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersPersonCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./SalesOrdersPersonCard.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPersonCard.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersPersonCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPersonCard.vue?vue&type=style&index=0&id=7f3dd356&lang=sass&scoped=true&":
+/*!***********************************************************************************************************************************************************!*\
+  !*** ./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPersonCard.vue?vue&type=style&index=0&id=7f3dd356&lang=sass&scoped=true& ***!
+  \***********************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_lib_loader_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersPersonCard_vue_vue_type_style_index_0_id_7f3dd356_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/style-loader!../../../../../../node_modules/css-loader!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/src??ref--9-2!../../../../../../node_modules/sass-loader/lib/loader.js??ref--9-3!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./SalesOrdersPersonCard.vue?vue&type=style&index=0&id=7f3dd356&lang=sass&scoped=true& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPersonCard.vue?vue&type=style&index=0&id=7f3dd356&lang=sass&scoped=true&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_lib_loader_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersPersonCard_vue_vue_type_style_index_0_id_7f3dd356_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_lib_loader_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersPersonCard_vue_vue_type_style_index_0_id_7f3dd356_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_lib_loader_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersPersonCard_vue_vue_type_style_index_0_id_7f3dd356_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_lib_loader_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersPersonCard_vue_vue_type_style_index_0_id_7f3dd356_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_lib_loader_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersPersonCard_vue_vue_type_style_index_0_id_7f3dd356_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPersonCard.vue?vue&type=template&id=7f3dd356&scoped=true&":
+/*!********************************************************************************************************************************************!*\
+  !*** ./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPersonCard.vue?vue&type=template&id=7f3dd356&scoped=true& ***!
+  \********************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersPersonCard_vue_vue_type_template_id_7f3dd356_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./SalesOrdersPersonCard.vue?vue&type=template&id=7f3dd356&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPersonCard.vue?vue&type=template&id=7f3dd356&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersPersonCard_vue_vue_type_template_id_7f3dd356_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SalesOrdersPersonCard_vue_vue_type_template_id_7f3dd356_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -41523,12 +42361,38 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 var state = {
+  // index page
   salesOrders: {},
   filterData: {},
+  salesOrder: {
+    houseHoldType: "family",
+    contractPeople: [{
+      name: "test",
+      description: "testing"
+    }, {
+      name: "test",
+      description: "testing"
+    }, {
+      name: "test",
+      description: "testing"
+    }, {
+      name: "test",
+      description: "testing"
+    }]
+  },
+  insurances: window.insurances !== undefined ? window.insurances : '',
+  salesAgents: window.salesAgents !== undefined ? window.salesAgents : '',
+  // global
   dateFormat: "dd MM yyyy"
 }; // in order to get the state and be able to display it on our component we need to add a getter
 
 var getters = {
+  /**
+   * Get all sales orders
+   * Usually called on the
+   * index page
+   * @param {object} state 
+   */
   allSalesOrders: function allSalesOrders(state) {
     // since the paginator needs the whole collection
     // we return it
@@ -41536,11 +42400,36 @@ var getters = {
   },
 
   /**
-   * return the date format to use across the app
+   * Get all insurances
    * @param {object} state 
+   */
+  allInsurances: function allInsurances(state) {
+    return state.insurances;
+  },
+
+  /**
+   * Get all sales agents
+   * @param {object} state 
+   */
+  allSalesAgents: function allSalesAgents(state) {
+    return state.salesAgents;
+  },
+
+  /**
+   * return the date format to use across the app
+   * @param {object} state
    */
   DateFormat: function DateFormat(state) {
     return state.dateFormat;
+  },
+
+  /**
+   * Return a single sales order,
+   * usually to be used in the add-edit view
+   * @param {object} state
+   */
+  salesOrder: function salesOrder(state) {
+    return state.salesOrder;
   }
 }; // make a request, get a reponse and make a mutations
 

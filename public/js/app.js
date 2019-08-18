@@ -32103,14 +32103,26 @@ Vue.prototype.trans = new lang_js__WEBPACK_IMPORTED_MODULE_0___default.a({
 
 /***/ }),
 
+/***/ "./resources/sass/vendor/app.sass":
+/*!****************************************!*\
+  !*** ./resources/sass/vendor/app.sass ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ 0:
-/*!*************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ***!
-  \*************************************************************/
+/*!**********************************************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/sass/vendor/app.sass ./resources/sass/app.scss ***!
+  \**********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! /Users/MarshMallow1/Sites/SBZ_CRM/resources/js/app.js */"./resources/js/app.js");
+__webpack_require__(/*! /Users/MarshMallow1/Sites/SBZ_CRM/resources/sass/vendor/app.sass */"./resources/sass/vendor/app.sass");
 module.exports = __webpack_require__(/*! /Users/MarshMallow1/Sites/SBZ_CRM/resources/sass/app.scss */"./resources/sass/app.scss");
 
 

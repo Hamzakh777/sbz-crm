@@ -8,21 +8,34 @@
         </div>
         <div class="panel-body mt-2">
             <div class="row">
-
+                <button
+                    class="btn btn-success pull-right"
+                    >
+                    {{ trans.get('voyager.sales_orders.add_person') }}
+                </button>
             </div>
-            <div class="row">
-
+            <div class="row cards">
+                <salesOrdersPersonCard></salesOrdersPersonCard>
             </div>
         </div>
      </div>
 </template>
 
 <script>
+    import SalesOrdersPersonCard from './SalesOrdersPersonCard';
+
     export default {
-        
+        name: 'SalesOrdersPeoplePanel',
+
+        components: {
+            SalesOrdersPersonCard
+        }
     }
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="sass" scoped>
+.panel-body 
+    margin-top: 1em    
+    .cards 
+        margin-top: 1em
 </style>

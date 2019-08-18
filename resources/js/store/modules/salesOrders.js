@@ -1,22 +1,80 @@
 const state = {
+    // index page
     salesOrders: {},
     filterData: {},
+    salesOrder: {
+        houseHoldType: "family",
+        contractPeople: [
+            {
+                name: "test",
+                description: "testing"
+            },
+            {
+                name: "test",
+                description: "testing"
+            },
+            {
+                name: "test",
+                description: "testing"
+            },
+            {
+                name: "test",
+                description: "testing"
+            }
+        ]
+    },
+    insurances: (window.insurances !== undefined) ? window.insurances : '',
+    salesAgents: (window.salesAgents !== undefined) ? window.salesAgents : '',
+    // global
     dateFormat: "dd MM yyyy"
 };
 
 // in order to get the state and be able to display it on our component we need to add a getter
 const getters = {
+
+    /**
+     * Get all sales orders
+     * Usually called on the
+     * index page
+     * @param {object} state 
+     */
     allSalesOrders(state) {
         // since the paginator needs the whole collection
         // we return it
         return state.salesOrders;
     },
+
+    /**
+     * Get all insurances
+     * @param {object} state 
+     */
+    allInsurances(state) {
+        return state.insurances;
+    },
+
+    /**
+     * Get all sales agents
+     * @param {object} state 
+     */
+    allSalesAgents(state) {
+        return state.salesAgents;
+    },
+
     /**
      * return the date format to use across the app
-     * @param {object} state 
+     * @param {object} state
      */
     DateFormat(state) {
         return state.dateFormat;
+    },
+
+    /**
+     * Return a single sales order,
+     * usually to be used in the add-edit view
+     * @param {object} state
+     */
+    salesOrder(state) {
+        return state.salesOrder;
     }
 };
 

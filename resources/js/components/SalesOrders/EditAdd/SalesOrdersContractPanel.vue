@@ -19,7 +19,13 @@
                         class="form-control"
                         v-model="currentInsuranceId"
                     >
-                        <option value=""></option>
+                        <option 
+                            v-for="insurance in allInsurances" 
+                            :value="insurance.id" 
+                            :key="insurance.id"
+                        >
+                        {{ insurance.name }}
+                        </option>
                     </select>
                 </div>
 
@@ -32,7 +38,13 @@
                         class="form-control"
                         v-model="newInsuranceId"
                     >
-                        <option value=""></option>
+                        <option 
+                            v-for="insurance in allInsurances" 
+                            :value="insurance.id" 
+                            :key="insurance.id"
+                        >
+                        {{ insurance.name }}
+                        </option>
                     </select>
                 </div>
 
@@ -55,7 +67,8 @@
                         class="form-control"
                         v-model="householdType"
                     >
-                        <option value=""></option>
+                        <option value="single">{{ trans.get('voyager.generic.single') }}</option>
+                        <option value="family">{{ trans.get('voyager.generic.family') }}</option>
                     </select>
                 </div>
 
@@ -109,7 +122,13 @@
                         class="form-control"
                         v-model="salesPersonId"
                     >
-                        <option value=""></option>
+                        <option 
+                            v-for="agent in allSalesAgents" 
+                            :value="agent.id" 
+                            :key="agent.id"
+                        >
+                            {{ agent.username }}
+                        </option>
                     </select>
                 </div>
 
@@ -196,7 +215,7 @@
         },
 
         computed: {
-            ...mapGetters(['DateFormat'])
+            ...mapGetters(['DateFormat', 'allInsurances', 'allSalesAgents'])
         },
 
         data() {

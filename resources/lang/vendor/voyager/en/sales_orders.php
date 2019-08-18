@@ -8,6 +8,7 @@ return [
     'contract_start_year'   => 'Contract start year',
     'insurance_status'      => 'Insurance status',
     'actions'               => 'Actions',
+    'add_product'           => 'Add person',
     'cancellation_stamped'  => 'Cancellation Stamped',
     'contract_start_year'   => 'Contract start year',
     'filter_title'          => 'Fitler Sales Orders',

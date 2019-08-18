@@ -140,7 +140,11 @@
 @stop
 
 @section('javascript')
-    <script src="/js/pages/salesOrders.js"></script>
+    <script>
+        window.insurances = {!! $insurances->toJson() !!};
+        window.salesAgents = {!! $salesAgents->toJson() !!}
+    </script>
+    <script src="{{ mix('js/pages/salesOrders.js') }}"></script>
     <script>
         var params = {};
         var $file;
