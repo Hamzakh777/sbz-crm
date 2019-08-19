@@ -143,6 +143,8 @@
     <script>
         window.insurances = {!! $insurances->toJson() !!};
         window.salesAgents = {!! $salesAgents->toJson() !!}
+        window.products = {!! $products->toJson() !!}
+        window.productCategories = {!! $productCategories->toJson() !!}
     </script>
     <script src="{{ mix('js/pages/salesOrders.js') }}"></script>
     <script>

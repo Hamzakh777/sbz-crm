@@ -7,7 +7,7 @@
                     <i class=""></i>
                     <span>{{ trans.get('voyager.generic.edit') }}</span>
                 </button>
-                <button class="btn btn-danger" v-if="isAddingPersonViewOpen"> 
+                <button class="btn btn-danger" v-if="!isEditAdd"> 
                     <i class="voyager-trash"></i>
                     <span>{{ trans.get('voyager.generic.delete') }}</span>
                 </button>
@@ -18,7 +18,7 @@
                 <!-- first name -->
                 <div class="form-group col-md-6">
                     <label class="control-label">{{ trans.get('voyager.generic.first_name') }}</label>
-                    <input v-if="isEditAdd" type="text" class="form-control" v-model="firstName">
+                    <input v-if="isEditAdd" type="text" class="form-control" v-model="contractPersonDetails.firstName">
                     <b 
                         class="form-data"
                         v-if="!isEditAdd"
@@ -30,7 +30,7 @@
                 <!-- last name -->
                 <div class="form-group col-md-6">
                     <label class="control-label">{{ trans.get('voyager.generic.last_name') }}</label>
-                    <input v-if="isEditAdd" type="text" class="form-control" v-model="lastName">
+                    <input v-if="isEditAdd" type="text" class="form-control" v-model="contractPersonDetails.lastName">
                     <b 
                         class="form-data"
                         v-if="!isEditAdd"
@@ -45,7 +45,7 @@
                     <select 
                         v-if="isEditAdd"
                         class="form-control"
-                        v-model="gender"
+                        v-model="contractPersonDetails.gender"
                     >
                         <option value="male">
                             {{ trans.get('voyager.generic.male') }}
@@ -69,7 +69,7 @@
                         v-if="isEditAdd"
                         class="datePicker"
                         input-class="form-control"
-                        v-model="birthday"
+                        v-model="contractPersonDetails.birthday"
                         :format="DateFormat"
                     ></Datepicker>
                     <b 
@@ -83,7 +83,7 @@
                 <!-- birth year -->
                 <div class="form-group col-md-6">
                     <label class="control-label">{{ trans.get('voyager.generic.birthyear') }}</label>
-                    <input v-if="isEditAdd" type="text" class="form-control" v-model="birthyear" readonly>
+                    <input v-if="isEditAdd" type="text" class="form-control" v-model="contractPersonDetails.birthyear" readonly>
                     <b 
                         class="form-data"
                         v-if="!isEditAdd"
@@ -95,7 +95,7 @@
                 <!-- age -->
                 <div class="form-group col-md-6">
                     <label class="control-label">{{ trans.get('voyager.generic.age') }}</label>
-                    <input v-if="isEditAdd"  type="number" class="form-control" v-model="age">
+                    <input v-if="isEditAdd"  type="number" class="form-control" v-model="contractPersonDetails.age" readonly>
                     <b 
                         class="form-data"
                         v-if="!isEditAdd"
@@ -110,7 +110,7 @@
                     <select
                         v-if="isEditAdd" 
                         class="form-control"
-                        v-model="familyMemberType"
+                        v-model="contractPersonDetails.familyMemberType"
                     >
                         <option value="father">
                             {{ trans.get('voyager.generic.father') }}
@@ -139,7 +139,7 @@
                 <!-- police number -->
                 <div class="form-group col-md-6">
                     <label class="control-label">{{ trans.get('voyager.sales_orders.police_number') }}</label>
-                    <input v-if="isEditAdd" type="policeNumber" class="form-control" v-model="policeNumber">
+                    <input v-if="isEditAdd" type="policeNumber" class="form-control" v-model="contractPersonDetails.policeNumber">
                     <b 
                         class="form-data"
                         v-if="!isEditAdd"
@@ -154,36 +154,46 @@
                 </div>
             </div>
             <div class="col-md-6 products-col">
-                <div class="row">
+                <!-- row to select product -->
+                <div class="row" v-if="isEditAdd">
                     <div class="form-group col-md-6">
                         <label class="control-label">{{ trans.get('voyager.sales_orders.select_product') }}</label>
                         <select 
                             class="form-control"
-                            v-model="selectedInsurance"
+                            v-model="contractPersonDetails.selectedProduct"
                         >
                             <option 
-                                v-for="insurance in allInsurances" 
-                                :value="insurance.id" 
-                                :key="insurance.id"
+                                v-for="product in allProducts" 
+                                :value="product" 
+                                :key="product.id"
                             >
-                            {{ insurance.name }}
+                            {{ product.name }}
                             </option>
                         </select>
                     </div>
                     <button
                         class="btn btn-success btn-add-new pull-right"
+                        @click.prevent="addProductToContractPerson"
                     >
                         <i class="voyager-plus"></i>
                         <span>{{ trans.get('voyager.sales_orders.add_product') }}</span>
                     </button>
                 </div>
+                <div class="row">
+                    <SalesOrdersPersonProduct
+                        v-for="(product, index) in contractPersonDetails.products"
+                        :key="index"
+                        :product="product"
+                    >
+                    </SalesOrdersPersonProduct>
+                </div>
             </div>
-            <div class="row">
-                
-            </div>
+            <!-- row to show the already added products -->
         </div>
         <div class="row">
             <hr>
+            <!-- we gonna have different actions depending on wether we are adding or editing
+            maybe we can have an if statement in the function it self -->
             <button class="btn btn-primary pull-right" @click="addContractPerson($data)">
                 {{ trans.get('voyager.generic.save') }}
             </button>
@@ -193,6 +203,7 @@
 
 <script>
     import Datepicker from "vuejs-datepicker";
+    import SalesOrdersPersonProduct from './SalesOrdersPersonProduct';
     import { mapGetters, mapActions } from 'vuex';
 
     export default {
@@ -200,6 +211,7 @@
 
         components: {
             Datepicker,
+            SalesOrdersPersonProduct
         },
 
         props: {
@@ -213,12 +225,20 @@
         },
         
         computed: {
-            ...mapGetters(['DateFormat', 'salesOrder', 'allInsurances']),
+            ...mapGetters(['DateFormat', 'salesOrder', 'allInsurances', 'contractPersonDetails', 'allProducts']),
 
             birthyear() {
                 if(this.birthday !== null) {
                     const date = new Date(this.birthday);
-                    return date.getYear();
+                    return parseInt(date.getYear());
+                }
+            },
+
+            age() {
+                if(this.birthday !== null) {
+                    const date = new Date(this.birthday);
+                    const now = new Date();
+                    return parseInt(now.getYear()) - parseInt(date.getYear());
                 }
             },
 
@@ -233,19 +253,12 @@
 
         data() {
             return {
-                firstName: null,
-                lastName: null,
-                gender: null,
-                birthday: null,
-                age: null,
-                familyMemberType: null,
-                policeNumber: null,
-                selectedInsurance: null
+                product: {}
             }
         },
 
         methods: {
-            ...mapActions(['addContractPerson'])
+            ...mapActions(['addContractPerson', 'addProductToContractPerson'])
         },
     }
 </script>
@@ -279,10 +292,12 @@
 .card 
     width: 100%
     border-top: 1px solid #e4eaec
+    border-bottom: 1px solid #e4eaec
     // border-radius: 3px
     padding: 2em 1em
     margin-bottom: 3em
-    box-shadow: 0px 26px 34px -19px rgba(0,0,0,0.12)
+    // box-shadow: 0px 26px 34px -19px rgba(0,0,0,0.12)
+    box-shadow: none
 
     &__title
         display: flex

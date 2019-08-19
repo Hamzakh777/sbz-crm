@@ -1,3 +1,8 @@
+// switching between editing and adding will happen by a simple variable which will alter the
+// behavior of some fuctions
+// or
+// it might not since the values of the person being edited will take the place of contractPersonDetails
+
 const state = {
     // index page
     salesOrders: {},
@@ -21,8 +26,22 @@ const state = {
         insuranceTrackingID: null,
         contractPeople: []
     },
-    insurances: (window.insurances !== undefined) ? window.insurances : '',
-    salesAgents: (window.salesAgents !== undefined) ? window.salesAgents : '',
+    contractPersonDetails: {
+        firstName: null,
+        lastName: null,
+        gender: null,
+        birthday: null,
+        age: null,
+        familyMemberType: null,
+        policeNumber: null,
+        selectedProduct: null,
+        products: []
+    },
+    insurances: window.insurances !== undefined ? window.insurances : "",
+    salesAgents: window.salesAgents !== undefined ? window.salesAgents : "",
+    products: window.products !== undefined ? window.products : "",
+    productCategories:
+        window.productCategories !== undefined ? window.productCategories : "",
     isAddingPersonViewOpen: false,
     // global
     dateFormat: "dd MM yyyy"
@@ -30,12 +49,11 @@ const state = {
 
 // in order to get the state and be able to display it on our component we need to add a getter
 const getters = {
-
     /**
      * Get all sales orders
      * Usually called on the
      * index page
-     * @param {object} state 
+     * @param {object} state
      */
     allSalesOrders(state) {
         // since the paginator needs the whole collection
@@ -45,7 +63,7 @@ const getters = {
 
     /**
      * Get all insurances
-     * @param {object} state 
+     * @param {object} state
      */
     allInsurances(state) {
         return state.insurances;
@@ -53,7 +71,7 @@ const getters = {
 
     /**
      * Get all sales agents
-     * @param {object} state 
+     * @param {object} state
      */
     allSalesAgents(state) {
         return state.salesAgents;
@@ -78,6 +96,17 @@ const getters = {
 
     isAddingPersonViewOpen(state) {
         return state.isAddingPersonViewOpen;
+    },
+
+    contractPersonDetails(state) {
+        return state.contractPersonDetails;
+    },
+
+    allProducts(state) {
+        return state.products;
+    },
+    allProductCategories(state) {
+        return state.productCategories;
     }
 };
 
@@ -149,20 +178,41 @@ const actions = {
     },
 
     /**
-     * Add contract person to the 
+     * Add contract person to the
      * sales order
-     * @param {*} param0 
-     * @param {object} data 
+     * @param {*} param0
+     * @param {object} data
      */
-    addContractPerson({commit}, data) {
-        commit('setContractPerson', data);
+    addContractPerson({ commit }) {
+        commit("setContractPerson", state.contractPersonDetails);
     },
 
     /**
-     * 
+     *
      */
     showAddPersonCard() {
         state.isAddingPersonViewOpen = true;
+    },
+
+    /**
+     * Add a product to the contract person
+     *
+     */
+    addProductToContractPerson() {
+        // in order to prevent mutation of the original object
+        const product = JSON.parse(
+            JSON.stringify(state.contractPersonDetails.selectedProduct)
+        );
+        state.contractPersonDetails.products.push(product);
+    },
+
+    removeProduct({ commit }, id) {
+        // if we have two or more of the same product
+        // this will delete all of them
+        const results = state.contractPersonDetails.products.filter(
+            product => product.id !== id
+        );
+        state.contractPersonDetails.products = results;
     }
 };
 

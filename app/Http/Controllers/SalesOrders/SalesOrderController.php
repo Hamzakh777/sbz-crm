@@ -5,6 +5,8 @@ namespace App\Http\Controllers\SalesOrders;
 use App\User;
 use App\Insurance;
 use App\SalesOrder;
+use App\Product;
+use App\ProductCategory;
 use TCG\Voyager\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -364,10 +366,20 @@ class SalesOrderController extends BaseVoyagerBaseController
         }
 
         $insurances = Insurance::all();
+        $products = Product::all();
+        $productCategories = ProductCategory::all();
         $sales_agent_role_id = Role::where('name', 'sales_person')->first()->id;
         $salesAgents = User::where('role_id', $sales_agent_role_id)->get();
 
-        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable', 'insurances', 'salesAgents'));
+        return Voyager::view($view, compact(
+            'dataType', 
+            'dataTypeContent', 
+            'isModelTranslatable', 
+            'insurances', 
+            'salesAgents',
+            'products',
+            'productCategories'
+        ));
     }
 
     /**
