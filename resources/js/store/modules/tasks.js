@@ -3,13 +3,20 @@
 // the following is a boilerplate for a vuex module
 import axios from 'axios';
 
+const namespaced = true;
+
 const state = {
-    todos: []
+    tasksCollection: {
+        name: null,
+        id: null,
+        tasks: []
+    }
 };
 
 // in order to get the state and be able to display it on our component we need to add a getter
 const getters = {
-    allTodos(state) { return state.todos; },
+    allTodos(state) { return state.tasksCollection.tasks; },
+    tasksCollection(state) { return state.tasksCollection; }
 };
 
 // make a request, get a reponse and make a mutations
@@ -19,52 +26,51 @@ const actions = {
 
         commit('setTodos', response.data);
     },
-    async addTodo({ commit }, title) {
-        const response = await axios.post('https://jsonplaceholder.typicode.com/todos', { title, completed: false });
+    async addTodo({ commit }, data) {
+        // const response = await axios.post('https://jsonplaceholder.typicode.com/todos', { title, completed: false });
 
-        commit('newTodo', response.data);
+        commit('newTodo', data);
     },
-    async deleteTodo({ commit }, id) {
+    async deleteTodo({ commit }, index) {
         // since we are not going to use the response in any way
         // it makes sense not storing it in a variable
-        await axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`);
+        // await axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`);
 
-        commit('deleteTodo', id);
-    },
-    async filterTodos({ commit }, e) {
-        // get selected number
-        const limit = e.target.value;
-
-        const response = await axios.get(`https://jsonplaceholder.typicode.com/todos?_limit=${limit}`);
-
-        commit('setTodos', response.data);
+        // deleteTodo from array by its index
+        commit('deleteTodo', index);
     },
     async updateTodo({ commit }, updTodo) {
         const response = await axios.put(`https://jsonplaceholder.typicode.com/todos/${updTodo.id}`, updTodo);
 
         commit('updateTodo', response.data);
+    },
+    async storeCollection({ commit }) {
+        const response = await axios.post('/api/tasks-collections', state.tasksCollection);
+        console.log(response);
     }
 };
 
 const mutations = {
-    setTodos(state, todos) {
-        state.todos = todos;
+    setTodos(state, task) {
+        state.tasksCollection.tasks = task;
     },
-    newTodo(state, todo) {
-        state.todos.unshift(todo);
+    newTodo(state, task) {
+        state.tasksCollection.tasks.unshift(JSON.parse(JSON.stringify(task)))
     },
-    deleteTodo(state, id) {
-        state.todos = state.todos.filter(todo => todo.id !== id);
+    deleteTodo(state, eltIndex) {
+        // state.todos = state.todos.filter(todo => todo.id !== id);
+        state.tasksCollection.tasks = state.tasksCollection.tasks.filter((todo, index) => index !== eltIndex);
     },
     updateTodo(state, updTodo) {
-        const index = state.todos.findIndex(todo => todo.id == updTodo.id);
+        const index = state.tasksCollection.tasks.findIndex(todo => todo.id == updTodo.id);
         if (index != -1) {
-            state.todos.splide(index, 1, updTodo);
+            state.tasksCollection.tasks.splide(index, 1, updTodo);
         }
     }
 };
 
 export default {
+    namespaced,
     state,
     getters,
     actions,

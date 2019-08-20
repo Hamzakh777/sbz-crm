@@ -46,3 +46,15 @@
   margin-bottom: 0;
 }
 
+.panel-bordered > .panel-body {
+  overflow: visible;
+}
+
+.vdp-datepicker {
+  z-index: 100;
+}
+
+.vdp-datepicker .form-control[readonly] {
+  background-color: #fff !important;
+}
+

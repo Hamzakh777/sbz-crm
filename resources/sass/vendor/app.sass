@@ -17,6 +17,7 @@
 
         .panel-action
             color: #4e73df
+            
 
 .voyager .navbar, .voyager .navbar.navbar-default 
     box-shadow: 0 4px 30px rgba(0,0,0,0.10)
@@ -34,4 +35,17 @@
 
 .control-label 
     margin-bottom: 0
+
+// removing the overflow hidden from the pannels
+.panel-bordered>.panel-body
+    overflow: visible
+
+// vue date picker adds readonly attribute to the input field
+// and since voyager comes with a preconfigured css 
+// the background of that field is grey
+// which fucks up the look
+.vdp-datepicker
+    z-index: 100
+    .form-control[readonly]
+        background-color: #fff !important
         

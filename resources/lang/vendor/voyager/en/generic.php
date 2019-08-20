@@ -97,6 +97,7 @@ return [
     'select_all'             => 'Select All',
     'select_group'           => 'Select Existing Group or Add New',
     'settings'               => 'Settings',
+    'status'                 => 'Status',
     'showing_entries'        => 'Showing :from to :to of :all entry|Showing :from to :to of :all entries',
     'submit'                 => 'Submit',
     'successfully_added_new' => 'Successfully Added New',

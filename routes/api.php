@@ -17,4 +17,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('insurance', 'InsuranceController@index');
+// Route::get('insurance', 'InsuranceController@index');
+
+Route::post('tasks-collections', 'TasksCollection\TasksCollectionApiController@store');

@@ -1,5 +1,6 @@
 <?php 
 
 return [
-    'name'          => 'name'
+    'name'                          => 'name',
+    'tasks_collection'              => 'Tasks collection'
 ];

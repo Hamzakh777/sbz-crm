@@ -42965,6 +42965,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _modules_salesOrders__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/salesOrders */ "./resources/js/store/modules/salesOrders.js");
+/* harmony import */ var _modules_tasks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/tasks */ "./resources/js/store/modules/tasks.js");
+
 
 
  // load Vuex
@@ -42973,7 +42975,8 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_0__
 
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_0__["default"].Store({
   modules: {
-    salesOrders: _modules_salesOrders__WEBPACK_IMPORTED_MODULE_2__["default"]
+    salesOrders: _modules_salesOrders__WEBPACK_IMPORTED_MODULE_2__["default"],
+    tasks: _modules_tasks__WEBPACK_IMPORTED_MODULE_3__["default"]
   }
 }));
 
@@ -43307,6 +43310,232 @@ var mutations = {
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
+  state: state,
+  getters: getters,
+  actions: actions,
+  mutations: mutations
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/tasks.js":
+/*!*********************************************!*\
+  !*** ./resources/js/store/modules/tasks.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+// todos module
+// this is where we put our state, getters, actions, mutations,...
+// the following is a boilerplate for a vuex module
+
+var namespaced = true;
+var state = {
+  tasksCollection: {
+    name: null,
+    id: null,
+    tasks: []
+  }
+}; // in order to get the state and be able to display it on our component we need to add a getter
+
+var getters = {
+  allTodos: function allTodos(state) {
+    return state.tasksCollection.tasks;
+  },
+  tasksCollection: function tasksCollection(state) {
+    return state.tasksCollection;
+  }
+}; // make a request, get a reponse and make a mutations
+
+var actions = {
+  fetchTodos: function () {
+    var _fetchTodos = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref) {
+      var commit, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              commit = _ref.commit;
+              _context.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('https://jsonplaceholder.typicode.com/todos');
+
+            case 3:
+              response = _context.sent;
+              commit('setTodos', response.data);
+
+            case 5:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    function fetchTodos(_x) {
+      return _fetchTodos.apply(this, arguments);
+    }
+
+    return fetchTodos;
+  }(),
+  addTodo: function () {
+    var _addTodo = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2, data) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              commit = _ref2.commit;
+              // const response = await axios.post('https://jsonplaceholder.typicode.com/todos', { title, completed: false });
+              commit('newTodo', data);
+
+            case 2:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    function addTodo(_x2, _x3) {
+      return _addTodo.apply(this, arguments);
+    }
+
+    return addTodo;
+  }(),
+  deleteTodo: function () {
+    var _deleteTodo = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3, index) {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              commit = _ref3.commit;
+              // since we are not going to use the response in any way
+              // it makes sense not storing it in a variable
+              // await axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`);
+              // deleteTodo from array by its index
+              commit('deleteTodo', index);
+
+            case 2:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }));
+
+    function deleteTodo(_x4, _x5) {
+      return _deleteTodo.apply(this, arguments);
+    }
+
+    return deleteTodo;
+  }(),
+  updateTodo: function () {
+    var _updateTodo = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref4, updTodo) {
+      var commit, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              commit = _ref4.commit;
+              _context4.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.put("https://jsonplaceholder.typicode.com/todos/".concat(updTodo.id), updTodo);
+
+            case 3:
+              response = _context4.sent;
+              commit('updateTodo', response.data);
+
+            case 5:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }));
+
+    function updateTodo(_x6, _x7) {
+      return _updateTodo.apply(this, arguments);
+    }
+
+    return updateTodo;
+  }(),
+  storeCollection: function () {
+    var _storeCollection = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(_ref5) {
+      var commit, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              commit = _ref5.commit;
+              _context5.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/tasks-collections', state.tasksCollection);
+
+            case 3:
+              response = _context5.sent;
+              console.log(response);
+
+            case 5:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5);
+    }));
+
+    function storeCollection(_x8) {
+      return _storeCollection.apply(this, arguments);
+    }
+
+    return storeCollection;
+  }()
+};
+var mutations = {
+  setTodos: function setTodos(state, task) {
+    state.tasksCollection.tasks = task;
+  },
+  newTodo: function newTodo(state, task) {
+    state.tasksCollection.tasks.unshift(JSON.parse(JSON.stringify(task)));
+  },
+  deleteTodo: function deleteTodo(state, eltIndex) {
+    // state.todos = state.todos.filter(todo => todo.id !== id);
+    state.tasksCollection.tasks = state.tasksCollection.tasks.filter(function (todo, index) {
+      return index !== eltIndex;
+    });
+  },
+  updateTodo: function updateTodo(state, updTodo) {
+    var index = state.tasksCollection.tasks.findIndex(function (todo) {
+      return todo.id == updTodo.id;
+    });
+
+    if (index != -1) {
+      state.tasksCollection.tasks.splide(index, 1, updTodo);
+    }
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: namespaced,
   state: state,
   getters: getters,
   actions: actions,
