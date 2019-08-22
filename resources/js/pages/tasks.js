@@ -1,10 +1,10 @@
 import "../bootstrap";
 import store from "../store";
-import TasksCollection from '../components/tasks/TasksCollection.vue';
+import TasksPanel from '../components/tasks/TasksPanel.vue';
 
 new Vue({
     components: {
-        TasksCollection
+        TasksPanel
     },
     store,
 }).$mount("#app");

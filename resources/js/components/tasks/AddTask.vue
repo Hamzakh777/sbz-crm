@@ -1,5 +1,5 @@
 <template>
-    <div >
+    <div>
         <h4 class="title">{{ trans.get('voyager.tasks.add_task') }}</h4>
         <div class="row">
             <form @submit.prevent="onSubmit" class="row"> 
@@ -52,17 +52,19 @@
                         class="form-control"
                         v-model="status"
                     >
-                        <option value="status1">status1</option>
-                        <option value="status2">status2</option>
+                        <option value="open">{{ trans.get('voyager.generic.open') }}</option>
+                        <option value="pending">{{ trans.get('voyager.generic.pending') }}</option>
+                        <option value="closed">{{ trans.get('voyager.generic.closed') }}</option>
                     </select>
                 </div>
 
                 <div class="row">
                     <!-- <input type="submit" :value="trans.get('voyager.generic.add')" class="btn btn-primary pull-right"> -->
-                    <button type="submit" class="btn btn-primary pull-right">
-                        <i class="voyager-list-add"></i>
-                        <span>{{ trans.get('voyager.generic.add') }}</span>
-                    </button>
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-primary pull-right">
+                            <span>{{ trans.get('voyager.generic.add') }}</span>
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -115,11 +117,7 @@ export default {
 </script>
 
 <style scoped lang="sass">
- 
-.title 
-    margin-bottom: 0.5em
-    color: #555
-    
+
 .form-control[readonly]
     background-color: #fff
 </style>

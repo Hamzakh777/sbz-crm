@@ -23,7 +23,7 @@
     <div class="page-content edit-add container-fluid" id="app">
         <div class="row" >
             <div class="col-md-12">
-                <tasks-collection></tasks-collection>
+                <tasks-panel></tasks-panel>
             </div>
         </div>
     </div>

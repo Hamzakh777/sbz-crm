@@ -87,7 +87,8 @@ class TasksCollectionApiController extends Controller
                 $tasks['name'] = $items->name;
                 $tasks['taskOwnerId'] = $items->task_owner_id;
                 $tasks['date'] = $items->date;
-                $tasks['status'] = $items->task_completed;
+                $tasks['completed'] = $items->task_completed;
+                $tasks['status'] = $items->status;
                 $tasks['taskCollectionId'] = $items->task_collection_id;
             return $tasks;
         });
@@ -118,6 +119,10 @@ class TasksCollectionApiController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required'
+        ]);
+
         $collection = TasksCollection::findOrFail($id);
 
         $collection->name = $request->input('name');

@@ -34,16 +34,14 @@ const actions = {
         data.tasksCollectionId = state.tasksCollection.id;
         const response = await axios.post('/api/tasks', data);
 
-        commit('newTodo', response.data);
+        commit('newTask', response.data.task);
     },
 
-    async deleteTodo({ commit }, index) {
-        // since we are not going to use the response in any way
-        // it makes sense not storing it in a variable
-        // await axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`);
+    async deleteTask({ commit }, id) {
+        const url = `/api/tasks/${id}`;
+        await axios.delete(url);
 
-        // deleteTodo from array by its index
-        commit('deleteTodo', index);
+        commit('deleteTask', id);
     },
 
     async updateTodo({ commit }, updTodo) {
@@ -74,16 +72,18 @@ const actions = {
 };
 
 const mutations = {
-    setTasksCollection(state, data) {
+    setTasksCollection(state, data) {   
         state.tasksCollection.name = data.tasksCollection.name;
         state.tasksCollection.id = data.tasksCollection.id;
+        if(data.tasks !== undefined) {
+            state.tasksCollection.tasks = data.tasks;
+        }
     },
-    newTodo(state, task) {
-        state.tasksCollection.tasks.unshift(JSON.parse(JSON.stringify(task)))
+    newTask(state, task) {
+        state.tasksCollection.tasks.unshift(JSON.parse(JSON.stringify(task)));
     },
-    deleteTodo(state, eltIndex) {
-        // state.todos = state.todos.filter(todo => todo.id !== id);
-        state.tasksCollection.tasks = state.tasksCollection.tasks.filter((todo, index) => index !== eltIndex);
+    deleteTask(state, id) {
+        state.tasksCollection.tasks = state.tasksCollection.tasks.filter((task, index) => task.id !== id);
     },
     updateTodo(state, updTodo) {
         const index = state.tasksCollection.tasks.findIndex(todo => todo.id == updTodo.id);

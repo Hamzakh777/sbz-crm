@@ -9,7 +9,6 @@
                 v-for="(task, index) in allTodos"
                 :key="index"
                 :task="task"
-                :index="index"
             >
             </TaskCard>
         </div> 
@@ -63,5 +62,6 @@ methodes: getActions(['fetchTodos'])
 <style scoped lang="sass">
 .todos 
     margin-top: 2em
-
+h4 
+    color: #555
 </style>

@@ -36,19 +36,37 @@ class ApiTasksController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'status' => 'required'
+        ]);
+
         $task = new Task();
 
         $task->name = $request->input('name');
-        $task->task_owner_id = $request->input('taskOnwerId');
+        $task->task_owner_id = $request->input('taskOwnerId');
         $task->task_collection_id = $request->input('tasksCollectionId');
         $task->status = $request->input('status');
-        $task->date = \Carbon\Carbon::parse($request->input(['date']));
+        if($request->input('date') !== null) {
+            $task->date = \Carbon\Carbon::parse($request->input(['date']));
+        } else {
+            $task->date = null;
+        }
         $task->task_completed = $request->input('completed');
 
         $task->save();
 
+        $data = [];
+        $data['id'] = $task->id;
+        $data['name'] = $task->name;
+        $data['taskOwnerId'] = $task->task_owner_id;
+        $data['date'] = $task->date;
+        $data['completed'] = $task->task_completed;
+        $data['status'] = $task->status;
+        $data['taskCollectionId'] = $task->task_collection_id;
+
         return response()->json([
-            'task' => $task
+            'task' => $data
         ]);
     }
 
@@ -94,6 +112,6 @@ class ApiTasksController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $task = Task::destroy($id);
     }
 }

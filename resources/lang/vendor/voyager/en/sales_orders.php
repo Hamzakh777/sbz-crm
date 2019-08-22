@@ -22,6 +22,7 @@ return [
     'insurance'             => 'Insurance',
     'sales_order_status'    => 'Sales Order Status',
     'select_product'        => 'Select product',
+    'select_tasks_collection'          => 'Select tasks collection',
     'provison_done'         => 'Provison Done',
     'cancellation_original' => 'Cancellation Original',
     'family_member_type'    => 'Family member type',

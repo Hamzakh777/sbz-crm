@@ -1,7 +1,7 @@
 <template>
      <div class="panel panel-primary panelbordered">
         <div class="panel-heading">
-            <h3 class="panel-title panel-icon"><i class="voyager-search"></i>{{ trans.get('voyager.generic.people') }}</h3>
+            <h3 class="panel-title panel-icon"><i class="voyager-people"></i>{{ trans.get('voyager.generic.people') }}</h3>
             <div class="panel-actions">
                 <a class="panel-action voyager-angle-up" data-toggle="panel-collapse" aria-hidden="true"></a>
             </div>

@@ -3,9 +3,12 @@
     <div class="col-md-3">{{ task.name }}</div>
     <div class="col-md-3">{{ ownerName }}</div>
     <div class="col-md-3">{{ task.date | changeDateFormat }}</div>
-    <div class="col-md-3">
+    <div class="col-md-2">
+        {{ task.status }}
+    </div>
+    <div class="col-md-1">
       <div class="card__actions">
-        <i @click="deleteTodo(index)" class="voyager-trash"></i>
+        <i @click="deleteTask(task.id)" class="voyager-trash"></i>
       </div>
     </div>
   </div>
@@ -21,10 +24,6 @@
             task: {
                 type: Object,
                 required: true
-            },
-            index: {
-                type: Number, 
-                required: true
             }
         },
 
@@ -36,7 +35,6 @@
             changeDateFormat(value) {
                 if(value != null) {
                     const date = new Date(value);
-                    console.log(date);
                     const month = parseInt(date.getMonth()) + 1; // or some absurd reason it start counting months from 0
                     const day = date.getDate();
                     const year = date.getFullYear();
@@ -61,7 +59,7 @@
         },
 
         methods: {
-            ...mapActions('tasks',['deleteTodo'])
+            ...mapActions('tasks',['deleteTask'])
         },
     }
 </script>

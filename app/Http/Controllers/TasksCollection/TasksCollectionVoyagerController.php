@@ -6,6 +6,7 @@ use App\User;
 use App\Insurance;
 use App\Product;
 use App\ProductCategory;
+use App\TasksCollection;
 use TCG\Voyager\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -287,6 +288,7 @@ class TasksCollectionVoyagerController extends BaseVoyagerBaseController
         $productCategories = ProductCategory::all();
         $sales_agent_role_id = Role::where('name', 'sales_person')->first()->id;
         $salesAgents = User::where('role_id', $sales_agent_role_id)->get();
+        $tasksCollections = TasksCollection::all();
         $users = User::all();
 
         return Voyager::view($view, compact(
@@ -297,7 +299,8 @@ class TasksCollectionVoyagerController extends BaseVoyagerBaseController
             'salesAgents',
             'products',
             'productCategories',
-            'users'
+            'users',
+            'tasksCollections'
         ));
     }
 
@@ -385,6 +388,7 @@ class TasksCollectionVoyagerController extends BaseVoyagerBaseController
         $productCategories = ProductCategory::all();
         $sales_agent_role_id = Role::where('name', 'sales_person')->first()->id;
         $salesAgents = User::where('role_id', $sales_agent_role_id)->get();
+        $tasksCollections = TasksCollection::all();
         $users = User::all();
 
         return Voyager::view($view, compact(

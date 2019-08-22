@@ -1,46 +1,30 @@
 <template>
-	<div class="panel panel-bordered panel-primary">
-		<div class="panel-heading">
-			<h3 class="panel-title panel-icon"><i class="voyager-search"></i>{{ trans.get('voyager.tasks.tasks') }}</h3>
-			<div class="panel-actions">
-				<a class="panel-action voyager-angle-up" data-toggle="panel-collapse" aria-hidden="true"></a>
-			</div>
-		</div>
-		<div class="panel-body">
-			<div class="row row--collection">
-				<h4>{{ trans.get('voyager.tasks_collection.tasks_collection') }}</h4>
-				<div class="row">
-					<form @submit.prevent="storeCollection">
-						<div class="form-group col-md-12">
+	<div>
+		<div class="row row--collection">
+			<h4>{{ trans.get('voyager.tasks_collection.tasks_collection') }}</h4>
+			<div class="row">
+				<form @submit.prevent="storeCollection">
+					<div class="form-group col-md-12">
 						<label class="control-label">{{ trans.get('voyager.generic.name') }}</label>
 						<input type="text" v-model="tasksCollection.name" class="form-control" />
+					</div>
+					<div class="form-group col-md-12">
 						<button 
 							class="btn btn-primary pull-right"
 							type="submit"
 						>
 							<span>{{ trans.get('voyager.generic.save') }}</span>
 						</button>
-						</div>
-					</form>
-				</div>
-			</div>
-			<div v-if="!isCollectionSaved">
-				<hr>
-				<div class="row">
-					<add-task></add-task>
-
-					<todos></todos>
-				</div>
+					</div>
+				</form>
 			</div>
 		</div>
-		<!-- we can save the task collection even if it doesn't have any tasks yet -->
-		<div class="panel-footer" v-if="!isCollectionSaved">
-			<button 
-				class="btn btn-primary"
-				@click="storeCollection"
-			>
-				{{ trans.get('voyager.generic.save') }}
-			</button>
+		<div v-if="!(tasksCollection.id == null)">
+			<hr>
+			<div class="row">
+				<add-task></add-task>
+				<todos></todos>
+			</div>
 		</div>
 	</div>
 </template>
@@ -50,6 +34,7 @@ import {mapGetters, mapActions} from 'vuex';
 
 import Todos from "./Todos.vue";
 import AddTask from "./AddTask";
+
 
 export default {
 	name: "TasksCollection",
@@ -71,21 +56,6 @@ export default {
 			} else { 
 				return false;
 			}
-		},
-		
-		/**
-		 * We want to fire different actions
-		 * and show relativly different views 
-		 * depending on wether we are adding or 
-		 * editing an existing collection
-		 * @var {Boolean}
-		 */
-		idAdding() {
-			if(this.tasksCollection.id === undefined || this.tasksCollection.id === null) {
-				return true;
-			} else {
-				return false;
-			}
 		}
 	},
 
@@ -94,7 +64,7 @@ export default {
 	},
 
 	created() {
-		if(!this.isAdding) {
+		if(!this.isCollectionSaved) {
 			this.fetchTasks();
 		}
 	}
@@ -102,10 +72,10 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.panel 
-	.row
-		&--collection 
-			margin-bottom: 2em
-	h4 
-		color: #555
+
+.row
+	&--collection 
+		margin-bottom: 2em
+h4 
+	color: #555
 </style>

@@ -24,6 +24,7 @@ const state = {
         contractDurationVVG: null,
         contractDurationKVG: null,
         insuranceTrackingID: null,
+        taskCollectionId: null,
         contractPeople: []
     },
     contractPersonDetails: {
@@ -42,6 +43,7 @@ const state = {
     products: window.products !== undefined ? window.products : null,
     productCategories: window.productCategories !== undefined ? window.productCategories : null,
     users: window.users !== undefined ? window.users : null,
+    tasksCollections: window.tasksCollections !== undefined ? window.tasksCollections : null,
     isAddingPersonViewOpen: false,
     // global
     dateFormat: "dd MM yyyy"
@@ -94,24 +96,52 @@ const getters = {
         return state.salesOrder;
     },
 
+    /**
+     * 
+     * @param {Object} state 
+     */
     isAddingPersonViewOpen(state) {
         return state.isAddingPersonViewOpen;
     },
 
+    /**
+     * 
+     * @param {Object} state 
+     */
     contractPersonDetails(state) {
         return state.contractPersonDetails;
     },
 
+    /**
+     * 
+     * @param {Object} state 
+     */
     allProducts(state) {
         return state.products;
     },
 
+    /**
+     * 
+     * @param {Object} state 
+     */
     allProductCategories(state) {
         return state.productCategories;
     },
 
+    /**
+     * 
+     * @param {Object} state 
+     */
     users(state) {
         return state.users;
+    },
+
+    /**
+     * 
+     * @param {Object} state 
+     */
+    allTasksCollections(state) {
+        return state.tasksCollections;
     }
 };
 
