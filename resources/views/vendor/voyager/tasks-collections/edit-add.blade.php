@@ -55,9 +55,15 @@
 @section('javascript')
     <script>
         window.insurances = {!! $insurances->toJson() !!};
-        window.salesAgents = {!! $salesAgents->toJson() !!}
-        window.products = {!! $products->toJson() !!}
-        window.productCategories = {!! $productCategories->toJson() !!}
+        window.salesAgents = {!! $salesAgents->toJson() !!};
+        window.products = {!! $products->toJson() !!};
+        window.productCategories = {!! $productCategories->toJson() !!};
+        @if(is_null($dataTypeContent->getKey()))
+            window.collectionId = null;
+        @else 
+            window.collectionId ={!! $dataTypeContent->getKey() !!};
+        @endif
+        window.users = {!! $users->toJson() !!}
     </script>
     <script src="{{ mix('js/pages/tasks.js') }}"></script>
     <script>

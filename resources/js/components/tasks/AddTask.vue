@@ -21,7 +21,7 @@
                         v-model="taskOwnerId"
                     >
                         <option 
-                            v-for="(agent, index) in allSalesAgents"
+                            v-for="(agent, index) in users"
                             :value="agent.id"
                             :key="index"    
                         >
@@ -58,7 +58,11 @@
                 </div>
 
                 <div class="row">
-                    <input type="submit" :value="trans.get('voyager.generic.add')" class="btn btn-primary pull-right">
+                    <!-- <input type="submit" :value="trans.get('voyager.generic.add')" class="btn btn-primary pull-right"> -->
+                    <button type="submit" class="btn btn-primary pull-right">
+                        <i class="voyager-list-add"></i>
+                        <span>{{ trans.get('voyager.generic.add') }}</span>
+                    </button>
                 </div>
             </form>
         </div>
@@ -87,23 +91,23 @@ export default {
     },
 
     computed: {
-        ...mapGetters(['allSalesAgents', 'DateFormat'])
+        ...mapGetters(['users', 'DateFormat'])
     },
 
     methods: {
-        ...mapActions('tasks',['addTodo']),
+        ...mapActions('tasks',['addTask']),
 
         /**
          * Add the todo and 
          * clear the form
          */
         onSubmit() {
-            this.addTodo(this.$data);
+            this.addTask(this.$data);
 
-            this.name = null;
-            this.taskOwnerId = null;
-            this.date = null;
-            this.status = null;
+            // this.name = null;
+            // this.taskOwnerId = null;
+            // this.date = null;
+            // this.status = null;
         },
     }
 

@@ -287,6 +287,7 @@ class TasksCollectionVoyagerController extends BaseVoyagerBaseController
         $productCategories = ProductCategory::all();
         $sales_agent_role_id = Role::where('name', 'sales_person')->first()->id;
         $salesAgents = User::where('role_id', $sales_agent_role_id)->get();
+        $users = User::all();
 
         return Voyager::view($view, compact(
             'dataType', 
@@ -295,7 +296,8 @@ class TasksCollectionVoyagerController extends BaseVoyagerBaseController
             'insurances', 
             'salesAgents',
             'products',
-            'productCategories'
+            'productCategories',
+            'users'
         ));
     }
 
@@ -383,6 +385,7 @@ class TasksCollectionVoyagerController extends BaseVoyagerBaseController
         $productCategories = ProductCategory::all();
         $sales_agent_role_id = Role::where('name', 'sales_person')->first()->id;
         $salesAgents = User::where('role_id', $sales_agent_role_id)->get();
+        $users = User::all();
 
         return Voyager::view($view, compact(
             'dataType',
@@ -391,7 +394,8 @@ class TasksCollectionVoyagerController extends BaseVoyagerBaseController
             'insurances',
             'salesAgents',
             'products',
-            'productCategories'
+            'productCategories',
+            'users'
         ));
     }
 

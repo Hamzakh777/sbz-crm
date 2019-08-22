@@ -37,11 +37,11 @@ const state = {
         selectedProduct: null,
         products: []
     },
-    insurances: window.insurances !== undefined ? window.insurances : "",
-    salesAgents: window.salesAgents !== undefined ? window.salesAgents : "",
-    products: window.products !== undefined ? window.products : "",
-    productCategories:
-        window.productCategories !== undefined ? window.productCategories : "",
+    insurances: window.insurances !== undefined ? window.insurances : null,
+    salesAgents: window.salesAgents !== undefined ? window.salesAgents : null,
+    products: window.products !== undefined ? window.products : null,
+    productCategories: window.productCategories !== undefined ? window.productCategories : null,
+    users: window.users !== undefined ? window.users : null,
     isAddingPersonViewOpen: false,
     // global
     dateFormat: "dd MM yyyy"
@@ -105,8 +105,13 @@ const getters = {
     allProducts(state) {
         return state.products;
     },
+
     allProductCategories(state) {
         return state.productCategories;
+    },
+
+    users(state) {
+        return state.users;
     }
 };
 

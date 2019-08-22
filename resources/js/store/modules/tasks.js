@@ -8,29 +8,35 @@ const namespaced = true;
 const state = {
     tasksCollection: {
         name: null,
-        id: null,
+        id: (window.collectionId !== undefined) ? window.collectionId : null,
         tasks: []
     }
 };
 
-// in order to get the state and be able to display it on our component we need to add a getter
 const getters = {
     allTodos(state) { return state.tasksCollection.tasks; },
     tasksCollection(state) { return state.tasksCollection; }
 };
 
-// make a request, get a reponse and make a mutations
+
 const actions = {
-    async fetchTodos({ commit }) {
-        const response = await axios.get('https://jsonplaceholder.typicode.com/todos');
+    async fetchTasks({ commit }) {
+        const url = `/api/tasks-collections/${state.tasksCollection.id}`;
+        const response = await axios.get(url);
 
-        commit('setTodos', response.data);
+        console.log(response);
+        commit('setTasksCollection', response.data);
     },
-    async addTodo({ commit }, data) {
-        // const response = await axios.post('https://jsonplaceholder.typicode.com/todos', { title, completed: false });
 
-        commit('newTodo', data);
+    async addTask({ commit }, taskData) {
+        const data = taskData;
+        // each task needs to have the collection id it belongs to
+        data.tasksCollectionId = state.tasksCollection.id;
+        const response = await axios.post('/api/tasks', data);
+
+        commit('newTodo', response.data);
     },
+
     async deleteTodo({ commit }, index) {
         // since we are not going to use the response in any way
         // it makes sense not storing it in a variable
@@ -39,20 +45,38 @@ const actions = {
         // deleteTodo from array by its index
         commit('deleteTodo', index);
     },
+
     async updateTodo({ commit }, updTodo) {
         const response = await axios.put(`https://jsonplaceholder.typicode.com/todos/${updTodo.id}`, updTodo);
 
         commit('updateTodo', response.data);
     },
+
     async storeCollection({ commit }) {
-        const response = await axios.post('/api/tasks-collections', state.tasksCollection);
-        console.log(response);
+        // collection doesnt exists
+        if (state.tasksCollection.id === undefined || state.tasksCollection.id === null) {
+            const response = await axios.post('/api/tasks-collections', state.tasksCollection);
+
+            commit('setTasksCollection', response.data);
+        } 
+        // collection already exists 
+        else {
+            const url = `/api/tasks-collections/${state.tasksCollection.id}`;
+            const data = {
+                name: state.tasksCollection.name
+            };
+
+            const response = await axios.put(url, data);
+
+            commit('setTasksCollection', response.data);
+        }
     }
 };
 
 const mutations = {
-    setTodos(state, task) {
-        state.tasksCollection.tasks = task;
+    setTasksCollection(state, data) {
+        state.tasksCollection.name = data.tasksCollection.name;
+        state.tasksCollection.id = data.tasksCollection.id;
     },
     newTodo(state, task) {
         state.tasksCollection.tasks.unshift(JSON.parse(JSON.stringify(task)))

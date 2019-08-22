@@ -43037,10 +43037,11 @@ var state = {
     selectedProduct: null,
     products: []
   },
-  insurances: window.insurances !== undefined ? window.insurances : "",
-  salesAgents: window.salesAgents !== undefined ? window.salesAgents : "",
-  products: window.products !== undefined ? window.products : "",
-  productCategories: window.productCategories !== undefined ? window.productCategories : "",
+  insurances: window.insurances !== undefined ? window.insurances : null,
+  salesAgents: window.salesAgents !== undefined ? window.salesAgents : null,
+  products: window.products !== undefined ? window.products : null,
+  productCategories: window.productCategories !== undefined ? window.productCategories : null,
+  users: window.users !== undefined ? window.users : null,
   isAddingPersonViewOpen: false,
   // global
   dateFormat: "dd MM yyyy"
@@ -43102,6 +43103,9 @@ var getters = {
   },
   allProductCategories: function allProductCategories(state) {
     return state.productCategories;
+  },
+  users: function users(state) {
+    return state.users;
   }
 }; // make a request, get a reponse and make a mutations
 
@@ -43345,11 +43349,10 @@ var namespaced = true;
 var state = {
   tasksCollection: {
     name: null,
-    id: null,
+    id: window.collectionId !== undefined ? window.collectionId : null,
     tasks: []
   }
-}; // in order to get the state and be able to display it on our component we need to add a getter
-
+};
 var getters = {
   allTodos: function allTodos(state) {
     return state.tasksCollection.tasks;
@@ -43357,27 +43360,28 @@ var getters = {
   tasksCollection: function tasksCollection(state) {
     return state.tasksCollection;
   }
-}; // make a request, get a reponse and make a mutations
-
+};
 var actions = {
-  fetchTodos: function () {
-    var _fetchTodos = _asyncToGenerator(
+  fetchTasks: function () {
+    var _fetchTasks = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref) {
-      var commit, response;
+      var commit, url, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               commit = _ref.commit;
-              _context.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('https://jsonplaceholder.typicode.com/todos');
+              url = "/api/tasks-collections/".concat(state.tasksCollection.id);
+              _context.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(url);
 
-            case 3:
+            case 4:
               response = _context.sent;
-              commit('setTodos', response.data);
+              console.log(response);
+              commit('setTasksCollection', response.data);
 
-            case 5:
+            case 7:
             case "end":
               return _context.stop();
           }
@@ -43385,26 +43389,33 @@ var actions = {
       }, _callee);
     }));
 
-    function fetchTodos(_x) {
-      return _fetchTodos.apply(this, arguments);
+    function fetchTasks(_x) {
+      return _fetchTasks.apply(this, arguments);
     }
 
-    return fetchTodos;
+    return fetchTasks;
   }(),
-  addTodo: function () {
-    var _addTodo = _asyncToGenerator(
+  addTask: function () {
+    var _addTask = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2, data) {
-      var commit;
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2, taskData) {
+      var commit, data, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
               commit = _ref2.commit;
-              // const response = await axios.post('https://jsonplaceholder.typicode.com/todos', { title, completed: false });
-              commit('newTodo', data);
+              data = taskData; // each task needs to have the collection id it belongs to
 
-            case 2:
+              data.tasksCollectionId = state.tasksCollection.id;
+              _context2.next = 5;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/tasks', data);
+
+            case 5:
+              response = _context2.sent;
+              commit('newTodo', response.data);
+
+            case 7:
             case "end":
               return _context2.stop();
           }
@@ -43412,11 +43423,11 @@ var actions = {
       }, _callee2);
     }));
 
-    function addTodo(_x2, _x3) {
-      return _addTodo.apply(this, arguments);
+    function addTask(_x2, _x3) {
+      return _addTask.apply(this, arguments);
     }
 
-    return addTodo;
+    return addTask;
   }(),
   deleteTodo: function () {
     var _deleteTodo = _asyncToGenerator(
@@ -43483,20 +43494,41 @@ var actions = {
     var _storeCollection = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(_ref5) {
-      var commit, response;
+      var commit, response, url, data, _response;
+
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
               commit = _ref5.commit;
-              _context5.next = 3;
+
+              if (!(state.tasksCollection.id === undefined || state.tasksCollection.id === null)) {
+                _context5.next = 8;
+                break;
+              }
+
+              _context5.next = 4;
               return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/tasks-collections', state.tasksCollection);
 
-            case 3:
+            case 4:
               response = _context5.sent;
-              console.log(response);
+              commit('setTasksCollection', response.data);
+              _context5.next = 14;
+              break;
 
-            case 5:
+            case 8:
+              url = "/api/tasks-collections/".concat(state.tasksCollection.id);
+              data = {
+                name: state.tasksCollection.name
+              };
+              _context5.next = 12;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.put(url, data);
+
+            case 12:
+              _response = _context5.sent;
+              commit('setTasksCollection', _response.data);
+
+            case 14:
             case "end":
               return _context5.stop();
           }
@@ -43512,8 +43544,9 @@ var actions = {
   }()
 };
 var mutations = {
-  setTodos: function setTodos(state, task) {
-    state.tasksCollection.tasks = task;
+  setTasksCollection: function setTasksCollection(state, data) {
+    state.tasksCollection.name = data.tasksCollection.name;
+    state.tasksCollection.id = data.tasksCollection.id;
   },
   newTodo: function newTodo(state, task) {
     state.tasksCollection.tasks.unshift(JSON.parse(JSON.stringify(task)));

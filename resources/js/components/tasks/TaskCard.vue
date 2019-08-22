@@ -2,9 +2,8 @@
   <div class="card">
     <div class="col-md-3">{{ task.name }}</div>
     <div class="col-md-3">{{ ownerName }}</div>
-    <div class="col-md-2">{{ task.date | changeDateFormat }}</div>
-    <div class="col-md-2">{{ task.status }}</div>
-    <div class="col-md-2">
+    <div class="col-md-3">{{ task.date | changeDateFormat }}</div>
+    <div class="col-md-3">
       <div class="card__actions">
         <i @click="deleteTodo(index)" class="voyager-trash"></i>
       </div>
@@ -38,11 +37,10 @@
                 if(value != null) {
                     const date = new Date(value);
                     console.log(date);
-                    return date.getDay()
-                        + '-'
-                        + date.getMonth()
-                        + '-'
-                        + date.getFullYear();
+                    const month = parseInt(date.getMonth()) + 1; // or some absurd reason it start counting months from 0
+                    const day = date.getDate();
+                    const year = date.getFullYear();
+                    return `${day}-${month}-${year}`;
                 } else {
                     return null;
                 }
@@ -50,11 +48,12 @@
         },
 
         computed: {
-            ...mapGetters(['allSalesAgents']),
+            ...mapGetters(['users']),
 
             ownerName() {
-                if(this.task.taskOwnerId !== null) {
-                    const owner =  this.allSalesAgents.filter(agent => agent.id === this.task.taskOwnerId);
+                if(this.task.taskOwnerId !== null && this.task.taskOwnerId !== undefined) {
+                    const owner =  this.users.filter(user => user.id === this.task.taskOwnerId);
+
                     // filter returs an array
                     return owner[0].username;
                 }

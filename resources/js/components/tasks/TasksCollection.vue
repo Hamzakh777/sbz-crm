@@ -10,15 +10,21 @@
 			<div class="row row--collection">
 				<h4>{{ trans.get('voyager.tasks_collection.tasks_collection') }}</h4>
 				<div class="row">
-					<form @submit.prevent>
+					<form @submit.prevent="storeCollection">
 						<div class="form-group col-md-12">
 						<label class="control-label">{{ trans.get('voyager.generic.name') }}</label>
 						<input type="text" v-model="tasksCollection.name" class="form-control" />
+						<button 
+							class="btn btn-primary pull-right"
+							type="submit"
+						>
+							<span>{{ trans.get('voyager.generic.save') }}</span>
+						</button>
 						</div>
 					</form>
 				</div>
 			</div>
-			<div v-if="!isTasksCollectionNameNull">
+			<div v-if="!isCollectionSaved">
 				<hr>
 				<div class="row">
 					<add-task></add-task>
@@ -28,7 +34,7 @@
 			</div>
 		</div>
 		<!-- we can save the task collection even if it doesn't have any tasks yet -->
-		<div class="panel-footer" v-if="!isTasksCollectionNameNull">
+		<div class="panel-footer" v-if="!isCollectionSaved">
 			<button 
 				class="btn btn-primary"
 				@click="storeCollection"
@@ -46,33 +52,52 @@ import Todos from "./Todos.vue";
 import AddTask from "./AddTask";
 
 export default {
-  name: "TasksCollection",
+	name: "TasksCollection",
 
-  components: {
-    Todos,
-    AddTask
-  },
+	components: {
+		Todos,
+		AddTask
+	},
 
-  computed: {
-	...mapGetters('tasks', ['tasksCollection']),
+	computed: {
+		...mapGetters('tasks', ['tasksCollection']),
 
-	/**
-	 * @var {Boolean}
-	 */
-    isTasksCollectionNameNull() {
-		if(this.tasksCollection.name == null) {
-			return true;
-		} else if(this.tasksCollection.name.trim() == "") {
-			return true;
-		} else { 
-			return false;
+		/**
+		 * @var {Boolean}
+		 */
+		isCollectionSaved() {
+			if(this.tasksCollection.id == null) {
+				return true;
+			} else { 
+				return false;
+			}
+		},
+		
+		/**
+		 * We want to fire different actions
+		 * and show relativly different views 
+		 * depending on wether we are adding or 
+		 * editing an existing collection
+		 * @var {Boolean}
+		 */
+		idAdding() {
+			if(this.tasksCollection.id === undefined || this.tasksCollection.id === null) {
+				return true;
+			} else {
+				return false;
+			}
 		}
-    }
-  },
+	},
 
-  methods: {
-	  ...mapActions('tasks', ['storeCollection'])
-  },
+	methods: {
+		...mapActions('tasks', ['storeCollection', 'fetchTasks'])
+	},
+
+	created() {
+		if(!this.isAdding) {
+			this.fetchTasks();
+		}
+	}
 };
 </script>
 

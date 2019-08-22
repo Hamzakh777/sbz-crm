@@ -48,24 +48,26 @@ class TasksCollectionApiController extends Controller
         
         // since adding a new key to the original array throws an exception
         // we create a new one
-        $data = [];
-        $tasks = $request->input('tasks');
-        foreach ($tasks as $key => $task) {
-            $data[$key]['task_owner_id'] = $task['taskOwnerId'];
-            $data[$key]['task_collection_id'] = $collectionId;
-            $data[$key]['name'] = $task['name'];
-            $data[$key]['date'] = \Carbon\Carbon::parse($task['date']);
-            $data[$key]['task_completed'] = 0;
-            $data[$key]['status'] = $task['status'];
-            // $data[$key]['task_completed'] = $task['completed'];
-            // insert in laravel doesnt add timestamps
-            $data[$key]['created_at'] = \Carbon\Carbon::now();
-            $data[$key]['updated_at'] = \Carbon\Carbon::now();
-        }
+        // $data = [];
+        // $tasks = $request->input('tasks');
+        // foreach ($tasks as $key => $task) {
+        //     $data[$key]['task_owner_id'] = $task['taskOwnerId'];
+        //     $data[$key]['task_collection_id'] = $collectionId;
+        //     $data[$key]['name'] = $task['name'];
+        //     $data[$key]['date'] = \Carbon\Carbon::parse($task['date']);
+        //     $data[$key]['task_completed'] = 0;
+        //     $data[$key]['status'] = $task['status'];
+        //     // $data[$key]['task_completed'] = $task['completed'];
+        //     // insert in laravel doesnt add timestamps
+        //     $data[$key]['created_at'] = \Carbon\Carbon::now();
+        //     $data[$key]['updated_at'] = \Carbon\Carbon::now();
+        // }
 
-        Task::insert($data);
+        // Task::insert($data);
 
-        
+        return response()->json([
+            'tasksCollection' => $collection,
+        ]);   
     }
 
     /**
@@ -76,7 +78,24 @@ class TasksCollectionApiController extends Controller
      */
     public function show($id)
     {
-        //
+        $taskCollection = TasksCollection::findOrfail($id);
+
+        $query = Task::where('task_collection_id', $id)->get();
+
+        $map = $query->map(function ($items) {
+                $tasks['id'] = $items->id;
+                $tasks['name'] = $items->name;
+                $tasks['taskOwnerId'] = $items->task_owner_id;
+                $tasks['date'] = $items->date;
+                $tasks['status'] = $items->task_completed;
+                $tasks['taskCollectionId'] = $items->task_collection_id;
+            return $tasks;
+        });
+
+        return response()->json([
+            'tasksCollection' => $taskCollection,
+            'tasks' => $map
+        ]);
     }
 
     /**
@@ -99,7 +118,15 @@ class TasksCollectionApiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $collection = TasksCollection::findOrFail($id);
+
+        $collection->name = $request->input('name');
+
+        $collection->save();
+
+        return response()->json([
+            'tasksCollection' => $collection
+        ]);
     }
 
     /**
