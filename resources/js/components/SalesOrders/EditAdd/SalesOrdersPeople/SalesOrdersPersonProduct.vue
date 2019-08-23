@@ -8,7 +8,7 @@
                 {{ category.name }}
             </div>
             <div class="col-md-3">
-                {{ product.provision ? product.provision + ' eur': '' }}  
+                {{ product.provision ?  `${product.provision} chf`: '' }}  
             </div>
             <div class="col-md-1">
                 <i 

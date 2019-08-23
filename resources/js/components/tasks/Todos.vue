@@ -1,10 +1,11 @@
 <template>
     <div class="todos">
         <hr>
-        <div>
+        <div class="row">
             <!-- <div v-for="(todo, index) in allTodos" :key="index" @dblclick="onDoubleClick(todo)" :class="{'is-complete': todo.complete, todo}">
                 <div @click="deleteTodo(todo.id)" class="fas fa-trash"></div> 
             </div> -->
+            
             <TaskCard
                 v-for="(task, index) in allTodos"
                 :key="index"

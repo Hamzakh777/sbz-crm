@@ -120,4 +120,7 @@ export default {
 
 .form-control[readonly]
     background-color: #fff
+
+.title 
+    color: #555
 </style>

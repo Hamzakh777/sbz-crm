@@ -15,142 +15,157 @@
         </div>
         <div class="row">
             <div class="col-md-6">
-                <!-- first name -->
-                <div class="form-group col-md-6">
-                    <label class="control-label">{{ trans.get('voyager.generic.first_name') }}</label>
-                    <input v-if="isEditAdd" type="text" class="form-control" v-model="contractPersonDetails.firstName">
-                    <b 
-                        class="form-data"
-                        v-if="!isEditAdd"
-                    >
-                        {{ person.firstName }}
-                    </b>
+                <div class="row">
+                    <!-- first name -->
+                    <div class="form-group col-md-6">
+                        <label class="control-label">{{ trans.get('voyager.generic.first_name') }}</label>
+                        <input v-if="isEditAdd" type="text" class="form-control" v-model.trim="contractPersonDetails.firstName">
+                        <div v-if="$v.contractPersonDetails.firstName.$dirty">
+                            <span class="error-text" v-if="!$v.contractPersonDetails.firstName.required">
+                                Field is required
+                            </span>
+                        </div>
+                        <b 
+                            class="form-data"
+                            v-if="!isEditAdd"
+                        >
+                            {{ person.firstName }}
+                        </b>
+                    </div>
+
+                    <!-- last name -->
+                    <div class="form-group col-md-6">
+                        <label class="control-label">{{ trans.get('voyager.generic.last_name') }}</label>
+                        <input v-if="isEditAdd" type="text" class="form-control" v-model.trim="contractPersonDetails.lastName">
+                        <b 
+                            class="form-data"
+                            v-if="!isEditAdd"
+                        >
+                            {{ person.lastName }}
+                        </b>
+                    </div>
                 </div>
 
-                <!-- last name -->
-                <div class="form-group col-md-6">
-                    <label class="control-label">{{ trans.get('voyager.generic.last_name') }}</label>
-                    <input v-if="isEditAdd" type="text" class="form-control" v-model="contractPersonDetails.lastName">
-                    <b 
-                        class="form-data"
-                        v-if="!isEditAdd"
-                    >
-                        {{ person.lastName }}
-                    </b>
+                <div class="row">
+                    <!-- Gender -->
+                    <div class="form-group col-md-6">
+                        <label class="control-label">{{ trans.get('voyager.generic.gender') }}</label>
+                        <select 
+                            v-if="isEditAdd"
+                            class="form-control"
+                            v-model="contractPersonDetails.gender"
+                        >
+                            <option value="male">
+                                {{ trans.get('voyager.generic.male') }}
+                            </option>
+                            <option value="male">
+                                {{ trans.get('voyager.generic.female') }}
+                            </option>
+                        </select>
+                        <b 
+                            class="form-data"
+                            v-if="!isEditAdd"
+                        >
+                            {{ person.gender }}
+                        </b>
+                    </div>
+
+                    <!-- birthday -->
+                    <div class="form-group col-md-6">
+                        <label class="control-label">{{ trans.get('voyager.generic.birthday') }}</label>
+                        <Datepicker
+                            v-if="isEditAdd"
+                            class="datePicker"
+                            input-class="form-control"
+                            v-model="contractPersonDetails.birthday"
+                            :format="DateFormat"
+                        ></Datepicker>
+                        <b 
+                            class="form-data"
+                            v-if="!isEditAdd"
+                        >
+                            {{ person.birthday }}
+                        </b>
+                    </div>
                 </div>
 
-                <!-- Gender -->
-                <div class="form-group col-md-6">
-                    <label class="control-label">{{ trans.get('voyager.generic.gender') }}</label>
-                    <select 
-                        v-if="isEditAdd"
-                        class="form-control"
-                        v-model="contractPersonDetails.gender"
-                    >
-                        <option value="male">
-                            {{ trans.get('voyager.generic.male') }}
-                        </option>
-                        <option value="male">
-                            {{ trans.get('voyager.generic.female') }}
-                        </option>
-                    </select>
-                    <b 
-                        class="form-data"
-                        v-if="!isEditAdd"
-                    >
-                        {{ person.gender }}
-                    </b>
+                <div class="row">
+                    <!-- birth year -->
+                    <div class="form-group col-md-6" v-if="isFamily">
+                        <label class="control-label">{{ trans.get('voyager.generic.birthyear') }}</label>
+                        <input v-if="isEditAdd" type="text" class="form-control" v-model.trim="contractPersonDetails.birthyear" readonly>
+                        <b 
+                            class="form-data"
+                            v-if="!isEditAdd"
+                        >
+                            {{ person.birthyear }}
+                        </b>
+                    </div>
+
+                    <!-- age -->
+                    <div class="form-group col-md-6">
+                        <label class="control-label">{{ trans.get('voyager.generic.age') }}</label>
+                        <input v-if="isEditAdd"  type="number" class="form-control" v-model.trim="contractPersonDetails.age" readonly>
+                        <b 
+                            class="form-data"
+                            v-if="!isEditAdd"
+                        >
+                            {{ person.age }}
+                        </b>
+                    </div>
                 </div>
 
-                <!-- birthday -->
-                <div class="form-group col-md-6">
-                    <label class="control-label">{{ trans.get('voyager.generic.birthday') }}</label>
-                    <Datepicker
-                        v-if="isEditAdd"
-                        class="datePicker"
-                        input-class="form-control"
-                        v-model="contractPersonDetails.birthday"
-                        :format="DateFormat"
-                    ></Datepicker>
-                    <b 
-                        class="form-data"
-                        v-if="!isEditAdd"
-                    >
-                        {{ person.birthday }}
-                    </b>
+                <div class="row">
+                    <!-- family member type -->
+                    <div class="form-group col-md-6" v-if="isFamily">
+                        <label class="control-label">{{ trans.get('voyager.sales_orders.family_member_type') }}</label>
+                        <select
+                            v-if="isEditAdd" 
+                            class="form-control"
+                            v-model.trim="contractPersonDetails.familyMemberType"
+                        >
+                            <option value="father">
+                                {{ trans.get('voyager.generic.father') }}
+                            </option>
+                            <option value="mother">
+                                {{ trans.get('voyager.generic.mother') }}
+                            </option>
+                            <option value="daughter">
+                                {{ trans.get('voyager.generic.daughter') }}
+                            </option>
+                            <option value="son">
+                                {{ trans.get('voyager.generic.son') }}
+                            </option>
+                            <option value="new_born">
+                                {{ trans.get('voyager.generic.new_born') }}
+                            </option>
+                        </select>
+                        <b 
+                            class="form-data"
+                            v-if="!isEditAdd"
+                        >
+                            {{ person.familyMemberType }}
+                        </b>
+                    </div>
+
+                    <!-- police number -->
+                    <div class="form-group col-md-6">
+                        <label class="control-label">{{ trans.get('voyager.sales_orders.police_number') }}</label>
+                        <input v-if="isEditAdd" type="policeNumber" class="form-control" v-model.trim="contractPersonDetails.policeNumber">
+                        <b 
+                            class="form-data"
+                            v-if="!isEditAdd"
+                        >
+                            {{ person.policeNumber }}
+                        </b>
+                    </div>
                 </div>
 
-                <!-- birth year -->
-                <div class="form-group col-md-6">
-                    <label class="control-label">{{ trans.get('voyager.generic.birthyear') }}</label>
-                    <input v-if="isEditAdd" type="text" class="form-control" v-model="contractPersonDetails.birthyear" readonly>
-                    <b 
-                        class="form-data"
-                        v-if="!isEditAdd"
-                    >
-                        {{ person.birthyear }}
-                    </b>
-                </div>
-
-                <!-- age -->
-                <div class="form-group col-md-6">
-                    <label class="control-label">{{ trans.get('voyager.generic.age') }}</label>
-                    <input v-if="isEditAdd"  type="number" class="form-control" v-model="contractPersonDetails.age" readonly>
-                    <b 
-                        class="form-data"
-                        v-if="!isEditAdd"
-                    >
-                        {{ person.age }}
-                    </b>
-                </div>
-
-                <!-- family member type -->
-                <div class="form-group col-md-6" v-if="isFamily">
-                    <label class="control-label">{{ trans.get('voyager.sales_orders.family_member_type') }}</label>
-                    <select
-                        v-if="isEditAdd" 
-                        class="form-control"
-                        v-model="contractPersonDetails.familyMemberType"
-                    >
-                        <option value="father">
-                            {{ trans.get('voyager.generic.father') }}
-                        </option>
-                        <option value="mother">
-                            {{ trans.get('voyager.generic.mother') }}
-                        </option>
-                        <option value="daughter">
-                            {{ trans.get('voyager.generic.daughter') }}
-                        </option>
-                        <option value="son">
-                            {{ trans.get('voyager.generic.son') }}
-                        </option>
-                        <option value="new_born">
-                            {{ trans.get('voyager.generic.new_born') }}
-                        </option>
-                    </select>
-                    <b 
-                        class="form-data"
-                        v-if="!isEditAdd"
-                    >
-                        {{ person.familyMemberType }}
-                    </b>
-                </div>
-
-                <!-- police number -->
-                <div class="form-group col-md-6">
-                    <label class="control-label">{{ trans.get('voyager.sales_orders.police_number') }}</label>
-                    <input v-if="isEditAdd" type="policeNumber" class="form-control" v-model="contractPersonDetails.policeNumber">
-                    <b 
-                        class="form-data"
-                        v-if="!isEditAdd"
-                    >
-                        {{ person.policeNumber }}
-                    </b>
-                </div>
-
-                <!-- document id card  -->
-                <div class="form-group col-md-6">
-                    here we need to add form upload 
+                <div class="row">
+                    <!-- document id card  -->
+                    <div class="form-group col-md-6">
+                        here we need to add form upload 
+                    </div>
                 </div>
             </div>
             <div class="col-md-6 products-col">
@@ -171,14 +186,22 @@
                             </option>
                         </select>
                     </div>
-                    <button
-                        class="btn btn-success btn-add-new pull-right"
-                        @click.prevent="addProductToContractPerson"
-                    >
-                        <i class="voyager-plus"></i>
-                        <span>{{ trans.get('voyager.sales_orders.add_product') }}</span>
-                    </button>
+                    <div class="col-md-3 form-group">
+                        <label class="control-label">
+                            {{ trans.get('voyager.sales_orders.total_provision') }}
+                        </label>
+                        <div><b class="form-data">{{ totalProvision }}</b></div>
+                    </div>
+                    <div class="col-md-3">
+                        <button
+                            class="btn btn-success btn-add-new pull-right"
+                            @click.prevent="addProductToContractPerson" >
+                            <i class="voyager-plus"></i>
+                            <span>{{ trans.get('voyager.sales_orders.add_product') }}</span>
+                        </button>
+                    </div>
                 </div>
+                <!-- row to show the already added products -->
                 <div class="row">
                     <SalesOrdersPersonProduct
                         v-for="(product, index) in contractPersonDetails.products"
@@ -188,13 +211,10 @@
                     </SalesOrdersPersonProduct>
                 </div>
             </div>
-            <!-- row to show the already added products -->
         </div>
         <div class="row">
             <hr>
-            <!-- we gonna have different actions depending on wether we are adding or editing
-            maybe we can have an if statement in the function it self -->
-            <button class="btn btn-primary pull-right" @click="addContractPerson($data)">
+            <button class="btn btn-primary pull-right" @click="submit">
                 {{ trans.get('voyager.generic.save') }}
             </button>
         </div>
@@ -205,6 +225,8 @@
     import Datepicker from "vuejs-datepicker";
     import SalesOrdersPersonProduct from './SalesOrdersPersonProduct';
     import { mapGetters, mapActions } from 'vuex';
+    import { required } from 'vuelidate/lib/validators'
+
 
     export default {
         name: 'SalesOrdersPersonCard',
@@ -248,6 +270,16 @@
                 } else {
                     return false;
                 }
+            },
+
+            products() {
+
+            },
+
+            totalProvision() {
+                let sum = 0;
+                this.contractPersonDetails.products.forEach(product => sum += parseInt(product.provision));
+                return sum;
             }
         },
 
@@ -257,8 +289,35 @@
             }
         },
 
+        validations: {
+            contractPersonDetails: {
+                firstName: {
+                    required
+                },
+                lastName: {
+                    required
+                },
+                gender: {
+                    required
+                },
+                birthday: {
+                    required
+                }
+            }
+        },
+
         methods: {
-            ...mapActions(['addContractPerson', 'addProductToContractPerson'])
+            ...mapActions(['addContractPerson', 'addProductToContractPerson']),
+
+            submit() {
+                console.log('submit');
+                this.$v.$touch();
+                if(this.$v.$invalid) {
+                    console.log('not validated yet')
+                } else {
+                    this.addContractPerson(this.$data);
+                }
+            }
         },
     }
 </script>

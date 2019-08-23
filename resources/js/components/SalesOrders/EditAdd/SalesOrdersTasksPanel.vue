@@ -9,6 +9,7 @@
                             class="form-control"
                             v-model="salesOrder.taskCollectionId"
                         >
+                            <option value="">{{ trans.get('voyager.sales_orders.new_tasks_collection') }}</option>
                             <option 
                                 v-for="collection in allTasksCollections"
                                 :value="collection.id"
@@ -55,17 +56,26 @@
             ...mapGetters('tasks', ['tasksCollection']),
 
             isTasksCollectionAlreadySelected() {
-                if(this.salesOrder.taskCollectionId !== null) {
-                    this.tasksCollection.id = this.salesOrder.taskCollectionId ;
+                if(this.salesOrder.taskCollectionId !== null && this.salesOrder.taskCollectionId !== "") {
+                    this.tasksCollection.id = this.salesOrder.taskCollectionId;
+                    // whenever the selected collection changes, we need to fetch the data
+                    // corresponding to that collection
+                    this.fetchTasks();
                     return true;
-                } else { 
+                } else {
                     return false;
                 }
             }
         },
 
+        data() {
+            return { 
+                tasksCollectionId: this.tasksCollection
+            }
+        },
+
         methods: {
-            
+            ...mapActions('tasks', ['fetchTasks'])
         }
     }
 </script>

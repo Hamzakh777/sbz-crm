@@ -101,7 +101,29 @@ class ApiTasksController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'status' => 'required'
+        ]);
+
+        $task = Task::findOrFail($id);
+
+        $task->task_completed = $request->input('completed');
+
+        $task->save();
+
+        $data = [];
+        $data['id'] = $task->id;
+        $data['name'] = $task->name;
+        $data['taskOwnerId'] = $task->task_owner_id;
+        $data['date'] = $task->date;
+        $data['completed'] = $task->task_completed;
+        $data['status'] = $task->status;
+        $data['taskCollectionId'] = $task->task_collection_id;
+
+        return response()->json([
+            'updTask' => $data
+        ]);
     }
 
     /**

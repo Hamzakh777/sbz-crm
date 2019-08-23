@@ -81,6 +81,7 @@ return [
     'no_results'             => 'No results',
     'open'                   => 'Open',
     'options'                => 'Options',
+    'other'                  => 'Other',
     'password'               => 'Password',
     'permissions'            => 'Permissions',
     'pending'                => 'Pending',

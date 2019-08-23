@@ -19,7 +19,7 @@
 				</form>
 			</div>
 		</div>
-		<div v-if="!(tasksCollection.id == null)">
+		<div v-if="isCollectionSaved">
 			<hr>
 			<div class="row">
 				<add-task></add-task>
@@ -51,10 +51,10 @@ export default {
 		 * @var {Boolean}
 		 */
 		isCollectionSaved() {
-			if(this.tasksCollection.id == null) {
-				return true;
-			} else { 
+			if(this.tasksCollection.id === null || this.tasksCollection.id === "" ) {
 				return false;
+			} else { 
+				return true;
 			}
 		}
 	},
@@ -64,7 +64,7 @@ export default {
 	},
 
 	created() {
-		if(!this.isCollectionSaved) {
+		if(this.tasksCollection.id !== null && this.tasksCollection.id !== "" ) {
 			this.fetchTasks();
 		}
 	}

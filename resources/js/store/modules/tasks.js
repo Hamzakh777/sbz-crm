@@ -44,15 +44,16 @@ const actions = {
         commit('deleteTask', id);
     },
 
-    async updateTodo({ commit }, updTodo) {
-        const response = await axios.put(`https://jsonplaceholder.typicode.com/todos/${updTodo.id}`, updTodo);
+    async updateTask({ commit }, updTask) {
+        const url = `/api/tasks/${updTask.id}`;
+        const response = await axios.put(url, updTask);
 
-        commit('updateTodo', response.data);
+        commit('updateTask', response.data);
     },
 
     async storeCollection({ commit }) {
         // collection doesnt exists
-        if (state.tasksCollection.id === undefined || state.tasksCollection.id === null) {
+        if (state.tasksCollection.id === undefined || state.tasksCollection.id === null || state.tasksCollection.id === "") {
             const response = await axios.post('/api/tasks-collections', state.tasksCollection);
 
             commit('setTasksCollection', response.data);
@@ -85,10 +86,10 @@ const mutations = {
     deleteTask(state, id) {
         state.tasksCollection.tasks = state.tasksCollection.tasks.filter((task, index) => task.id !== id);
     },
-    updateTodo(state, updTodo) {
-        const index = state.tasksCollection.tasks.findIndex(todo => todo.id == updTodo.id);
+    updateTask(state, updTodo) {
+        const index = state.tasksCollection.tasks.findIndex(task => task.id == updTodo.id);
         if (index != -1) {
-            state.tasksCollection.tasks.splide(index, 1, updTodo);
+            state.tasksCollection.tasks.splice(index, 1, updTodo);
         }
     }
 };

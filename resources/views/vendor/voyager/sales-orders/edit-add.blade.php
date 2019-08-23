@@ -16,11 +16,12 @@
         <i class="{{ $dataType->icon }}"></i>
         {{ __('voyager::generic.'.($edit ? 'edit' : 'add')).' '.$dataType->display_name_singular }}
     </h1>
+    <sales-orders-save-button></sales-orders-save-button>
     @include('voyager::multilingual.language-selector')
 @stop
 
 @section('content')
-    <div class="page-content edit-add container-fluid" id="app">
+    <div class="page-content edit-add container-fluid">
         <div class="row">
             <div class="col-md-12">
 

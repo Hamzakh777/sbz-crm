@@ -1835,6 +1835,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1900,6 +1901,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'TaskCard',
@@ -1940,7 +1945,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     }
   }),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('tasks', ['deleteTask']))
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('tasks', ['deleteTask', 'updateTask']), {
+    completed: function completed() {
+      if (this.task.completed === 0) {
+        this.task.completed = 1;
+        this.updateTask(this.task);
+      }
+    }
+  })
 });
 
 /***/ }),
@@ -2008,16 +2020,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
      * @var {Boolean}
      */
     isCollectionSaved: function isCollectionSaved() {
-      if (this.tasksCollection.id == null) {
-        return true;
-      } else {
+      if (this.tasksCollection.id === null || this.tasksCollection.id === "") {
         return false;
+      } else {
+        return true;
       }
     }
   }),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('tasks', ['storeCollection', 'fetchTasks'])),
   created: function created() {
-    if (!this.isCollectionSaved) {
+    if (this.tasksCollection.id !== null && this.tasksCollection.id !== "") {
       this.fetchTasks();
     }
   }
@@ -2119,6 +2131,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2181,7 +2194,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".form-control[readonly][data-v-6fc60d6a] {\n  background-color: #fff;\n}", ""]);
+exports.push([module.i, ".form-control[readonly][data-v-6fc60d6a] {\n  background-color: #fff;\n}\n.title[data-v-6fc60d6a] {\n  color: #555;\n}", ""]);
 
 // exports
 
@@ -2200,7 +2213,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".card[data-v-292727c1] {\n  background-color: #fff;\n  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.07);\n  border-left: 2px solid #4E73DF;\n  padding: 1.4em 0.6em 1em 0.6em;\n  margin-bottom: 1em;\n  font-size: 1em;\n}\n.card__actions[data-v-292727c1] {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-end;\n  align-items: center;\n}\n.card__actions .voyager-trash[data-v-292727c1] {\n  cursor: pointer;\n  display: block;\n  margin-top: -3px;\n  font-size: 20px;\n}\n.card__actions .voyager-trash[data-v-292727c1]:hover {\n  color: #FB4027;\n}", ""]);
+exports.push([module.i, ".card[data-v-292727c1] {\n  background-color: #fff;\n  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.07);\n  border-left: 2px solid #4E73DF;\n  padding: 1.8em 0.6em 0.8em 0.6em;\n  margin-bottom: 1em;\n  font-size: 1em;\n}\n.card--done[data-v-292727c1] {\n  border-left-color: #2ecc71;\n}\n.card__actions[data-v-292727c1] {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-end;\n  align-items: center;\n}\n.card__actions .voyager-trash[data-v-292727c1] {\n  cursor: pointer;\n  display: block;\n  margin-top: -3px;\n  font-size: 20px;\n}\n.card__actions .voyager-trash[data-v-292727c1]:hover {\n  color: #FB4027;\n}\n.card__actions .voyager-check[data-v-292727c1] {\n  cursor: pointer;\n  display: block;\n  margin-top: -3px;\n  font-size: 26px;\n  margin-right: 1em;\n}\n.card__actions .voyager-check--green[data-v-292727c1] {\n  color: #2ecc71;\n}\n.card__actions .voyager-check[data-v-292727c1]:hover {\n  color: #2ecc71;\n}", ""]);
 
 // exports
 
@@ -22271,12 +22284,16 @@ var render = function() {
                 }
               },
               [
-                _c("option", { attrs: { value: "status1" } }, [
-                  _vm._v("status1")
+                _c("option", { attrs: { value: "open" } }, [
+                  _vm._v(_vm._s(_vm.trans.get("voyager.generic.open")))
                 ]),
                 _vm._v(" "),
-                _c("option", { attrs: { value: "status2" } }, [
-                  _vm._v("status2")
+                _c("option", { attrs: { value: "pending" } }, [
+                  _vm._v(_vm._s(_vm.trans.get("voyager.generic.pending")))
+                ]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "closed" } }, [
+                  _vm._v(_vm._s(_vm.trans.get("voyager.generic.closed")))
                 ])
               ]
             )
@@ -22325,32 +22342,44 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card" }, [
-    _c("div", { staticClass: "col-md-3" }, [_vm._v(_vm._s(_vm.task.name))]),
-    _vm._v(" "),
-    _c("div", { staticClass: "col-md-3" }, [_vm._v(_vm._s(_vm.ownerName))]),
-    _vm._v(" "),
-    _c("div", { staticClass: "col-md-3" }, [
-      _vm._v(_vm._s(_vm._f("changeDateFormat")(_vm.task.date)))
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "col-md-2" }, [
-      _vm._v("\n      " + _vm._s(_vm.task.status) + "\n  ")
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "col-md-1" }, [
-      _c("div", { staticClass: "card__actions" }, [
-        _c("i", {
-          staticClass: "voyager-trash",
-          on: {
-            click: function($event) {
-              return _vm.deleteTask(_vm.task.id)
+  return _c(
+    "div",
+    { class: { card: "card", "card--done": _vm.task.completed } },
+    [
+      _c("div", { staticClass: "col-md-3" }, [_vm._v(_vm._s(_vm.task.name))]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-3" }, [_vm._v(_vm._s(_vm.ownerName))]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-3" }, [
+        _vm._v(_vm._s(_vm._f("changeDateFormat")(_vm.task.date)))
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-2" }, [
+        _vm._v("\n      " + _vm._s(_vm.task.status) + "\n  ")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-1" }, [
+        _c("div", { staticClass: "card__actions" }, [
+          _c("i", {
+            class: {
+              "voyager-check--green": _vm.task.completed,
+              "voyager-check": "voyager-check"
+            },
+            on: { click: _vm.completed }
+          }),
+          _vm._v(" "),
+          _c("i", {
+            staticClass: "voyager-trash",
+            on: {
+              click: function($event) {
+                return _vm.deleteTask(_vm.task.id)
+              }
             }
-          }
-        })
+          })
+        ])
       ])
-    ])
-  ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -22441,7 +22470,7 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    !(_vm.tasksCollection.id == null)
+    _vm.isCollectionSaved
       ? _c("div", [
           _c("hr"),
           _vm._v(" "),
@@ -22545,6 +22574,7 @@ var render = function() {
     _vm._v(" "),
     _c(
       "div",
+      { staticClass: "row" },
       _vm._l(_vm.allTodos, function(task, index) {
         return _c("TaskCard", { key: index, attrs: { task: task } })
       }),
@@ -38825,10 +38855,13 @@ var state = {
     signDate: null,
     salesOrderStatus: null,
     insuranceStatus: null,
-    contractDurationVVG: null,
-    contractDurationKVG: null,
+    contractDurationVVG: 60,
+    contractDurationKVG: 60,
+    contractStartVVG: null,
+    contractStartKVG: null,
     insuranceTrackingID: null,
-    taskCollectionId: null,
+    insuranceSubmittedDate: null,
+    taskCollectionId: '',
     contractPeople: []
   },
   contractPersonDetails: {
@@ -38970,14 +39003,15 @@ var actions = {
             case 4:
               response = _context.sent;
               commit("setSalesOrders", response.data.salesOrders);
-              _context.next = 10;
+              _context.next = 11;
               break;
 
             case 8:
               _context.prev = 8;
               _context.t0 = _context["catch"](1);
+              console.error(_context.t0);
 
-            case 10:
+            case 11:
             case "end":
               return _context.stop();
           }
@@ -38991,6 +39025,45 @@ var actions = {
 
     return fetchSalesOrders;
   }(),
+  storeSalesOrder: function () {
+    var _storeSalesOrder = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2) {
+      var commit, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              commit = _ref2.commit;
+              _context2.prev = 1;
+              _context2.next = 4;
+              return axios.post('/api/sales-orders', state.salesOrder);
+
+            case 4:
+              response = _context2.sent;
+              console.log(response);
+              _context2.next = 11;
+              break;
+
+            case 8:
+              _context2.prev = 8;
+              _context2.t0 = _context2["catch"](1);
+              console.error(_context2.t0);
+
+            case 11:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[1, 8]]);
+    }));
+
+    function storeSalesOrder(_x2) {
+      return _storeSalesOrder.apply(this, arguments);
+    }
+
+    return storeSalesOrder;
+  }(),
 
   /**
    * Update the pagination page
@@ -39000,47 +39073,47 @@ var actions = {
   changePaginationPage: function () {
     var _changePaginationPage = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3) {
       var commit,
           page,
           response,
           table,
-          _args2 = arguments;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          _args3 = arguments;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
         while (1) {
-          switch (_context2.prev = _context2.next) {
+          switch (_context3.prev = _context3.next) {
             case 0:
-              commit = _ref2.commit;
-              page = _args2.length > 1 && _args2[1] !== undefined ? _args2[1] : 1;
-              _context2.prev = 2;
-              _context2.next = 5;
+              commit = _ref3.commit;
+              page = _args3.length > 1 && _args3[1] !== undefined ? _args3[1] : 1;
+              _context3.prev = 2;
+              _context3.next = 5;
               return axios.post("sales-orders/filter?page=".concat(page), state.filterData);
 
             case 5:
-              response = _context2.sent;
+              response = _context3.sent;
               // the table is rendered in the backend
               // we send it over and display it on the frontend
               table = document.querySelector("#table-wrapper");
               table.innerHTML = response.data.table; // update the paginator
 
               commit("setSalesOrders", response.data.dataTypeContent);
-              _context2.next = 14;
+              _context3.next = 14;
               break;
 
             case 11:
-              _context2.prev = 11;
-              _context2.t0 = _context2["catch"](2);
-              alert(_context2.t0);
+              _context3.prev = 11;
+              _context3.t0 = _context3["catch"](2);
+              alert(_context3.t0);
 
             case 14:
             case "end":
-              return _context2.stop();
+              return _context3.stop();
           }
         }
-      }, _callee2, null, [[2, 11]]);
+      }, _callee3, null, [[2, 11]]);
     }));
 
-    function changePaginationPage(_x2) {
+    function changePaginationPage(_x3) {
       return _changePaginationPage.apply(this, arguments);
     }
 
@@ -39057,49 +39130,49 @@ var actions = {
   filterSalesOrders: function () {
     var _filterSalesOrders = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3, data) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref4, data) {
       var commit,
           page,
           response,
           table,
-          _args3 = arguments;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          _args4 = arguments;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context4.prev = _context4.next) {
             case 0:
-              commit = _ref3.commit;
-              page = _args3.length > 2 && _args3[2] !== undefined ? _args3[2] : 1;
-              _context3.prev = 2;
+              commit = _ref4.commit;
+              page = _args4.length > 2 && _args4[2] !== undefined ? _args4[2] : 1;
+              _context4.prev = 2;
               // update the filter data
               state.filterData = data;
-              _context3.next = 6;
+              _context4.next = 6;
               return axios.post("sales-orders/filter?page=".concat(page), data);
 
             case 6:
-              response = _context3.sent;
+              response = _context4.sent;
               // the table is rendered in the backend
               // we send it over and display it on the frontend
               table = document.querySelector("#table-wrapper");
               table.innerHTML = response.data.table; // update the paginator
 
               commit("setSalesOrders", response.data.dataTypeContent);
-              _context3.next = 15;
+              _context4.next = 15;
               break;
 
             case 12:
-              _context3.prev = 12;
-              _context3.t0 = _context3["catch"](2);
-              console.warn(_context3.t0);
+              _context4.prev = 12;
+              _context4.t0 = _context4["catch"](2);
+              console.warn(_context4.t0);
 
             case 15:
             case "end":
-              return _context3.stop();
+              return _context4.stop();
           }
         }
-      }, _callee3, null, [[2, 12]]);
+      }, _callee4, null, [[2, 12]]);
     }));
 
-    function filterSalesOrders(_x3, _x4) {
+    function filterSalesOrders(_x4, _x5) {
       return _filterSalesOrders.apply(this, arguments);
     }
 
@@ -39112,8 +39185,8 @@ var actions = {
    * @param {*} param0
    * @param {object} data
    */
-  addContractPerson: function addContractPerson(_ref4) {
-    var commit = _ref4.commit;
+  addContractPerson: function addContractPerson(_ref5) {
+    var commit = _ref5.commit;
     commit("setContractPerson", state.contractPersonDetails);
   },
 
@@ -39133,8 +39206,8 @@ var actions = {
     var product = JSON.parse(JSON.stringify(state.contractPersonDetails.selectedProduct));
     state.contractPersonDetails.products.push(product);
   },
-  removeProduct: function removeProduct(_ref5, id) {
-    var commit = _ref5.commit;
+  removeProduct: function removeProduct(_ref6, id) {
+    var commit = _ref6.commit;
     // if we have two or more of the same product
     // this will delete all of them
     var results = state.contractPersonDetails.products.filter(function (product) {
@@ -39299,24 +39372,25 @@ var actions = {
 
     return deleteTask;
   }(),
-  updateTodo: function () {
-    var _updateTodo = _asyncToGenerator(
+  updateTask: function () {
+    var _updateTask = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref4, updTodo) {
-      var commit, response;
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref4, updTask) {
+      var commit, url, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
               commit = _ref4.commit;
-              _context4.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.put("https://jsonplaceholder.typicode.com/todos/".concat(updTodo.id), updTodo);
+              url = "/api/tasks/".concat(updTask.id);
+              _context4.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.put(url, updTask);
 
-            case 3:
+            case 4:
               response = _context4.sent;
-              commit('updateTodo', response.data);
+              commit('updateTask', response.data);
 
-            case 5:
+            case 6:
             case "end":
               return _context4.stop();
           }
@@ -39324,11 +39398,11 @@ var actions = {
       }, _callee4);
     }));
 
-    function updateTodo(_x6, _x7) {
-      return _updateTodo.apply(this, arguments);
+    function updateTask(_x6, _x7) {
+      return _updateTask.apply(this, arguments);
     }
 
-    return updateTodo;
+    return updateTask;
   }(),
   storeCollection: function () {
     var _storeCollection = _asyncToGenerator(
@@ -39342,7 +39416,7 @@ var actions = {
             case 0:
               commit = _ref5.commit;
 
-              if (!(state.tasksCollection.id === undefined || state.tasksCollection.id === null)) {
+              if (!(state.tasksCollection.id === undefined || state.tasksCollection.id === null || state.tasksCollection.id === "")) {
                 _context5.next = 8;
                 break;
               }
@@ -39400,13 +39474,13 @@ var mutations = {
       return task.id !== id;
     });
   },
-  updateTodo: function updateTodo(state, updTodo) {
-    var index = state.tasksCollection.tasks.findIndex(function (todo) {
-      return todo.id == updTodo.id;
+  updateTask: function updateTask(state, updTodo) {
+    var index = state.tasksCollection.tasks.findIndex(function (task) {
+      return task.id == updTodo.id;
     });
 
     if (index != -1) {
-      state.tasksCollection.tasks.splide(index, 1, updTodo);
+      state.tasksCollection.tasks.splice(index, 1, updTodo);
     }
   }
 };

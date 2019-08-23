@@ -2191,6 +2191,46 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2200,7 +2240,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     Datepicker: vuejs_datepicker__WEBPACK_IMPORTED_MODULE_0__["default"],
     ToggleButton: vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_1__["ToggleButton"]
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['DateFormat', 'allInsurances', 'allSalesAgents', 'salesOrder']))
+  watch: {
+    salesOrder: {
+      insuranceStatus: function insuranceStatus(val, oldVal) {}
+    }
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['DateFormat', 'allInsurances', 'allSalesAgents', 'salesOrder']), {
+    isHouseholdTypeFamily: function isHouseholdTypeFamily() {
+      if (this.salesOrder.householdType === 'family') {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }),
+  mounted: function mounted() {
+    var nextYear = new Date().getFullYear() + 1;
+    var date = new Date(nextYear, 0, 1);
+    this.salesOrder.contractStartKVG = date;
+    this.salesOrder.contractStartVVG = date;
+  }
 });
 
 /***/ }),
@@ -2303,6 +2362,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuejs_datepicker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuejs-datepicker */ "./node_modules/vuejs-datepicker/dist/vuejs-datepicker.esm.js");
 /* harmony import */ var _SalesOrdersPersonProduct__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SalesOrdersPersonProduct */ "./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/SalesOrdersPersonProduct.vue");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -2512,6 +2573,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -2550,6 +2632,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       } else {
         return false;
       }
+    },
+    products: function products() {},
+    totalProvision: function totalProvision() {
+      var sum = 0;
+      this.contractPersonDetails.products.forEach(function (product) {
+        return sum += parseInt(product.provision);
+      });
+      return sum;
     }
   }),
   data: function data() {
@@ -2557,7 +2647,34 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       product: {}
     };
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])(['addContractPerson', 'addProductToContractPerson']))
+  validations: {
+    contractPersonDetails: {
+      firstName: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"]
+      },
+      lastName: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"]
+      },
+      gender: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"]
+      },
+      birthday: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"]
+      }
+    }
+  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])(['addContractPerson', 'addProductToContractPerson']), {
+    submit: function submit() {
+      console.log('submit');
+      this.$v.$touch();
+
+      if (this.$v.$invalid) {
+        console.log('not validated yet');
+      } else {
+        this.addContractPerson(this.$data);
+      }
+    }
+  })
 });
 
 /***/ }),
@@ -2682,6 +2799,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 // we want to check if the sales order has an task_collection_id
 // if yes, we use the task_collection_id and set the id in the tasks collection store
 // that will automatically triger loading the content
@@ -2700,15 +2818,57 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['salesOrder', 'allTasksCollections']), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('tasks', ['tasksCollection']), {
     isTasksCollectionAlreadySelected: function isTasksCollectionAlreadySelected() {
-      if (this.salesOrder.taskCollectionId !== null) {
-        this.tasksCollection.id = this.salesOrder.taskCollectionId;
+      if (this.salesOrder.taskCollectionId !== null && this.salesOrder.taskCollectionId !== "") {
+        this.tasksCollection.id = this.salesOrder.taskCollectionId; // whenever the selected collection changes, we need to fetch the data
+        // corresponding to that collection
+
+        this.fetchTasks();
         return true;
       } else {
         return false;
       }
     }
   }),
-  methods: {}
+  data: function data() {
+    return {
+      tasksCollectionId: this.tasksCollection
+    };
+  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('tasks', ['fetchTasks']))
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/salesOrdersSaveButton.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SalesOrders/EditAdd/salesOrdersSaveButton.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'SalesOrdersSaveButton',
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['storeSalesOrder']))
 });
 
 /***/ }),
@@ -2848,6 +3008,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2913,6 +3074,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'TaskCard',
@@ -2953,7 +3118,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     }
   }),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('tasks', ['deleteTask']))
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('tasks', ['deleteTask', 'updateTask']), {
+    completed: function completed() {
+      if (this.task.completed === 0) {
+        this.task.completed = 1;
+        this.updateTask(this.task);
+      }
+    }
+  })
 });
 
 /***/ }),
@@ -3021,16 +3193,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
      * @var {Boolean}
      */
     isCollectionSaved: function isCollectionSaved() {
-      if (this.tasksCollection.id == null) {
-        return true;
-      } else {
+      if (this.tasksCollection.id === null || this.tasksCollection.id === "") {
         return false;
+      } else {
+        return true;
       }
     }
   }),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('tasks', ['storeCollection', 'fetchTasks'])),
   created: function created() {
-    if (!this.isCollectionSaved) {
+    if (this.tasksCollection.id !== null && this.tasksCollection.id !== "") {
       this.fetchTasks();
     }
   }
@@ -3055,6 +3227,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -3134,7 +3307,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".panel-body[data-v-685cb142] {\n  padding: 2em 1em;\n}", ""]);
+exports.push([module.i, ".toggle-button-wrapper[data-v-685cb142] {\n  margin-top: 1em;\n}\n.panel-body[data-v-685cb142] {\n  padding: 2em 1em;\n}", ""]);
 
 // exports
 
@@ -3198,6 +3371,25 @@ exports.push([module.i, ".product-card[data-v-5aa488ce] {\n  background-color: #
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/salesOrdersSaveButton.vue?vue&type=style&index=0&id=50d329af&lang=sass&scoped=true&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--9-2!./node_modules/sass-loader/lib/loader.js??ref--9-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SalesOrders/EditAdd/salesOrdersSaveButton.vue?vue&type=style&index=0&id=50d329af&lang=sass&scoped=true& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".btn[data-v-50d329af] {\n  margin-top: 2px;\n}\n.btn i[data-v-50d329af] {\n  position: relative;\n  top: 2px;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/baseComponents/BasePanel.vue?vue&type=style&index=0&id=409f8fd4&lang=sass&scoped=true&":
 /*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--9-2!./node_modules/sass-loader/lib/loader.js??ref--9-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/baseComponents/BasePanel.vue?vue&type=style&index=0&id=409f8fd4&lang=sass&scoped=true& ***!
@@ -3229,7 +3421,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".form-control[readonly][data-v-6fc60d6a] {\n  background-color: #fff;\n}", ""]);
+exports.push([module.i, ".form-control[readonly][data-v-6fc60d6a] {\n  background-color: #fff;\n}\n.title[data-v-6fc60d6a] {\n  color: #555;\n}", ""]);
 
 // exports
 
@@ -3248,7 +3440,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".card[data-v-292727c1] {\n  background-color: #fff;\n  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.07);\n  border-left: 2px solid #4E73DF;\n  padding: 1.4em 0.6em 1em 0.6em;\n  margin-bottom: 1em;\n  font-size: 1em;\n}\n.card__actions[data-v-292727c1] {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-end;\n  align-items: center;\n}\n.card__actions .voyager-trash[data-v-292727c1] {\n  cursor: pointer;\n  display: block;\n  margin-top: -3px;\n  font-size: 20px;\n}\n.card__actions .voyager-trash[data-v-292727c1]:hover {\n  color: #FB4027;\n}", ""]);
+exports.push([module.i, ".card[data-v-292727c1] {\n  background-color: #fff;\n  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.07);\n  border-left: 2px solid #4E73DF;\n  padding: 1.8em 0.6em 0.8em 0.6em;\n  margin-bottom: 1em;\n  font-size: 1em;\n}\n.card--done[data-v-292727c1] {\n  border-left-color: #2ecc71;\n}\n.card__actions[data-v-292727c1] {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-end;\n  align-items: center;\n}\n.card__actions .voyager-trash[data-v-292727c1] {\n  cursor: pointer;\n  display: block;\n  margin-top: -3px;\n  font-size: 20px;\n}\n.card__actions .voyager-trash[data-v-292727c1]:hover {\n  color: #FB4027;\n}\n.card__actions .voyager-check[data-v-292727c1] {\n  cursor: pointer;\n  display: block;\n  margin-top: -3px;\n  font-size: 26px;\n  margin-right: 1em;\n}\n.card__actions .voyager-check--green[data-v-292727c1] {\n  color: #2ecc71;\n}\n.card__actions .voyager-check[data-v-292727c1]:hover {\n  color: #2ecc71;\n}", ""]);
 
 // exports
 
@@ -23871,6 +24063,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/salesOrdersSaveButton.vue?vue&type=style&index=0&id=50d329af&lang=sass&scoped=true&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--9-2!./node_modules/sass-loader/lib/loader.js??ref--9-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SalesOrders/EditAdd/salesOrdersSaveButton.vue?vue&type=style&index=0&id=50d329af&lang=sass&scoped=true& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../node_modules/css-loader!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--9-2!../../../../../node_modules/sass-loader/lib/loader.js??ref--9-3!../../../../../node_modules/vue-loader/lib??vue-loader-options!./salesOrdersSaveButton.vue?vue&type=style&index=0&id=50d329af&lang=sass&scoped=true& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/salesOrdersSaveButton.vue?vue&type=style&index=0&id=50d329af&lang=sass&scoped=true&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/baseComponents/BasePanel.vue?vue&type=style&index=0&id=409f8fd4&lang=sass&scoped=true&":
 /*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--9-2!./node_modules/sass-loader/lib/loader.js??ref--9-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/baseComponents/BasePanel.vue?vue&type=style&index=0&id=409f8fd4&lang=sass&scoped=true& ***!
@@ -25925,7 +26147,7 @@ var render = function() {
         _c("div", { staticClass: "form-group col-md-4" }, [
           _c("label", { staticClass: "control-label" }, [
             _vm._v(
-              _vm._s(_vm.trans.get("voyager.sales_ordres.current_insurance"))
+              _vm._s(_vm.trans.get("voyager.sales_orders.current_insurance"))
             )
           ]),
           _vm._v(" "),
@@ -25978,7 +26200,7 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "form-group col-md-4" }, [
           _c("label", { staticClass: "control-label" }, [
-            _vm._v(_vm._s(_vm.trans.get("voyager.sales_ordres.new_insurance")))
+            _vm._v(_vm._s(_vm.trans.get("voyager.sales_orders.new_insurance")))
           ]),
           _vm._v(" "),
           _c(
@@ -26086,7 +26308,7 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "form-group col-md-4" }, [
           _c("label", { staticClass: "control-label" }, [
-            _vm._v(_vm._s(_vm.trans.get("voyager.sales_ordres.household_type")))
+            _vm._v(_vm._s(_vm.trans.get("voyager.sales_orders.household_type")))
           ]),
           _vm._v(" "),
           _c(
@@ -26131,47 +26353,56 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "form-group col-md-4" }, [
-          _c("label", { staticClass: "control-label" }, [
-            _vm._v(
-              _vm._s(_vm.trans.get("voyager.sales_ordres.number_of_f_members"))
-            )
-          ]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.salesOrder.numberOfFamilyMembers,
-                expression: "salesOrder.numberOfFamilyMembers"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: { type: "number" },
-            domProps: { value: _vm.salesOrder.numberOfFamilyMembers },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(
-                  _vm.salesOrder,
-                  "numberOfFamilyMembers",
-                  $event.target.value
+        _vm.isHouseholdTypeFamily
+          ? _c("div", { staticClass: "form-group col-md-4" }, [
+              _c("label", { staticClass: "control-label" }, [
+                _vm._v(
+                  _vm._s(
+                    _vm.trans.get("voyager.sales_orders.number_of_f_members")
+                  )
                 )
-              }
-            }
-          })
-        ]),
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model.trim",
+                    value: _vm.salesOrder.numberOfFamilyMembers,
+                    expression: "salesOrder.numberOfFamilyMembers",
+                    modifiers: { trim: true }
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "number" },
+                domProps: { value: _vm.salesOrder.numberOfFamilyMembers },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(
+                      _vm.salesOrder,
+                      "numberOfFamilyMembers",
+                      $event.target.value.trim()
+                    )
+                  },
+                  blur: function($event) {
+                    return _vm.$forceUpdate()
+                  }
+                }
+              })
+            ])
+          : _vm._e(),
         _vm._v(" "),
         _c("div", { staticClass: "form-group col-md-4" }, [
           _c("label", { staticClass: "control-label" }, [
-            _vm._v(_vm._s(_vm.trans.get("voyager.sales_ordres.new_born")))
+            _vm._v(_vm._s(_vm.trans.get("voyager.sales_orders.new_born")))
           ]),
           _vm._v(" "),
           _c(
             "div",
+            { staticClass: "toggle-button-wrapper" },
             [
               _c("toggle-button", {
                 attrs: {
@@ -26197,12 +26428,13 @@ var render = function() {
         _c("div", { staticClass: "form-group col-md-4" }, [
           _c("label", { staticClass: "control-label" }, [
             _vm._v(
-              _vm._s(_vm.trans.get("voyager.sales_ordres.move_to_switzerland"))
+              _vm._s(_vm.trans.get("voyager.sales_orders.move_to_switzerland"))
             )
           ]),
           _vm._v(" "),
           _c(
             "div",
+            { staticClass: "toggle-button-wrapper" },
             [
               _c("toggle-button", {
                 attrs: {
@@ -26228,7 +26460,7 @@ var render = function() {
         _c("div", { staticClass: "form-group col-md-4" }, [
           _c("label", { staticClass: "control-label" }, [
             _vm._v(
-              _vm._s(_vm.trans.get("voyager.sales_ordres.sales_lead_source"))
+              _vm._s(_vm.trans.get("voyager.sales_orders.sales_lead_source"))
             )
           ]),
           _vm._v(" "),
@@ -26262,13 +26494,29 @@ var render = function() {
                 }
               }
             },
-            [_c("option", { attrs: { value: "" } })]
+            [
+              _c("option", { attrs: { value: "outbound_call" } }, [
+                _vm._v(
+                  _vm._s(_vm.trans.get("voyager.sales_orders.outbound_call"))
+                )
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "employee_lead" } }, [
+                _vm._v(
+                  _vm._s(_vm.trans.get("voyager.sales_orders.employee_lead"))
+                )
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "other" } }, [
+                _vm._v(_vm._s(_vm.trans.get("voyager.generic.other")))
+              ])
+            ]
           )
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group col-md-4" }, [
           _c("label", { staticClass: "control-label" }, [
-            _vm._v(_vm._s(_vm.trans.get("voyager.generic.sales_person")))
+            _vm._v(_vm._s(_vm.trans.get("voyager.sales_orders.sales_person")))
           ]),
           _vm._v(" "),
           _c(
@@ -26323,7 +26571,7 @@ var render = function() {
           { staticClass: "form-group col-md-4" },
           [
             _c("label", { staticClass: "control-label" }, [
-              _vm._v(_vm._s(_vm.trans.get("voyager.sales_ordres.sign_date")))
+              _vm._v(_vm._s(_vm.trans.get("voyager.sales_orders.sign_date")))
             ]),
             _vm._v(" "),
             _c("Datepicker", {
@@ -26344,7 +26592,7 @@ var render = function() {
         _c("div", { staticClass: "form-group col-md-4" }, [
           _c("label", { staticClass: "control-label" }, [
             _vm._v(
-              _vm._s(_vm.trans.get("voyager.sales_ordres.sales_order_status"))
+              _vm._s(_vm.trans.get("voyager.sales_orders.sales_order_status"))
             )
           ]),
           _vm._v(" "),
@@ -26378,14 +26626,26 @@ var render = function() {
                 }
               }
             },
-            [_c("option", { attrs: { value: "" } })]
+            [
+              _c("option", { attrs: { value: "entry" } }, [
+                _vm._v(_vm._s(_vm.trans.get("voyager.sales_orders.entry")))
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "processing" } }, [
+                _vm._v(_vm._s(_vm.trans.get("voyager.sales_orders.processing")))
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "closing" } }, [
+                _vm._v(_vm._s(_vm.trans.get("voyager.sales_orders.closing")))
+              ])
+            ]
           )
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group col-md-4" }, [
           _c("label", { staticClass: "control-label" }, [
             _vm._v(
-              _vm._s(_vm.trans.get("voyager.sales_ordres.insurance_status"))
+              _vm._s(_vm.trans.get("voyager.sales_orders.insurance_status"))
             )
           ]),
           _vm._v(" "),
@@ -26419,7 +26679,27 @@ var render = function() {
                 }
               }
             },
-            [_c("option", { attrs: { value: "" } })]
+            [
+              _c("option", { attrs: { value: "" } }, [
+                _vm._v(_vm._s(_vm.trans.get("voyager.sales_orders.none")))
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "submitted" } }, [
+                _vm._v(_vm._s(_vm.trans.get("voyager.sales_orders.submitted")))
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "feedback" } }, [
+                _vm._v(_vm._s(_vm.trans.get("voyager.sales_orders.feedback")))
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "rejected" } }, [
+                _vm._v(_vm._s(_vm.trans.get("voyager.sales_orders.rejected")))
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "approved" } }, [
+                _vm._v(_vm._s(_vm.trans.get("voyager.sales_orders.approved")))
+              ])
+            ]
           )
         ]),
         _vm._v(" "),
@@ -26427,7 +26707,7 @@ var render = function() {
           _c("label", { staticClass: "control-label" }, [
             _vm._v(
               _vm._s(
-                _vm.trans.get("voyager.sales_ordres.contract_duration__VVG")
+                _vm.trans.get("voyager.sales_orders.contract_duration_VVG")
               )
             )
           ]),
@@ -26462,7 +26742,19 @@ var render = function() {
                 }
               }
             },
-            [_c("option", { attrs: { value: "" } })]
+            [
+              _c("option", { attrs: { value: "12" } }, [_vm._v("12")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "24" } }, [_vm._v("24")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "36" } }, [_vm._v("36")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "48" } }, [_vm._v("48")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "60", selected: "" } }, [
+                _vm._v("60")
+              ])
+            ]
           )
         ]),
         _vm._v(" "),
@@ -26470,7 +26762,7 @@ var render = function() {
           _c("label", { staticClass: "control-label" }, [
             _vm._v(
               _vm._s(
-                _vm.trans.get("voyager.sales_ordres.contract_duration_KVG")
+                _vm.trans.get("voyager.sales_orders.contract_duration_KVG")
               )
             )
           ]),
@@ -26505,15 +26797,77 @@ var render = function() {
                 }
               }
             },
-            [_c("option", { attrs: { value: "" } })]
+            [
+              _c("option", { attrs: { value: "12" } }, [_vm._v("12")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "24" } }, [_vm._v("24")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "36" } }, [_vm._v("36")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "48" } }, [_vm._v("48")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "60", selected: "" } }, [
+                _vm._v("60")
+              ])
+            ]
           )
         ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "form-group col-md-4" },
+          [
+            _c("label", { staticClass: "control-label" }, [
+              _vm._v(
+                _vm._s(_vm.trans.get("voyager.sales_orders.contract_start_VVG"))
+              )
+            ]),
+            _vm._v(" "),
+            _c("Datepicker", {
+              staticClass: "datePicker",
+              attrs: { "input-class": "form-control", format: _vm.DateFormat },
+              model: {
+                value: _vm.salesOrder.contractStartVVG,
+                callback: function($$v) {
+                  _vm.$set(_vm.salesOrder, "contractStartVVG", $$v)
+                },
+                expression: "salesOrder.contractStartVVG"
+              }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "form-group col-md-4" },
+          [
+            _c("label", { staticClass: "control-label" }, [
+              _vm._v(
+                _vm._s(_vm.trans.get("voyager.sales_orders.contract_start_KVG"))
+              )
+            ]),
+            _vm._v(" "),
+            _c("Datepicker", {
+              staticClass: "datePicker",
+              attrs: { "input-class": "form-control", format: _vm.DateFormat },
+              model: {
+                value: _vm.salesOrder.contractStartKVG,
+                callback: function($$v) {
+                  _vm.$set(_vm.salesOrder, "contractStartKVG", $$v)
+                },
+                expression: "salesOrder.contractStartKVG"
+              }
+            })
+          ],
+          1
+        ),
         _vm._v(" "),
         _c("div", { staticClass: "form-group col-md-4" }, [
           _c("label", { staticClass: "control-label" }, [
             _vm._v(
               _vm._s(
-                _vm.trans.get("voyager.sales_ordres.insurance_tracking_id")
+                _vm.trans.get("voyager.sales_orders.insurance_tracking_id")
               )
             )
           ]),
@@ -26545,7 +26899,21 @@ var render = function() {
           })
         ]),
         _vm._v(" "),
-        _c("p")
+        _c("div", { staticClass: "form-group col-md-4" }, [
+          _c("label", { staticClass: "control-label" }, [
+            _vm._v(
+              "\n                    " +
+                _vm._s(
+                  _vm.trans.get("voyager.sales_orders.insurance_submitted_date")
+                ) +
+                "\n                "
+            )
+          ]),
+          _vm._v(" "),
+          !_vm.salesOrder.insuranceSubmittedDate
+            ? _c("b", [_vm._v(_vm._s())])
+            : _vm._e()
+        ])
       ])
     ])
   ])
@@ -26719,184 +27087,100 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-6" }, [
-        _c("div", { staticClass: "form-group col-md-6" }, [
-          _c("label", { staticClass: "control-label" }, [
-            _vm._v(_vm._s(_vm.trans.get("voyager.generic.first_name")))
-          ]),
-          _vm._v(" "),
-          _vm.isEditAdd
-            ? _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.contractPersonDetails.firstName,
-                    expression: "contractPersonDetails.firstName"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { type: "text" },
-                domProps: { value: _vm.contractPersonDetails.firstName },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(
-                      _vm.contractPersonDetails,
-                      "firstName",
-                      $event.target.value
-                    )
-                  }
-                }
-              })
-            : _vm._e(),
-          _vm._v(" "),
-          !_vm.isEditAdd
-            ? _c("b", { staticClass: "form-data" }, [
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(_vm.person.firstName) +
-                    "\n                "
-                )
-              ])
-            : _vm._e()
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group col-md-6" }, [
-          _c("label", { staticClass: "control-label" }, [
-            _vm._v(_vm._s(_vm.trans.get("voyager.generic.last_name")))
-          ]),
-          _vm._v(" "),
-          _vm.isEditAdd
-            ? _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.contractPersonDetails.lastName,
-                    expression: "contractPersonDetails.lastName"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { type: "text" },
-                domProps: { value: _vm.contractPersonDetails.lastName },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(
-                      _vm.contractPersonDetails,
-                      "lastName",
-                      $event.target.value
-                    )
-                  }
-                }
-              })
-            : _vm._e(),
-          _vm._v(" "),
-          !_vm.isEditAdd
-            ? _c("b", { staticClass: "form-data" }, [
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(_vm.person.lastName) +
-                    "\n                "
-                )
-              ])
-            : _vm._e()
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group col-md-6" }, [
-          _c("label", { staticClass: "control-label" }, [
-            _vm._v(_vm._s(_vm.trans.get("voyager.generic.gender")))
-          ]),
-          _vm._v(" "),
-          _vm.isEditAdd
-            ? _c(
-                "select",
-                {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.contractPersonDetails.gender,
-                      expression: "contractPersonDetails.gender"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  on: {
-                    change: function($event) {
-                      var $$selectedVal = Array.prototype.filter
-                        .call($event.target.options, function(o) {
-                          return o.selected
-                        })
-                        .map(function(o) {
-                          var val = "_value" in o ? o._value : o.value
-                          return val
-                        })
-                      _vm.$set(
-                        _vm.contractPersonDetails,
-                        "gender",
-                        $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      )
-                    }
-                  }
-                },
-                [
-                  _c("option", { attrs: { value: "male" } }, [
-                    _vm._v(
-                      "\n                        " +
-                        _vm._s(_vm.trans.get("voyager.generic.male")) +
-                        "\n                    "
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "male" } }, [
-                    _vm._v(
-                      "\n                        " +
-                        _vm._s(_vm.trans.get("voyager.generic.female")) +
-                        "\n                    "
-                    )
-                  ])
-                ]
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          !_vm.isEditAdd
-            ? _c("b", { staticClass: "form-data" }, [
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(_vm.person.gender) +
-                    "\n                "
-                )
-              ])
-            : _vm._e()
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "form-group col-md-6" },
-          [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "form-group col-md-6" }, [
             _c("label", { staticClass: "control-label" }, [
-              _vm._v(_vm._s(_vm.trans.get("voyager.generic.birthday")))
+              _vm._v(_vm._s(_vm.trans.get("voyager.generic.first_name")))
             ]),
             _vm._v(" "),
             _vm.isEditAdd
-              ? _c("Datepicker", {
-                  staticClass: "datePicker",
-                  attrs: {
-                    "input-class": "form-control",
-                    format: _vm.DateFormat
-                  },
-                  model: {
-                    value: _vm.contractPersonDetails.birthday,
-                    callback: function($$v) {
-                      _vm.$set(_vm.contractPersonDetails, "birthday", $$v)
+              ? _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model.trim",
+                      value: _vm.contractPersonDetails.firstName,
+                      expression: "contractPersonDetails.firstName",
+                      modifiers: { trim: true }
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.contractPersonDetails.firstName },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.contractPersonDetails,
+                        "firstName",
+                        $event.target.value.trim()
+                      )
                     },
-                    expression: "contractPersonDetails.birthday"
+                    blur: function($event) {
+                      return _vm.$forceUpdate()
+                    }
+                  }
+                })
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.$v.contractPersonDetails.firstName.$dirty
+              ? _c("div", [
+                  !_vm.$v.contractPersonDetails.firstName.required
+                    ? _c("span", { staticClass: "error-text" }, [
+                        _vm._v(
+                          "\n                            Field is required\n                        "
+                        )
+                      ])
+                    : _vm._e()
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            !_vm.isEditAdd
+              ? _c("b", { staticClass: "form-data" }, [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(_vm.person.firstName) +
+                      "\n                    "
+                  )
+                ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group col-md-6" }, [
+            _c("label", { staticClass: "control-label" }, [
+              _vm._v(_vm._s(_vm.trans.get("voyager.generic.last_name")))
+            ]),
+            _vm._v(" "),
+            _vm.isEditAdd
+              ? _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model.trim",
+                      value: _vm.contractPersonDetails.lastName,
+                      expression: "contractPersonDetails.lastName",
+                      modifiers: { trim: true }
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.contractPersonDetails.lastName },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.contractPersonDetails,
+                        "lastName",
+                        $event.target.value.trim()
+                      )
+                    },
+                    blur: function($event) {
+                      return _vm.$forceUpdate()
+                    }
                   }
                 })
               : _vm._e(),
@@ -26904,252 +27188,382 @@ var render = function() {
             !_vm.isEditAdd
               ? _c("b", { staticClass: "form-data" }, [
                   _vm._v(
-                    "\n                    " +
-                      _vm._s(_vm.person.birthday) +
-                      "\n                "
+                    "\n                        " +
+                      _vm._s(_vm.person.lastName) +
+                      "\n                    "
                   )
                 ])
               : _vm._e()
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group col-md-6" }, [
-          _c("label", { staticClass: "control-label" }, [
-            _vm._v(_vm._s(_vm.trans.get("voyager.generic.birthyear")))
-          ]),
-          _vm._v(" "),
-          _vm.isEditAdd
-            ? _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.contractPersonDetails.birthyear,
-                    expression: "contractPersonDetails.birthyear"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { type: "text", readonly: "" },
-                domProps: { value: _vm.contractPersonDetails.birthyear },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(
-                      _vm.contractPersonDetails,
-                      "birthyear",
-                      $event.target.value
-                    )
-                  }
-                }
-              })
-            : _vm._e(),
-          _vm._v(" "),
-          !_vm.isEditAdd
-            ? _c("b", { staticClass: "form-data" }, [
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(_vm.person.birthyear) +
-                    "\n                "
-                )
-              ])
-            : _vm._e()
+          ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "form-group col-md-6" }, [
-          _c("label", { staticClass: "control-label" }, [
-            _vm._v(_vm._s(_vm.trans.get("voyager.generic.age")))
-          ]),
-          _vm._v(" "),
-          _vm.isEditAdd
-            ? _c("input", {
-                directives: [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "form-group col-md-6" }, [
+            _c("label", { staticClass: "control-label" }, [
+              _vm._v(_vm._s(_vm.trans.get("voyager.generic.gender")))
+            ]),
+            _vm._v(" "),
+            _vm.isEditAdd
+              ? _c(
+                  "select",
                   {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.contractPersonDetails.age,
-                    expression: "contractPersonDetails.age"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { type: "number", readonly: "" },
-                domProps: { value: _vm.contractPersonDetails.age },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.contractPersonDetails.gender,
+                        expression: "contractPersonDetails.gender"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.contractPersonDetails,
+                          "gender",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      }
                     }
-                    _vm.$set(
-                      _vm.contractPersonDetails,
-                      "age",
-                      $event.target.value
-                    )
-                  }
-                }
-              })
-            : _vm._e(),
-          _vm._v(" "),
-          !_vm.isEditAdd
-            ? _c("b", { staticClass: "form-data" }, [
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(_vm.person.age) +
-                    "\n                "
+                  },
+                  [
+                    _c("option", { attrs: { value: "male" } }, [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(_vm.trans.get("voyager.generic.male")) +
+                          "\n                        "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "male" } }, [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(_vm.trans.get("voyager.generic.female")) +
+                          "\n                        "
+                      )
+                    ])
+                  ]
                 )
-              ])
-            : _vm._e()
-        ]),
-        _vm._v(" "),
-        _vm.isFamily
-          ? _c("div", { staticClass: "form-group col-md-6" }, [
-              _c("label", { staticClass: "control-label" }, [
-                _vm._v(
-                  _vm._s(
-                    _vm.trans.get("voyager.sales_orders.family_member_type")
+              : _vm._e(),
+            _vm._v(" "),
+            !_vm.isEditAdd
+              ? _c("b", { staticClass: "form-data" }, [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(_vm.person.gender) +
+                      "\n                    "
                   )
-                )
+                ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "form-group col-md-6" },
+            [
+              _c("label", { staticClass: "control-label" }, [
+                _vm._v(_vm._s(_vm.trans.get("voyager.generic.birthday")))
               ]),
               _vm._v(" "),
               _vm.isEditAdd
-                ? _c(
-                    "select",
-                    {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.contractPersonDetails.familyMemberType,
-                          expression: "contractPersonDetails.familyMemberType"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.$set(
-                            _vm.contractPersonDetails,
-                            "familyMemberType",
-                            $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          )
-                        }
-                      }
+                ? _c("Datepicker", {
+                    staticClass: "datePicker",
+                    attrs: {
+                      "input-class": "form-control",
+                      format: _vm.DateFormat
                     },
-                    [
-                      _c("option", { attrs: { value: "father" } }, [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(_vm.trans.get("voyager.generic.father")) +
-                            "\n                    "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "mother" } }, [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(_vm.trans.get("voyager.generic.mother")) +
-                            "\n                    "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "daughter" } }, [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(_vm.trans.get("voyager.generic.daughter")) +
-                            "\n                    "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "son" } }, [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(_vm.trans.get("voyager.generic.son")) +
-                            "\n                    "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "new_born" } }, [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(_vm.trans.get("voyager.generic.new_born")) +
-                            "\n                    "
-                        )
-                      ])
-                    ]
-                  )
+                    model: {
+                      value: _vm.contractPersonDetails.birthday,
+                      callback: function($$v) {
+                        _vm.$set(_vm.contractPersonDetails, "birthday", $$v)
+                      },
+                      expression: "contractPersonDetails.birthday"
+                    }
+                  })
                 : _vm._e(),
               _vm._v(" "),
               !_vm.isEditAdd
                 ? _c("b", { staticClass: "form-data" }, [
                     _vm._v(
-                      "\n                    " +
-                        _vm._s(_vm.person.familyMemberType) +
-                        "\n                "
+                      "\n                        " +
+                        _vm._s(_vm.person.birthday) +
+                        "\n                    "
                     )
                   ])
                 : _vm._e()
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group col-md-6" }, [
-          _c("label", { staticClass: "control-label" }, [
-            _vm._v(_vm._s(_vm.trans.get("voyager.sales_orders.police_number")))
-          ]),
-          _vm._v(" "),
-          _vm.isEditAdd
-            ? _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.contractPersonDetails.policeNumber,
-                    expression: "contractPersonDetails.policeNumber"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { type: "policeNumber" },
-                domProps: { value: _vm.contractPersonDetails.policeNumber },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(
-                      _vm.contractPersonDetails,
-                      "policeNumber",
-                      $event.target.value
-                    )
-                  }
-                }
-              })
-            : _vm._e(),
-          _vm._v(" "),
-          !_vm.isEditAdd
-            ? _c("b", { staticClass: "form-data" }, [
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(_vm.person.policeNumber) +
-                    "\n                "
-                )
-              ])
-            : _vm._e()
+            ],
+            1
+          )
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "form-group col-md-6" }, [
-          _vm._v(
-            "\n                here we need to add form upload \n            "
-          )
-        ])
+        _c("div", { staticClass: "row" }, [
+          _vm.isFamily
+            ? _c("div", { staticClass: "form-group col-md-6" }, [
+                _c("label", { staticClass: "control-label" }, [
+                  _vm._v(_vm._s(_vm.trans.get("voyager.generic.birthyear")))
+                ]),
+                _vm._v(" "),
+                _vm.isEditAdd
+                  ? _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model.trim",
+                          value: _vm.contractPersonDetails.birthyear,
+                          expression: "contractPersonDetails.birthyear",
+                          modifiers: { trim: true }
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", readonly: "" },
+                      domProps: { value: _vm.contractPersonDetails.birthyear },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.contractPersonDetails,
+                            "birthyear",
+                            $event.target.value.trim()
+                          )
+                        },
+                        blur: function($event) {
+                          return _vm.$forceUpdate()
+                        }
+                      }
+                    })
+                  : _vm._e(),
+                _vm._v(" "),
+                !_vm.isEditAdd
+                  ? _c("b", { staticClass: "form-data" }, [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(_vm.person.birthyear) +
+                          "\n                    "
+                      )
+                    ])
+                  : _vm._e()
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group col-md-6" }, [
+            _c("label", { staticClass: "control-label" }, [
+              _vm._v(_vm._s(_vm.trans.get("voyager.generic.age")))
+            ]),
+            _vm._v(" "),
+            _vm.isEditAdd
+              ? _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model.trim",
+                      value: _vm.contractPersonDetails.age,
+                      expression: "contractPersonDetails.age",
+                      modifiers: { trim: true }
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "number", readonly: "" },
+                  domProps: { value: _vm.contractPersonDetails.age },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.contractPersonDetails,
+                        "age",
+                        $event.target.value.trim()
+                      )
+                    },
+                    blur: function($event) {
+                      return _vm.$forceUpdate()
+                    }
+                  }
+                })
+              : _vm._e(),
+            _vm._v(" "),
+            !_vm.isEditAdd
+              ? _c("b", { staticClass: "form-data" }, [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(_vm.person.age) +
+                      "\n                    "
+                  )
+                ])
+              : _vm._e()
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _vm.isFamily
+            ? _c("div", { staticClass: "form-group col-md-6" }, [
+                _c("label", { staticClass: "control-label" }, [
+                  _vm._v(
+                    _vm._s(
+                      _vm.trans.get("voyager.sales_orders.family_member_type")
+                    )
+                  )
+                ]),
+                _vm._v(" "),
+                _vm.isEditAdd
+                  ? _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model.trim",
+                            value: _vm.contractPersonDetails.familyMemberType,
+                            expression:
+                              "contractPersonDetails.familyMemberType",
+                            modifiers: { trim: true }
+                          }
+                        ],
+                        staticClass: "form-control",
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.contractPersonDetails,
+                              "familyMemberType",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { value: "father" } }, [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(_vm.trans.get("voyager.generic.father")) +
+                              "\n                        "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "mother" } }, [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(_vm.trans.get("voyager.generic.mother")) +
+                              "\n                        "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "daughter" } }, [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(
+                                _vm.trans.get("voyager.generic.daughter")
+                              ) +
+                              "\n                        "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "son" } }, [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(_vm.trans.get("voyager.generic.son")) +
+                              "\n                        "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "new_born" } }, [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(
+                                _vm.trans.get("voyager.generic.new_born")
+                              ) +
+                              "\n                        "
+                          )
+                        ])
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                !_vm.isEditAdd
+                  ? _c("b", { staticClass: "form-data" }, [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(_vm.person.familyMemberType) +
+                          "\n                    "
+                      )
+                    ])
+                  : _vm._e()
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group col-md-6" }, [
+            _c("label", { staticClass: "control-label" }, [
+              _vm._v(
+                _vm._s(_vm.trans.get("voyager.sales_orders.police_number"))
+              )
+            ]),
+            _vm._v(" "),
+            _vm.isEditAdd
+              ? _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model.trim",
+                      value: _vm.contractPersonDetails.policeNumber,
+                      expression: "contractPersonDetails.policeNumber",
+                      modifiers: { trim: true }
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "policeNumber" },
+                  domProps: { value: _vm.contractPersonDetails.policeNumber },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.contractPersonDetails,
+                        "policeNumber",
+                        $event.target.value.trim()
+                      )
+                    },
+                    blur: function($event) {
+                      return _vm.$forceUpdate()
+                    }
+                  }
+                })
+              : _vm._e(),
+            _vm._v(" "),
+            !_vm.isEditAdd
+              ? _c("b", { staticClass: "form-data" }, [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(_vm.person.policeNumber) +
+                      "\n                    "
+                  )
+                ])
+              : _vm._e()
+          ])
+        ]),
+        _vm._v(" "),
+        _vm._m(0)
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-6 products-col" }, [
@@ -27211,27 +27625,49 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-success btn-add-new pull-right",
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      return _vm.addProductToContractPerson($event)
-                    }
-                  }
-                },
-                [
-                  _c("i", { staticClass: "voyager-plus" }),
-                  _vm._v(" "),
-                  _c("span", [
-                    _vm._v(
-                      _vm._s(_vm.trans.get("voyager.sales_orders.add_product"))
-                    )
+              _c("div", { staticClass: "col-md-3 form-group" }, [
+                _c("label", { staticClass: "control-label" }, [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(
+                        _vm.trans.get("voyager.sales_orders.total_provision")
+                      ) +
+                      "\n                    "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", [
+                  _c("b", { staticClass: "form-data" }, [
+                    _vm._v(_vm._s(_vm.totalProvision))
                   ])
-                ]
-              )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-3" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success btn-add-new pull-right",
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.addProductToContractPerson($event)
+                      }
+                    }
+                  },
+                  [
+                    _c("i", { staticClass: "voyager-plus" }),
+                    _vm._v(" "),
+                    _c("span", [
+                      _vm._v(
+                        _vm._s(
+                          _vm.trans.get("voyager.sales_orders.add_product")
+                        )
+                      )
+                    ])
+                  ]
+                )
+              ])
             ])
           : _vm._e(),
         _vm._v(" "),
@@ -27256,11 +27692,7 @@ var render = function() {
         "button",
         {
           staticClass: "btn btn-primary pull-right",
-          on: {
-            click: function($event) {
-              return _vm.addContractPerson(_vm.$data)
-            }
-          }
+          on: { click: _vm.submit }
         },
         [
           _vm._v(
@@ -27273,7 +27705,20 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "form-group col-md-6" }, [
+        _vm._v(
+          "\n                    here we need to add form upload \n                "
+        )
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -27309,7 +27754,7 @@ var render = function() {
         _vm._v(
           "\n            " +
             _vm._s(
-              _vm.product.provision ? _vm.product.provision + " eur" : ""
+              _vm.product.provision ? _vm.product.provision + " chf" : ""
             ) +
             "  \n        "
         )
@@ -27351,7 +27796,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("BasePanel", {
-    attrs: { showFooter: false, name: "voyager.", icon: "voyager-list" },
+    attrs: {
+      showFooter: false,
+      name: "voyager.tasks.tasks",
+      icon: "voyager-list"
+    },
     scopedSlots: _vm._u([
       {
         key: "body",
@@ -27400,23 +27849,35 @@ var render = function() {
                         }
                       }
                     },
-                    _vm._l(_vm.allTasksCollections, function(collection) {
-                      return _c(
-                        "option",
-                        {
-                          key: collection.id,
-                          domProps: { value: collection.id }
-                        },
-                        [
-                          _vm._v(
-                            "\n                            " +
-                              _vm._s(collection.name) +
-                              "\n                        "
+                    [
+                      _c("option", { attrs: { value: "" } }, [
+                        _vm._v(
+                          _vm._s(
+                            _vm.trans.get(
+                              "voyager.sales_orders.new_tasks_collection"
+                            )
                           )
-                        ]
-                      )
-                    }),
-                    0
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.allTasksCollections, function(collection) {
+                        return _c(
+                          "option",
+                          {
+                            key: collection.id,
+                            domProps: { value: collection.id }
+                          },
+                          [
+                            _vm._v(
+                              "\n                            " +
+                                _vm._s(collection.name) +
+                                "\n                        "
+                            )
+                          ]
+                        )
+                      })
+                    ],
+                    2
                   )
                 ])
               ])
@@ -27433,6 +27894,41 @@ var render = function() {
       }
     ])
   })
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/salesOrdersSaveButton.vue?vue&type=template&id=50d329af&scoped=true&":
+/*!********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SalesOrders/EditAdd/salesOrdersSaveButton.vue?vue&type=template&id=50d329af&scoped=true& ***!
+  \********************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "button",
+    {
+      staticClass: "btn btn-success btn-save",
+      on: { click: _vm.storeSalesOrder }
+    },
+    [
+      _c("i", { staticClass: "voyager-check-circle" }),
+      _vm._v(" "),
+      _c("span", [_vm._v(_vm._s(_vm.trans.get("voyager.generic.save")))])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -27679,12 +28175,16 @@ var render = function() {
                 }
               },
               [
-                _c("option", { attrs: { value: "status1" } }, [
-                  _vm._v("status1")
+                _c("option", { attrs: { value: "open" } }, [
+                  _vm._v(_vm._s(_vm.trans.get("voyager.generic.open")))
                 ]),
                 _vm._v(" "),
-                _c("option", { attrs: { value: "status2" } }, [
-                  _vm._v("status2")
+                _c("option", { attrs: { value: "pending" } }, [
+                  _vm._v(_vm._s(_vm.trans.get("voyager.generic.pending")))
+                ]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "closed" } }, [
+                  _vm._v(_vm._s(_vm.trans.get("voyager.generic.closed")))
                 ])
               ]
             )
@@ -27733,32 +28233,44 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card" }, [
-    _c("div", { staticClass: "col-md-3" }, [_vm._v(_vm._s(_vm.task.name))]),
-    _vm._v(" "),
-    _c("div", { staticClass: "col-md-3" }, [_vm._v(_vm._s(_vm.ownerName))]),
-    _vm._v(" "),
-    _c("div", { staticClass: "col-md-3" }, [
-      _vm._v(_vm._s(_vm._f("changeDateFormat")(_vm.task.date)))
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "col-md-2" }, [
-      _vm._v("\n      " + _vm._s(_vm.task.status) + "\n  ")
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "col-md-1" }, [
-      _c("div", { staticClass: "card__actions" }, [
-        _c("i", {
-          staticClass: "voyager-trash",
-          on: {
-            click: function($event) {
-              return _vm.deleteTask(_vm.task.id)
+  return _c(
+    "div",
+    { class: { card: "card", "card--done": _vm.task.completed } },
+    [
+      _c("div", { staticClass: "col-md-3" }, [_vm._v(_vm._s(_vm.task.name))]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-3" }, [_vm._v(_vm._s(_vm.ownerName))]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-3" }, [
+        _vm._v(_vm._s(_vm._f("changeDateFormat")(_vm.task.date)))
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-2" }, [
+        _vm._v("\n      " + _vm._s(_vm.task.status) + "\n  ")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-1" }, [
+        _c("div", { staticClass: "card__actions" }, [
+          _c("i", {
+            class: {
+              "voyager-check--green": _vm.task.completed,
+              "voyager-check": "voyager-check"
+            },
+            on: { click: _vm.completed }
+          }),
+          _vm._v(" "),
+          _c("i", {
+            staticClass: "voyager-trash",
+            on: {
+              click: function($event) {
+                return _vm.deleteTask(_vm.task.id)
+              }
             }
-          }
-        })
+          })
+        ])
       ])
-    ])
-  ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -27849,7 +28361,7 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    !(_vm.tasksCollection.id == null)
+    _vm.isCollectionSaved
       ? _c("div", [
           _c("hr"),
           _vm._v(" "),
@@ -27890,6 +28402,7 @@ var render = function() {
     _vm._v(" "),
     _c(
       "div",
+      { staticClass: "row" },
       _vm._l(_vm.allTodos, function(task, index) {
         return _c("TaskCard", { key: index, attrs: { task: task } })
       }),
@@ -42426,6 +42939,1932 @@ __vue_render__$4._withStripped = true;
 
 /***/ }),
 
+/***/ "./node_modules/vuelidate/lib/index.js":
+/*!*********************************************!*\
+  !*** ./node_modules/vuelidate/lib/index.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Vuelidate = Vuelidate;
+Object.defineProperty(exports, "withParams", {
+  enumerable: true,
+  get: function get() {
+    return _params.withParams;
+  }
+});
+exports.default = exports.validationMixin = void 0;
+
+var _vval = __webpack_require__(/*! ./vval */ "./node_modules/vuelidate/lib/vval.js");
+
+var _params = __webpack_require__(/*! ./params */ "./node_modules/vuelidate/lib/params.js");
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+var NIL = function NIL() {
+  return null;
+};
+
+var buildFromKeys = function buildFromKeys(keys, fn, keyFn) {
+  return keys.reduce(function (build, key) {
+    build[keyFn ? keyFn(key) : key] = fn(key);
+    return build;
+  }, {});
+};
+
+function isFunction(val) {
+  return typeof val === 'function';
+}
+
+function isObject(val) {
+  return val !== null && (_typeof(val) === 'object' || isFunction(val));
+}
+
+function isPromise(object) {
+  return isObject(object) && isFunction(object.then);
+}
+
+var getPath = function getPath(ctx, obj, path, fallback) {
+  if (typeof path === 'function') {
+    return path.call(ctx, obj, fallback);
+  }
+
+  path = Array.isArray(path) ? path : path.split('.');
+
+  for (var i = 0; i < path.length; i++) {
+    if (obj && _typeof(obj) === 'object') {
+      obj = obj[path[i]];
+    } else {
+      return fallback;
+    }
+  }
+
+  return typeof obj === 'undefined' ? fallback : obj;
+};
+
+var __isVuelidateAsyncVm = '__isVuelidateAsyncVm';
+
+function makePendingAsyncVm(Vue, promise) {
+  var asyncVm = new Vue({
+    data: {
+      p: true,
+      v: false
+    }
+  });
+  promise.then(function (value) {
+    asyncVm.p = false;
+    asyncVm.v = value;
+  }, function (error) {
+    asyncVm.p = false;
+    asyncVm.v = false;
+    throw error;
+  });
+  asyncVm[__isVuelidateAsyncVm] = true;
+  return asyncVm;
+}
+
+var validationGetters = {
+  $invalid: function $invalid() {
+    var _this = this;
+
+    var proxy = this.proxy;
+    return this.nestedKeys.some(function (nested) {
+      return _this.refProxy(nested).$invalid;
+    }) || this.ruleKeys.some(function (rule) {
+      return !proxy[rule];
+    });
+  },
+  $dirty: function $dirty() {
+    var _this2 = this;
+
+    if (this.dirty) {
+      return true;
+    }
+
+    if (this.nestedKeys.length === 0) {
+      return false;
+    }
+
+    return this.nestedKeys.every(function (key) {
+      return _this2.refProxy(key).$dirty;
+    });
+  },
+  $anyDirty: function $anyDirty() {
+    var _this3 = this;
+
+    if (this.dirty) {
+      return true;
+    }
+
+    if (this.nestedKeys.length === 0) {
+      return false;
+    }
+
+    return this.nestedKeys.some(function (key) {
+      return _this3.refProxy(key).$anyDirty;
+    });
+  },
+  $error: function $error() {
+    return this.$dirty && !this.$pending && this.$invalid;
+  },
+  $anyError: function $anyError() {
+    return this.$anyDirty && !this.$pending && this.$invalid;
+  },
+  $pending: function $pending() {
+    var _this4 = this;
+
+    return this.ruleKeys.some(function (key) {
+      return _this4.getRef(key).$pending;
+    }) || this.nestedKeys.some(function (key) {
+      return _this4.refProxy(key).$pending;
+    });
+  },
+  $params: function $params() {
+    var _this5 = this;
+
+    var vals = this.validations;
+    return _objectSpread({}, buildFromKeys(this.nestedKeys, function (key) {
+      return vals[key] && vals[key].$params || null;
+    }), buildFromKeys(this.ruleKeys, function (key) {
+      return _this5.getRef(key).$params;
+    }));
+  }
+};
+
+function setDirtyRecursive(newState) {
+  this.dirty = newState;
+  var proxy = this.proxy;
+  var method = newState ? '$touch' : '$reset';
+  this.nestedKeys.forEach(function (key) {
+    proxy[key][method]();
+  });
+}
+
+var validationMethods = {
+  $touch: function $touch() {
+    setDirtyRecursive.call(this, true);
+  },
+  $reset: function $reset() {
+    setDirtyRecursive.call(this, false);
+  },
+  $flattenParams: function $flattenParams() {
+    var proxy = this.proxy;
+    var params = [];
+
+    for (var key in this.$params) {
+      if (this.isNested(key)) {
+        var childParams = proxy[key].$flattenParams();
+
+        for (var j = 0; j < childParams.length; j++) {
+          childParams[j].path.unshift(key);
+        }
+
+        params = params.concat(childParams);
+      } else {
+        params.push({
+          path: [],
+          name: key,
+          params: this.$params[key]
+        });
+      }
+    }
+
+    return params;
+  }
+};
+var getterNames = Object.keys(validationGetters);
+var methodNames = Object.keys(validationMethods);
+var _cachedComponent = null;
+
+var getComponent = function getComponent(Vue) {
+  if (_cachedComponent) {
+    return _cachedComponent;
+  }
+
+  var VBase = Vue.extend({
+    computed: {
+      refs: function refs() {
+        var oldVval = this._vval;
+        this._vval = this.children;
+        (0, _vval.patchChildren)(oldVval, this._vval);
+        var refs = {};
+
+        this._vval.forEach(function (c) {
+          refs[c.key] = c.vm;
+        });
+
+        return refs;
+      }
+    },
+    beforeCreate: function beforeCreate() {
+      this._vval = null;
+    },
+    beforeDestroy: function beforeDestroy() {
+      if (this._vval) {
+        (0, _vval.patchChildren)(this._vval);
+        this._vval = null;
+      }
+    },
+    methods: {
+      getModel: function getModel() {
+        return this.lazyModel ? this.lazyModel(this.prop) : this.model;
+      },
+      getModelKey: function getModelKey(key) {
+        var model = this.getModel();
+
+        if (model) {
+          return model[key];
+        }
+      },
+      hasIter: function hasIter() {
+        return false;
+      }
+    }
+  });
+  var ValidationRule = VBase.extend({
+    data: function data() {
+      return {
+        rule: null,
+        lazyModel: null,
+        model: null,
+        lazyParentModel: null,
+        rootModel: null
+      };
+    },
+    methods: {
+      runRule: function runRule(parent) {
+        var model = this.getModel();
+        (0, _params.pushParams)();
+        var rawOutput = this.rule.call(this.rootModel, model, parent);
+        var output = isPromise(rawOutput) ? makePendingAsyncVm(Vue, rawOutput) : rawOutput;
+        var rawParams = (0, _params.popParams)();
+        var params = rawParams && rawParams.$sub ? rawParams.$sub.length > 1 ? rawParams : rawParams.$sub[0] : null;
+        return {
+          output: output,
+          params: params
+        };
+      }
+    },
+    computed: {
+      run: function run() {
+        var _this6 = this;
+
+        var parent = this.lazyParentModel();
+
+        var isArrayDependant = Array.isArray(parent) && parent.__ob__;
+
+        if (isArrayDependant) {
+          var arrayDep = parent.__ob__.dep;
+          arrayDep.depend();
+          var target = arrayDep.constructor.target;
+
+          if (!this._indirectWatcher) {
+            var Watcher = target.constructor;
+            this._indirectWatcher = new Watcher(this, function () {
+              return _this6.runRule(parent);
+            }, null, {
+              lazy: true
+            });
+          }
+
+          var model = this.getModel();
+
+          if (!this._indirectWatcher.dirty && this._lastModel === model) {
+            this._indirectWatcher.depend();
+
+            return target.value;
+          }
+
+          this._lastModel = model;
+
+          this._indirectWatcher.evaluate();
+
+          this._indirectWatcher.depend();
+        } else if (this._indirectWatcher) {
+          this._indirectWatcher.teardown();
+
+          this._indirectWatcher = null;
+        }
+
+        return this._indirectWatcher ? this._indirectWatcher.value : this.runRule(parent);
+      },
+      $params: function $params() {
+        return this.run.params;
+      },
+      proxy: function proxy() {
+        var output = this.run.output;
+
+        if (output[__isVuelidateAsyncVm]) {
+          return !!output.v;
+        }
+
+        return !!output;
+      },
+      $pending: function $pending() {
+        var output = this.run.output;
+
+        if (output[__isVuelidateAsyncVm]) {
+          return output.p;
+        }
+
+        return false;
+      }
+    },
+    destroyed: function destroyed() {
+      if (this._indirectWatcher) {
+        this._indirectWatcher.teardown();
+
+        this._indirectWatcher = null;
+      }
+    }
+  });
+  var Validation = VBase.extend({
+    data: function data() {
+      return {
+        dirty: false,
+        validations: null,
+        lazyModel: null,
+        model: null,
+        prop: null,
+        lazyParentModel: null,
+        rootModel: null
+      };
+    },
+    methods: _objectSpread({}, validationMethods, {
+      refProxy: function refProxy(key) {
+        return this.getRef(key).proxy;
+      },
+      getRef: function getRef(key) {
+        return this.refs[key];
+      },
+      isNested: function isNested(key) {
+        return typeof this.validations[key] !== 'function';
+      }
+    }),
+    computed: _objectSpread({}, validationGetters, {
+      nestedKeys: function nestedKeys() {
+        return this.keys.filter(this.isNested);
+      },
+      ruleKeys: function ruleKeys() {
+        var _this7 = this;
+
+        return this.keys.filter(function (k) {
+          return !_this7.isNested(k);
+        });
+      },
+      keys: function keys() {
+        return Object.keys(this.validations).filter(function (k) {
+          return k !== '$params';
+        });
+      },
+      proxy: function proxy() {
+        var _this8 = this;
+
+        var keyDefs = buildFromKeys(this.keys, function (key) {
+          return {
+            enumerable: true,
+            configurable: true,
+            get: function get() {
+              return _this8.refProxy(key);
+            }
+          };
+        });
+        var getterDefs = buildFromKeys(getterNames, function (key) {
+          return {
+            enumerable: true,
+            configurable: true,
+            get: function get() {
+              return _this8[key];
+            }
+          };
+        });
+        var methodDefs = buildFromKeys(methodNames, function (key) {
+          return {
+            enumerable: false,
+            configurable: true,
+            get: function get() {
+              return _this8[key];
+            }
+          };
+        });
+        var iterDefs = this.hasIter() ? {
+          $iter: {
+            enumerable: true,
+            value: Object.defineProperties({}, _objectSpread({}, keyDefs))
+          }
+        } : {};
+        return Object.defineProperties({}, _objectSpread({}, keyDefs, iterDefs, {
+          $model: {
+            enumerable: true,
+            get: function get() {
+              var parent = _this8.lazyParentModel();
+
+              if (parent != null) {
+                return parent[_this8.prop];
+              } else {
+                return null;
+              }
+            },
+            set: function set(value) {
+              var parent = _this8.lazyParentModel();
+
+              if (parent != null) {
+                parent[_this8.prop] = value;
+
+                _this8.$touch();
+              }
+            }
+          }
+        }, getterDefs, methodDefs));
+      },
+      children: function children() {
+        var _this9 = this;
+
+        return _toConsumableArray(this.nestedKeys.map(function (key) {
+          return renderNested(_this9, key);
+        })).concat(_toConsumableArray(this.ruleKeys.map(function (key) {
+          return renderRule(_this9, key);
+        }))).filter(Boolean);
+      }
+    })
+  });
+  var GroupValidation = Validation.extend({
+    methods: {
+      isNested: function isNested(key) {
+        return typeof this.validations[key]() !== 'undefined';
+      },
+      getRef: function getRef(key) {
+        var vm = this;
+        return {
+          get proxy() {
+            return vm.validations[key]() || false;
+          }
+
+        };
+      }
+    }
+  });
+  var EachValidation = Validation.extend({
+    computed: {
+      keys: function keys() {
+        var model = this.getModel();
+
+        if (isObject(model)) {
+          return Object.keys(model);
+        } else {
+          return [];
+        }
+      },
+      tracker: function tracker() {
+        var _this10 = this;
+
+        var trackBy = this.validations.$trackBy;
+        return trackBy ? function (key) {
+          return "".concat(getPath(_this10.rootModel, _this10.getModelKey(key), trackBy));
+        } : function (x) {
+          return "".concat(x);
+        };
+      },
+      getModelLazy: function getModelLazy() {
+        var _this11 = this;
+
+        return function () {
+          return _this11.getModel();
+        };
+      },
+      children: function children() {
+        var _this12 = this;
+
+        var def = this.validations;
+        var model = this.getModel();
+
+        var validations = _objectSpread({}, def);
+
+        delete validations['$trackBy'];
+        var usedTracks = {};
+        return this.keys.map(function (key) {
+          var track = _this12.tracker(key);
+
+          if (usedTracks.hasOwnProperty(track)) {
+            return null;
+          }
+
+          usedTracks[track] = true;
+          return (0, _vval.h)(Validation, track, {
+            validations: validations,
+            prop: key,
+            lazyParentModel: _this12.getModelLazy,
+            model: model[key],
+            rootModel: _this12.rootModel
+          });
+        }).filter(Boolean);
+      }
+    },
+    methods: {
+      isNested: function isNested() {
+        return true;
+      },
+      getRef: function getRef(key) {
+        return this.refs[this.tracker(key)];
+      },
+      hasIter: function hasIter() {
+        return true;
+      }
+    }
+  });
+
+  var renderNested = function renderNested(vm, key) {
+    if (key === '$each') {
+      return (0, _vval.h)(EachValidation, key, {
+        validations: vm.validations[key],
+        lazyParentModel: vm.lazyParentModel,
+        prop: key,
+        lazyModel: vm.getModel,
+        rootModel: vm.rootModel
+      });
+    }
+
+    var validations = vm.validations[key];
+
+    if (Array.isArray(validations)) {
+      var root = vm.rootModel;
+      var refVals = buildFromKeys(validations, function (path) {
+        return function () {
+          return getPath(root, root.$v, path);
+        };
+      }, function (v) {
+        return Array.isArray(v) ? v.join('.') : v;
+      });
+      return (0, _vval.h)(GroupValidation, key, {
+        validations: refVals,
+        lazyParentModel: NIL,
+        prop: key,
+        lazyModel: NIL,
+        rootModel: root
+      });
+    }
+
+    return (0, _vval.h)(Validation, key, {
+      validations: validations,
+      lazyParentModel: vm.getModel,
+      prop: key,
+      lazyModel: vm.getModelKey,
+      rootModel: vm.rootModel
+    });
+  };
+
+  var renderRule = function renderRule(vm, key) {
+    return (0, _vval.h)(ValidationRule, key, {
+      rule: vm.validations[key],
+      lazyParentModel: vm.lazyParentModel,
+      lazyModel: vm.getModel,
+      rootModel: vm.rootModel
+    });
+  };
+
+  _cachedComponent = {
+    VBase: VBase,
+    Validation: Validation
+  };
+  return _cachedComponent;
+};
+
+var _cachedVue = null;
+
+function getVue(rootVm) {
+  if (_cachedVue) return _cachedVue;
+  var Vue = rootVm.constructor;
+
+  while (Vue.super) {
+    Vue = Vue.super;
+  }
+
+  _cachedVue = Vue;
+  return Vue;
+}
+
+var validateModel = function validateModel(model, validations) {
+  var Vue = getVue(model);
+
+  var _getComponent = getComponent(Vue),
+      Validation = _getComponent.Validation,
+      VBase = _getComponent.VBase;
+
+  var root = new VBase({
+    computed: {
+      children: function children() {
+        var vals = typeof validations === 'function' ? validations.call(model) : validations;
+        return [(0, _vval.h)(Validation, '$v', {
+          validations: vals,
+          lazyParentModel: NIL,
+          prop: '$v',
+          model: model,
+          rootModel: model
+        })];
+      }
+    }
+  });
+  return root;
+};
+
+var validationMixin = {
+  data: function data() {
+    var vals = this.$options.validations;
+
+    if (vals) {
+      this._vuelidate = validateModel(this, vals);
+    }
+
+    return {};
+  },
+  beforeCreate: function beforeCreate() {
+    var options = this.$options;
+    var vals = options.validations;
+    if (!vals) return;
+    if (!options.computed) options.computed = {};
+    if (options.computed.$v) return;
+
+    options.computed.$v = function () {
+      return this._vuelidate ? this._vuelidate.refs.$v.proxy : null;
+    };
+  },
+  beforeDestroy: function beforeDestroy() {
+    if (this._vuelidate) {
+      this._vuelidate.$destroy();
+
+      this._vuelidate = null;
+    }
+  }
+};
+exports.validationMixin = validationMixin;
+
+function Vuelidate(Vue) {
+  Vue.mixin(validationMixin);
+}
+
+var _default = Vuelidate;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/params.js":
+/*!**********************************************!*\
+  !*** ./node_modules/vuelidate/lib/params.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.pushParams = pushParams;
+exports.popParams = popParams;
+exports.withParams = withParams;
+exports._setTarget = exports.target = void 0;
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+var stack = [];
+var target = null;
+exports.target = target;
+
+var _setTarget = function _setTarget(x) {
+  exports.target = target = x;
+};
+
+exports._setTarget = _setTarget;
+
+function pushParams() {
+  if (target !== null) {
+    stack.push(target);
+  }
+
+  exports.target = target = {};
+}
+
+function popParams() {
+  var lastTarget = target;
+  var newTarget = exports.target = target = stack.pop() || null;
+
+  if (newTarget) {
+    if (!Array.isArray(newTarget.$sub)) {
+      newTarget.$sub = [];
+    }
+
+    newTarget.$sub.push(lastTarget);
+  }
+
+  return lastTarget;
+}
+
+function addParams(params) {
+  if (_typeof(params) === 'object' && !Array.isArray(params)) {
+    exports.target = target = _objectSpread({}, target, params);
+  } else {
+    throw new Error('params must be an object');
+  }
+}
+
+function withParamsDirect(params, validator) {
+  return withParamsClosure(function (add) {
+    return function () {
+      add(params);
+
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return validator.apply(this, args);
+    };
+  });
+}
+
+function withParamsClosure(closure) {
+  var validator = closure(addParams);
+  return function () {
+    pushParams();
+
+    try {
+      for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        args[_key2] = arguments[_key2];
+      }
+
+      return validator.apply(this, args);
+    } finally {
+      popParams();
+    }
+  };
+}
+
+function withParams(paramsOrClosure, maybeValidator) {
+  if (_typeof(paramsOrClosure) === 'object' && maybeValidator !== undefined) {
+    return withParamsDirect(paramsOrClosure, maybeValidator);
+  }
+
+  return withParamsClosure(paramsOrClosure);
+}
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/alpha.js":
+/*!********************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/alpha.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var _default = (0, _common.regex)('alpha', /^[a-zA-Z]*$/);
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/alphaNum.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/alphaNum.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var _default = (0, _common.regex)('alphaNum', /^[a-zA-Z0-9]*$/);
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/and.js":
+/*!******************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/and.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var _default = function _default() {
+  for (var _len = arguments.length, validators = new Array(_len), _key = 0; _key < _len; _key++) {
+    validators[_key] = arguments[_key];
+  }
+
+  return (0, _common.withParams)({
+    type: 'and'
+  }, function () {
+    var _this = this;
+
+    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      args[_key2] = arguments[_key2];
+    }
+
+    return validators.length > 0 && validators.reduce(function (valid, fn) {
+      return valid && fn.apply(_this, args);
+    }, true);
+  });
+};
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/between.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/between.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var _default = function _default(min, max) {
+  return (0, _common.withParams)({
+    type: 'between',
+    min: min,
+    max: max
+  }, function (value) {
+    return !(0, _common.req)(value) || (!/\s/.test(value) || value instanceof Date) && +min <= +value && +max >= +value;
+  });
+};
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/common.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/common.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "withParams", {
+  enumerable: true,
+  get: function get() {
+    return _withParams.default;
+  }
+});
+exports.regex = exports.ref = exports.len = exports.req = void 0;
+
+var _withParams = _interopRequireDefault(__webpack_require__(/*! ../withParams */ "./node_modules/vuelidate/lib/withParams.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+var req = function req(value) {
+  if (Array.isArray(value)) return !!value.length;
+
+  if (value === undefined || value === null) {
+    return false;
+  }
+
+  if (value === false) {
+    return true;
+  }
+
+  if (value instanceof Date) {
+    return !isNaN(value.getTime());
+  }
+
+  if (_typeof(value) === 'object') {
+    for (var _ in value) {
+      return true;
+    }
+
+    return false;
+  }
+
+  return !!String(value).length;
+};
+
+exports.req = req;
+
+var len = function len(value) {
+  if (Array.isArray(value)) return value.length;
+
+  if (_typeof(value) === 'object') {
+    return Object.keys(value).length;
+  }
+
+  return String(value).length;
+};
+
+exports.len = len;
+
+var ref = function ref(reference, vm, parentVm) {
+  return typeof reference === 'function' ? reference.call(vm, parentVm) : parentVm[reference];
+};
+
+exports.ref = ref;
+
+var regex = function regex(type, expr) {
+  return (0, _withParams.default)({
+    type: type
+  }, function (value) {
+    return !req(value) || expr.test(value);
+  });
+};
+
+exports.regex = regex;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/decimal.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/decimal.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var _default = (0, _common.regex)('decimal', /^[-]?\d*(\.\d+)?$/);
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/email.js":
+/*!********************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/email.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var emailRegex = /(^$|^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$)/;
+
+var _default = (0, _common.regex)('email', emailRegex);
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/index.js":
+/*!********************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/index.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "alpha", {
+  enumerable: true,
+  get: function get() {
+    return _alpha.default;
+  }
+});
+Object.defineProperty(exports, "alphaNum", {
+  enumerable: true,
+  get: function get() {
+    return _alphaNum.default;
+  }
+});
+Object.defineProperty(exports, "numeric", {
+  enumerable: true,
+  get: function get() {
+    return _numeric.default;
+  }
+});
+Object.defineProperty(exports, "between", {
+  enumerable: true,
+  get: function get() {
+    return _between.default;
+  }
+});
+Object.defineProperty(exports, "email", {
+  enumerable: true,
+  get: function get() {
+    return _email.default;
+  }
+});
+Object.defineProperty(exports, "ipAddress", {
+  enumerable: true,
+  get: function get() {
+    return _ipAddress.default;
+  }
+});
+Object.defineProperty(exports, "macAddress", {
+  enumerable: true,
+  get: function get() {
+    return _macAddress.default;
+  }
+});
+Object.defineProperty(exports, "maxLength", {
+  enumerable: true,
+  get: function get() {
+    return _maxLength.default;
+  }
+});
+Object.defineProperty(exports, "minLength", {
+  enumerable: true,
+  get: function get() {
+    return _minLength.default;
+  }
+});
+Object.defineProperty(exports, "required", {
+  enumerable: true,
+  get: function get() {
+    return _required.default;
+  }
+});
+Object.defineProperty(exports, "requiredIf", {
+  enumerable: true,
+  get: function get() {
+    return _requiredIf.default;
+  }
+});
+Object.defineProperty(exports, "requiredUnless", {
+  enumerable: true,
+  get: function get() {
+    return _requiredUnless.default;
+  }
+});
+Object.defineProperty(exports, "sameAs", {
+  enumerable: true,
+  get: function get() {
+    return _sameAs.default;
+  }
+});
+Object.defineProperty(exports, "url", {
+  enumerable: true,
+  get: function get() {
+    return _url.default;
+  }
+});
+Object.defineProperty(exports, "or", {
+  enumerable: true,
+  get: function get() {
+    return _or.default;
+  }
+});
+Object.defineProperty(exports, "and", {
+  enumerable: true,
+  get: function get() {
+    return _and.default;
+  }
+});
+Object.defineProperty(exports, "not", {
+  enumerable: true,
+  get: function get() {
+    return _not.default;
+  }
+});
+Object.defineProperty(exports, "minValue", {
+  enumerable: true,
+  get: function get() {
+    return _minValue.default;
+  }
+});
+Object.defineProperty(exports, "maxValue", {
+  enumerable: true,
+  get: function get() {
+    return _maxValue.default;
+  }
+});
+Object.defineProperty(exports, "integer", {
+  enumerable: true,
+  get: function get() {
+    return _integer.default;
+  }
+});
+Object.defineProperty(exports, "decimal", {
+  enumerable: true,
+  get: function get() {
+    return _decimal.default;
+  }
+});
+exports.helpers = void 0;
+
+var _alpha = _interopRequireDefault(__webpack_require__(/*! ./alpha */ "./node_modules/vuelidate/lib/validators/alpha.js"));
+
+var _alphaNum = _interopRequireDefault(__webpack_require__(/*! ./alphaNum */ "./node_modules/vuelidate/lib/validators/alphaNum.js"));
+
+var _numeric = _interopRequireDefault(__webpack_require__(/*! ./numeric */ "./node_modules/vuelidate/lib/validators/numeric.js"));
+
+var _between = _interopRequireDefault(__webpack_require__(/*! ./between */ "./node_modules/vuelidate/lib/validators/between.js"));
+
+var _email = _interopRequireDefault(__webpack_require__(/*! ./email */ "./node_modules/vuelidate/lib/validators/email.js"));
+
+var _ipAddress = _interopRequireDefault(__webpack_require__(/*! ./ipAddress */ "./node_modules/vuelidate/lib/validators/ipAddress.js"));
+
+var _macAddress = _interopRequireDefault(__webpack_require__(/*! ./macAddress */ "./node_modules/vuelidate/lib/validators/macAddress.js"));
+
+var _maxLength = _interopRequireDefault(__webpack_require__(/*! ./maxLength */ "./node_modules/vuelidate/lib/validators/maxLength.js"));
+
+var _minLength = _interopRequireDefault(__webpack_require__(/*! ./minLength */ "./node_modules/vuelidate/lib/validators/minLength.js"));
+
+var _required = _interopRequireDefault(__webpack_require__(/*! ./required */ "./node_modules/vuelidate/lib/validators/required.js"));
+
+var _requiredIf = _interopRequireDefault(__webpack_require__(/*! ./requiredIf */ "./node_modules/vuelidate/lib/validators/requiredIf.js"));
+
+var _requiredUnless = _interopRequireDefault(__webpack_require__(/*! ./requiredUnless */ "./node_modules/vuelidate/lib/validators/requiredUnless.js"));
+
+var _sameAs = _interopRequireDefault(__webpack_require__(/*! ./sameAs */ "./node_modules/vuelidate/lib/validators/sameAs.js"));
+
+var _url = _interopRequireDefault(__webpack_require__(/*! ./url */ "./node_modules/vuelidate/lib/validators/url.js"));
+
+var _or = _interopRequireDefault(__webpack_require__(/*! ./or */ "./node_modules/vuelidate/lib/validators/or.js"));
+
+var _and = _interopRequireDefault(__webpack_require__(/*! ./and */ "./node_modules/vuelidate/lib/validators/and.js"));
+
+var _not = _interopRequireDefault(__webpack_require__(/*! ./not */ "./node_modules/vuelidate/lib/validators/not.js"));
+
+var _minValue = _interopRequireDefault(__webpack_require__(/*! ./minValue */ "./node_modules/vuelidate/lib/validators/minValue.js"));
+
+var _maxValue = _interopRequireDefault(__webpack_require__(/*! ./maxValue */ "./node_modules/vuelidate/lib/validators/maxValue.js"));
+
+var _integer = _interopRequireDefault(__webpack_require__(/*! ./integer */ "./node_modules/vuelidate/lib/validators/integer.js"));
+
+var _decimal = _interopRequireDefault(__webpack_require__(/*! ./decimal */ "./node_modules/vuelidate/lib/validators/decimal.js"));
+
+var helpers = _interopRequireWildcard(__webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js"));
+
+exports.helpers = helpers;
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/integer.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/integer.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var _default = (0, _common.regex)('integer', /^-?[0-9]*$/);
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/ipAddress.js":
+/*!************************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/ipAddress.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var _default = (0, _common.withParams)({
+  type: 'ipAddress'
+}, function (value) {
+  if (!(0, _common.req)(value)) {
+    return true;
+  }
+
+  if (typeof value !== 'string') {
+    return false;
+  }
+
+  var nibbles = value.split('.');
+  return nibbles.length === 4 && nibbles.every(nibbleValid);
+});
+
+exports.default = _default;
+
+var nibbleValid = function nibbleValid(nibble) {
+  if (nibble.length > 3 || nibble.length === 0) {
+    return false;
+  }
+
+  if (nibble[0] === '0' && nibble !== '0') {
+    return false;
+  }
+
+  if (!nibble.match(/^\d+$/)) {
+    return false;
+  }
+
+  var numeric = +nibble | 0;
+  return numeric >= 0 && numeric <= 255;
+};
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/macAddress.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/macAddress.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var _default = function _default() {
+  var separator = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : ':';
+  return (0, _common.withParams)({
+    type: 'macAddress'
+  }, function (value) {
+    if (!(0, _common.req)(value)) {
+      return true;
+    }
+
+    if (typeof value !== 'string') {
+      return false;
+    }
+
+    var parts = typeof separator === 'string' && separator !== '' ? value.split(separator) : value.length === 12 || value.length === 16 ? value.match(/.{2}/g) : null;
+    return parts !== null && (parts.length === 6 || parts.length === 8) && parts.every(hexValid);
+  });
+};
+
+exports.default = _default;
+
+var hexValid = function hexValid(hex) {
+  return hex.toLowerCase().match(/^[0-9a-f]{2}$/);
+};
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/maxLength.js":
+/*!************************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/maxLength.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var _default = function _default(length) {
+  return (0, _common.withParams)({
+    type: 'maxLength',
+    max: length
+  }, function (value) {
+    return !(0, _common.req)(value) || (0, _common.len)(value) <= length;
+  });
+};
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/maxValue.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/maxValue.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var _default = function _default(max) {
+  return (0, _common.withParams)({
+    type: 'maxValue',
+    max: max
+  }, function (value) {
+    return !(0, _common.req)(value) || (!/\s/.test(value) || value instanceof Date) && +value <= +max;
+  });
+};
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/minLength.js":
+/*!************************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/minLength.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var _default = function _default(length) {
+  return (0, _common.withParams)({
+    type: 'minLength',
+    min: length
+  }, function (value) {
+    return !(0, _common.req)(value) || (0, _common.len)(value) >= length;
+  });
+};
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/minValue.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/minValue.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var _default = function _default(min) {
+  return (0, _common.withParams)({
+    type: 'minValue',
+    min: min
+  }, function (value) {
+    return !(0, _common.req)(value) || (!/\s/.test(value) || value instanceof Date) && +value >= +min;
+  });
+};
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/not.js":
+/*!******************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/not.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var _default = function _default(validator) {
+  return (0, _common.withParams)({
+    type: 'not'
+  }, function (value, vm) {
+    return !(0, _common.req)(value) || !validator.call(this, value, vm);
+  });
+};
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/numeric.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/numeric.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var _default = (0, _common.regex)('numeric', /^[0-9]*$/);
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/or.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/or.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var _default = function _default() {
+  for (var _len = arguments.length, validators = new Array(_len), _key = 0; _key < _len; _key++) {
+    validators[_key] = arguments[_key];
+  }
+
+  return (0, _common.withParams)({
+    type: 'or'
+  }, function () {
+    var _this = this;
+
+    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      args[_key2] = arguments[_key2];
+    }
+
+    return validators.length > 0 && validators.reduce(function (valid, fn) {
+      return valid || fn.apply(_this, args);
+    }, false);
+  });
+};
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/required.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/required.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var _default = (0, _common.withParams)({
+  type: 'required'
+}, _common.req);
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/requiredIf.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/requiredIf.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var _default = function _default(prop) {
+  return (0, _common.withParams)({
+    type: 'requiredIf',
+    prop: prop
+  }, function (value, parentVm) {
+    return (0, _common.ref)(prop, this, parentVm) ? (0, _common.req)(value) : true;
+  });
+};
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/requiredUnless.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/requiredUnless.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var _default = function _default(prop) {
+  return (0, _common.withParams)({
+    type: 'requiredUnless',
+    prop: prop
+  }, function (value, parentVm) {
+    return !(0, _common.ref)(prop, this, parentVm) ? (0, _common.req)(value) : true;
+  });
+};
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/sameAs.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/sameAs.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var _default = function _default(equalTo) {
+  return (0, _common.withParams)({
+    type: 'sameAs',
+    eq: equalTo
+  }, function (value, parentVm) {
+    return value === (0, _common.ref)(equalTo, this, parentVm);
+  });
+};
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/url.js":
+/*!******************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/url.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var urlRegex = /^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i;
+
+var _default = (0, _common.regex)('url', urlRegex);
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/vval.js":
+/*!********************************************!*\
+  !*** ./node_modules/vuelidate/lib/vval.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.patchChildren = patchChildren;
+exports.h = h;
+
+function isUndef(v) {
+  return v === null || v === undefined;
+}
+
+function isDef(v) {
+  return v !== null && v !== undefined;
+}
+
+function sameVval(oldVval, vval) {
+  return vval.tag === oldVval.tag && vval.key === oldVval.key;
+}
+
+function createVm(vval) {
+  var Vm = vval.tag;
+  vval.vm = new Vm({
+    data: vval.args
+  });
+}
+
+function updateVval(vval) {
+  var keys = Object.keys(vval.args);
+
+  for (var i = 0; i < keys.length; i++) {
+    keys.forEach(function (k) {
+      vval.vm[k] = vval.args[k];
+    });
+  }
+}
+
+function createKeyToOldIdx(children, beginIdx, endIdx) {
+  var i, key;
+  var map = {};
+
+  for (i = beginIdx; i <= endIdx; ++i) {
+    key = children[i].key;
+    if (isDef(key)) map[key] = i;
+  }
+
+  return map;
+}
+
+function updateChildren(oldCh, newCh) {
+  var oldStartIdx = 0;
+  var newStartIdx = 0;
+  var oldEndIdx = oldCh.length - 1;
+  var oldStartVval = oldCh[0];
+  var oldEndVval = oldCh[oldEndIdx];
+  var newEndIdx = newCh.length - 1;
+  var newStartVval = newCh[0];
+  var newEndVval = newCh[newEndIdx];
+  var oldKeyToIdx, idxInOld, elmToMove;
+
+  while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
+    if (isUndef(oldStartVval)) {
+      oldStartVval = oldCh[++oldStartIdx];
+    } else if (isUndef(oldEndVval)) {
+      oldEndVval = oldCh[--oldEndIdx];
+    } else if (sameVval(oldStartVval, newStartVval)) {
+      patchVval(oldStartVval, newStartVval);
+      oldStartVval = oldCh[++oldStartIdx];
+      newStartVval = newCh[++newStartIdx];
+    } else if (sameVval(oldEndVval, newEndVval)) {
+      patchVval(oldEndVval, newEndVval);
+      oldEndVval = oldCh[--oldEndIdx];
+      newEndVval = newCh[--newEndIdx];
+    } else if (sameVval(oldStartVval, newEndVval)) {
+      patchVval(oldStartVval, newEndVval);
+      oldStartVval = oldCh[++oldStartIdx];
+      newEndVval = newCh[--newEndIdx];
+    } else if (sameVval(oldEndVval, newStartVval)) {
+      patchVval(oldEndVval, newStartVval);
+      oldEndVval = oldCh[--oldEndIdx];
+      newStartVval = newCh[++newStartIdx];
+    } else {
+      if (isUndef(oldKeyToIdx)) oldKeyToIdx = createKeyToOldIdx(oldCh, oldStartIdx, oldEndIdx);
+      idxInOld = isDef(newStartVval.key) ? oldKeyToIdx[newStartVval.key] : null;
+
+      if (isUndef(idxInOld)) {
+        createVm(newStartVval);
+        newStartVval = newCh[++newStartIdx];
+      } else {
+        elmToMove = oldCh[idxInOld];
+
+        if (sameVval(elmToMove, newStartVval)) {
+          patchVval(elmToMove, newStartVval);
+          oldCh[idxInOld] = undefined;
+          newStartVval = newCh[++newStartIdx];
+        } else {
+          createVm(newStartVval);
+          newStartVval = newCh[++newStartIdx];
+        }
+      }
+    }
+  }
+
+  if (oldStartIdx > oldEndIdx) {
+    addVvals(newCh, newStartIdx, newEndIdx);
+  } else if (newStartIdx > newEndIdx) {
+    removeVvals(oldCh, oldStartIdx, oldEndIdx);
+  }
+}
+
+function addVvals(vvals, startIdx, endIdx) {
+  for (; startIdx <= endIdx; ++startIdx) {
+    createVm(vvals[startIdx]);
+  }
+}
+
+function removeVvals(vvals, startIdx, endIdx) {
+  for (; startIdx <= endIdx; ++startIdx) {
+    var ch = vvals[startIdx];
+
+    if (isDef(ch)) {
+      ch.vm.$destroy();
+      ch.vm = null;
+    }
+  }
+}
+
+function patchVval(oldVval, vval) {
+  if (oldVval === vval) {
+    return;
+  }
+
+  vval.vm = oldVval.vm;
+  updateVval(vval);
+}
+
+function patchChildren(oldCh, ch) {
+  if (isDef(oldCh) && isDef(ch)) {
+    if (oldCh !== ch) updateChildren(oldCh, ch);
+  } else if (isDef(ch)) {
+    addVvals(ch, 0, ch.length - 1);
+  } else if (isDef(oldCh)) {
+    removeVvals(oldCh, 0, oldCh.length - 1);
+  }
+}
+
+function h(tag, key, args) {
+  return {
+    tag: tag,
+    key: key,
+    args: args
+  };
+}
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/withParams.js":
+/*!**************************************************!*\
+  !*** ./node_modules/vuelidate/lib/withParams.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var withParams = process.env.BUILD === 'web' ? __webpack_require__(/*! ./withParamsBrowser */ "./node_modules/vuelidate/lib/withParamsBrowser.js").withParams : __webpack_require__(/*! ./params */ "./node_modules/vuelidate/lib/params.js").withParams;
+var _default = withParams;
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../process/browser.js */ "./node_modules/process/browser.js")))
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/withParamsBrowser.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/vuelidate/lib/withParamsBrowser.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.withParams = void 0;
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+var root = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : {};
+
+var fakeWithParams = function fakeWithParams(paramsOrClosure, maybeValidator) {
+  if (_typeof(paramsOrClosure) === 'object' && maybeValidator !== undefined) {
+    return maybeValidator;
+  }
+
+  return paramsOrClosure(function () {});
+};
+
+var withParams = root.vuelidate ? root.vuelidate.withParams : fakeWithParams;
+exports.withParams = withParams;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
 /***/ "./node_modules/vuex/dist/vuex.esm.js":
 /*!********************************************!*\
   !*** ./node_modules/vuex/dist/vuex.esm.js ***!
@@ -44284,6 +46723,93 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/SalesOrders/EditAdd/salesOrdersSaveButton.vue":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/SalesOrders/EditAdd/salesOrdersSaveButton.vue ***!
+  \*******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _salesOrdersSaveButton_vue_vue_type_template_id_50d329af_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./salesOrdersSaveButton.vue?vue&type=template&id=50d329af&scoped=true& */ "./resources/js/components/SalesOrders/EditAdd/salesOrdersSaveButton.vue?vue&type=template&id=50d329af&scoped=true&");
+/* harmony import */ var _salesOrdersSaveButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./salesOrdersSaveButton.vue?vue&type=script&lang=js& */ "./resources/js/components/SalesOrders/EditAdd/salesOrdersSaveButton.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _salesOrdersSaveButton_vue_vue_type_style_index_0_id_50d329af_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./salesOrdersSaveButton.vue?vue&type=style&index=0&id=50d329af&lang=sass&scoped=true& */ "./resources/js/components/SalesOrders/EditAdd/salesOrdersSaveButton.vue?vue&type=style&index=0&id=50d329af&lang=sass&scoped=true&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _salesOrdersSaveButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _salesOrdersSaveButton_vue_vue_type_template_id_50d329af_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _salesOrdersSaveButton_vue_vue_type_template_id_50d329af_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "50d329af",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/SalesOrders/EditAdd/salesOrdersSaveButton.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/SalesOrders/EditAdd/salesOrdersSaveButton.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************!*\
+  !*** ./resources/js/components/SalesOrders/EditAdd/salesOrdersSaveButton.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_salesOrdersSaveButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./salesOrdersSaveButton.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/salesOrdersSaveButton.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_salesOrdersSaveButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/SalesOrders/EditAdd/salesOrdersSaveButton.vue?vue&type=style&index=0&id=50d329af&lang=sass&scoped=true&":
+/*!*****************************************************************************************************************************************!*\
+  !*** ./resources/js/components/SalesOrders/EditAdd/salesOrdersSaveButton.vue?vue&type=style&index=0&id=50d329af&lang=sass&scoped=true& ***!
+  \*****************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_lib_loader_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_salesOrdersSaveButton_vue_vue_type_style_index_0_id_50d329af_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader!../../../../../node_modules/css-loader!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--9-2!../../../../../node_modules/sass-loader/lib/loader.js??ref--9-3!../../../../../node_modules/vue-loader/lib??vue-loader-options!./salesOrdersSaveButton.vue?vue&type=style&index=0&id=50d329af&lang=sass&scoped=true& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/salesOrdersSaveButton.vue?vue&type=style&index=0&id=50d329af&lang=sass&scoped=true&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_lib_loader_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_salesOrdersSaveButton_vue_vue_type_style_index_0_id_50d329af_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_lib_loader_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_salesOrdersSaveButton_vue_vue_type_style_index_0_id_50d329af_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_lib_loader_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_salesOrdersSaveButton_vue_vue_type_style_index_0_id_50d329af_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_lib_loader_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_salesOrdersSaveButton_vue_vue_type_style_index_0_id_50d329af_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_lib_loader_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_salesOrdersSaveButton_vue_vue_type_style_index_0_id_50d329af_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/SalesOrders/EditAdd/salesOrdersSaveButton.vue?vue&type=template&id=50d329af&scoped=true&":
+/*!**************************************************************************************************************************!*\
+  !*** ./resources/js/components/SalesOrders/EditAdd/salesOrdersSaveButton.vue?vue&type=template&id=50d329af&scoped=true& ***!
+  \**************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_salesOrdersSaveButton_vue_vue_type_template_id_50d329af_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./salesOrdersSaveButton.vue?vue&type=template&id=50d329af&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/salesOrdersSaveButton.vue?vue&type=template&id=50d329af&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_salesOrdersSaveButton_vue_vue_type_template_id_50d329af_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_salesOrdersSaveButton_vue_vue_type_template_id_50d329af_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/baseComponents/BasePanel.vue":
 /*!**************************************************************!*\
   !*** ./resources/js/components/baseComponents/BasePanel.vue ***!
@@ -44729,22 +47255,29 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../bootstrap */ "./resources/js/bootstrap.js");
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../store */ "./resources/js/store/index.js");
-/* harmony import */ var _components_SalesOrders_Browse_SalesOrdersFilter_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/SalesOrders/Browse/SalesOrdersFilter.vue */ "./resources/js/components/SalesOrders/Browse/SalesOrdersFilter.vue");
-/* harmony import */ var _components_SalesOrders_Browse_SalesOrdersPaginator_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/SalesOrders/Browse/SalesOrdersPaginator.vue */ "./resources/js/components/SalesOrders/Browse/SalesOrdersPaginator.vue");
-/* harmony import */ var _components_SalesOrders_EditAdd_App_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/SalesOrders/EditAdd/App.vue */ "./resources/js/components/SalesOrders/EditAdd/App.vue");
+/* harmony import */ var vuelidate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuelidate */ "./node_modules/vuelidate/lib/index.js");
+/* harmony import */ var vuelidate__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuelidate__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store */ "./resources/js/store/index.js");
+/* harmony import */ var _components_SalesOrders_Browse_SalesOrdersFilter_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/SalesOrders/Browse/SalesOrdersFilter.vue */ "./resources/js/components/SalesOrders/Browse/SalesOrdersFilter.vue");
+/* harmony import */ var _components_SalesOrders_Browse_SalesOrdersPaginator_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/SalesOrders/Browse/SalesOrdersPaginator.vue */ "./resources/js/components/SalesOrders/Browse/SalesOrdersPaginator.vue");
+/* harmony import */ var _components_SalesOrders_EditAdd_App_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/SalesOrders/EditAdd/App.vue */ "./resources/js/components/SalesOrders/EditAdd/App.vue");
+/* harmony import */ var _components_SalesOrders_EditAdd_salesOrdersSaveButton__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/SalesOrders/EditAdd/salesOrdersSaveButton */ "./resources/js/components/SalesOrders/EditAdd/salesOrdersSaveButton.vue");
 
 
 
 
 
+
+
+Vue.use(vuelidate__WEBPACK_IMPORTED_MODULE_1___default.a);
 new Vue({
   components: {
-    SalesOrdersPaginator: _components_SalesOrders_Browse_SalesOrdersPaginator_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-    SalesOrdersFilter: _components_SalesOrders_Browse_SalesOrdersFilter_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
-    App: _components_SalesOrders_EditAdd_App_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
+    SalesOrdersPaginator: _components_SalesOrders_Browse_SalesOrdersPaginator_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    SalesOrdersFilter: _components_SalesOrders_Browse_SalesOrdersFilter_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+    SalesOrdersSaveButton: _components_SalesOrders_EditAdd_salesOrdersSaveButton__WEBPACK_IMPORTED_MODULE_6__["default"],
+    App: _components_SalesOrders_EditAdd_App_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
-  store: _store__WEBPACK_IMPORTED_MODULE_1__["default"]
+  store: _store__WEBPACK_IMPORTED_MODULE_2__["default"]
 }).$mount("#app");
 
 /***/ }),
@@ -44818,10 +47351,13 @@ var state = {
     signDate: null,
     salesOrderStatus: null,
     insuranceStatus: null,
-    contractDurationVVG: null,
-    contractDurationKVG: null,
+    contractDurationVVG: 60,
+    contractDurationKVG: 60,
+    contractStartVVG: null,
+    contractStartKVG: null,
     insuranceTrackingID: null,
-    taskCollectionId: null,
+    insuranceSubmittedDate: null,
+    taskCollectionId: '',
     contractPeople: []
   },
   contractPersonDetails: {
@@ -44963,14 +47499,15 @@ var actions = {
             case 4:
               response = _context.sent;
               commit("setSalesOrders", response.data.salesOrders);
-              _context.next = 10;
+              _context.next = 11;
               break;
 
             case 8:
               _context.prev = 8;
               _context.t0 = _context["catch"](1);
+              console.error(_context.t0);
 
-            case 10:
+            case 11:
             case "end":
               return _context.stop();
           }
@@ -44984,6 +47521,45 @@ var actions = {
 
     return fetchSalesOrders;
   }(),
+  storeSalesOrder: function () {
+    var _storeSalesOrder = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2) {
+      var commit, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              commit = _ref2.commit;
+              _context2.prev = 1;
+              _context2.next = 4;
+              return axios.post('/api/sales-orders', state.salesOrder);
+
+            case 4:
+              response = _context2.sent;
+              console.log(response);
+              _context2.next = 11;
+              break;
+
+            case 8:
+              _context2.prev = 8;
+              _context2.t0 = _context2["catch"](1);
+              console.error(_context2.t0);
+
+            case 11:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[1, 8]]);
+    }));
+
+    function storeSalesOrder(_x2) {
+      return _storeSalesOrder.apply(this, arguments);
+    }
+
+    return storeSalesOrder;
+  }(),
 
   /**
    * Update the pagination page
@@ -44993,47 +47569,47 @@ var actions = {
   changePaginationPage: function () {
     var _changePaginationPage = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3) {
       var commit,
           page,
           response,
           table,
-          _args2 = arguments;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          _args3 = arguments;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
         while (1) {
-          switch (_context2.prev = _context2.next) {
+          switch (_context3.prev = _context3.next) {
             case 0:
-              commit = _ref2.commit;
-              page = _args2.length > 1 && _args2[1] !== undefined ? _args2[1] : 1;
-              _context2.prev = 2;
-              _context2.next = 5;
+              commit = _ref3.commit;
+              page = _args3.length > 1 && _args3[1] !== undefined ? _args3[1] : 1;
+              _context3.prev = 2;
+              _context3.next = 5;
               return axios.post("sales-orders/filter?page=".concat(page), state.filterData);
 
             case 5:
-              response = _context2.sent;
+              response = _context3.sent;
               // the table is rendered in the backend
               // we send it over and display it on the frontend
               table = document.querySelector("#table-wrapper");
               table.innerHTML = response.data.table; // update the paginator
 
               commit("setSalesOrders", response.data.dataTypeContent);
-              _context2.next = 14;
+              _context3.next = 14;
               break;
 
             case 11:
-              _context2.prev = 11;
-              _context2.t0 = _context2["catch"](2);
-              alert(_context2.t0);
+              _context3.prev = 11;
+              _context3.t0 = _context3["catch"](2);
+              alert(_context3.t0);
 
             case 14:
             case "end":
-              return _context2.stop();
+              return _context3.stop();
           }
         }
-      }, _callee2, null, [[2, 11]]);
+      }, _callee3, null, [[2, 11]]);
     }));
 
-    function changePaginationPage(_x2) {
+    function changePaginationPage(_x3) {
       return _changePaginationPage.apply(this, arguments);
     }
 
@@ -45050,49 +47626,49 @@ var actions = {
   filterSalesOrders: function () {
     var _filterSalesOrders = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3, data) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref4, data) {
       var commit,
           page,
           response,
           table,
-          _args3 = arguments;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          _args4 = arguments;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context4.prev = _context4.next) {
             case 0:
-              commit = _ref3.commit;
-              page = _args3.length > 2 && _args3[2] !== undefined ? _args3[2] : 1;
-              _context3.prev = 2;
+              commit = _ref4.commit;
+              page = _args4.length > 2 && _args4[2] !== undefined ? _args4[2] : 1;
+              _context4.prev = 2;
               // update the filter data
               state.filterData = data;
-              _context3.next = 6;
+              _context4.next = 6;
               return axios.post("sales-orders/filter?page=".concat(page), data);
 
             case 6:
-              response = _context3.sent;
+              response = _context4.sent;
               // the table is rendered in the backend
               // we send it over and display it on the frontend
               table = document.querySelector("#table-wrapper");
               table.innerHTML = response.data.table; // update the paginator
 
               commit("setSalesOrders", response.data.dataTypeContent);
-              _context3.next = 15;
+              _context4.next = 15;
               break;
 
             case 12:
-              _context3.prev = 12;
-              _context3.t0 = _context3["catch"](2);
-              console.warn(_context3.t0);
+              _context4.prev = 12;
+              _context4.t0 = _context4["catch"](2);
+              console.warn(_context4.t0);
 
             case 15:
             case "end":
-              return _context3.stop();
+              return _context4.stop();
           }
         }
-      }, _callee3, null, [[2, 12]]);
+      }, _callee4, null, [[2, 12]]);
     }));
 
-    function filterSalesOrders(_x3, _x4) {
+    function filterSalesOrders(_x4, _x5) {
       return _filterSalesOrders.apply(this, arguments);
     }
 
@@ -45105,8 +47681,8 @@ var actions = {
    * @param {*} param0
    * @param {object} data
    */
-  addContractPerson: function addContractPerson(_ref4) {
-    var commit = _ref4.commit;
+  addContractPerson: function addContractPerson(_ref5) {
+    var commit = _ref5.commit;
     commit("setContractPerson", state.contractPersonDetails);
   },
 
@@ -45126,8 +47702,8 @@ var actions = {
     var product = JSON.parse(JSON.stringify(state.contractPersonDetails.selectedProduct));
     state.contractPersonDetails.products.push(product);
   },
-  removeProduct: function removeProduct(_ref5, id) {
-    var commit = _ref5.commit;
+  removeProduct: function removeProduct(_ref6, id) {
+    var commit = _ref6.commit;
     // if we have two or more of the same product
     // this will delete all of them
     var results = state.contractPersonDetails.products.filter(function (product) {
@@ -45292,24 +47868,25 @@ var actions = {
 
     return deleteTask;
   }(),
-  updateTodo: function () {
-    var _updateTodo = _asyncToGenerator(
+  updateTask: function () {
+    var _updateTask = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref4, updTodo) {
-      var commit, response;
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref4, updTask) {
+      var commit, url, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
               commit = _ref4.commit;
-              _context4.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.put("https://jsonplaceholder.typicode.com/todos/".concat(updTodo.id), updTodo);
+              url = "/api/tasks/".concat(updTask.id);
+              _context4.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.put(url, updTask);
 
-            case 3:
+            case 4:
               response = _context4.sent;
-              commit('updateTodo', response.data);
+              commit('updateTask', response.data);
 
-            case 5:
+            case 6:
             case "end":
               return _context4.stop();
           }
@@ -45317,11 +47894,11 @@ var actions = {
       }, _callee4);
     }));
 
-    function updateTodo(_x6, _x7) {
-      return _updateTodo.apply(this, arguments);
+    function updateTask(_x6, _x7) {
+      return _updateTask.apply(this, arguments);
     }
 
-    return updateTodo;
+    return updateTask;
   }(),
   storeCollection: function () {
     var _storeCollection = _asyncToGenerator(
@@ -45335,7 +47912,7 @@ var actions = {
             case 0:
               commit = _ref5.commit;
 
-              if (!(state.tasksCollection.id === undefined || state.tasksCollection.id === null)) {
+              if (!(state.tasksCollection.id === undefined || state.tasksCollection.id === null || state.tasksCollection.id === "")) {
                 _context5.next = 8;
                 break;
               }
@@ -45393,13 +47970,13 @@ var mutations = {
       return task.id !== id;
     });
   },
-  updateTodo: function updateTodo(state, updTodo) {
-    var index = state.tasksCollection.tasks.findIndex(function (todo) {
-      return todo.id == updTodo.id;
+  updateTask: function updateTask(state, updTodo) {
+    var index = state.tasksCollection.tasks.findIndex(function (task) {
+      return task.id == updTodo.id;
     });
 
     if (index != -1) {
-      state.tasksCollection.tasks.splide(index, 1, updTodo);
+      state.tasksCollection.tasks.splice(index, 1, updTodo);
     }
   }
 };

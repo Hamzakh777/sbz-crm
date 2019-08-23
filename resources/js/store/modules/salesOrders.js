@@ -21,10 +21,13 @@ const state = {
         signDate: null,
         salesOrderStatus: null,
         insuranceStatus: null,
-        contractDurationVVG: null,
-        contractDurationKVG: null,
+        contractDurationVVG: 60,
+        contractDurationKVG: 60,
+        contractStartVVG: null,
+        contractStartKVG: null,
         insuranceTrackingID: null,
-        taskCollectionId: null,
+        insuranceSubmittedDate: null,
+        taskCollectionId: '',
         contractPeople: []
     },
     contractPersonDetails: {
@@ -156,7 +159,19 @@ const actions = {
             const response = await axios.post("sales-orders-api");
 
             commit("setSalesOrders", response.data.salesOrders);
-        } catch (error) {}
+        } catch (error) {
+            console.error(error);
+        }
+    },
+
+    async storeSalesOrder({commit}) {
+        try { 
+            const response = await axios.post('/api/sales-orders', state.salesOrder);
+
+            console.log(response);
+        } catch(error) {
+            console.error(error);
+        }
     },
 
     /**

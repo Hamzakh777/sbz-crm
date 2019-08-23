@@ -21,7 +21,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::resources([
     'tasks-collections' => 'TasksCollection\TasksCollectionApiController',
-    'tasks' => 'Tasks\ApiTasksController'
+    'tasks' => 'Tasks\ApiTasksController',
+    'sales-orders' => 'SalesOrders\ApiSalesOrdersController'
 ]);
 
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div :class="{'card': 'card', 'card--done': task.completed}">
     <div class="col-md-3">{{ task.name }}</div>
     <div class="col-md-3">{{ ownerName }}</div>
     <div class="col-md-3">{{ task.date | changeDateFormat }}</div>
@@ -8,6 +8,10 @@
     </div>
     <div class="col-md-1">
       <div class="card__actions">
+        <i 
+            :class="{'voyager-check--green': task.completed , 'voyager-check': 'voyager-check'}" 
+            @click="completed"
+        ></i>
         <i @click="deleteTask(task.id)" class="voyager-trash"></i>
       </div>
     </div>
@@ -59,7 +63,14 @@
         },
 
         methods: {
-            ...mapActions('tasks',['deleteTask'])
+            ...mapActions('tasks',['deleteTask', 'updateTask']),
+
+            completed() {
+                if(this.task.completed === 0) {
+                    this.task.completed = 1;
+                    this.updateTask(this.task);                                                                     
+                }
+            }
         },
     }
 </script>
@@ -69,23 +80,37 @@
     background-color: #fff
     box-shadow: 0px 6px 20px rgba(0,0,0,0.07)
     border-left: 2px solid #4E73DF
-    padding: 1.4em 0.6em 1em 0.6em
+    padding: 1.8em 0.6em 0.8em 0.6em
     margin-bottom: 1em
     font-size: 1em
+
+    &--done 
+        border-left-color: #2ecc71
 
     &__actions
         display: flex
         flex-direction: row
         justify-content: flex-end
         align-items: center
-
+        
         .voyager-trash
             cursor: pointer
             display: block
             margin-top: -3px
             font-size: 20px
-
             &:hover
                 color: #FB4027
+
+        .voyager-check
+            cursor: pointer
+            display: block
+            margin-top: -3px
+            font-size: 26px
+            margin-right: 1em
+
+            &--green
+                color: #2ecc71
+            &:hover
+                color: #2ecc71
 
 </style>
