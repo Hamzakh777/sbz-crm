@@ -44,6 +44,7 @@ return [
     'drag_drop_info'         => 'Drag and drop the Items below to re-arrange them.',
     'edit'                   => 'Edit',
     'email'                  => 'E-mail',
+    'empty'                  => 'Empty',
     'error_deleting'         => 'Sorry it appears there was a problem deleting this',
     'error_restoring'        => 'Sorry it appears there was a problem restoring this',
     'exception'              => 'Exception',

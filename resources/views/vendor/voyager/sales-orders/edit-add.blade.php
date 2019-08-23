@@ -148,6 +148,11 @@
         window.productCategories = {!! $productCategories->toJson() !!};
         window.users = {!! $users->toJson() !!};
         window.tasksCollections = {!! $tasksCollections->toJson() !!};
+        @if(is_null($dataTypeContent->getKey()))
+            window.salesOrderId = null;
+        @else 
+            window.salesOrderId ={!! $dataTypeContent->getKey() !!};
+        @endif
     </script>
     <script src="{{ mix('js/pages/salesOrders.js') }}"></script>
     <script>

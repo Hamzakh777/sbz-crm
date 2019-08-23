@@ -12,7 +12,7 @@ class TasksCollection extends Model
      * @param void
      */
     public function tasks() {
-        $this->hasMany('App\Task', 'task_collection_id');
+        return $this->hasMany('App\Task', 'task_collection_id');
     }
 
     /**
@@ -20,6 +20,6 @@ class TasksCollection extends Model
      * @param void
      */
     public function salesOrders() {
-        $this->belongsToMany('App\SalesOrder', 'sales_order_tasks_collection', 'tasks_collection_id');
+        return $this->belongsToMany('App\SalesOrder', 'sales_order_tasks_collection', 'tasks_collection_id');
     }
 }

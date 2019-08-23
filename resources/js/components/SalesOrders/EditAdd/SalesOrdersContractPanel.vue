@@ -233,7 +233,8 @@
                     <label class="control-label">
                         {{ trans.get('voyager.sales_orders.insurance_submitted_date') }}
                     </label>
-                    <b v-if="!salesOrder.insuranceSubmittedDate">{{ }}</b>
+                    <b v-if="salesOrder.insuranceSubmittedDate">{{ salesOrder.insuranceSubmittedDate | changeDateFormat }}</b>
+                    <b v-else>{{ trans.get('voyager.generic.empty') }}</b>
                 </div>
             </div>
         </div>
@@ -255,9 +256,11 @@
         },
 
         watch: {
-            salesOrder: {
-                insuranceStatus(val, oldVal) {
-                    
+            'salesOrder.insuranceStatus'(val) {
+                if(val === 'submitted') {
+                    this.salesOrder.insuranceSubmittedDate = new Date();
+                } else {
+                    this.salesOrder.insuranceSubmittedDate = null;
                 }
             }
         },
@@ -274,13 +277,23 @@
             }
         },
 
+        created() {
+            if(this.salesOrder.id !== null) {
+                
+            }
+        },
+
         mounted() {
             const nextYear = new Date().getFullYear() + 1; 
             const date = new Date(nextYear, 0, 1);
             
             this.salesOrder.contractStartKVG = date;
             this.salesOrder.contractStartVVG = date;
-        }
+        },
+
+        methods: {
+            
+        },
     }
 </script>
 

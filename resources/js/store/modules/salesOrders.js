@@ -8,6 +8,7 @@ const state = {
     salesOrders: {},
     filterData: {},
     salesOrder: {
+        id: (window.salesOrderId === null) ? null : window.salesOrderId,
         currentInsuranceId: null,
         newInsuranceId: null,
         fullName: null,

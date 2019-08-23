@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\SalesOrders;
 
 use App\SalesOrder;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSalesOrders;
@@ -39,9 +40,9 @@ class ApiSalesOrdersController extends Controller
     {
         // $validate = $request->validated();
 
-        dd($request->input('taskCollectionId'));
         $salesOrder = new SalesOrder();
 
+        // contract info
         $salesOrder->current_insurance_id = $request->input('currentInsuranceId');
         $salesOrder->new_insurance_id = $request->input('newInsuranceId');
         $salesOrder->owner_full_name = $request->input('fullName');
@@ -52,17 +53,38 @@ class ApiSalesOrdersController extends Controller
         $salesOrder->move_to_switzerland = $request->input('moveToSwitzerland');
         $salesOrder->sales_lead_source = $request->input('salesLeadSource');
         $salesOrder->sales_user_id = $request->input('salesPersonId');
-        $salesOrder->contract_sign_date = $request->input('signDate');
         $salesOrder->sales_order_status = $request->input('salesOrderStatus');
         $salesOrder->insurance_status = $request->input('insuranceStatus');
         $salesOrder->contract_duration_VVG = $request->input('contractDurationVVG');
         $salesOrder->contract_duration_KVG = $request->input('contractDurationKVG');
-        $salesOrder->contract_start_VVG = $request->input('contractStartVVG');
-        $salesOrder->contract_start_KVG = $request->input('contractStartKVG');
         $salesOrder->insurance_tracking_id = $request->input('insuranceTrackingID');
-        $salesOrder->insurance_submitted_date = $request->input('insuranceSubmittedDate');
+        
+        if($request->input('contractStartKVG')) {
+            $salesOrder->contract_start_KVG = Carbon::parse($request->input('contractStartKVG'))->addHour()->format('Y-m-d');
+        }
+        if ($request->input('contractDurationVVG')) {
+            $salesOrder->contract_start_VVG = Carbon::parse($request->input('contractDurationVVG'))->addHour()->format('Y-m-d');
+        }
+        if ($request->input('insuranceSubmittedDate')) {
+            $salesOrder->insurance_submitted_date = Carbon::parse($request->input('insuranceSubmittedDate'))->addHour()->format('Y-m-d');
+        }
+        if ($request->input('signDate')) {
+            $salesOrder->contract_sign_date = Carbon::parse($request->input('signDate'))->addHour()->format('Y-m-d');
+        }
 
+        // tasks
+        // we only need the task collectoin id
+        $taskCollectionId = $request->input('taskCollectionId');
 
+        if (isset($taskCollectionId)) {
+            $salesOrder->tasksCollection()->attach([$taskCollectionId]);
+        }
+
+        $salesOrder->save();
+
+        return response()->json([
+            'test' => true
+        ]);
     }
 
     /**

@@ -2231,6 +2231,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -2241,8 +2242,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     ToggleButton: vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_1__["ToggleButton"]
   },
   watch: {
-    salesOrder: {
-      insuranceStatus: function insuranceStatus(val, oldVal) {}
+    'salesOrder.insuranceStatus': function salesOrderInsuranceStatus(val) {
+      if (val === 'submitted') {
+        this.salesOrder.insuranceSubmittedDate = new Date();
+      } else {
+        this.salesOrder.insuranceSubmittedDate = null;
+      }
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['DateFormat', 'allInsurances', 'allSalesAgents', 'salesOrder']), {
@@ -2254,12 +2259,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     }
   }),
+  created: function created() {
+    if (this.salesOrder.id !== null) {}
+  },
   mounted: function mounted() {
     var nextYear = new Date().getFullYear() + 1;
     var date = new Date(nextYear, 0, 1);
     this.salesOrder.contractStartKVG = date;
     this.salesOrder.contractStartVVG = date;
-  }
+  },
+  methods: {}
 });
 
 /***/ }),
@@ -26910,9 +26919,17 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          !_vm.salesOrder.insuranceSubmittedDate
-            ? _c("b", [_vm._v(_vm._s())])
-            : _vm._e()
+          _vm.salesOrder.insuranceSubmittedDate
+            ? _c("b", [
+                _vm._v(
+                  _vm._s(
+                    _vm._f("changeDateFormat")(
+                      _vm.salesOrder.insuranceSubmittedDate
+                    )
+                  )
+                )
+              ])
+            : _c("b", [_vm._v(_vm._s(_vm.trans.get("voyager.generic.empty")))])
         ])
       ])
     ])
@@ -47270,6 +47287,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 Vue.use(vuelidate__WEBPACK_IMPORTED_MODULE_1___default.a);
+Vue.filter("changeDateFormat", function (value) {
+  if (value != null) {
+    var date = new Date(value);
+    var month = parseInt(date.getMonth()) + 1; // or some absurd reason it start counting months from 0
+
+    var day = date.getDate();
+    var year = date.getFullYear();
+    return "".concat(day, "-").concat(month, "-").concat(year);
+  } else {
+    return null;
+  }
+});
 new Vue({
   components: {
     SalesOrdersPaginator: _components_SalesOrders_Browse_SalesOrdersPaginator_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
@@ -47338,6 +47367,7 @@ var state = {
   salesOrders: {},
   filterData: {},
   salesOrder: {
+    id: window.salesOrderId === null ? null : window.salesOrderId,
     currentInsuranceId: null,
     newInsuranceId: null,
     fullName: null,
