@@ -1739,7 +1739,8 @@ __webpack_require__.r(__webpack_exports__);
     },
     showFooter: {
       type: Boolean,
-      required: true
+      required: false,
+      "default": false
     }
   }
 });
@@ -39936,9 +39937,421 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_0__
   !*** ./resources/js/store/modules/salesOrders.js ***!
   \***************************************************/
 /*! exports provided: default */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Users/MarshMallow1/Sites/SBZ_CRM/resources/js/store/modules/salesOrders.js: Can not use keyword 'await' outside an async function (156:33)\n\n\u001b[0m \u001b[90m 154 | \u001b[39m        \u001b[36mtry\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 155 | \u001b[39m            setTimeout(() \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 156 | \u001b[39m                \u001b[36mconst\u001b[39m response \u001b[33m=\u001b[39m await axios\u001b[33m.\u001b[39mpost(\u001b[32m\"sales-orders-api\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m     | \u001b[39m                                 \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 157 | \u001b[39m            }\u001b[33m,\u001b[39m \u001b[35m4000\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 158 | \u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 159 | \u001b[39m            state\u001b[33m.\u001b[39mshowContractLoader \u001b[33m=\u001b[39m \u001b[36mfalse\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n    at Parser.raise (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:6325:17)\n    at Parser.checkReservedWord (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:9553:14)\n    at Parser.parseIdentifierName (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:9525:12)\n    at Parser.parseIdentifier (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:9499:23)\n    at Parser.parseExprAtom (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8701:27)\n    at Parser.parseExprSubscripts (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8412:23)\n    at Parser.parseMaybeUnary (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8392:21)\n    at Parser.parseExprOps (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8267:23)\n    at Parser.parseMaybeConditional (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8240:23)\n    at Parser.parseMaybeAssign (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8187:21)\n    at Parser.parseVar (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:10480:26)\n    at Parser.parseVarStatement (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:10299:10)\n    at Parser.parseStatementContent (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:9896:21)\n    at Parser.parseStatement (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:9829:17)\n    at Parser.parseBlockOrModuleBlockBody (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:10405:25)\n    at Parser.parseBlockBody (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:10392:10)\n    at Parser.parseBlock (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:10376:10)\n    at Parser.parseFunctionBody (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:9424:24)\n    at Parser.parseArrowExpression (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:9365:10)\n    at Parser.parseParenAndDistinguishExpression (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:9002:12)\n    at Parser.parseExprAtom (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8762:21)\n    at Parser.parseExprSubscripts (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8412:23)\n    at Parser.parseMaybeUnary (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8392:21)\n    at Parser.parseExprOps (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8267:23)\n    at Parser.parseMaybeConditional (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8240:23)\n    at Parser.parseMaybeAssign (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8187:21)\n    at Parser.parseExprListItem (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:9491:18)\n    at Parser.parseCallExpressionArguments (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8621:22)\n    at Parser.parseSubscript (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8514:29)\n    at Parser.parseSubscripts (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8433:19)\n    at Parser.parseExprSubscripts (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8422:17)\n    at Parser.parseMaybeUnary (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8392:21)\n    at Parser.parseExprOps (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8267:23)\n    at Parser.parseMaybeConditional (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8240:23)\n    at Parser.parseMaybeAssign (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8187:21)\n    at Parser.parseExpression (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8135:23)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var state = {
+  filterData: {},
+  showContractLoader: false,
+  salesOrder: {
+    id: window.salesOrderId === null ? null : window.salesOrderId,
+    currentInsuranceId: null,
+    newInsuranceId: null,
+    fullName: null,
+    address: null,
+    householdType: null,
+    numberOfFamilyMembers: null,
+    newBorn: null,
+    moveToSwitzerland: null,
+    salesLeadSource: null,
+    salesPersonId: null,
+    signDate: null,
+    salesOrderStatus: null,
+    insuranceStatus: null,
+    contractDurationVVG: 60,
+    contractDurationKVG: 60,
+    contractStartVVG: null,
+    contractStartKVG: null,
+    insuranceTrackingID: null,
+    insuranceSubmittedDate: null,
+    provisionDone: null,
+    cancellationOriginal: null,
+    cancellationStamped: null,
+    taskCollectionId: null,
+    contractPeople: []
+  },
+  contractPersonDetails: {
+    firstName: null,
+    lastName: null,
+    gender: null,
+    birthday: null,
+    age: null,
+    familyMemberType: null,
+    policeNumber: null,
+    selectedProduct: null,
+    products: []
+  },
+  insurances: window.insurances !== undefined ? window.insurances : null,
+  salesAgents: window.salesAgents !== undefined ? window.salesAgents : null,
+  products: window.products !== undefined ? window.products : null,
+  productCategories: window.productCategories !== undefined ? window.productCategories : null,
+  users: window.users !== undefined ? window.users : null,
+  tasksCollections: window.tasksCollections !== undefined ? window.tasksCollections : null,
+  isAddingPersonViewOpen: false,
+  dateFormat: "dd MM yyyy"
+};
+var getters = {
+  /**
+   * Get all sales orders
+   * Usually called on the
+   * index page
+   * @param {object} state
+   */
+  allSalesOrders: function allSalesOrders(state) {
+    // since the paginator needs the whole collection
+    // we return it
+    return state.salesOrders;
+  },
+
+  /**
+   * Get all insurances
+   * @param {object} state
+   */
+  allInsurances: function allInsurances(state) {
+    return state.insurances;
+  },
+
+  /**
+   * Get all sales agents
+   * @param {object} state
+   */
+  allSalesAgents: function allSalesAgents(state) {
+    return state.salesAgents;
+  },
+
+  /**
+   * return the date format to use across the app
+   * @param {object} state
+   */
+  DateFormat: function DateFormat(state) {
+    return state.dateFormat;
+  },
+
+  /**
+   * Return a single sales order,
+   * usually to be used in the add-edit view
+   * @param {object} state
+   */
+  salesOrder: function salesOrder(state) {
+    return state.salesOrder;
+  },
+
+  /**
+   * 
+   * @param {Object} state 
+   */
+  isAddingPersonViewOpen: function isAddingPersonViewOpen(state) {
+    return state.isAddingPersonViewOpen;
+  },
+
+  /**
+   * 
+   * @param {Object} state 
+   */
+  contractPersonDetails: function contractPersonDetails(state) {
+    return state.contractPersonDetails;
+  },
+
+  /**
+   * 
+   * @param {Object} state 
+   */
+  allProducts: function allProducts(state) {
+    return state.products;
+  },
+
+  /**
+   * 
+   * @param {Object} state 
+   */
+  allProductCategories: function allProductCategories(state) {
+    return state.productCategories;
+  },
+
+  /**
+   * 
+   * @param {Object} state 
+   */
+  users: function users(state) {
+    return state.users;
+  },
+
+  /**
+   * 
+   * @param {Object} state 
+   */
+  allTasksCollections: function allTasksCollections(state) {
+    return state.tasksCollections;
+  },
+  loader: function loader(state) {
+    return state.showContractLoader;
+  }
+};
+var actions = {
+  /**
+   * Get all the sales orders
+   * @param {*} param0
+   */
+  fetchSalesOrders: function () {
+    var _fetchSalesOrders = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref) {
+      var commit, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              commit = _ref.commit;
+              state.showContractLoader = true;
+              _context.prev = 2;
+              _context.next = 5;
+              return axios.post("sales-orders-api");
+
+            case 5:
+              response = _context.sent;
+              state.showContractLoader = false;
+              commit("setSalesOrders", response.data.salesOrders);
+              _context.next = 13;
+              break;
+
+            case 10:
+              _context.prev = 10;
+              _context.t0 = _context["catch"](2);
+              console.error(_context.t0);
+
+            case 13:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[2, 10]]);
+    }));
+
+    function fetchSalesOrders(_x) {
+      return _fetchSalesOrders.apply(this, arguments);
+    }
+
+    return fetchSalesOrders;
+  }(),
+  storeSalesOrder: function () {
+    var _storeSalesOrder = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2) {
+      var commit, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              commit = _ref2.commit;
+              _context2.prev = 1;
+              state.showContractLoader = true;
+              _context2.next = 5;
+              return axios.post('/api/sales-orders', state.salesOrder);
+
+            case 5:
+              response = _context2.sent;
+              state.showContractLoader = false;
+              commit('setSalesOrderId', response.data.id);
+              _context2.next = 13;
+              break;
+
+            case 10:
+              _context2.prev = 10;
+              _context2.t0 = _context2["catch"](1);
+              console.error(_context2.t0);
+
+            case 13:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[1, 10]]);
+    }));
+
+    function storeSalesOrder(_x2) {
+      return _storeSalesOrder.apply(this, arguments);
+    }
+
+    return storeSalesOrder;
+  }(),
+
+  /**
+   * Update the pagination page
+   * @param {*} param0
+   * @param {Number} page
+   */
+  changePaginationPage: function () {
+    var _changePaginationPage = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3) {
+      var commit,
+          page,
+          response,
+          table,
+          _args3 = arguments;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              commit = _ref3.commit;
+              page = _args3.length > 1 && _args3[1] !== undefined ? _args3[1] : 1;
+              _context3.prev = 2;
+              _context3.next = 5;
+              return axios.post("sales-orders/filter?page=".concat(page), state.filterData);
+
+            case 5:
+              response = _context3.sent;
+              // the table is rendered in the backend
+              // we send it over and display it on the frontend
+              table = document.querySelector("#table-wrapper");
+              table.innerHTML = response.data.table; // update the paginator
+
+              commit("setSalesOrders", response.data.dataTypeContent);
+              _context3.next = 14;
+              break;
+
+            case 11:
+              _context3.prev = 11;
+              _context3.t0 = _context3["catch"](2);
+              alert(_context3.t0);
+
+            case 14:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[2, 11]]);
+    }));
+
+    function changePaginationPage(_x3) {
+      return _changePaginationPage.apply(this, arguments);
+    }
+
+    return changePaginationPage;
+  }(),
+
+  /**
+   * Filter sales orders
+   * we runder the view in the backend
+   * reason for such a decision is to save dev time
+   * @param {*} param0
+   * @param {Object} data
+   */
+  filterSalesOrders: function () {
+    var _filterSalesOrders = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref4, data) {
+      var commit,
+          page,
+          response,
+          table,
+          _args4 = arguments;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              commit = _ref4.commit;
+              page = _args4.length > 2 && _args4[2] !== undefined ? _args4[2] : 1;
+              _context4.prev = 2;
+              // update the filter data
+              state.filterData = data;
+              _context4.next = 6;
+              return axios.post("sales-orders/filter?page=".concat(page), data);
+
+            case 6:
+              response = _context4.sent;
+              // the table is rendered in the backend
+              // we send it over and display it on the frontend
+              table = document.querySelector("#table-wrapper");
+              table.innerHTML = response.data.table; // update the paginator
+
+              commit("setSalesOrders", response.data.dataTypeContent);
+              _context4.next = 15;
+              break;
+
+            case 12:
+              _context4.prev = 12;
+              _context4.t0 = _context4["catch"](2);
+              console.warn(_context4.t0);
+
+            case 15:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, null, [[2, 12]]);
+    }));
+
+    function filterSalesOrders(_x4, _x5) {
+      return _filterSalesOrders.apply(this, arguments);
+    }
+
+    return filterSalesOrders;
+  }(),
+
+  /**
+   * Add contract person to the
+   * sales order
+   * @param {*} param0
+   * @param {object} data
+   */
+  addContractPerson: function addContractPerson(_ref5) {
+    var commit = _ref5.commit;
+    commit("setContractPerson", state.contractPersonDetails);
+  },
+
+  /**
+   *
+   */
+  showAddPersonCard: function showAddPersonCard() {
+    state.isAddingPersonViewOpen = true;
+  },
+
+  /**
+   * Add a product to the contract person
+   *
+   */
+  addProductToContractPerson: function addProductToContractPerson() {
+    // in order to prevent mutation of the original object
+    var product = JSON.parse(JSON.stringify(state.contractPersonDetails.selectedProduct));
+    state.contractPersonDetails.products.push(product);
+  },
+  removeProduct: function removeProduct(_ref6, id) {
+    var commit = _ref6.commit;
+    // if we have two or more of the same product
+    // this will delete all of them
+    var results = state.contractPersonDetails.products.filter(function (product) {
+      return product.id !== id;
+    });
+    state.contractPersonDetails.products = results;
+  }
+};
+var mutations = {
+  setSalesOrders: function setSalesOrders(state, data) {
+    state.salesOrders = data;
+  },
+  setSalesOrderId: function setSalesOrderId(state, data) {
+    state.salesOrder.id = data;
+  },
+  setContractPerson: function setContractPerson(state, data) {
+    state.salesOrder.contractPeople.push(data);
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  state: state,
+  getters: getters,
+  actions: actions,
+  mutations: mutations
+});
 
 /***/ }),
 

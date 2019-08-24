@@ -284,7 +284,25 @@ class SalesOrderController extends BaseVoyagerBaseController
             $view = "voyager::$slug.edit-add";
         }
 
-        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable'));
+        $insurances = Insurance::all();
+        $products = Product::all();
+        $productCategories = ProductCategory::all();
+        $sales_agent_role_id = Role::where('name', 'sales_person')->first()->id;
+        $salesAgents = User::where('role_id', $sales_agent_role_id)->get();
+        $tasksCollections = TasksCollection::all();
+        $users = User::all();
+
+        return Voyager::view($view, compact(
+            'dataType', 
+            'dataTypeContent', 
+            'isModelTranslatable',
+            'insurances',
+            'products',
+            'productCategories',
+            'salesAgents',
+            'tasksCollections',
+            'users'
+        ));
     }
 
     // POST BR(E)AD

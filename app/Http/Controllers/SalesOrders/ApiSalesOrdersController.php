@@ -83,7 +83,7 @@ class ApiSalesOrdersController extends Controller
         $salesOrder->save();
 
         return response()->json([
-            'test' => true
+            'id' => $salesOrder->id
         ]);
     }
 

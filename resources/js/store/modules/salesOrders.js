@@ -141,6 +141,10 @@ const getters = {
      */
     allTasksCollections(state) {
         return state.tasksCollections;
+    },
+
+    loader(state) {
+        return state.showContractLoader;
     }
 };
 
@@ -152,9 +156,7 @@ const actions = {
     async fetchSalesOrders({ commit }) {
         state.showContractLoader = true;
         try {
-            setTimeout(() => {
-                const response = await axios.post("sales-orders-api");
-            }, 4000);
+            const response = await axios.post("sales-orders-api");
 
             state.showContractLoader = false;
             commit("setSalesOrders", response.data.salesOrders);
@@ -165,9 +167,11 @@ const actions = {
 
     async storeSalesOrder({commit}) {
         try { 
+            state.showContractLoader = true;
             const response = await axios.post('/api/sales-orders', state.salesOrder);
-
-            console.log(response);
+            state.showContractLoader = false;
+            
+            commit('setSalesOrderId', response.data.id);
         } catch(error) {
             console.error(error);
         }
@@ -268,6 +272,9 @@ const actions = {
 const mutations = {
     setSalesOrders(state, data) {
         state.salesOrders = data;
+    },
+    setSalesOrderId(state,data){
+        state.salesOrder.id = data;
     },
     setContractPerson(state, data) {
         state.salesOrder.contractPeople.push(data);

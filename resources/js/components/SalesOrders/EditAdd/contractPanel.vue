@@ -7,7 +7,7 @@
             </div>
         </div>
         <div class="panel-body mt-2">
-            <baseLoader v-if="showContractLoader">
+            <baseLoader v-if="loader">
             </baseLoader>
             <!-- customer details -->
             <div class="row">
@@ -391,9 +391,7 @@
         },
 
         computed: {
-            ...mapGetters(['DateFormat', 'allInsurances', 'allSalesAgents', 'salesOrder']),
-
-            ...mapState(['showContractLoader']),
+            ...mapGetters(['DateFormat', 'allInsurances', 'allSalesAgents', 'salesOrder', 'loader']),
 
             isHouseholdTypeFamily() {
                 if(this.salesOrder.householdType === 'family') {
@@ -472,13 +470,13 @@
             ...mapActions(['storeSalesOrder']),
 
             submit() {
-                this.$v.$touch();
-                if(this.$v.$invalid) {
-                    console.log('not validated yet')
-                    console.log(this.$v);
-                } else {
-                    this.storeSalesOrder();
-                }
+                this.storeSalesOrder();
+                // this.$v.$touch();
+                // if(this.$v.$invalid) {
+                //     console.log('not validated yet')
+                //     console.log(this.$v);
+                // } else {
+                // }
             }
         },
     }

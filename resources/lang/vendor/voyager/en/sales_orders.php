@@ -65,5 +65,13 @@ return [
     'sales_details'                     => 'Sales details',
     'contract_details'                  => 'Contract details',
     'insurance_details'                 => 'Insurance details',
-    'system_details'                    => 'System details'
+    'system_details'                    => 'System details',
+
+    // sales ordes different parts
+    'document'                          => 'Document',
+
+    // document
+    'document_name'                     => 'Document name',
+    'document_type'                     => 'Document type',
+    'document_status'                   => 'Document status'
 ];
