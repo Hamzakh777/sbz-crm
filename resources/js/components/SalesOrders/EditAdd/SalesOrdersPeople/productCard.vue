@@ -25,7 +25,7 @@
     import {mapActions, mapGetters} from 'vuex';
 
     export default {
-        name: 'SalesOrdersPersonProduct',
+        name: 'productCard',
 
         props: {
             product: {

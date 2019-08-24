@@ -4,10 +4,10 @@ import store from "../store";
 import SalesOrdersFilter from "../components/SalesOrders/Browse/SalesOrdersFilter.vue";
 import SalesOrdersPaginator from '../components/SalesOrders/Browse/SalesOrdersPaginator.vue';
 import App from '../components/SalesOrders/EditAdd/App.vue';
-import SalesOrdersSaveButton from '../components/SalesOrders/EditAdd/salesOrdersSaveButton';
+
+Vue.config.productionTip = false;
 
 Vue.use(Vuelidate);
-
 Vue.filter("changeDateFormat", function(value) {
     if (value != null) {
         const date = new Date(value);
@@ -24,7 +24,6 @@ new Vue({
     components: {
         SalesOrdersPaginator,
         SalesOrdersFilter,
-        SalesOrdersSaveButton,
         App
     },
     store,

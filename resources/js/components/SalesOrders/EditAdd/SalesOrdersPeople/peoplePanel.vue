@@ -17,33 +17,33 @@
             </div>
             <div class="row cards">
                 <!-- the form to add or edit a contract person -->
-                <salesOrdersPersonCard 
+                <personCard 
                     :is-edit-add="true"
                     v-if="isAddingPersonViewOpen"
                 >
-                </salesOrdersPersonCard>
+                </personCard>
                 <!-- for viewing already added contract people -->
-                <salesOrdersPersonCard 
+                <personCard 
                     :is-edit-add="false"
                     v-for="(person, index) in salesOrder.contractPeople"
                     :key="index"
                     :person="person"
                 >
-                </salesOrdersPersonCard>
+                </personCard>
             </div>
         </div>
      </div>
 </template>
 
 <script>
-    import SalesOrdersPersonCard from './SalesOrdersPersonCard';
+    import personCard from './personCard';
     import {mapGetters, mapActions} from 'vuex';
 
     export default {
         name: 'SalesOrdersPeoplePanel',
 
         components: {
-            SalesOrdersPersonCard
+            personCard
         },
 
         computed: {

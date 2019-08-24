@@ -3,10 +3,15 @@
 		<div class="row row--collection">
 			<h4>{{ trans.get('voyager.tasks_collection.tasks_collection') }}</h4>
 			<div class="row">
-				<form @submit.prevent="storeCollection">
+				<form @submit.prevent="submit">
 					<div class="form-group col-md-12">
 						<label class="control-label">{{ trans.get('voyager.generic.name') }}</label>
 						<input type="text" v-model="tasksCollection.name" class="form-control" />
+						<div v-if="$v.tasksCollection.name.$dirty">
+                            <span class="error-text" v-if="!$v.tasksCollection.name.required">
+                                {{ trans.get('validation_js.required') }}
+                            </span>
+                        </div>
 					</div>
 					<div class="form-group col-md-12">
 						<button 
@@ -34,7 +39,7 @@ import {mapGetters, mapActions} from 'vuex';
 
 import Todos from "./Todos.vue";
 import AddTask from "./AddTask";
-
+import { required } from 'vuelidate/lib/validators';
 
 export default {
 	name: "TasksCollection",
@@ -59,8 +64,26 @@ export default {
 		}
 	},
 
+	validations: {
+		tasksCollection: {
+			name: {
+				required
+			}
+		}
+	},
+
 	methods: {
-		...mapActions('tasks', ['storeCollection', 'fetchTasks'])
+		...mapActions('tasks', ['storeCollection', 'fetchTasks']),
+
+		submit() {
+			
+			this.$v.$touch();
+                if(this.$v.$invalid) {
+                    console.log('not validated yet')
+                } else {
+                    this.storeCollection();
+                }
+		}
 	},
 
 	created() {
@@ -77,5 +100,5 @@ export default {
 	&--collection 
 		margin-bottom: 2em
 h4 
-	color: #555
+	color: #344055
 </style>

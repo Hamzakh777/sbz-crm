@@ -1969,6 +1969,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _Todos_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Todos.vue */ "./resources/js/components/tasks/Todos.vue");
 /* harmony import */ var _AddTask__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AddTask */ "./resources/js/components/tasks/AddTask.vue");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -2006,6 +2008,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+
 
 
 
@@ -2027,7 +2035,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     }
   }),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('tasks', ['storeCollection', 'fetchTasks'])),
+  validations: {
+    tasksCollection: {
+      name: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"]
+      }
+    }
+  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('tasks', ['storeCollection', 'fetchTasks']), {
+    submit: function submit() {
+      this.$v.$touch();
+
+      if (this.$v.$invalid) {
+        console.log('not validated yet');
+      } else {
+        this.storeCollection();
+      }
+    }
+  }),
   created: function created() {
     if (this.tasksCollection.id !== null && this.tasksCollection.id !== "") {
       this.fetchTasks();
@@ -2232,7 +2257,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".row--collection[data-v-16c45d20] {\n  margin-bottom: 2em;\n}\nh4[data-v-16c45d20] {\n  color: #555;\n}", ""]);
+exports.push([module.i, ".row--collection[data-v-16c45d20] {\n  margin-bottom: 2em;\n}\nh4[data-v-16c45d20] {\n  color: #344055;\n}", ""]);
 
 // exports
 
@@ -22418,7 +22443,7 @@ var render = function() {
             on: {
               submit: function($event) {
                 $event.preventDefault()
-                return _vm.storeCollection($event)
+                return _vm.submit($event)
               }
             }
           },
@@ -22448,7 +22473,21 @@ var render = function() {
                     _vm.$set(_vm.tasksCollection, "name", $event.target.value)
                   }
                 }
-              })
+              }),
+              _vm._v(" "),
+              _vm.$v.tasksCollection.name.$dirty
+                ? _c("div", [
+                    !_vm.$v.tasksCollection.name.required
+                      ? _c("span", { staticClass: "error-text" }, [
+                          _vm._v(
+                            "\n                                " +
+                              _vm._s(_vm.trans.get("validation_js.required")) +
+                              "\n                            "
+                          )
+                        ])
+                      : _vm._e()
+                  ])
+                : _vm._e()
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "form-group col-md-12" }, [
@@ -37111,6 +37150,1082 @@ __vue_render__$4._withStripped = true;
 
 /***/ }),
 
+/***/ "./node_modules/vuelidate/lib/params.js":
+/*!**********************************************!*\
+  !*** ./node_modules/vuelidate/lib/params.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.pushParams = pushParams;
+exports.popParams = popParams;
+exports.withParams = withParams;
+exports._setTarget = exports.target = void 0;
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+var stack = [];
+var target = null;
+exports.target = target;
+
+var _setTarget = function _setTarget(x) {
+  exports.target = target = x;
+};
+
+exports._setTarget = _setTarget;
+
+function pushParams() {
+  if (target !== null) {
+    stack.push(target);
+  }
+
+  exports.target = target = {};
+}
+
+function popParams() {
+  var lastTarget = target;
+  var newTarget = exports.target = target = stack.pop() || null;
+
+  if (newTarget) {
+    if (!Array.isArray(newTarget.$sub)) {
+      newTarget.$sub = [];
+    }
+
+    newTarget.$sub.push(lastTarget);
+  }
+
+  return lastTarget;
+}
+
+function addParams(params) {
+  if (_typeof(params) === 'object' && !Array.isArray(params)) {
+    exports.target = target = _objectSpread({}, target, params);
+  } else {
+    throw new Error('params must be an object');
+  }
+}
+
+function withParamsDirect(params, validator) {
+  return withParamsClosure(function (add) {
+    return function () {
+      add(params);
+
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return validator.apply(this, args);
+    };
+  });
+}
+
+function withParamsClosure(closure) {
+  var validator = closure(addParams);
+  return function () {
+    pushParams();
+
+    try {
+      for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        args[_key2] = arguments[_key2];
+      }
+
+      return validator.apply(this, args);
+    } finally {
+      popParams();
+    }
+  };
+}
+
+function withParams(paramsOrClosure, maybeValidator) {
+  if (_typeof(paramsOrClosure) === 'object' && maybeValidator !== undefined) {
+    return withParamsDirect(paramsOrClosure, maybeValidator);
+  }
+
+  return withParamsClosure(paramsOrClosure);
+}
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/alpha.js":
+/*!********************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/alpha.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var _default = (0, _common.regex)('alpha', /^[a-zA-Z]*$/);
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/alphaNum.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/alphaNum.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var _default = (0, _common.regex)('alphaNum', /^[a-zA-Z0-9]*$/);
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/and.js":
+/*!******************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/and.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var _default = function _default() {
+  for (var _len = arguments.length, validators = new Array(_len), _key = 0; _key < _len; _key++) {
+    validators[_key] = arguments[_key];
+  }
+
+  return (0, _common.withParams)({
+    type: 'and'
+  }, function () {
+    var _this = this;
+
+    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      args[_key2] = arguments[_key2];
+    }
+
+    return validators.length > 0 && validators.reduce(function (valid, fn) {
+      return valid && fn.apply(_this, args);
+    }, true);
+  });
+};
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/between.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/between.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var _default = function _default(min, max) {
+  return (0, _common.withParams)({
+    type: 'between',
+    min: min,
+    max: max
+  }, function (value) {
+    return !(0, _common.req)(value) || (!/\s/.test(value) || value instanceof Date) && +min <= +value && +max >= +value;
+  });
+};
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/common.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/common.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "withParams", {
+  enumerable: true,
+  get: function get() {
+    return _withParams.default;
+  }
+});
+exports.regex = exports.ref = exports.len = exports.req = void 0;
+
+var _withParams = _interopRequireDefault(__webpack_require__(/*! ../withParams */ "./node_modules/vuelidate/lib/withParams.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+var req = function req(value) {
+  if (Array.isArray(value)) return !!value.length;
+
+  if (value === undefined || value === null) {
+    return false;
+  }
+
+  if (value === false) {
+    return true;
+  }
+
+  if (value instanceof Date) {
+    return !isNaN(value.getTime());
+  }
+
+  if (_typeof(value) === 'object') {
+    for (var _ in value) {
+      return true;
+    }
+
+    return false;
+  }
+
+  return !!String(value).length;
+};
+
+exports.req = req;
+
+var len = function len(value) {
+  if (Array.isArray(value)) return value.length;
+
+  if (_typeof(value) === 'object') {
+    return Object.keys(value).length;
+  }
+
+  return String(value).length;
+};
+
+exports.len = len;
+
+var ref = function ref(reference, vm, parentVm) {
+  return typeof reference === 'function' ? reference.call(vm, parentVm) : parentVm[reference];
+};
+
+exports.ref = ref;
+
+var regex = function regex(type, expr) {
+  return (0, _withParams.default)({
+    type: type
+  }, function (value) {
+    return !req(value) || expr.test(value);
+  });
+};
+
+exports.regex = regex;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/decimal.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/decimal.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var _default = (0, _common.regex)('decimal', /^[-]?\d*(\.\d+)?$/);
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/email.js":
+/*!********************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/email.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var emailRegex = /(^$|^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$)/;
+
+var _default = (0, _common.regex)('email', emailRegex);
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/index.js":
+/*!********************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/index.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "alpha", {
+  enumerable: true,
+  get: function get() {
+    return _alpha.default;
+  }
+});
+Object.defineProperty(exports, "alphaNum", {
+  enumerable: true,
+  get: function get() {
+    return _alphaNum.default;
+  }
+});
+Object.defineProperty(exports, "numeric", {
+  enumerable: true,
+  get: function get() {
+    return _numeric.default;
+  }
+});
+Object.defineProperty(exports, "between", {
+  enumerable: true,
+  get: function get() {
+    return _between.default;
+  }
+});
+Object.defineProperty(exports, "email", {
+  enumerable: true,
+  get: function get() {
+    return _email.default;
+  }
+});
+Object.defineProperty(exports, "ipAddress", {
+  enumerable: true,
+  get: function get() {
+    return _ipAddress.default;
+  }
+});
+Object.defineProperty(exports, "macAddress", {
+  enumerable: true,
+  get: function get() {
+    return _macAddress.default;
+  }
+});
+Object.defineProperty(exports, "maxLength", {
+  enumerable: true,
+  get: function get() {
+    return _maxLength.default;
+  }
+});
+Object.defineProperty(exports, "minLength", {
+  enumerable: true,
+  get: function get() {
+    return _minLength.default;
+  }
+});
+Object.defineProperty(exports, "required", {
+  enumerable: true,
+  get: function get() {
+    return _required.default;
+  }
+});
+Object.defineProperty(exports, "requiredIf", {
+  enumerable: true,
+  get: function get() {
+    return _requiredIf.default;
+  }
+});
+Object.defineProperty(exports, "requiredUnless", {
+  enumerable: true,
+  get: function get() {
+    return _requiredUnless.default;
+  }
+});
+Object.defineProperty(exports, "sameAs", {
+  enumerable: true,
+  get: function get() {
+    return _sameAs.default;
+  }
+});
+Object.defineProperty(exports, "url", {
+  enumerable: true,
+  get: function get() {
+    return _url.default;
+  }
+});
+Object.defineProperty(exports, "or", {
+  enumerable: true,
+  get: function get() {
+    return _or.default;
+  }
+});
+Object.defineProperty(exports, "and", {
+  enumerable: true,
+  get: function get() {
+    return _and.default;
+  }
+});
+Object.defineProperty(exports, "not", {
+  enumerable: true,
+  get: function get() {
+    return _not.default;
+  }
+});
+Object.defineProperty(exports, "minValue", {
+  enumerable: true,
+  get: function get() {
+    return _minValue.default;
+  }
+});
+Object.defineProperty(exports, "maxValue", {
+  enumerable: true,
+  get: function get() {
+    return _maxValue.default;
+  }
+});
+Object.defineProperty(exports, "integer", {
+  enumerable: true,
+  get: function get() {
+    return _integer.default;
+  }
+});
+Object.defineProperty(exports, "decimal", {
+  enumerable: true,
+  get: function get() {
+    return _decimal.default;
+  }
+});
+exports.helpers = void 0;
+
+var _alpha = _interopRequireDefault(__webpack_require__(/*! ./alpha */ "./node_modules/vuelidate/lib/validators/alpha.js"));
+
+var _alphaNum = _interopRequireDefault(__webpack_require__(/*! ./alphaNum */ "./node_modules/vuelidate/lib/validators/alphaNum.js"));
+
+var _numeric = _interopRequireDefault(__webpack_require__(/*! ./numeric */ "./node_modules/vuelidate/lib/validators/numeric.js"));
+
+var _between = _interopRequireDefault(__webpack_require__(/*! ./between */ "./node_modules/vuelidate/lib/validators/between.js"));
+
+var _email = _interopRequireDefault(__webpack_require__(/*! ./email */ "./node_modules/vuelidate/lib/validators/email.js"));
+
+var _ipAddress = _interopRequireDefault(__webpack_require__(/*! ./ipAddress */ "./node_modules/vuelidate/lib/validators/ipAddress.js"));
+
+var _macAddress = _interopRequireDefault(__webpack_require__(/*! ./macAddress */ "./node_modules/vuelidate/lib/validators/macAddress.js"));
+
+var _maxLength = _interopRequireDefault(__webpack_require__(/*! ./maxLength */ "./node_modules/vuelidate/lib/validators/maxLength.js"));
+
+var _minLength = _interopRequireDefault(__webpack_require__(/*! ./minLength */ "./node_modules/vuelidate/lib/validators/minLength.js"));
+
+var _required = _interopRequireDefault(__webpack_require__(/*! ./required */ "./node_modules/vuelidate/lib/validators/required.js"));
+
+var _requiredIf = _interopRequireDefault(__webpack_require__(/*! ./requiredIf */ "./node_modules/vuelidate/lib/validators/requiredIf.js"));
+
+var _requiredUnless = _interopRequireDefault(__webpack_require__(/*! ./requiredUnless */ "./node_modules/vuelidate/lib/validators/requiredUnless.js"));
+
+var _sameAs = _interopRequireDefault(__webpack_require__(/*! ./sameAs */ "./node_modules/vuelidate/lib/validators/sameAs.js"));
+
+var _url = _interopRequireDefault(__webpack_require__(/*! ./url */ "./node_modules/vuelidate/lib/validators/url.js"));
+
+var _or = _interopRequireDefault(__webpack_require__(/*! ./or */ "./node_modules/vuelidate/lib/validators/or.js"));
+
+var _and = _interopRequireDefault(__webpack_require__(/*! ./and */ "./node_modules/vuelidate/lib/validators/and.js"));
+
+var _not = _interopRequireDefault(__webpack_require__(/*! ./not */ "./node_modules/vuelidate/lib/validators/not.js"));
+
+var _minValue = _interopRequireDefault(__webpack_require__(/*! ./minValue */ "./node_modules/vuelidate/lib/validators/minValue.js"));
+
+var _maxValue = _interopRequireDefault(__webpack_require__(/*! ./maxValue */ "./node_modules/vuelidate/lib/validators/maxValue.js"));
+
+var _integer = _interopRequireDefault(__webpack_require__(/*! ./integer */ "./node_modules/vuelidate/lib/validators/integer.js"));
+
+var _decimal = _interopRequireDefault(__webpack_require__(/*! ./decimal */ "./node_modules/vuelidate/lib/validators/decimal.js"));
+
+var helpers = _interopRequireWildcard(__webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js"));
+
+exports.helpers = helpers;
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/integer.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/integer.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var _default = (0, _common.regex)('integer', /^-?[0-9]*$/);
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/ipAddress.js":
+/*!************************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/ipAddress.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var _default = (0, _common.withParams)({
+  type: 'ipAddress'
+}, function (value) {
+  if (!(0, _common.req)(value)) {
+    return true;
+  }
+
+  if (typeof value !== 'string') {
+    return false;
+  }
+
+  var nibbles = value.split('.');
+  return nibbles.length === 4 && nibbles.every(nibbleValid);
+});
+
+exports.default = _default;
+
+var nibbleValid = function nibbleValid(nibble) {
+  if (nibble.length > 3 || nibble.length === 0) {
+    return false;
+  }
+
+  if (nibble[0] === '0' && nibble !== '0') {
+    return false;
+  }
+
+  if (!nibble.match(/^\d+$/)) {
+    return false;
+  }
+
+  var numeric = +nibble | 0;
+  return numeric >= 0 && numeric <= 255;
+};
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/macAddress.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/macAddress.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var _default = function _default() {
+  var separator = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : ':';
+  return (0, _common.withParams)({
+    type: 'macAddress'
+  }, function (value) {
+    if (!(0, _common.req)(value)) {
+      return true;
+    }
+
+    if (typeof value !== 'string') {
+      return false;
+    }
+
+    var parts = typeof separator === 'string' && separator !== '' ? value.split(separator) : value.length === 12 || value.length === 16 ? value.match(/.{2}/g) : null;
+    return parts !== null && (parts.length === 6 || parts.length === 8) && parts.every(hexValid);
+  });
+};
+
+exports.default = _default;
+
+var hexValid = function hexValid(hex) {
+  return hex.toLowerCase().match(/^[0-9a-f]{2}$/);
+};
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/maxLength.js":
+/*!************************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/maxLength.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var _default = function _default(length) {
+  return (0, _common.withParams)({
+    type: 'maxLength',
+    max: length
+  }, function (value) {
+    return !(0, _common.req)(value) || (0, _common.len)(value) <= length;
+  });
+};
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/maxValue.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/maxValue.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var _default = function _default(max) {
+  return (0, _common.withParams)({
+    type: 'maxValue',
+    max: max
+  }, function (value) {
+    return !(0, _common.req)(value) || (!/\s/.test(value) || value instanceof Date) && +value <= +max;
+  });
+};
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/minLength.js":
+/*!************************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/minLength.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var _default = function _default(length) {
+  return (0, _common.withParams)({
+    type: 'minLength',
+    min: length
+  }, function (value) {
+    return !(0, _common.req)(value) || (0, _common.len)(value) >= length;
+  });
+};
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/minValue.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/minValue.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var _default = function _default(min) {
+  return (0, _common.withParams)({
+    type: 'minValue',
+    min: min
+  }, function (value) {
+    return !(0, _common.req)(value) || (!/\s/.test(value) || value instanceof Date) && +value >= +min;
+  });
+};
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/not.js":
+/*!******************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/not.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var _default = function _default(validator) {
+  return (0, _common.withParams)({
+    type: 'not'
+  }, function (value, vm) {
+    return !(0, _common.req)(value) || !validator.call(this, value, vm);
+  });
+};
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/numeric.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/numeric.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var _default = (0, _common.regex)('numeric', /^[0-9]*$/);
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/or.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/or.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var _default = function _default() {
+  for (var _len = arguments.length, validators = new Array(_len), _key = 0; _key < _len; _key++) {
+    validators[_key] = arguments[_key];
+  }
+
+  return (0, _common.withParams)({
+    type: 'or'
+  }, function () {
+    var _this = this;
+
+    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      args[_key2] = arguments[_key2];
+    }
+
+    return validators.length > 0 && validators.reduce(function (valid, fn) {
+      return valid || fn.apply(_this, args);
+    }, false);
+  });
+};
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/required.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/required.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var _default = (0, _common.withParams)({
+  type: 'required'
+}, _common.req);
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/requiredIf.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/requiredIf.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var _default = function _default(prop) {
+  return (0, _common.withParams)({
+    type: 'requiredIf',
+    prop: prop
+  }, function (value, parentVm) {
+    return (0, _common.ref)(prop, this, parentVm) ? (0, _common.req)(value) : true;
+  });
+};
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/requiredUnless.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/requiredUnless.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var _default = function _default(prop) {
+  return (0, _common.withParams)({
+    type: 'requiredUnless',
+    prop: prop
+  }, function (value, parentVm) {
+    return !(0, _common.ref)(prop, this, parentVm) ? (0, _common.req)(value) : true;
+  });
+};
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/sameAs.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/sameAs.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var _default = function _default(equalTo) {
+  return (0, _common.withParams)({
+    type: 'sameAs',
+    eq: equalTo
+  }, function (value, parentVm) {
+    return value === (0, _common.ref)(equalTo, this, parentVm);
+  });
+};
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/validators/url.js":
+/*!******************************************************!*\
+  !*** ./node_modules/vuelidate/lib/validators/url.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
+
+var urlRegex = /^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i;
+
+var _default = (0, _common.regex)('url', urlRegex);
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/withParams.js":
+/*!**************************************************!*\
+  !*** ./node_modules/vuelidate/lib/withParams.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var withParams = process.env.BUILD === 'web' ? __webpack_require__(/*! ./withParamsBrowser */ "./node_modules/vuelidate/lib/withParamsBrowser.js").withParams : __webpack_require__(/*! ./params */ "./node_modules/vuelidate/lib/params.js").withParams;
+var _default = withParams;
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../process/browser.js */ "./node_modules/process/browser.js")))
+
+/***/ }),
+
+/***/ "./node_modules/vuelidate/lib/withParamsBrowser.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/vuelidate/lib/withParamsBrowser.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.withParams = void 0;
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+var root = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : {};
+
+var fakeWithParams = function fakeWithParams(paramsOrClosure, maybeValidator) {
+  if (_typeof(paramsOrClosure) === 'object' && maybeValidator !== undefined) {
+    return maybeValidator;
+  }
+
+  return paramsOrClosure(function () {});
+};
+
+var withParams = root.vuelidate ? root.vuelidate.withParams : fakeWithParams;
+exports.withParams = withParams;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
 /***/ "./node_modules/vuex/dist/vuex.esm.js":
 /*!********************************************!*\
   !*** ./node_modules/vuex/dist/vuex.esm.js ***!
@@ -38821,417 +39936,9 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_0__
   !*** ./resources/js/store/modules/salesOrders.js ***!
   \***************************************************/
 /*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-// switching between editing and adding will happen by a simple variable which will alter the
-// behavior of some fuctions
-// or
-// it might not since the values of the person being edited will take the place of contractPersonDetails
-var state = {
-  // index page
-  salesOrders: {},
-  filterData: {},
-  salesOrder: {
-    id: window.salesOrderId === null ? null : window.salesOrderId,
-    currentInsuranceId: null,
-    newInsuranceId: null,
-    fullName: null,
-    address: null,
-    householdType: null,
-    numberOfFamilyMembers: null,
-    newBorn: null,
-    moveToSwitzerland: null,
-    salesLeadSource: null,
-    salesPersonId: null,
-    signDate: null,
-    salesOrderStatus: null,
-    insuranceStatus: null,
-    contractDurationVVG: 60,
-    contractDurationKVG: 60,
-    contractStartVVG: null,
-    contractStartKVG: null,
-    insuranceTrackingID: null,
-    insuranceSubmittedDate: null,
-    taskCollectionId: '',
-    contractPeople: []
-  },
-  contractPersonDetails: {
-    firstName: null,
-    lastName: null,
-    gender: null,
-    birthday: null,
-    age: null,
-    familyMemberType: null,
-    policeNumber: null,
-    selectedProduct: null,
-    products: []
-  },
-  insurances: window.insurances !== undefined ? window.insurances : null,
-  salesAgents: window.salesAgents !== undefined ? window.salesAgents : null,
-  products: window.products !== undefined ? window.products : null,
-  productCategories: window.productCategories !== undefined ? window.productCategories : null,
-  users: window.users !== undefined ? window.users : null,
-  tasksCollections: window.tasksCollections !== undefined ? window.tasksCollections : null,
-  isAddingPersonViewOpen: false,
-  // global
-  dateFormat: "dd MM yyyy"
-}; // in order to get the state and be able to display it on our component we need to add a getter
-
-var getters = {
-  /**
-   * Get all sales orders
-   * Usually called on the
-   * index page
-   * @param {object} state
-   */
-  allSalesOrders: function allSalesOrders(state) {
-    // since the paginator needs the whole collection
-    // we return it
-    return state.salesOrders;
-  },
-
-  /**
-   * Get all insurances
-   * @param {object} state
-   */
-  allInsurances: function allInsurances(state) {
-    return state.insurances;
-  },
-
-  /**
-   * Get all sales agents
-   * @param {object} state
-   */
-  allSalesAgents: function allSalesAgents(state) {
-    return state.salesAgents;
-  },
-
-  /**
-   * return the date format to use across the app
-   * @param {object} state
-   */
-  DateFormat: function DateFormat(state) {
-    return state.dateFormat;
-  },
-
-  /**
-   * Return a single sales order,
-   * usually to be used in the add-edit view
-   * @param {object} state
-   */
-  salesOrder: function salesOrder(state) {
-    return state.salesOrder;
-  },
-
-  /**
-   * 
-   * @param {Object} state 
-   */
-  isAddingPersonViewOpen: function isAddingPersonViewOpen(state) {
-    return state.isAddingPersonViewOpen;
-  },
-
-  /**
-   * 
-   * @param {Object} state 
-   */
-  contractPersonDetails: function contractPersonDetails(state) {
-    return state.contractPersonDetails;
-  },
-
-  /**
-   * 
-   * @param {Object} state 
-   */
-  allProducts: function allProducts(state) {
-    return state.products;
-  },
-
-  /**
-   * 
-   * @param {Object} state 
-   */
-  allProductCategories: function allProductCategories(state) {
-    return state.productCategories;
-  },
-
-  /**
-   * 
-   * @param {Object} state 
-   */
-  users: function users(state) {
-    return state.users;
-  },
-
-  /**
-   * 
-   * @param {Object} state 
-   */
-  allTasksCollections: function allTasksCollections(state) {
-    return state.tasksCollections;
-  }
-}; // make a request, get a reponse and make a mutations
-
-var actions = {
-  /**
-   * Get all the sales orders
-   * @param {*} param0
-   */
-  fetchSalesOrders: function () {
-    var _fetchSalesOrders = _asyncToGenerator(
-    /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref) {
-      var commit, response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              commit = _ref.commit;
-              _context.prev = 1;
-              _context.next = 4;
-              return axios.post("sales-orders-api");
-
-            case 4:
-              response = _context.sent;
-              commit("setSalesOrders", response.data.salesOrders);
-              _context.next = 11;
-              break;
-
-            case 8:
-              _context.prev = 8;
-              _context.t0 = _context["catch"](1);
-              console.error(_context.t0);
-
-            case 11:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee, null, [[1, 8]]);
-    }));
-
-    function fetchSalesOrders(_x) {
-      return _fetchSalesOrders.apply(this, arguments);
-    }
-
-    return fetchSalesOrders;
-  }(),
-  storeSalesOrder: function () {
-    var _storeSalesOrder = _asyncToGenerator(
-    /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2) {
-      var commit, response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              commit = _ref2.commit;
-              _context2.prev = 1;
-              _context2.next = 4;
-              return axios.post('/api/sales-orders', state.salesOrder);
-
-            case 4:
-              response = _context2.sent;
-              console.log(response);
-              _context2.next = 11;
-              break;
-
-            case 8:
-              _context2.prev = 8;
-              _context2.t0 = _context2["catch"](1);
-              console.error(_context2.t0);
-
-            case 11:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2, null, [[1, 8]]);
-    }));
-
-    function storeSalesOrder(_x2) {
-      return _storeSalesOrder.apply(this, arguments);
-    }
-
-    return storeSalesOrder;
-  }(),
-
-  /**
-   * Update the pagination page
-   * @param {*} param0
-   * @param {Number} page
-   */
-  changePaginationPage: function () {
-    var _changePaginationPage = _asyncToGenerator(
-    /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3) {
-      var commit,
-          page,
-          response,
-          table,
-          _args3 = arguments;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
-        while (1) {
-          switch (_context3.prev = _context3.next) {
-            case 0:
-              commit = _ref3.commit;
-              page = _args3.length > 1 && _args3[1] !== undefined ? _args3[1] : 1;
-              _context3.prev = 2;
-              _context3.next = 5;
-              return axios.post("sales-orders/filter?page=".concat(page), state.filterData);
-
-            case 5:
-              response = _context3.sent;
-              // the table is rendered in the backend
-              // we send it over and display it on the frontend
-              table = document.querySelector("#table-wrapper");
-              table.innerHTML = response.data.table; // update the paginator
-
-              commit("setSalesOrders", response.data.dataTypeContent);
-              _context3.next = 14;
-              break;
-
-            case 11:
-              _context3.prev = 11;
-              _context3.t0 = _context3["catch"](2);
-              alert(_context3.t0);
-
-            case 14:
-            case "end":
-              return _context3.stop();
-          }
-        }
-      }, _callee3, null, [[2, 11]]);
-    }));
-
-    function changePaginationPage(_x3) {
-      return _changePaginationPage.apply(this, arguments);
-    }
-
-    return changePaginationPage;
-  }(),
-
-  /**
-   * Filter sales orders
-   * we runder the view in the backend
-   * reason for such a decision is to save dev time
-   * @param {*} param0
-   * @param {Object} data
-   */
-  filterSalesOrders: function () {
-    var _filterSalesOrders = _asyncToGenerator(
-    /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref4, data) {
-      var commit,
-          page,
-          response,
-          table,
-          _args4 = arguments;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
-        while (1) {
-          switch (_context4.prev = _context4.next) {
-            case 0:
-              commit = _ref4.commit;
-              page = _args4.length > 2 && _args4[2] !== undefined ? _args4[2] : 1;
-              _context4.prev = 2;
-              // update the filter data
-              state.filterData = data;
-              _context4.next = 6;
-              return axios.post("sales-orders/filter?page=".concat(page), data);
-
-            case 6:
-              response = _context4.sent;
-              // the table is rendered in the backend
-              // we send it over and display it on the frontend
-              table = document.querySelector("#table-wrapper");
-              table.innerHTML = response.data.table; // update the paginator
-
-              commit("setSalesOrders", response.data.dataTypeContent);
-              _context4.next = 15;
-              break;
-
-            case 12:
-              _context4.prev = 12;
-              _context4.t0 = _context4["catch"](2);
-              console.warn(_context4.t0);
-
-            case 15:
-            case "end":
-              return _context4.stop();
-          }
-        }
-      }, _callee4, null, [[2, 12]]);
-    }));
-
-    function filterSalesOrders(_x4, _x5) {
-      return _filterSalesOrders.apply(this, arguments);
-    }
-
-    return filterSalesOrders;
-  }(),
-
-  /**
-   * Add contract person to the
-   * sales order
-   * @param {*} param0
-   * @param {object} data
-   */
-  addContractPerson: function addContractPerson(_ref5) {
-    var commit = _ref5.commit;
-    commit("setContractPerson", state.contractPersonDetails);
-  },
-
-  /**
-   *
-   */
-  showAddPersonCard: function showAddPersonCard() {
-    state.isAddingPersonViewOpen = true;
-  },
-
-  /**
-   * Add a product to the contract person
-   *
-   */
-  addProductToContractPerson: function addProductToContractPerson() {
-    // in order to prevent mutation of the original object
-    var product = JSON.parse(JSON.stringify(state.contractPersonDetails.selectedProduct));
-    state.contractPersonDetails.products.push(product);
-  },
-  removeProduct: function removeProduct(_ref6, id) {
-    var commit = _ref6.commit;
-    // if we have two or more of the same product
-    // this will delete all of them
-    var results = state.contractPersonDetails.products.filter(function (product) {
-      return product.id !== id;
-    });
-    state.contractPersonDetails.products = results;
-  }
-}; // mutations is how we mutate the state
-
-var mutations = {
-  setSalesOrders: function setSalesOrders(state, data) {
-    state.salesOrders = data;
-  },
-  setContractPerson: function setContractPerson(state, data) {
-    state.salesOrder.contractPeople.push(data);
-  }
-};
-/* harmony default export */ __webpack_exports__["default"] = ({
-  state: state,
-  getters: getters,
-  actions: actions,
-  mutations: mutations
-});
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Users/MarshMallow1/Sites/SBZ_CRM/resources/js/store/modules/salesOrders.js: Can not use keyword 'await' outside an async function (156:33)\n\n\u001b[0m \u001b[90m 154 | \u001b[39m        \u001b[36mtry\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 155 | \u001b[39m            setTimeout(() \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 156 | \u001b[39m                \u001b[36mconst\u001b[39m response \u001b[33m=\u001b[39m await axios\u001b[33m.\u001b[39mpost(\u001b[32m\"sales-orders-api\"\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m     | \u001b[39m                                 \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 157 | \u001b[39m            }\u001b[33m,\u001b[39m \u001b[35m4000\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 158 | \u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 159 | \u001b[39m            state\u001b[33m.\u001b[39mshowContractLoader \u001b[33m=\u001b[39m \u001b[36mfalse\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n    at Parser.raise (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:6325:17)\n    at Parser.checkReservedWord (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:9553:14)\n    at Parser.parseIdentifierName (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:9525:12)\n    at Parser.parseIdentifier (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:9499:23)\n    at Parser.parseExprAtom (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8701:27)\n    at Parser.parseExprSubscripts (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8412:23)\n    at Parser.parseMaybeUnary (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8392:21)\n    at Parser.parseExprOps (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8267:23)\n    at Parser.parseMaybeConditional (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8240:23)\n    at Parser.parseMaybeAssign (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8187:21)\n    at Parser.parseVar (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:10480:26)\n    at Parser.parseVarStatement (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:10299:10)\n    at Parser.parseStatementContent (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:9896:21)\n    at Parser.parseStatement (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:9829:17)\n    at Parser.parseBlockOrModuleBlockBody (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:10405:25)\n    at Parser.parseBlockBody (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:10392:10)\n    at Parser.parseBlock (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:10376:10)\n    at Parser.parseFunctionBody (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:9424:24)\n    at Parser.parseArrowExpression (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:9365:10)\n    at Parser.parseParenAndDistinguishExpression (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:9002:12)\n    at Parser.parseExprAtom (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8762:21)\n    at Parser.parseExprSubscripts (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8412:23)\n    at Parser.parseMaybeUnary (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8392:21)\n    at Parser.parseExprOps (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8267:23)\n    at Parser.parseMaybeConditional (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8240:23)\n    at Parser.parseMaybeAssign (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8187:21)\n    at Parser.parseExprListItem (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:9491:18)\n    at Parser.parseCallExpressionArguments (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8621:22)\n    at Parser.parseSubscript (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8514:29)\n    at Parser.parseSubscripts (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8433:19)\n    at Parser.parseExprSubscripts (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8422:17)\n    at Parser.parseMaybeUnary (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8392:21)\n    at Parser.parseExprOps (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8267:23)\n    at Parser.parseMaybeConditional (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8240:23)\n    at Parser.parseMaybeAssign (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8187:21)\n    at Parser.parseExpression (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/@babel/parser/lib/index.js:8135:23)");
 
 /***/ }),
 

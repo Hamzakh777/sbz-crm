@@ -7,11 +7,6 @@
   background-color: #fff !important;
 }
 
-.error-text {
-  color: #fa2a00;
-  font-size: 12px;
-}
-
 .voyager .panel.panel-primary .panel-heading {
   background-color: #f8f9fc !important;
   border-bottom: 1px solid #e3e6f0 !important;
@@ -63,7 +58,24 @@
   background-color: #fff !important;
 }
 
+/**************************************
+ * * Components
+ * **************************************/
+
 .voyager .side-menu.sidebar-inverse {
   background-color: #344055 !important;
+}
+
+.form-control--error {
+  border-bottom-color: #fa2a00 !important;
+}
+
+.form-control--error input {
+  border-bottom-color: #fa2a00 !important;
+}
+
+.error-text {
+  color: #fa2a00;
+  font-size: 12px;
 }
 

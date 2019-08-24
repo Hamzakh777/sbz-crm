@@ -7,17 +7,19 @@
             </div>
         </div>
         <div class="panel-body mt-2">
+            <baseLoader v-if="showContractLoader">
+            </baseLoader>
+            <!-- customer details -->
             <div class="row">
+                <h4>{{ trans.get('voyager.sales_orders.customer_details') }}</h4>
 
                 <!-- current insurance -->
                 <div class="form-group col-md-4">
                     <label class="control-label">{{ trans.get('voyager.sales_orders.current_insurance') }}</label>
-                    <!-- load the insurances using ajax
-                    which means we have to create a route for that -->
-                    <!-- or maybe instead of using ajax, we can server render that variable -->
                     <select 
                         class="form-control"
                         v-model="salesOrder.currentInsuranceId"
+                        :class="{'form-control--error': $v.salesOrder.currentInsuranceId.$error }"
                     >
                         <option 
                             v-for="insurance in allInsurances" 
@@ -27,37 +29,43 @@
                         {{ insurance.name }}
                         </option>
                     </select>
-                </div>
-
-                <!-- new insurance -->
-                <div class="form-group col-md-4">
-                    <label class="control-label">{{ trans.get('voyager.sales_orders.new_insurance') }}</label>
-                    <!-- load the insurances using ajax
-                    which means we have to create a route for that -->
-                    <select 
-                        class="form-control"
-                        v-model="salesOrder.newInsuranceId"
-                    >
-                        <option 
-                            v-for="insurance in allInsurances" 
-                            :value="insurance.id" 
-                            :key="insurance.id"
-                        >
-                        {{ insurance.name }}
-                        </option>
-                    </select>
+                    <div v-if="$v.salesOrder.currentInsuranceId.$error">
+                        <span class="error-text" v-if="!$v.salesOrder.currentInsuranceId.required">
+                            {{ trans.get('validation_js.required') }}
+                        </span>
+                    </div>
                 </div>
 
                 <!-- full name -->
                 <div class="form-group col-md-4">
                     <label class="control-label">{{ trans.get('voyager.sales_orders.full_name') }}</label>
-                    <input type="text" class="form-control" v-model="salesOrder.fullName">
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        v-model="salesOrder.fullName"
+                        :class="{'form-control--error': $v.salesOrder.fullName.$error }"
+                    >
+                    <div v-if="$v.salesOrder.fullName.$error">
+                        <span class="error-text" v-if="!$v.salesOrder.fullName.required">
+                            {{ trans.get('validation_js.required') }}
+                        </span>
+                    </div>
                 </div>
 
                 <!-- address  -->
                 <div class="form-group col-md-4">
                     <label class="control-label">{{ trans.get('voyager.generic.address') }}</label>
-                    <input type="text" class="form-control" v-model="salesOrder.address">
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        v-model="salesOrder.address"
+                        :class="{'form-control--error': $v.salesOrder.address.$error }"
+                    >
+                    <div v-if="$v.salesOrder.address.$error">
+                        <span class="error-text" v-if="!$v.salesOrder.address.required">
+                            {{ trans.get('validation_js.required') }}
+                        </span>
+                    </div>
                 </div>
                 
                 <!-- household type -->
@@ -66,17 +74,34 @@
                     <select 
                         class="form-control"
                         v-model="salesOrder.householdType"
+                        :class="{'form-control--error': $v.salesOrder.householdType.$error }"
                     >
                         <option value="single">{{ trans.get('voyager.generic.single') }}</option>
                         <option value="family">{{ trans.get('voyager.generic.family') }}</option>
                     </select>
+                    <div v-if="$v.salesOrder.householdType.$error">
+                        <span class="error-text" v-if="!$v.salesOrder.householdType.required">
+                            {{ trans.get('validation_js.required') }}
+                        </span>
+                    </div>
                 </div>
 
                 <!-- number of family members in the same household  -->
                 <div class="form-group col-md-4" v-if="isHouseholdTypeFamily">
                     <label class="control-label">{{ trans.get('voyager.sales_orders.number_of_f_members') }}</label>
-                    <input type="number" class="form-control" v-model.trim="salesOrder.numberOfFamilyMembers">
+                    <input 
+                        type="number" 
+                        class="form-control" 
+                        v-model.trim="salesOrder.numberOfFamilyMembers"
+                        :class="{'form-control--error': $v.salesOrder.numberOfFamilyMembers.$error }"
+                    >
+                    <div v-if="$v.salesOrder.numberOfFamilyMembers.$error">
+                        <span class="error-text" v-if="!$v.salesOrder.numberOfFamilyMembers.required">
+                            {{ trans.get('validation_js.required') }}
+                        </span>
+                    </div>
                 </div>
+
                 <!-- new born  -->
                 <div class="form-group col-md-4">
                     <label class="control-label">{{ trans.get('voyager.sales_orders.new_born') }}</label>
@@ -100,7 +125,11 @@
                         />
                     </div>
                 </div>
+            </div>
 
+            <!-- sales details -->
+            <div class="row">
+                <h4>{{ trans.get('voyager.sales_orders.sales_details') }}</h4>
                 <!-- sales lead source  -->
                 <div class="form-group col-md-4">
                     <label class="control-label">{{ trans.get('voyager.sales_orders.sales_lead_source') }}</label>
@@ -113,6 +142,7 @@
                         <option value="other">{{ trans.get('voyager.generic.other') }}</option>
                     </select>
                 </div>
+                
                 <!-- sales person  -->
                 <div class="form-group col-md-4">
                     <label class="control-label">{{ trans.get('voyager.sales_orders.sales_person') }}</label>
@@ -121,6 +151,7 @@
                     <select 
                         class="form-control"
                         v-model="salesOrder.salesPersonId"
+                        :class="{'form-control--error': $v.salesOrder.salesPersonId.$error }"
                     >
                         <option 
                             v-for="agent in allSalesAgents" 
@@ -130,6 +161,11 @@
                             {{ agent.username }}
                         </option>
                     </select>
+                    <div v-if="$v.salesOrder.salesPersonId.$error">
+                        <span class="error-text" v-if="!$v.salesOrder.salesPersonId.required">
+                            {{ trans.get('validation_js.required') }}
+                        </span>
+                    </div>
                 </div>
 
                 <!-- sign date -->
@@ -140,7 +176,42 @@
                         input-class="form-control"
                         v-model="salesOrder.signDate"
                         :format="DateFormat"
+                        :class="{'form-control--error': $v.salesOrder.signDate.$error }"
                     ></Datepicker>
+                    <div v-if="$v.salesOrder.signDate.$error">
+                        <span class="error-text" v-if="!$v.salesOrder.signDate.required">
+                            {{ trans.get('validation_js.required') }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- contract details -->
+            <div class="row">
+                <h4>{{ trans.get('voyager.sales_orders.contract_details') }}</h4>
+                <!-- new insurance -->
+                <div class="form-group col-md-4">
+                    <label class="control-label">{{ trans.get('voyager.sales_orders.new_insurance') }}</label>
+                    <!-- load the insurances using ajax
+                    which means we have to create a route for that -->
+                    <select 
+                        class="form-control"
+                        v-model="salesOrder.newInsuranceId"
+                        :class="{'form-control--error': $v.salesOrder.newInsuranceId.$error }"
+                    >
+                        <option 
+                            v-for="insurance in allInsurances" 
+                            :value="insurance.id" 
+                            :key="insurance.id"
+                        >
+                        {{ insurance.name }}
+                        </option>
+                    </select>
+                    <div v-if="$v.salesOrder.newInsuranceId.$error">
+                        <span class="error-text" v-if="!$v.salesOrder.newInsuranceId.required">
+                            {{ trans.get('validation_js.required') }}
+                        </span>
+                    </div>
                 </div>
 
                 <!-- sales order status -->
@@ -149,18 +220,26 @@
                     <select 
                         class="form-control"
                         v-model="salesOrder.salesOrderStatus"
+                        :class="{'form-control--error': $v.salesOrder.salesOrderStatus.$error }"
                     >
                         <option value="entry">{{ trans.get('voyager.sales_orders.entry') }}</option>
                         <option value="processing">{{ trans.get('voyager.sales_orders.processing') }}</option>
                         <option value="closing">{{ trans.get('voyager.sales_orders.closing') }}</option>
                     </select>
+                    <div v-if="$v.salesOrder.salesOrderStatus.$error">
+                        <span class="error-text" v-if="!$v.salesOrder.salesOrderStatus.required">
+                            {{ trans.get('validation_js.required') }}
+                        </span>
+                    </div>
                 </div>
+
                 <!-- Insurance status  -->
                 <div class="form-group col-md-4">
                     <label class="control-label">{{ trans.get('voyager.sales_orders.insurance_status') }}</label>
                     <select 
                         class="form-control"
                         v-model="salesOrder.insuranceStatus"
+                        :class="{'form-control--error': $v.salesOrder.insuranceStatus.$error }"
                     >
                         <option value="">{{ trans.get('voyager.sales_orders.none') }}</option>
                         <option value="submitted">{{ trans.get('voyager.sales_orders.submitted') }}</option>
@@ -168,14 +247,24 @@
                         <option value="rejected">{{ trans.get('voyager.sales_orders.rejected') }}</option>
                         <option value="approved">{{ trans.get('voyager.sales_orders.approved') }}</option>
                     </select>
+                    <div v-if="$v.salesOrder.insuranceStatus.$error">
+                        <span class="error-text" v-if="!$v.salesOrder.insuranceStatus.required">
+                            {{ trans.get('validation_js.required') }}
+                        </span>
+                    </div>
                 </div>
+            </div>
 
+            <!-- insurance details -->
+            <div class="row">
+                <h4>{{ trans.get('voyager.sales_orders.insurance_details') }}</h4>
                 <!-- contract duration VVG  -->
                 <div class="form-group col-md-4">
                     <label class="control-label">{{ trans.get('voyager.sales_orders.contract_duration_VVG') }}</label>
                     <select 
                         class="form-control"
                         v-model="salesOrder.contractDurationVVG"
+                        :class="{'form-control--error': $v.salesOrder.contractDurationVVG.$error }"
                     >
                         <option value="12">12</option>
                         <option value="24">24</option>
@@ -183,6 +272,11 @@
                         <option value="48">48</option>
                         <option value="60" selected>60</option>
                     </select>
+                    <div v-if="$v.salesOrder.contractDurationVVG.$error">
+                        <span class="error-text" v-if="!$v.salesOrder.contractDurationVVG.required">
+                            {{ trans.get('validation_js.required') }}
+                        </span>
+                    </div>
                 </div>
 
                 <!-- Contract duration KVG -->
@@ -191,6 +285,7 @@
                     <select 
                         class="form-control"
                         v-model="salesOrder.contractDurationKVG"
+                        :class="{'form-control--error': $v.salesOrder.contractDurationKVG.$error }"
                     >
                         <option value="12">12</option>
                         <option value="24">24</option>
@@ -198,6 +293,11 @@
                         <option value="48">48</option>
                         <option value="60" selected>60</option>
                     </select>
+                    <div v-if="$v.salesOrder.contractDurationKVG.$error">
+                        <span class="error-text" v-if="!$v.salesOrder.contractDurationKVG.required">
+                            {{ trans.get('validation_js.required') }}
+                        </span>
+                    </div>
                 </div>
 
                 <!-- Contract start VVG -->
@@ -208,7 +308,13 @@
                         input-class="form-control"
                         v-model="salesOrder.contractStartVVG"
                         :format="DateFormat"
+                        :class="{'form-control--error': $v.salesOrder.contractStartVVG.$error }"
                     ></Datepicker>
+                    <div v-if="$v.salesOrder.contractStartVVG.$error">
+                        <span class="error-text" v-if="!$v.salesOrder.contractStartVVG.required">
+                            {{ trans.get('validation_js.required') }}
+                        </span>
+                    </div>
                 </div>
 
                 <!-- Contract start KVG -->
@@ -219,7 +325,13 @@
                         input-class="form-control"
                         v-model="salesOrder.contractStartKVG"
                         :format="DateFormat"
+                        :class="{'form-control--error': $v.salesOrder.contractStartKVG.$error }"
                     ></Datepicker>
+                    <div v-if="$v.salesOrder.contractStartKVG.$error">
+                        <span class="error-text" v-if="!$v.salesOrder.contractStartKVG.required">
+                            {{ trans.get('validation_js.required') }}
+                        </span>
+                    </div>
                 </div>
 
                 <!-- Insurance tracking id -->
@@ -227,7 +339,11 @@
                     <label class="control-label">{{ trans.get('voyager.sales_orders.insurance_tracking_id') }}</label>
                     <input type="text" class="form-control" v-model="salesOrder.insuranceTrackingID">
                 </div>
+            </div>
 
+            <!-- system details -->
+            <div class="row">   
+                <h4>{{ trans.get('voyager.sales_orders.system_details') }}</h4>
                 <!-- Insurance submitted date  -->
                 <div class="form-group col-md-4">
                     <label class="control-label">
@@ -236,6 +352,11 @@
                     <b v-if="salesOrder.insuranceSubmittedDate">{{ salesOrder.insuranceSubmittedDate | changeDateFormat }}</b>
                     <b v-else>{{ trans.get('voyager.generic.empty') }}</b>
                 </div>
+            </div>  
+        </div>
+        <div class="panel-footer">
+            <div class="row">
+                <saveButton @click="submit"></saveButton>
             </div>
         </div>
     </div>
@@ -243,16 +364,20 @@
 
 <script>
     import Datepicker from "vuejs-datepicker";
+    import saveButton from './saveButton';
+    import baseLoader from './../../baseComponents/BaseLoader';
     import { ToggleButton } from "vue-js-toggle-button";
-
-    import {mapGetters} from 'vuex';
+    import { required } from 'vuelidate/lib/validators';
+    import {mapGetters, mapActions, mapState} from 'vuex';
 
     export default {
-        name: 'SalesOrderContractPanel',
+        name: 'contractPanel',
 
         components: {
             Datepicker,
-            ToggleButton
+            ToggleButton,
+            saveButton,
+            baseLoader
         },
 
         watch: {
@@ -268,11 +393,63 @@
         computed: {
             ...mapGetters(['DateFormat', 'allInsurances', 'allSalesAgents', 'salesOrder']),
 
+            ...mapState(['showContractLoader']),
+
             isHouseholdTypeFamily() {
                 if(this.salesOrder.householdType === 'family') {
                     return true;
                 } else {
                     return false;
+                }
+            }
+        },
+
+        validations: {
+            salesOrder: {
+                currentInsuranceId: {
+                    required
+                },
+                newInsuranceId: {
+                    required
+                },
+                fullName: {
+                    required
+                },
+                address: {
+                    required
+                },
+                householdType: {
+                    required
+                },
+                numberOfFamilyMembers: {
+                    required
+                },
+                moveToSwitzerland: {
+                    required
+                },
+                salesPersonId: {
+                    required
+                },
+                signDate: {
+                    required
+                },
+                salesOrderStatus: {
+                    required
+                },
+                insuranceStatus: {
+                    required
+                },
+                contractDurationVVG: {
+                    required
+                },
+                contractDurationKVG: {
+                    required
+                },
+                contractStartVVG: {
+                    required
+                },
+                contractStartKVG: {
+                    required
                 }
             }
         },
@@ -292,7 +469,17 @@
         },
 
         methods: {
-            
+            ...mapActions(['storeSalesOrder']),
+
+            submit() {
+                this.$v.$touch();
+                if(this.$v.$invalid) {
+                    console.log('not validated yet')
+                    console.log(this.$v);
+                } else {
+                    this.storeSalesOrder();
+                }
+            }
         },
     }
 </script>
@@ -302,4 +489,6 @@
     margin-top: 1em
 .panel-body
     padding: 2em 1em
+h4 
+    color: #344055
 </style>

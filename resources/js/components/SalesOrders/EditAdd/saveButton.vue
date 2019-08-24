@@ -1,7 +1,7 @@
 <template>
     <button
-        class="btn btn-success btn-save"
-        @click="storeSalesOrder"
+        class="btn btn-success btn-save pull-right"
+        @click="clicked"
     >
         <i class="voyager-check-circle"></i>
         <span>{{ trans.get('voyager.generic.save') }}</span>
@@ -9,13 +9,13 @@
 </template>
 
 <script>
-    import {mapActions} from 'vuex';
-
     export default {
-        name: 'SalesOrdersSaveButton',
+        name: 'save',
 
         methods: {
-            ...mapActions(['storeSalesOrder'])
+            clicked() {
+                this.$emit('click');
+            }
         }
     }
 </script>

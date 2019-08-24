@@ -32,6 +32,7 @@ return [
     'insurance_status'                  => 'Insurance status',
     'insurance_tracking_id'             => 'Insurance tracking id',
     'insurance_submitted_date'          => 'Insurance submitted date',
+    'existing_tasks_collections'        => 'Existing tasks collections',
     'sales_lead_source'                 => 'Sales lead source',
     'sales_person'                      => 'Sales person',
     'sales_order_status'                => 'Sales Order Status',
@@ -57,5 +58,12 @@ return [
     'submitted'                         => 'Submitted',
     'feedback'                          => 'Feedback',
     'rejected'                          => 'Rejected',
-    'approved'                          => 'Approved'
+    'approved'                          => 'Approved',
+
+    // contract details sections
+    'customer_details'                  => 'Customer details',
+    'sales_details'                     => 'Sales details',
+    'contract_details'                  => 'Contract details',
+    'insurance_details'                 => 'Insurance details',
+    'system_details'                    => 'System details'
 ];

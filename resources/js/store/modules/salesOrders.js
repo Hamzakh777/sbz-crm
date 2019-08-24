@@ -1,12 +1,6 @@
-// switching between editing and adding will happen by a simple variable which will alter the
-// behavior of some fuctions
-// or
-// it might not since the values of the person being edited will take the place of contractPersonDetails
-
 const state = {
-    // index page
-    salesOrders: {},
     filterData: {},
+    showContractLoader: false,
     salesOrder: {
         id: (window.salesOrderId === null) ? null : window.salesOrderId,
         currentInsuranceId: null,
@@ -28,7 +22,10 @@ const state = {
         contractStartKVG: null,
         insuranceTrackingID: null,
         insuranceSubmittedDate: null,
-        taskCollectionId: '',
+        provisionDone: null,
+        cancellationOriginal: null,
+        cancellationStamped: null,
+        taskCollectionId: null,
         contractPeople: []
     },
     contractPersonDetails: {
@@ -49,11 +46,9 @@ const state = {
     users: window.users !== undefined ? window.users : null,
     tasksCollections: window.tasksCollections !== undefined ? window.tasksCollections : null,
     isAddingPersonViewOpen: false,
-    // global
     dateFormat: "dd MM yyyy"
 };
 
-// in order to get the state and be able to display it on our component we need to add a getter
 const getters = {
     /**
      * Get all sales orders
@@ -149,16 +144,19 @@ const getters = {
     }
 };
 
-// make a request, get a reponse and make a mutations
 const actions = {
     /**
      * Get all the sales orders
      * @param {*} param0
      */
     async fetchSalesOrders({ commit }) {
+        state.showContractLoader = true;
         try {
-            const response = await axios.post("sales-orders-api");
+            setTimeout(() => {
+                const response = await axios.post("sales-orders-api");
+            }, 4000);
 
+            state.showContractLoader = false;
             commit("setSalesOrders", response.data.salesOrders);
         } catch (error) {
             console.error(error);
@@ -267,7 +265,6 @@ const actions = {
     }
 };
 
-// mutations is how we mutate the state
 const mutations = {
     setSalesOrders(state, data) {
         state.salesOrders = data;

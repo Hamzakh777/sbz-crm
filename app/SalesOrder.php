@@ -10,7 +10,7 @@ class SalesOrder extends Model
     /**
      * Pagination
      */
-    protected $perPage = 1;
+    protected $perPage = 15;
 
     protected $dates = ['contract_duration_VVG', 'contract_duration_KVG', 'insurance_submitted_date'];
     /**
