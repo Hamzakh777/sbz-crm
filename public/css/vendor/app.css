@@ -46,6 +46,10 @@
   margin-bottom: 0;
 }
 
+h4.title {
+  color: #344055;
+}
+
 .panel-bordered > .panel-body {
   overflow: visible;
 }

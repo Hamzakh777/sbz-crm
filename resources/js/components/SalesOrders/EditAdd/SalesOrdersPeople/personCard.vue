@@ -3,11 +3,11 @@
         <div class="card__title">
             <h3>{{ trans.get('voyager.generic.person') }}</h3>
             <div >
-                <button class="btn btn-light" v-if="!isEditAdd"> 
+                <!-- <button class="btn btn-light"> 
                     <i class=""></i>
                     <span>{{ trans.get('voyager.generic.edit') }}</span>
-                </button>
-                <button class="btn btn-danger" v-if="!isEditAdd"> 
+                </!--> -->
+                <button class="btn btn-danger"> 
                     <i class="voyager-trash"></i>
                     <span>{{ trans.get('voyager.generic.delete') }}</span>
                 </button>
@@ -19,15 +19,8 @@
                     <!-- first name -->
                     <div class="form-group col-md-6">
                         <label class="control-label">{{ trans.get('voyager.generic.first_name') }}</label>
-                        <input v-if="isEditAdd" type="text" class="form-control" :class="{'form-control--error': $v.contractPersonDetails.firstName.$error }" v-model.trim="contractPersonDetails.firstName">
-                        <div v-if="$v.contractPersonDetails.firstName.$error">
-                            <span class="error-text" v-if="!$v.contractPersonDetails.firstName.required">
-                                {{ trans.get('validation_js.required') }}
-                            </span>
-                        </div>
                         <b 
                             class="form-data"
-                            v-if="!isEditAdd"
                         >
                             {{ person.firstName }}
                         </b>
@@ -36,20 +29,8 @@
                     <!-- last name -->
                     <div class="form-group col-md-6">
                         <label class="control-label">{{ trans.get('voyager.generic.last_name') }}</label>
-                        <input 
-                            v-if="isEditAdd" 
-                            type="text" 
-                            class="form-control" 
-                            :class="{'form-control--error': $v.contractPersonDetails.lastName.$error }"
-                            v-model.trim="contractPersonDetails.lastName">
-                        <div v-if="$v.contractPersonDetails.lastName.$error">
-                            <span class="error-text" v-if="!$v.contractPersonDetails.lastName.required">
-                                {{ trans.get('validation_js.required') }}
-                            </span>
-                        </div>
                         <b 
-                            class="form-data"
-                            v-if="!isEditAdd"
+                            class="form-data" 
                         >
                             {{ person.lastName }}
                         </b>
@@ -60,27 +41,8 @@
                     <!-- Gender -->
                     <div class="form-group col-md-6">
                         <label class="control-label">{{ trans.get('voyager.generic.gender') }}</label>
-                        <select 
-                            v-if="isEditAdd"
-                            class="form-control"
-                            v-model="contractPersonDetails.gender"
-                            :class="{'form-control--error': $v.contractPersonDetails.gender.$error }"
-                        >
-                            <option value="male">
-                                {{ trans.get('voyager.generic.male') }}
-                            </option>
-                            <option value="male">
-                                {{ trans.get('voyager.generic.female') }}
-                            </option>
-                        </select>
-                        <div v-if="$v.contractPersonDetails.gender.$error">
-                            <span class="error-text" v-if="!$v.contractPersonDetails.gender.required">
-                                {{ trans.get('validation_js.required') }}
-                            </span>
-                        </div>
                         <b 
                             class="form-data"
-                            v-if="!isEditAdd"
                         >
                             {{ person.gender }}
                         </b>
@@ -89,22 +51,8 @@
                     <!-- birthday -->
                     <div class="form-group col-md-6">
                         <label class="control-label">{{ trans.get('voyager.generic.birthday') }}</label>
-                        <Datepicker
-                            v-if="isEditAdd"
-                            class="datePicker"
-                            input-class="form-control"
-                            v-model="contractPersonDetails.birthday"
-                            :format="DateFormat"
-                            :class="{'form-control--error': $v.contractPersonDetails.birthday.$error }"
-                        ></Datepicker>
-                        <div v-if="$v.contractPersonDetails.birthday.$error">
-                            <span class="error-text" v-if="!$v.contractPersonDetails.birthday.required">
-                                {{ trans.get('validation_js.required') }}
-                            </span>
-                        </div>
                         <b 
                             class="form-data"
-                            v-if="!isEditAdd"
                         >
                             {{ person.birthday }}
                         </b>
@@ -115,21 +63,8 @@
                     <!-- birth year -->
                     <div class="form-group col-md-6" v-if="isFamily">
                         <label class="control-label">{{ trans.get('voyager.generic.birthyear') }}</label>
-                        <input 
-                            v-if="isEditAdd" 
-                            type="text" 
-                            class="form-control" 
-                            v-model.trim="contractPersonDetails.birthyear" 
-                            :class="{'form-control--error': $v.contractPersonDetails.birthyear.$error }"
-                            readonly>
-                        <div v-if="$v.contractPersonDetails.birthyear.$error">
-                            <span class="error-text" v-if="!$v.contractPersonDetails.birthyear.required">
-                                {{ trans.get('validation_js.required') }}
-                            </span>
-                        </div>
                         <b 
                             class="form-data"
-                            v-if="!isEditAdd"
                         >
                             {{ person.birthyear }}
                         </b>
@@ -138,21 +73,8 @@
                     <!-- age -->
                     <div class="form-group col-md-6">
                         <label class="control-label">{{ trans.get('voyager.generic.age') }}</label>
-                        <input 
-                            v-if="isEditAdd"  
-                            type="number" 
-                            class="form-control" 
-                            v-model.trim="contractPersonDetails.age" 
-                            :class="{'form-control--error': $v.contractPersonDetails.age.$error }"
-                            readonly>
-                        <div v-if="$v.contractPersonDetails.age.$error">
-                            <span class="error-text" v-if="!$v.contractPersonDetails.age.required">
-                                {{ trans.get('validation_js.required') }}
-                            </span>
-                        </div>
                         <b 
                             class="form-data"
-                            v-if="!isEditAdd"
                         >
                             {{ person.age }}
                         </b>
@@ -163,30 +85,8 @@
                     <!-- family member type -->
                     <div class="form-group col-md-6" v-if="isFamily">
                         <label class="control-label">{{ trans.get('voyager.sales_orders.family_member_type') }}</label>
-                        <select
-                            v-if="isEditAdd" 
-                            class="form-control"
-                            v-model.trim="contractPersonDetails.familyMemberType"
-                        >
-                            <option value="father">
-                                {{ trans.get('voyager.generic.father') }}
-                            </option>
-                            <option value="mother">
-                                {{ trans.get('voyager.generic.mother') }}
-                            </option>
-                            <option value="daughter">
-                                {{ trans.get('voyager.generic.daughter') }}
-                            </option>
-                            <option value="son">
-                                {{ trans.get('voyager.generic.son') }}
-                            </option>
-                            <option value="new_born">
-                                {{ trans.get('voyager.generic.new_born') }}
-                            </option>
-                        </select>
                         <b 
                             class="form-data"
-                            v-if="!isEditAdd"
                         >
                             {{ person.familyMemberType }}
                         </b>
@@ -195,10 +95,8 @@
                     <!-- police number -->
                     <div class="form-group col-md-6">
                         <label class="control-label">{{ trans.get('voyager.sales_orders.police_number') }}</label>
-                        <input v-if="isEditAdd" type="policeNumber" class="form-control" v-model.trim="contractPersonDetails.policeNumber">
                         <b 
                             class="form-data"
-                            v-if="!isEditAdd"
                         >
                             {{ person.policeNumber }}
                         </b>
@@ -214,10 +112,10 @@
             </div>
             <div class="col-md-6 products-col">
                 <!-- row to select product -->
-                <productForm 
+                <!-- <productForm 
                     v-if="isEditAdd"
                 >
-                </productForm>
+                </productForm> -->
             </div>
         </div>
         <div class="row">
@@ -230,45 +128,35 @@
 </template>
 
 <script>
-    import Datepicker from "vuejs-datepicker";
     import productCard from './productCard';
     import { mapGetters, mapActions } from 'vuex';
-    import { required } from 'vuelidate/lib/validators';
-    import productForm from './productForm.vue';
-
 
     export default {
         name: 'SalesOrdersPersonCard',
 
         components: {
-            Datepicker,
             productForm,
-            productCard
         },
 
         props: {
-            isEditAdd: {
-                type: Boolean,
-                required: true
-            },
             person: {
                 type: Object
             }
         },
         
         computed: {
-            ...mapGetters(['DateFormat', 'salesOrder', 'allInsurances', 'contractPersonDetails', 'allProducts']),
+            ...mapGetters(['DateFormat', 'salesOrder', 'allInsurances', 'allProducts']),
 
             birthyear() {
-                if(this.birthday !== null) {
-                    const date = new Date(this.birthday);
+                if(this.person.birthday !== null) {
+                    const date = new Date(this.person.birthday);
                     return parseInt(date.getYear());
                 }
             },
 
             age() {
-                if(this.birthday !== null) {
-                    const date = new Date(this.birthday);
+                if(this.person.birthday !== null) {
+                    const date = new Date(this.person.birthday);
                     const now = new Date();
                     return parseInt(now.getYear()) - parseInt(date.getYear());
                 }
@@ -284,50 +172,16 @@
 
             totalProvision() {
                 let sum = 0;
-                this.contractPersonDetails.products.forEach(product => sum += parseInt(product.provision));
+                this.person.products.forEach(product => sum += parseInt(product.provision));
                 return sum;
             }
         },
 
-        data() {
-            return {
-                product: {}
-            }
-        },
-
-        validations: {
-            contractPersonDetails: {
-                firstName: {
-                    required
-                },
-                lastName: {
-                    required
-                },
-                gender: {
-                    required
-                },
-                birthday: {
-                    required
-                },
-                birthday: {
-                    required
-                },
-                age: {
-                    required
-                }
-            }
-        },
-
         methods: {
-            ...mapActions(['addContractPerson']),
+            ...mapActions('salesOrdersPeople', ['deletePerson']),
 
-            submit() {
-                this.$v.$touch();
-                if(this.$v.$invalid) {
-                    console.log('not validated yet')
-                } else {
-                    this.addContractPerson(this.$data);
-                }
+            delete() {
+                this.deletePerson(this.person.id);
             }
         },
     }

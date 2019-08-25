@@ -39943,11 +39943,13 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_0__
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _salesOrdersPeople__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./salesOrdersPeople */ "./resources/js/store/modules/salesOrdersPeople.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 
 var state = {
   filterData: {},
@@ -39977,6 +39979,7 @@ var state = {
     cancellationOriginal: null,
     cancellationStamped: null,
     taskCollectionId: null,
+    documents: [],
     contractPeople: []
   },
   contractPersonDetails: {
@@ -39996,7 +39999,6 @@ var state = {
   productCategories: window.productCategories !== undefined ? window.productCategories : null,
   users: window.users !== undefined ? window.users : null,
   tasksCollections: window.tasksCollections !== undefined ? window.tasksCollections : null,
-  isAddingPersonViewOpen: false,
   dateFormat: "dd MM yyyy"
 };
 var getters = {
@@ -40091,9 +40093,6 @@ var getters = {
    */
   allTasksCollections: function allTasksCollections(state) {
     return state.tasksCollections;
-  },
-  loader: function loader(state) {
-    return state.showContractLoader;
   }
 };
 var actions = {
@@ -40101,8 +40100,8 @@ var actions = {
    * Get all the sales orders
    * @param {*} param0
    */
-  fetchSalesOrders: function () {
-    var _fetchSalesOrders = _asyncToGenerator(
+  fetchSalesOrder: function () {
+    var _fetchSalesOrder = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref) {
       var commit, response;
@@ -40111,36 +40110,34 @@ var actions = {
           switch (_context.prev = _context.next) {
             case 0:
               commit = _ref.commit;
-              state.showContractLoader = true;
-              _context.prev = 2;
-              _context.next = 5;
-              return axios.post("sales-orders-api");
+              _context.prev = 1;
+              _context.next = 4;
+              return axios.get("/api/sales-orders/".concat(state.salesOrder.id));
 
-            case 5:
+            case 4:
               response = _context.sent;
-              state.showContractLoader = false;
               commit("setSalesOrders", response.data.salesOrders);
-              _context.next = 13;
+              _context.next = 11;
               break;
 
-            case 10:
-              _context.prev = 10;
-              _context.t0 = _context["catch"](2);
+            case 8:
+              _context.prev = 8;
+              _context.t0 = _context["catch"](1);
               console.error(_context.t0);
 
-            case 13:
+            case 11:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[2, 10]]);
+      }, _callee, null, [[1, 8]]);
     }));
 
-    function fetchSalesOrders(_x) {
-      return _fetchSalesOrders.apply(this, arguments);
+    function fetchSalesOrder(_x) {
+      return _fetchSalesOrder.apply(this, arguments);
     }
 
-    return fetchSalesOrders;
+    return fetchSalesOrder;
   }(),
   storeSalesOrder: function () {
     var _storeSalesOrder = _asyncToGenerator(
@@ -40153,28 +40150,26 @@ var actions = {
             case 0:
               commit = _ref2.commit;
               _context2.prev = 1;
-              state.showContractLoader = true;
-              _context2.next = 5;
+              _context2.next = 4;
               return axios.post('/api/sales-orders', state.salesOrder);
 
-            case 5:
+            case 4:
               response = _context2.sent;
-              state.showContractLoader = false;
               commit('setSalesOrderId', response.data.id);
-              _context2.next = 13;
+              _context2.next = 11;
               break;
 
-            case 10:
-              _context2.prev = 10;
+            case 8:
+              _context2.prev = 8;
               _context2.t0 = _context2["catch"](1);
               console.error(_context2.t0);
 
-            case 13:
+            case 11:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[1, 10]]);
+      }, _callee2, null, [[1, 8]]);
     }));
 
     function storeSalesOrder(_x2) {
@@ -40182,6 +40177,45 @@ var actions = {
     }
 
     return storeSalesOrder;
+  }(),
+  updateSalesOrder: function () {
+    var _updateSalesOrder = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3) {
+      var commit, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              commit = _ref3.commit;
+              _context3.prev = 1;
+              _context3.next = 4;
+              return axios.put('/api/sales-orders', state.salesOrder);
+
+            case 4:
+              response = _context3.sent;
+              commit('setSalesOrderId', response.data.id);
+              _context3.next = 11;
+              break;
+
+            case 8:
+              _context3.prev = 8;
+              _context3.t0 = _context3["catch"](1);
+              console.error(_context3.t0);
+
+            case 11:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[1, 8]]);
+    }));
+
+    function updateSalesOrder(_x3) {
+      return _updateSalesOrder.apply(this, arguments);
+    }
+
+    return updateSalesOrder;
   }(),
 
   /**
@@ -40192,47 +40226,47 @@ var actions = {
   changePaginationPage: function () {
     var _changePaginationPage = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref4) {
       var commit,
           page,
           response,
           table,
-          _args3 = arguments;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          _args4 = arguments;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context4.prev = _context4.next) {
             case 0:
-              commit = _ref3.commit;
-              page = _args3.length > 1 && _args3[1] !== undefined ? _args3[1] : 1;
-              _context3.prev = 2;
-              _context3.next = 5;
+              commit = _ref4.commit;
+              page = _args4.length > 1 && _args4[1] !== undefined ? _args4[1] : 1;
+              _context4.prev = 2;
+              _context4.next = 5;
               return axios.post("sales-orders/filter?page=".concat(page), state.filterData);
 
             case 5:
-              response = _context3.sent;
+              response = _context4.sent;
               // the table is rendered in the backend
               // we send it over and display it on the frontend
               table = document.querySelector("#table-wrapper");
               table.innerHTML = response.data.table; // update the paginator
 
               commit("setSalesOrders", response.data.dataTypeContent);
-              _context3.next = 14;
+              _context4.next = 14;
               break;
 
             case 11:
-              _context3.prev = 11;
-              _context3.t0 = _context3["catch"](2);
-              alert(_context3.t0);
+              _context4.prev = 11;
+              _context4.t0 = _context4["catch"](2);
+              alert(_context4.t0);
 
             case 14:
             case "end":
-              return _context3.stop();
+              return _context4.stop();
           }
         }
-      }, _callee3, null, [[2, 11]]);
+      }, _callee4, null, [[2, 11]]);
     }));
 
-    function changePaginationPage(_x3) {
+    function changePaginationPage(_x4) {
       return _changePaginationPage.apply(this, arguments);
     }
 
@@ -40249,91 +40283,54 @@ var actions = {
   filterSalesOrders: function () {
     var _filterSalesOrders = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref4, data) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(_ref5, data) {
       var commit,
           page,
           response,
           table,
-          _args4 = arguments;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          _args5 = arguments;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
         while (1) {
-          switch (_context4.prev = _context4.next) {
+          switch (_context5.prev = _context5.next) {
             case 0:
-              commit = _ref4.commit;
-              page = _args4.length > 2 && _args4[2] !== undefined ? _args4[2] : 1;
-              _context4.prev = 2;
+              commit = _ref5.commit;
+              page = _args5.length > 2 && _args5[2] !== undefined ? _args5[2] : 1;
+              _context5.prev = 2;
               // update the filter data
               state.filterData = data;
-              _context4.next = 6;
+              _context5.next = 6;
               return axios.post("sales-orders/filter?page=".concat(page), data);
 
             case 6:
-              response = _context4.sent;
+              response = _context5.sent;
               // the table is rendered in the backend
               // we send it over and display it on the frontend
               table = document.querySelector("#table-wrapper");
               table.innerHTML = response.data.table; // update the paginator
 
               commit("setSalesOrders", response.data.dataTypeContent);
-              _context4.next = 15;
+              _context5.next = 15;
               break;
 
             case 12:
-              _context4.prev = 12;
-              _context4.t0 = _context4["catch"](2);
-              console.warn(_context4.t0);
+              _context5.prev = 12;
+              _context5.t0 = _context5["catch"](2);
+              console.warn(_context5.t0);
 
             case 15:
             case "end":
-              return _context4.stop();
+              return _context5.stop();
           }
         }
-      }, _callee4, null, [[2, 12]]);
+      }, _callee5, null, [[2, 12]]);
     }));
 
-    function filterSalesOrders(_x4, _x5) {
+    function filterSalesOrders(_x5, _x6) {
       return _filterSalesOrders.apply(this, arguments);
     }
 
     return filterSalesOrders;
-  }(),
-
-  /**
-   * Add contract person to the
-   * sales order
-   * @param {*} param0
-   * @param {object} data
-   */
-  addContractPerson: function addContractPerson(_ref5) {
-    var commit = _ref5.commit;
-    commit("setContractPerson", state.contractPersonDetails);
-  },
-
-  /**
-   *
-   */
-  showAddPersonCard: function showAddPersonCard() {
-    state.isAddingPersonViewOpen = true;
-  },
-
-  /**
-   * Add a product to the contract person
-   *
-   */
-  addProductToContractPerson: function addProductToContractPerson() {
-    // in order to prevent mutation of the original object
-    var product = JSON.parse(JSON.stringify(state.contractPersonDetails.selectedProduct));
-    state.contractPersonDetails.products.push(product);
-  },
-  removeProduct: function removeProduct(_ref6, id) {
-    var commit = _ref6.commit;
-    // if we have two or more of the same product
-    // this will delete all of them
-    var results = state.contractPersonDetails.products.filter(function (product) {
-      return product.id !== id;
-    });
-    state.contractPersonDetails.products = results;
-  }
+  }()
 };
 var mutations = {
   setSalesOrders: function setSalesOrders(state, data) {
@@ -40347,6 +40344,128 @@ var mutations = {
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
+  modules: {
+    salesOrdersPeople: _salesOrdersPeople__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  state: state,
+  getters: getters,
+  actions: actions,
+  mutations: mutations
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/salesOrdersPeople.js":
+/*!*********************************************************!*\
+  !*** ./resources/js/store/modules/salesOrdersPeople.js ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var state = {
+  people: []
+};
+var getters = {
+  allPeople: function allPeople(state) {
+    return state.people;
+  }
+};
+var actions = {
+  /**
+  * Add contract person to the
+  * sales order
+  * @param {*} param0
+  * @param {object} person
+  */
+  addPerson: function () {
+    var _addPerson = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref, person) {
+      var commit, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              commit = _ref.commit;
+              _context.next = 3;
+              return axios.post('/api/sales-order-people', person);
+
+            case 3:
+              response = _context.sent;
+              person.id = response.person.id;
+              commit("addPerson", person);
+
+            case 6:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    function addPerson(_x, _x2) {
+      return _addPerson.apply(this, arguments);
+    }
+
+    return addPerson;
+  }(),
+
+  /**
+   * 
+   * @param {Object} param0 
+   * @param {int} id 
+   */
+  deletePerson: function () {
+    var _deletePerson = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2, id) {
+      var commit, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              commit = _ref2.commit;
+              _context2.next = 3;
+              return axios["delete"]("/api/sales-order-people/".concat(id));
+
+            case 3:
+              response = _context2.sent;
+              commit('deletePerson', id);
+
+            case 5:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    function deletePerson(_x3, _x4) {
+      return _deletePerson.apply(this, arguments);
+    }
+
+    return deletePerson;
+  }()
+};
+var mutations = {
+  deletePerson: function deletePerson(state, id) {
+    state.people = state.people.filter(function (person) {
+      return person.id !== id;
+    });
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
   state: state,
   getters: getters,
   actions: actions,

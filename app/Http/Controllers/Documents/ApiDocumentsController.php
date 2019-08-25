@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\SalesOrders;
+namespace App\Http\Controllers\Documents;
 
-use App\ContractPerson;
+use App\Document;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\addSalesOrderPerson;
+use App\Http\Requests\StoreDocument;
 
-class ApiSalesOrderPeopleController extends Controller
+class ApiDocumentsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,22 +35,19 @@ class ApiSalesOrderPeopleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(addSalesOrderPerson $request)
+    public function store(StoreDocument $request)
     {
-        $person = new ContractPerson();
+        $document = new Document();
 
-        $person->first_name = $request->input('firstName');
-        $person->last_name = $request->input('lastName');
-        $person->gender = $request->input('gender');
-        $person->police_number = $request->input('policeNumber');
-        $person->sales_order_id = $request->input('sales_order_id');
+        $document->name = $request->input('name');
+        $document->type = $request->input('type');
+        $document->status = $request->input('status');
+        $document->sales_order_id = $request->input('salesOrderId');
 
-        $person->save();
-
-        // then we need to save the product with the person
+        $document->save();
 
         return response()->json([
-            'person' => $person
+            'document' => $document
         ]);
     }
 
@@ -85,7 +82,18 @@ class ApiSalesOrderPeopleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $document = Document::findOrFail($id);
+
+        $document->name = $request->input('name');
+        $document->type = $request->input('type');
+        $document->status = $request->input('status');
+        $document->sales_order_id = $request->input('salesOrderId');
+
+        $document->save();
+
+        return response()->json([
+            'document' => $document
+        ]);
     }
 
     /**
@@ -96,6 +104,8 @@ class ApiSalesOrderPeopleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $doc = Document::findOrFail($id);
+
+        $doc->delete();
     }
 }

@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Document extends Model
+class ContractPersonProduct extends Model
 {
-    protected $table = 'documents';
+    //
 }

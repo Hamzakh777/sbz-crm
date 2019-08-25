@@ -12,12 +12,23 @@ class SalesOrder extends Model
      */
     protected $perPage = 15;
 
+    /**
+     * Fields that should be instances of Carbon
+     */
     protected $dates = ['contract_duration_VVG', 'contract_duration_KVG', 'insurance_submitted_date'];
+
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['documents', 'people'];
+
     /**
      * Sales order has one unique associated document
      */
-    public function document() {
-        return $this->hasOne('App/Document'. 'sales_order_id');
+    public function documents() {
+        return $this->hasMany('App\Document', 'sales_order_id');
     }
 
     /**

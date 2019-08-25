@@ -5,7 +5,7 @@
                 <label class="control-label">{{ trans.get('voyager.sales_orders.select_product') }}</label>
                 <select 
                     class="form-control"
-                    v-model="contractPersonDetails.selectedProduct"
+                    v-model="product"
                     :class="{'form-control--error': $v.contractPersonDetails.selectedProduct.$error }"
                 >
                     <option 
@@ -13,7 +13,7 @@
                         :value="product" 
                         :key="product.id"
                     >
-                    {{ product.name }}
+                        {{ product.name }}
                     </option>
                 </select>
                 <div v-if="$v.contractPersonDetails.selectedProduct.$dirty">
@@ -44,6 +44,8 @@
                 v-for="(product, index) in contractPersonDetails.products"
                 :key="index"
                 :product="product"
+                :index="index"
+                @delete="deleteProduct"
             >
             </productCard>
         </div>
@@ -51,7 +53,6 @@
 </template>
 
 <script>
-    import { mapGetters, mapActions } from 'vuex';
     import { required } from 'vuelidate/lib/validators';
     import productCard from './productCard';
 
@@ -72,6 +73,12 @@
             }
         },
 
+        data() {
+            return {
+                product: null,
+            }
+        },
+
         validations: {
             contractPersonDetails: {
                 selectedProduct: {
@@ -81,15 +88,14 @@
         },
 
         methods: {
-            ...mapActions(['addProductToContractPerson']),
             addProduct() {
                 this.$v.$touch();
                 if(this.$v.$invalid) {
                     console.log('not validated yet')
                 } else {
-                    this.addProductToContractPerson();
+                    this.$emit('addProduct', this.product);
                 }
-            }
+            },
         },
     }
 </script>

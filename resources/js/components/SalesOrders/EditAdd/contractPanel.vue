@@ -7,7 +7,7 @@
             </div>
         </div>
         <div class="panel-body mt-2">
-            <baseLoader v-if="loader">
+            <baseLoader v-if="isLoading">
             </baseLoader>
             <!-- customer details -->
             <div class="row">
@@ -391,7 +391,7 @@
         },
 
         computed: {
-            ...mapGetters(['DateFormat', 'allInsurances', 'allSalesAgents', 'salesOrder', 'loader']),
+            ...mapGetters(['DateFormat', 'allInsurances', 'allSalesAgents', 'salesOrder']),
 
             isHouseholdTypeFamily() {
                 if(this.salesOrder.householdType === 'family') {
@@ -399,6 +399,13 @@
                 } else {
                     return false;
                 }
+            }
+        },
+
+
+        data() {
+            return {
+                isLoading: false
             }
         },
 
@@ -453,8 +460,25 @@
         },
 
         created() {
+            // we want to show and hide the loader on every call 
+            axios.interceptors.request.use(config => {
+                this.isLoading = true
+                return config
+            }, error => {
+                this.isLoading = false;
+                return Promise.reject(error);
+            })
+            axios.interceptors.response.use(response => {
+                this.isLoading = false
+                return response
+            }, error => {
+                this.isLoading = false
+                return Promise.reject(error)
+            });
+
             if(this.salesOrder.id !== null) {
-                
+                // fetch the sale order
+                this.fetchSalesOrder();
             }
         },
 
@@ -467,7 +491,7 @@
         },
 
         methods: {
-            ...mapActions(['storeSalesOrder']),
+            ...mapActions(['storeSalesOrder', 'fetchSalesOrder']),
 
             submit() {
                 this.storeSalesOrder();

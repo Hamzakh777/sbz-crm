@@ -95,7 +95,9 @@ class ApiSalesOrdersController extends Controller
      */
     public function show($id)
     {
-        //
+        // we have to check all the models that have a relationship with the sales order and send them back
+        // with the response
+        // also we need to add some fields like documentId and so on
     }
 
     /**
@@ -106,7 +108,11 @@ class ApiSalesOrdersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $order = SalesOrder::findOrFail($id);
+
+        return response()->json([
+            'order' => $order
+        ]);
     }
 
     /**

@@ -1,9 +1,11 @@
 <template>
     <div>
         <contractPanel></contractPanel>
-        <SalesOrdersPeoplePanel></SalesOrdersPeoplePanel>
-        <documentPanel></documentPanel>
-        <SalesOrdersTasksPanel></SalesOrdersTasksPanel>
+        <div v-if="salesOrder.id">
+            <SalesOrdersPeoplePanel></SalesOrdersPeoplePanel>
+            <documentPanel></documentPanel>
+            <SalesOrdersTasksPanel></SalesOrdersTasksPanel>
+        </div>
     </div>
 </template>
 
@@ -12,7 +14,8 @@
     import SalesOrdersContractPath from './SalesOrdersContractPath';
     import SalesOrdersPeoplePanel from './SalesOrdersPeople/peoplePanel';
     import SalesOrdersTasksPanel from './SalesOrdersTasksPanel';
-    import documentPanel from './documentPanel';
+    import documentPanel from './documents/documentPanel';
+    import {mapGetters} from 'vuex';
 
     export default {
         name: 'App',
@@ -23,7 +26,11 @@
             SalesOrdersPeoplePanel,
             SalesOrdersTasksPanel,
             documentPanel
-        }
+        },
+
+        computed: {
+            ...mapGetters(['salesOrder']),
+        },
 
     }
 </script>

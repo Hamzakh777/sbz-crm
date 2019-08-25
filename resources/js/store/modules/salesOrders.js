@@ -1,3 +1,5 @@
+import salesOrdersPeople from './salesOrdersPeople';
+
 const state = {
     filterData: {},
     showContractLoader: false,
@@ -26,6 +28,7 @@ const state = {
         cancellationOriginal: null,
         cancellationStamped: null,
         taskCollectionId: null,
+        documents: [],
         contractPeople: []
     },
     contractPersonDetails: {
@@ -45,7 +48,6 @@ const state = {
     productCategories: window.productCategories !== undefined ? window.productCategories : null,
     users: window.users !== undefined ? window.users : null,
     tasksCollections: window.tasksCollections !== undefined ? window.tasksCollections : null,
-    isAddingPersonViewOpen: false,
     dateFormat: "dd MM yyyy"
 };
 
@@ -94,7 +96,6 @@ const getters = {
     salesOrder(state) {
         return state.salesOrder;
     },
-
     /**
      * 
      * @param {Object} state 
@@ -110,7 +111,6 @@ const getters = {
     contractPersonDetails(state) {
         return state.contractPersonDetails;
     },
-
     /**
      * 
      * @param {Object} state 
@@ -141,10 +141,6 @@ const getters = {
      */
     allTasksCollections(state) {
         return state.tasksCollections;
-    },
-
-    loader(state) {
-        return state.showContractLoader;
     }
 };
 
@@ -153,12 +149,10 @@ const actions = {
      * Get all the sales orders
      * @param {*} param0
      */
-    async fetchSalesOrders({ commit }) {
-        state.showContractLoader = true;
+    async fetchSalesOrder({ commit }) {
         try {
-            const response = await axios.post("sales-orders-api");
+            const response = await axios.get(`/api/sales-orders/${state.salesOrder.id}`);
 
-            state.showContractLoader = false;
             commit("setSalesOrders", response.data.salesOrders);
         } catch (error) {
             console.error(error);
@@ -167,12 +161,20 @@ const actions = {
 
     async storeSalesOrder({commit}) {
         try { 
-            state.showContractLoader = true;
             const response = await axios.post('/api/sales-orders', state.salesOrder);
-            state.showContractLoader = false;
             
             commit('setSalesOrderId', response.data.id);
         } catch(error) {
+            console.error(error);
+        }
+    },
+
+    async updateSalesOrder({ commit }) {
+        try {
+            const response = await axios.put('/api/sales-orders', state.salesOrder);
+
+            commit('setSalesOrderId', response.data.id);
+        } catch (error) {
             console.error(error);
         }
     },
@@ -230,43 +232,6 @@ const actions = {
         }
     },
 
-    /**
-     * Add contract person to the
-     * sales order
-     * @param {*} param0
-     * @param {object} data
-     */
-    addContractPerson({ commit }) {
-        commit("setContractPerson", state.contractPersonDetails);
-    },
-
-    /**
-     *
-     */
-    showAddPersonCard() {
-        state.isAddingPersonViewOpen = true;
-    },
-
-    /**
-     * Add a product to the contract person
-     *
-     */
-    addProductToContractPerson() {
-        // in order to prevent mutation of the original object
-        const product = JSON.parse(
-            JSON.stringify(state.contractPersonDetails.selectedProduct)
-        );
-        state.contractPersonDetails.products.push(product);
-    },
-
-    removeProduct({ commit }, id) {
-        // if we have two or more of the same product
-        // this will delete all of them
-        const results = state.contractPersonDetails.products.filter(
-            product => product.id !== id
-        );
-        state.contractPersonDetails.products = results;
-    }
 };
 
 const mutations = {
@@ -282,6 +247,9 @@ const mutations = {
 };
 
 export default {
+    modules: {
+        salesOrdersPeople
+    },
     state,
     getters,
     actions,

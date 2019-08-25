@@ -7,52 +7,38 @@
             </div>
         </div>
         <div class="panel-body mt-2">
-            <div class="row">
-                <button
-                    class="btn btn-success pull-right"
-                    @click="showAddPersonCard"
-                    >
-                    {{ trans.get('voyager.sales_orders.add_person') }}
-                </button>
-            </div>
             <div class="row cards">
                 <!-- the form to add or edit a contract person -->
-                <personCard 
-                    :is-edit-add="true"
-                    v-if="isAddingPersonViewOpen"
-                >
-                </personCard>
+                <personFrom></personFrom>
                 <!-- for viewing already added contract people -->
                 <personCard 
-                    :is-edit-add="false"
-                    v-for="(person, index) in salesOrder.contractPeople"
+                    v-for="(person, index) in allPeople"
                     :key="index"
                     :person="person"
                 >
                 </personCard>
             </div>
+            <button @click="clicked">test</button>
         </div>
      </div>
 </template>
 
 <script>
     import personCard from './personCard';
+    import personFrom from './personForm';
     import {mapGetters, mapActions} from 'vuex';
 
     export default {
         name: 'SalesOrdersPeoplePanel',
 
         components: {
-            personCard
+            personCard,
+            personFrom
         },
 
         computed: {
-            ...mapGetters(['salesOrder', 'isAddingPersonViewOpen'])
-        },
-
-        methods: {
-            ...mapActions(['showAddPersonCard'])
-        },
+            ...mapGetters('salesOrdersPeople', ['allPeople'])
+        }
     }
 </script>
 

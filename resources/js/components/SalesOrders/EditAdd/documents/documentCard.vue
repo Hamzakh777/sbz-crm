@@ -1,19 +1,19 @@
 <template>
-    <div class="product-card">
+    <div class="document-card">
         <div class="row">
             <div class="col-md-4">
-                {{product.name}}
+                {{document.name}}
             </div>
             <div class="col-md-4">
-                {{ category.name }}
+                {{ trans.get(`voyager.sales_orders.${document.type}`) }}
             </div>
             <div class="col-md-3">
-                {{ product.provision ?  `${product.provision} chf`: '' }}  
+                {{ trans.get(`voyager.generic.${document.status}`) }}  
             </div>
             <div class="col-md-1">
                 <i 
                     class="voyager-trash"
-                    @click="deleteProduct(id)"
+                    @click="remove"
                 ></i>
             </div>
         </div>
@@ -21,42 +21,28 @@
 </template>
 
 <script>
-    import {mapActions, mapGetters} from 'vuex';
+    import {mapActions} from 'vuex';
 
     export default {
-        name: 'productCard',
+        name: 'documentCard',
 
         props: {
-            product: {
+            document: {
                 type: Object,
                 required: true
             }
         },
-
-        computed: {
-            ...mapGetters(['allProductCategories']),
-            id() {
-                return this.product.id;
-            },
-            category() {
-                if(this.product.products_category_id !== null) {
-                    return _.find(this.productCategories, (o) => o.id === this.product.products_category_id);
-                } else {
-                    return {
-                        name: 'No category'
-                    }
-                }
-            }
-        },
-
+    
         methods: {
-            ...mapActions(['removeProduct'])
+            remove() {
+                this.$emit('remove', this.document.id)
+            }
         },
     }
 </script>
 
 <style lang="sass" scoped>
-.product-card
+.document-card
     background-color: #fff
     box-shadow: 0px 6px 20px rgba(0,0,0,0.07)
     border-left: 2px solid #4E73DF
@@ -71,6 +57,7 @@
         display: block
         margin-top: -3px
         font-size: 20px
+        float: right
 
         &:hover
             color: #FB4027

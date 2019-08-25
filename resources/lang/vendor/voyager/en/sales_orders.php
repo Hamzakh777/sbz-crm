@@ -73,5 +73,9 @@ return [
     // document
     'document_name'                     => 'Document name',
     'document_type'                     => 'Document type',
-    'document_status'                   => 'Document status'
+    'document_status'                   => 'Document status',
+    'id_card'                           => 'Id card',
+    'contract_termination_original'     => 'Contract termination orignal',
+    'contract_termination_stamped'      => 'Contract termination stamped',
+    'other'                             => 'Other'
 ];
