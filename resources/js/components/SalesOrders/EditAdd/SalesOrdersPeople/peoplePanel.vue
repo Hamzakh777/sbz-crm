@@ -15,12 +15,12 @@
                 <!-- the form to add or edit a contract person -->
                 <personFrom></personFrom>
                 <!-- for viewing already added contract people -->
-                <personCard 
+                <!-- <personCard 
                     v-for="(person, index) in allPeople"
                     :key="index"
                     :person="person"
                 >
-                </personCard>
+                </personCard> -->
             </div>
         </div>
      </div>
@@ -30,7 +30,7 @@
     import personCard from './personCard';
     import personFrom from './personForm';
     import BaseLoader from '../../../baseComponents/BaseLoader';
-    import {mapGetters, mapActions} from 'vuex';
+    import {mapGetters, mapActions, mapMutations} from 'vuex';
 
     export default {
         name: 'SalesOrdersPeoplePanel',
@@ -43,6 +43,10 @@
 
         computed: {
             ...mapGetters('salesOrdersPeople', ['allPeople', 'isLoading'])
+        },
+
+        methods: {
+            ...mapMutations('salesOrdersPeople', ['setPeople'])
         }
     }
 </script>

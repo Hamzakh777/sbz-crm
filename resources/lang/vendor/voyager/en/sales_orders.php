@@ -74,6 +74,8 @@ return [
     'document_name'                     => 'Document name',
     'document_type'                     => 'Document type',
     'document_status'                   => 'Document status',
+    'document_details'                  => 'Document details',
+    'saved_documents'                   => 'Saved documents',
     'id_card'                           => 'Id card',
     'contract_termination_original'     => 'Contract termination orignal',
     'contract_termination_stamped'      => 'Contract termination stamped',

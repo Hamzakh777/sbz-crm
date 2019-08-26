@@ -2066,7 +2066,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     personFrom: _personForm__WEBPACK_IMPORTED_MODULE_1__["default"],
     BaseLoader: _baseComponents_BaseLoader__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])('salesOrdersPeople', ['allPeople', 'isLoading']))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])('salesOrdersPeople', ['allPeople', 'isLoading'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapMutations"])('salesOrdersPeople', ['setPeople']))
 });
 
 /***/ }),
@@ -3423,12 +3424,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_5__["mapActions"])(['storeSalesOrder', 'fetchSalesOrder']), {
     submit: function submit() {
-      this.storeSalesOrder(); // this.$v.$touch();
-      // if(this.$v.$invalid) {
-      //     console.log('not validated yet')
-      //     console.log(this.$v);
-      // } else {
-      // }
+      this.$v.$touch();
+
+      if (!this.$v.$invalid) {
+        this.storeSalesOrder();
+      }
     }
   })
 });
@@ -3669,6 +3669,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     addForm: _addDocumentsFrom__WEBPACK_IMPORTED_MODULE_3__["default"],
     documentCard: _documentCard__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
+  watch: {
+    // we recieve the documents in ajax with 
+    // the sales order
+    'salesOrder.documents': function salesOrderDocuments(newVal, oldVal) {
+      this.documents = newVal;
+    }
+  },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_5__["mapGetters"])(['salesOrder']), {
     noDocuments: function noDocuments() {
       if (this.documents.length === 0) {
@@ -3775,31 +3782,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     showLoader: function showLoader() {
       this.isLoading = true;
     }
-  },
-  mounted: function () {
-    var _mounted = _asyncToGenerator(
-    /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
-        while (1) {
-          switch (_context3.prev = _context3.next) {
-            case 0:
-              this.documents = this.salesOrder.documents;
-
-            case 1:
-            case "end":
-              return _context3.stop();
-          }
-        }
-      }, _callee3, this);
-    }));
-
-    function mounted() {
-      return _mounted.apply(this, arguments);
-    }
-
-    return mounted;
-  }()
+  }
 });
 
 /***/ }),
@@ -4046,6 +4029,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   name: "commentsPanel",
   components: {
     Comments: _comments_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  watch: {
+    'salesOrder.comments': function salesOrderComments(newVal, oldVal) {
+      this.comments = newVal;
+    }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(['salesOrder'])),
   data: function data() {
@@ -4626,7 +4614,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".toggle-button-wrapper[data-v-5a2cc27e] {\n  margin-top: 1em;\n}\n.panel-body[data-v-5a2cc27e] {\n  padding: 2em 1em;\n}\nh4[data-v-5a2cc27e] {\n  color: #344055;\n}", ""]);
+exports.push([module.i, ".toggle-button-wrapper[data-v-5a2cc27e] {\n  margin-top: 1em;\n}\n.panel-body[data-v-5a2cc27e] {\n  padding: 2em 1em;\n}\nh4[data-v-5a2cc27e] {\n  color: #344055;\n}\n.z-index--101[data-v-5a2cc27e] {\n  position: relative;\n  z-index: 101;\n}", ""]);
 
 // exports
 
@@ -27831,13 +27819,9 @@ var render = function() {
         [
           _vm.isLoading ? _c("BaseLoader") : _vm._e(),
           _vm._v(" "),
-          _c("personFrom"),
-          _vm._v(" "),
-          _vm._l(_vm.allPeople, function(person, index) {
-            return _c("personCard", { key: index, attrs: { person: person } })
-          })
+          _c("personFrom")
         ],
-        2
+        1
       )
     ])
   ])
@@ -29470,7 +29454,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "form-group col-md-4" },
+            { staticClass: "form-group col-md-4 z-index--101" },
             [
               _c("label", { staticClass: "control-label" }, [
                 _vm._v(_vm._s(_vm.trans.get("voyager.sales_orders.sign_date")))
@@ -30428,9 +30412,7 @@ var render = function() {
             _vm._v(" "),
             _c("h4", { staticClass: "title" }, [
               _vm._v(
-                _vm._s(
-                  _vm.trans.get("voyager.sales_orders.select_tasks_collection")
-                )
+                _vm._s(_vm.trans.get("voyager.sales_orders.document_details"))
               )
             ]),
             _vm._v(" "),
@@ -30443,9 +30425,7 @@ var render = function() {
                   _c("h4", { staticClass: "title" }, [
                     _vm._v(
                       _vm._s(
-                        _vm.trans.get(
-                          "voyager.sales_orders.select_tasks_collection"
-                        )
+                        _vm.trans.get("voyager.sales_orders.saved_documents")
                       )
                     )
                   ]),
@@ -30627,7 +30607,7 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "text" }, [
       _c("a", { staticClass: "username", attrs: { href: "#" } }, [
-        _vm._v("@" + _vm._s(_vm.comment.user_username))
+        _vm._v("@" + _vm._s(_vm.comment.user.username))
       ]),
       _vm._v(" "),
       _c("span", [_vm._v(_vm._s(_vm.comment.body))])
@@ -50976,8 +50956,8 @@ var state = {
     cancellationStamped: null,
     taskCollectionId: null,
     documents: [],
-    contractPeople: [],
-    comments: []
+    comments: [],
+    people: []
   },
   contractPersonDetails: {
     firstName: null,
@@ -51333,6 +51313,8 @@ var mutations = {
   setSalesOrder: function setSalesOrder(state, data) {
     // state.salesOrders = data;
     state.salesOrder.documents = data.documents;
+    state.salesOrder.people = data.people;
+    state.salesOrder.comments = data.comments;
   },
   setSalesOrderId: function setSalesOrderId(state, data) {
     state.salesOrder.id = data;
@@ -51375,8 +51357,8 @@ var state = {
   isLoading: false
 };
 var getters = {
-  allPeople: function allPeople(state) {
-    return state.people;
+  allPeople: function allPeople(state, getters, rootState) {
+    return state.people.concat(rootState.salesOrders.salesOrder.people);
   },
   isLoading: function isLoading(state) {
     return state.isLoading;
@@ -51467,6 +51449,9 @@ var actions = {
   }()
 };
 var mutations = {
+  setPeople: function setPeople(state, people) {
+    state.people = people;
+  },
   addPerson: function addPerson(state, person) {
     state.people.unshift(person);
   },

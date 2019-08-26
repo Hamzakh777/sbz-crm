@@ -5,8 +5,8 @@ const state = {
 };
 
 const getters = {
-    allPeople(state) {
-        return state.people;
+    allPeople(state, getters, rootState) {
+        return state.people.concat(rootState.salesOrders.salesOrder.people);
     } ,
     isLoading(state) {
         return state.isLoading;
@@ -51,6 +51,9 @@ const actions = {
 };
 
 const mutations = {
+    setPeople(state, people) {
+        state.people = people;
+    },
     addPerson(state, person) {
         state.people.unshift(person);
     },

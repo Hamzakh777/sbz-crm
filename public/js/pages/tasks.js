@@ -39978,8 +39978,8 @@ var state = {
     cancellationStamped: null,
     taskCollectionId: null,
     documents: [],
-    contractPeople: [],
-    comments: []
+    comments: [],
+    people: []
   },
   contractPersonDetails: {
     firstName: null,
@@ -40335,6 +40335,8 @@ var mutations = {
   setSalesOrder: function setSalesOrder(state, data) {
     // state.salesOrders = data;
     state.salesOrder.documents = data.documents;
+    state.salesOrder.people = data.people;
+    state.salesOrder.comments = data.comments;
   },
   setSalesOrderId: function setSalesOrderId(state, data) {
     state.salesOrder.id = data;
@@ -40377,8 +40379,8 @@ var state = {
   isLoading: false
 };
 var getters = {
-  allPeople: function allPeople(state) {
-    return state.people;
+  allPeople: function allPeople(state, getters, rootState) {
+    return state.people.concat(rootState.salesOrders.salesOrder.people);
   },
   isLoading: function isLoading(state) {
     return state.isLoading;
@@ -40469,6 +40471,9 @@ var actions = {
   }()
 };
 var mutations = {
+  setPeople: function setPeople(state, people) {
+    state.people = people;
+  },
   addPerson: function addPerson(state, person) {
     state.people.unshift(person);
   },

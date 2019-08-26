@@ -6,6 +6,7 @@ use App\SalesOrder;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\addSalesOrderPerson;
 use App\Http\Requests\StoreSalesOrders;
 
 class ApiSalesOrdersController extends Controller
@@ -36,7 +37,7 @@ class ApiSalesOrdersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreSalesOrders $request)
     {
         // $validate = $request->validated();
 
@@ -102,6 +103,17 @@ class ApiSalesOrdersController extends Controller
         // fortunatly laravel provides a native way to eager load the modals related to this one
         $salesOrder = SalesOrder::findOrFail($id);
 
+        $salesOrder->people->transform(function ($item, $key) { 
+            return [
+                'firstName' => $item->first_name,
+                'lastName' => $item->last_name,
+                'gender' => $item->gender,
+                'birthday' => $item->birthday,
+                'policeNumber' => $item->policeNumber,
+                'salesOrderId' => $item->salesOrderId,
+            ];
+        });
+
         return response()->json([
             'salesOrder' => $salesOrder
         ]);
@@ -116,6 +128,7 @@ class ApiSalesOrdersController extends Controller
     public function edit($id)
     {
         $order = SalesOrder::findOrFail($id);
+
 
         return response()->json([
             'order' => $order

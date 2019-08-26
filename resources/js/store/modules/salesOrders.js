@@ -29,8 +29,8 @@ const state = {
         cancellationStamped: null,
         taskCollectionId: null,
         documents: [],
-        contractPeople: [],
-        comments: []
+        comments: [],
+        people: [],
     },
     contractPersonDetails: {
         firstName: null,
@@ -239,6 +239,8 @@ const mutations = {
     setSalesOrder(state, data) {
         // state.salesOrders = data;
         state.salesOrder.documents = data.documents;
+        state.salesOrder.people = data.people;
+        state.salesOrder.comments = data.comments;
     },
     setSalesOrderId(state,data){
         state.salesOrder.id = data;

@@ -8,11 +8,11 @@
             v-slot:body
         >
             <BaseLoader v-if="isLoading"></BaseLoader>
-            <h4 class="title">{{ trans.get('voyager.sales_orders.select_tasks_collection') }}</h4>
+            <h4 class="title">{{ trans.get('voyager.sales_orders.document_details') }}</h4>
                 <addForm @addProduct="submit"></addForm>
             <div v-if="noDocuments" >
                 <hr>
-                <h4 class="title">{{ trans.get('voyager.sales_orders.select_tasks_collection') }}</h4>
+                <h4 class="title">{{ trans.get('voyager.sales_orders.saved_documents') }}</h4>
                 <div class="row list">
                     <documentCard
                         v-for="document in documents"
@@ -45,6 +45,14 @@
             documentCard
         },
 
+        watch: {
+            // we recieve the documents in ajax with 
+            // the sales order
+            'salesOrder.documents': function(newVal, oldVal) {
+                this.documents = newVal;
+            }
+        },
+
         computed: {
             ...mapGetters(['salesOrder']),
 
@@ -54,7 +62,8 @@
                 } else {
                     return true;
                 }
-            }
+            },
+
         },
 
         data() {
@@ -94,10 +103,6 @@
             showLoader() {
                 this.isLoading = true;
             }
-        },
-
-        async mounted() {
-            this.documents = this.salesOrder.documents;
         },
     }
 </script>

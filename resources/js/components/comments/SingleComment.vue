@@ -4,7 +4,7 @@
             <img :src=" 'https://sbz-appointment.fra1.digitaloceanspaces.com/' + comment.avatar" alt="">
         </div>
         <div class="text">
-            <a class="username" href="#">@{{ comment.user_username }}</a> <span>{{ comment.body }}</span>
+            <a class="username" href="#">@{{ comment.user.username }}</a> <span>{{ comment.body }}</span>
         </div>
     </div>
 </template>

@@ -32,6 +32,12 @@ export default {
   components: {
     Comments
   },
+
+  watch: {
+    'salesOrder.comments': function(newVal, oldVal) {
+      this.comments = newVal;
+    }
+  },
   
   computed: {
     ...mapGetters(['salesOrder'])

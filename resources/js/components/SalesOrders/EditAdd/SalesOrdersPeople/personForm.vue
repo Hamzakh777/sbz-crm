@@ -187,7 +187,7 @@
             productForm,
             productCard
         },
-        
+
         computed: {
             ...mapGetters(['DateFormat', 'salesOrder', 'allInsurances', 'allProducts']),
 

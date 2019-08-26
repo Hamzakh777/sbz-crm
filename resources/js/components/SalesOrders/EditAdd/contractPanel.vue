@@ -169,7 +169,7 @@
                 </div>
 
                 <!-- sign date -->
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4 z-index--101">
                     <label class="control-label">{{ trans.get('voyager.sales_orders.sign_date') }}</label>
                     <Datepicker
                         class="datePicker"
@@ -494,13 +494,10 @@
             ...mapActions(['storeSalesOrder', 'fetchSalesOrder']),
 
             submit() {
-                this.storeSalesOrder();
-                // this.$v.$touch();
-                // if(this.$v.$invalid) {
-                //     console.log('not validated yet')
-                //     console.log(this.$v);
-                // } else {
-                // }
+                this.$v.$touch();
+                if(!this.$v.$invalid) {
+                    this.storeSalesOrder();
+                }
             }
         },
     }
@@ -513,4 +510,8 @@
     padding: 2em 1em
 h4 
     color: #344055
+
+.z-index--101
+    position: relative
+    z-index: 101
 </style>

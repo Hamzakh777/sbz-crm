@@ -45,6 +45,8 @@ class CommentsController extends Controller
 
         $comment->save();
 
+        $comment->user = auth()->user();
+
         return response()->json([
             'comment' => $comment
         ]);
