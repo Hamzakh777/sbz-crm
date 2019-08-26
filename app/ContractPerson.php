@@ -13,7 +13,7 @@ class ContractPerson extends Model
      * Each contract person belongs to a contract
      */
     public function contract() {
-        $this->belongsTo('App\SalesOrder', 'sales_order_id');
+        return $this->belongsTo('App\SalesOrder', 'sales_order_id');
     }
 
     /**
@@ -21,6 +21,6 @@ class ContractPerson extends Model
      * 
      */
     public function products() {
-        $this->belongsToMany('App\Product', 'contract_person_product', 'contract_person_id');
+        return $this->belongsToMany('App\Product', 'contract_person_product', 'contract_person_id');
     }
 }

@@ -23,10 +23,10 @@
     padding: 10px;
     margin-bottom: 10px;
     align-items: center;
-    color: #333;
+    color: #76838f;
     background-color: #fff;
     border-radius: 4px;
-    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 .comment .avatar {

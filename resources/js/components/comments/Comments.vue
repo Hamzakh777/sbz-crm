@@ -20,7 +20,7 @@
                 maxlength="250"
                 @keyup.enter="submitComment"
             />
-            <button class="reply--button" @click.prevent="submitComment"><i class="fa fa-paper-plane"></i> Send</button>
+            <button class="reply--button" @click.prevent="submitComment"><i class="voyager-paper-plane"></i> Send</button>
         </div>
     </div>
 </template>
@@ -51,8 +51,6 @@ import singleComment from './SingleComment'
 
 <style scoped>
 .comments {
-    margin-top: 20px;
-    padding: 20px;
     padding-top: 0;
 }
 
@@ -89,7 +87,7 @@ import singleComment from './SingleComment'
     display: flex;
     position: relative;
     align-items: center;
-    background-color: rgb(247, 247, 247);
+    background-color: #f9f9f9;
     border-radius: 4px;
     padding: 5px 10px;
     overflow: hidden;
@@ -128,9 +126,10 @@ import singleComment from './SingleComment'
 .reply .reply--button {
     position: absolute;
     right: -100px;
-    border: 1px solid #22a7f0;
+    border: 1px solid #2ecc71;
     background-color: transparent;
-    color: #22a7f0;
+    color: #2ecc71;
+    opacity: 0.9;
     display: inline-block;
     font-weight: 400;
     text-align: center;
@@ -141,7 +140,7 @@ import singleComment from './SingleComment'
     -ms-user-select: none;
     user-select: none;
     padding: 0.375rem 0.75rem;
-    font-size: 15px;
+    font-size: 14px;
     line-height: 1.5;
     border-radius: 30px;
     transition: color 0.25s ease-in-out, background-color 0.25s ease-in-out, border-color 0.25s ease-in-out, box-shadow 0.25s ease-in-out, right 0.25s ease-in-out;
@@ -150,7 +149,8 @@ import singleComment from './SingleComment'
 
 .reply .reply--button:hover {
     color: #fff;
-    background-color: #2a629c;
+    background-color: #2ecc71;
+    opacity: 1;
 }
 
 .reply .reply--button:focus,

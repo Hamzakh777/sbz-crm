@@ -7,13 +7,14 @@
             <div class="col-md-4">
                 {{ category.name }}
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" :class="{'col-md-4': !isEditAdd}">
                 {{ product.provision ?  `${product.provision} chf`: '' }}  
             </div>
-            <div class="col-md-1">
+            <div class="col-md-1" v-if="isEditAdd">
                 <i 
                     class="voyager-trash"
-                    @click="deleteProduct(id)"
+                    
+                    @click="$emit('delete', index)"
                 ></i>
             </div>
         </div>
@@ -21,7 +22,7 @@
 </template>
 
 <script>
-    import {mapActions, mapGetters} from 'vuex';
+    import {mapGetters, mapActions} from 'vuex';
 
     export default {
         name: 'productCard',
@@ -30,6 +31,14 @@
             product: {
                 type: Object,
                 required: true
+            },
+            index: {
+                type: Number, 
+                required: true
+            },
+            isEditAdd: {
+                type: Boolean,
+                default: true,
             }
         },
 
@@ -40,18 +49,14 @@
             },
             category() {
                 if(this.product.products_category_id !== null) {
-                    return _.find(this.productCategories, (o) => o.id === this.product.products_category_id);
+                    return _.find(this.allProductCategories, (o) => o.id === this.product.products_category_id);
                 } else {
                     return {
                         name: 'No category'
                     }
                 }
             }
-        },
-
-        methods: {
-            ...mapActions(['removeProduct'])
-        },
+        }
     }
 </script>
 
@@ -60,7 +65,7 @@
     background-color: #fff
     box-shadow: 0px 6px 20px rgba(0,0,0,0.07)
     border-left: 2px solid #4E73DF
-    padding: 1.4em 0.6em 1em 0.6em
+    padding: 1.4em 0.6em 1.1em 0.6em
     margin-bottom: 1em
 
     .row>[class*=col-]

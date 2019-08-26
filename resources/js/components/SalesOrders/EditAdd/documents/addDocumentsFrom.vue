@@ -96,11 +96,6 @@
             submit() {
                 this.$v.$touch();
                 if(!this.$v.$invalid) {
-                    this.id = null,
-                    this.name = null,
-                    this.type = null,
-                    this.status = null,
-                    this.file = null
                     this.$emit('addProduct', this.$data);
                 } 
             }

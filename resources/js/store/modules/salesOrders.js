@@ -29,7 +29,8 @@ const state = {
         cancellationStamped: null,
         taskCollectionId: null,
         documents: [],
-        contractPeople: []
+        contractPeople: [],
+        comments: []
     },
     contractPersonDetails: {
         firstName: null,
@@ -153,7 +154,7 @@ const actions = {
         try {
             const response = await axios.get(`/api/sales-orders/${state.salesOrder.id}`);
 
-            commit("setSalesOrders", response.data.salesOrders);
+            commit("setSalesOrder", response.data.salesOrder);
         } catch (error) {
             console.error(error);
         }
@@ -187,7 +188,7 @@ const actions = {
     async changePaginationPage({ commit }, page = 1) {
         try {
             const response = await axios.post(
-                `sales-orders/filter?page=${page}`,
+                `/sales-orders/filter?page=${page}`,
                 state.filterData
             );
 
@@ -235,8 +236,9 @@ const actions = {
 };
 
 const mutations = {
-    setSalesOrders(state, data) {
-        state.salesOrders = data;
+    setSalesOrder(state, data) {
+        // state.salesOrders = data;
+        state.salesOrder.documents = data.documents;
     },
     setSalesOrderId(state,data){
         state.salesOrder.id = data;

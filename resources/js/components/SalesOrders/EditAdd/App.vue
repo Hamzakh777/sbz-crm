@@ -5,6 +5,7 @@
             <SalesOrdersPeoplePanel></SalesOrdersPeoplePanel>
             <documentPanel></documentPanel>
             <SalesOrdersTasksPanel></SalesOrdersTasksPanel>
+            <commentsPanel></commentsPanel>
         </div>
     </div>
 </template>
@@ -15,6 +16,7 @@
     import SalesOrdersPeoplePanel from './SalesOrdersPeople/peoplePanel';
     import SalesOrdersTasksPanel from './SalesOrdersTasksPanel';
     import documentPanel from './documents/documentPanel';
+    import commentsPanel from '../../comments/commentsPanel';
     import {mapGetters} from 'vuex';
 
     export default {
@@ -25,7 +27,8 @@
             contractPanel,
             SalesOrdersPeoplePanel,
             SalesOrdersTasksPanel,
-            documentPanel
+            documentPanel,
+            commentsPanel
         },
 
         computed: {

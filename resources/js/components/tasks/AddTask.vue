@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h4 class="title">{{ trans.get('voyager.tasks.add_task') }}</h4>
+        <h4>{{ trans.get('voyager.tasks.add_task') }}</h4>
         <div class="row">
             <form @submit.prevent="onSubmit" class="row"> 
                 <!-- name -->
@@ -120,7 +120,4 @@ export default {
 
 .form-control[readonly]
     background-color: #fff
-
-.title 
-    color: #555
 </style>

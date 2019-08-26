@@ -38,6 +38,20 @@ Route::group(['as' => 'voyager.'], function () {
     event(new RoutingAfter());
 });
 
+Route::group([
+    'prefix' => 'api',
+    'middleware' => 'admin.user'
+], function() {
+    Route::resources([
+        'tasks-collections' => 'TasksCollection\TasksCollectionApiController',
+        'tasks' => 'Tasks\ApiTasksController',
+        'sales-orders' => 'SalesOrders\ApiSalesOrdersController',
+        'documents' => 'Documents\ApiDocumentsController',
+        'sales-order-people' => 'SalesOrders\ApiSalesOrderPeopleController',
+        'comments' => 'SalesOrders\CommentsController'
+    ]);
+});
+
 if (config('laravel-localization.routes.enable')) {
     /*
      * Localization

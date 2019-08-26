@@ -58,6 +58,7 @@ class ApiSalesOrdersController extends Controller
         $salesOrder->contract_duration_VVG = $request->input('contractDurationVVG');
         $salesOrder->contract_duration_KVG = $request->input('contractDurationKVG');
         $salesOrder->insurance_tracking_id = $request->input('insuranceTrackingID');
+        $salesOrder->created_by_id = auth()->user()->id;
         
         if($request->input('contractStartKVG')) {
             $salesOrder->contract_start_KVG = Carbon::parse($request->input('contractStartKVG'))->addHour()->format('Y-m-d');
@@ -98,6 +99,12 @@ class ApiSalesOrdersController extends Controller
         // we have to check all the models that have a relationship with the sales order and send them back
         // with the response
         // also we need to add some fields like documentId and so on
+        // fortunatly laravel provides a native way to eager load the modals related to this one
+        $salesOrder = SalesOrder::findOrFail($id);
+
+        return response()->json([
+            'salesOrder' => $salesOrder
+        ]);
     }
 
     /**

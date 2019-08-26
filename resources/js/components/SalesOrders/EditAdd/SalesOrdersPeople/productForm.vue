@@ -1,12 +1,12 @@
 <template>
     <div>
         <form class="row" @submit.prevent="addProduct">
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-6" v-if="isEditAdd">
                 <label class="control-label">{{ trans.get('voyager.sales_orders.select_product') }}</label>
                 <select 
                     class="form-control"
                     v-model="product"
-                    :class="{'form-control--error': $v.contractPersonDetails.selectedProduct.$error }"
+                    :class="{'form-control--error': $v.product$error }"
                 >
                     <option 
                         v-for="product in allProducts" 
@@ -16,8 +16,8 @@
                         {{ product.name }}
                     </option>
                 </select>
-                <div v-if="$v.contractPersonDetails.selectedProduct.$dirty">
-                    <span class="error-text" v-if="!$v.contractPersonDetails.selectedProduct.required">
+                <div v-if="$v.product.$dirty">
+                    <span class="error-text" v-if="!$v.product.required">
                         {{ trans.get('validation_js.required') }}
                     </span>
                 </div>
@@ -28,7 +28,7 @@
                 </label>
                 <div><b class="form-data">{{ totalProvision }}</b></div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" v-if="isEditAdd">
                 <button
                     class="btn btn-success btn-add-new pull-right"
                     type="submit"
@@ -41,11 +41,12 @@
         <!-- row to show the already added products -->
         <div class="row">
             <productCard
-                v-for="(product, index) in contractPersonDetails.products"
+                v-for="(product, index) in products"
                 :key="index"
                 :product="product"
                 :index="index"
-                @delete="deleteProduct"
+                @delete="$emit('deleteProduct', index)"
+                :isEditAdd="isEditAdd"
             >
             </productCard>
         </div>
@@ -54,6 +55,7 @@
 
 <script>
     import { required } from 'vuelidate/lib/validators';
+    import {mapGetters} from 'vuex';
     import productCard from './productCard';
 
     export default {
@@ -63,12 +65,23 @@
             productCard
         },
 
+        props: {
+            products: {
+                type: Array, 
+                required: false
+            },
+            isEditAdd: {
+                type: Boolean,
+                default: true,
+            }
+        },
+
         computed: {
             ...mapGetters(['allProducts', 'salesOrder', 'contractPersonDetails']),
 
             totalProvision() {
                 let sum = 0;
-                this.contractPersonDetails.products.forEach(product => sum += parseInt(product.provision));
+                this.products.forEach(product => sum += parseInt(product.provision));
                 return sum;
             }
         },
@@ -80,10 +93,8 @@
         },
 
         validations: {
-            contractPersonDetails: {
-                selectedProduct: {
-                    required
-                }
+            product: {
+                required
             }
         },
 

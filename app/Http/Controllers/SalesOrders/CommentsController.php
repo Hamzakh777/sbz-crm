@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\SalesOrders;
 
-use App\ContractPerson;
-use Carbon\Carbon;
+use App\Comment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\addSalesOrderPerson;
+use App\Http\Requests\AddComment;
 
-class ApiSalesOrderPeopleController extends Controller
+class CommentsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,36 +35,18 @@ class ApiSalesOrderPeopleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(addSalesOrderPerson $request)
+    public function store(AddComment $request)
     {
-        $person = new ContractPerson();
+        $comment = new Comment();
 
-        $person->first_name = $request->input('firstName');
-        $person->last_name = $request->input('lastName');
-        $person->gender = $request->input('gender');
-        $person->police_number = $request->input('policeNumber');
-        $person->birthday = Carbon::parse($request->input('birthday'))->addHour()->format('Y-m-d');
-        $person->sales_order_id = $request->input('salesOrderId');
+        $comment->user_id = auth()->user()->id;
+        $comment->sales_order_id = $request->input('salesOrderId');
+        $comment->body = $request->input('body');
 
-        $products = $request->input('products');
-        
-        $person->save();
-
-        // we have to attach the products 
-        // after the person is saved since we 
-        // will needs its id
-        if (isset($products) && count($products) !== 0) {
-            $productsIds = [];
-            foreach ($products as $key => $product) {
-                array_push($productsIds, $product['id']);
-            }
-            $person->products()->attach($productsIds);
-        }
-
-        // then we need to save the product with the person
+        $comment->save();
 
         return response()->json([
-            'person' => $person
+            'comment' => $comment
         ]);
     }
 
@@ -77,7 +58,7 @@ class ApiSalesOrderPeopleController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
@@ -111,6 +92,6 @@ class ApiSalesOrderPeopleController extends Controller
      */
     public function destroy($id)
     {
-        
+        //
     }
 }

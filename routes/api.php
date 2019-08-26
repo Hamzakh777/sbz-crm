@@ -1,6 +1,12 @@
 <?php
 
 use Illuminate\Http\Request;
+use TCG\Voyager\Events\Routing;
+use TCG\Voyager\Events\RoutingAdmin;
+use TCG\Voyager\Events\RoutingAdminAfter;
+use TCG\Voyager\Events\RoutingAfter;
+use TCG\Voyager\Facades\Voyager;
+use KgBot\LaravelLocalization\Facades\ExportLocalizations;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,17 +22,3 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-// Route::get('insurance', 'InsuranceController@index');
-
-Route::resources([
-    'tasks-collections' => 'TasksCollection\TasksCollectionApiController',
-    'tasks' => 'Tasks\ApiTasksController',
-    'sales-orders' => 'SalesOrders\ApiSalesOrdersController',
-    'documents' => 'Documents\ApiDocumentsController',
-    'sales-order-people' => 'SalesOrders\ApiSalesOrderPeopleController'
-]);
-
-
-
-// Route::post('tasks-collections', 'TasksCollection\TasksCollectionApiController@store');

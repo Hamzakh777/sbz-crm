@@ -2220,7 +2220,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".form-control[readonly][data-v-6fc60d6a] {\n  background-color: #fff;\n}\n.title[data-v-6fc60d6a] {\n  color: #555;\n}", ""]);
+exports.push([module.i, ".form-control[readonly][data-v-6fc60d6a] {\n  background-color: #fff;\n}", ""]);
 
 // exports
 
@@ -22139,9 +22139,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h4", { staticClass: "title" }, [
-      _vm._v(_vm._s(_vm.trans.get("voyager.tasks.add_task")))
-    ]),
+    _c("h4", [_vm._v(_vm._s(_vm.trans.get("voyager.tasks.add_task")))]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c(
@@ -39980,7 +39978,8 @@ var state = {
     cancellationStamped: null,
     taskCollectionId: null,
     documents: [],
-    contractPeople: []
+    contractPeople: [],
+    comments: []
   },
   contractPersonDetails: {
     firstName: null,
@@ -40116,7 +40115,7 @@ var actions = {
 
             case 4:
               response = _context.sent;
-              commit("setSalesOrders", response.data.salesOrders);
+              commit("setSalesOrder", response.data.salesOrder);
               _context.next = 11;
               break;
 
@@ -40240,7 +40239,7 @@ var actions = {
               page = _args4.length > 1 && _args4[1] !== undefined ? _args4[1] : 1;
               _context4.prev = 2;
               _context4.next = 5;
-              return axios.post("sales-orders/filter?page=".concat(page), state.filterData);
+              return axios.post("/sales-orders/filter?page=".concat(page), state.filterData);
 
             case 5:
               response = _context4.sent;
@@ -40333,8 +40332,9 @@ var actions = {
   }()
 };
 var mutations = {
-  setSalesOrders: function setSalesOrders(state, data) {
-    state.salesOrders = data;
+  setSalesOrder: function setSalesOrder(state, data) {
+    // state.salesOrders = data;
+    state.salesOrder.documents = data.documents;
   },
   setSalesOrderId: function setSalesOrderId(state, data) {
     state.salesOrder.id = data;
@@ -40373,11 +40373,15 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 var state = {
-  people: []
+  people: [],
+  isLoading: false
 };
 var getters = {
   allPeople: function allPeople(state) {
     return state.people;
+  },
+  isLoading: function isLoading(state) {
+    return state.isLoading;
   }
 };
 var actions = {
@@ -40397,15 +40401,21 @@ var actions = {
           switch (_context.prev = _context.next) {
             case 0:
               commit = _ref.commit;
-              _context.next = 3;
+              state.isLoading = true;
+              _context.next = 4;
               return axios.post('/api/sales-order-people', person);
 
-            case 3:
+            case 4:
               response = _context.sent;
-              person.id = response.person.id;
+              state.isLoading = false;
+
+              if (response.data.person.id) {
+                person.id = response.data.person.id;
+              }
+
               commit("addPerson", person);
 
-            case 6:
+            case 8:
             case "end":
               return _context.stop();
           }
@@ -40429,20 +40439,21 @@ var actions = {
     var _deletePerson = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2, id) {
-      var commit, response;
+      var commit;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
               commit = _ref2.commit;
-              _context2.next = 3;
+              state.isLoading = true;
+              _context2.next = 4;
               return axios["delete"]("/api/sales-order-people/".concat(id));
 
-            case 3:
-              response = _context2.sent;
+            case 4:
+              state.isLoading = false;
               commit('deletePerson', id);
 
-            case 5:
+            case 6:
             case "end":
               return _context2.stop();
           }
@@ -40458,6 +40469,9 @@ var actions = {
   }()
 };
 var mutations = {
+  addPerson: function addPerson(state, person) {
+    state.people.unshift(person);
+  },
   deletePerson: function deletePerson(state, id) {
     state.people = state.people.filter(function (person) {
       return person.id !== id;

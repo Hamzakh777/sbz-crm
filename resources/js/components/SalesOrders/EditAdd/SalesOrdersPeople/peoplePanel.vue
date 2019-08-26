@@ -8,6 +8,10 @@
         </div>
         <div class="panel-body mt-2">
             <div class="row cards">
+                <BaseLoader
+                    v-if="isLoading"
+                >
+                </BaseLoader>
                 <!-- the form to add or edit a contract person -->
                 <personFrom></personFrom>
                 <!-- for viewing already added contract people -->
@@ -18,7 +22,6 @@
                 >
                 </personCard>
             </div>
-            <button @click="clicked">test</button>
         </div>
      </div>
 </template>
@@ -26,6 +29,7 @@
 <script>
     import personCard from './personCard';
     import personFrom from './personForm';
+    import BaseLoader from '../../../baseComponents/BaseLoader';
     import {mapGetters, mapActions} from 'vuex';
 
     export default {
@@ -33,11 +37,12 @@
 
         components: {
             personCard,
-            personFrom
+            personFrom,
+            BaseLoader
         },
 
         computed: {
-            ...mapGetters('salesOrdersPeople', ['allPeople'])
+            ...mapGetters('salesOrdersPeople', ['allPeople', 'isLoading'])
         }
     }
 </script>

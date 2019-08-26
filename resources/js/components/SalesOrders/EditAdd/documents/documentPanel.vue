@@ -67,47 +67,37 @@
         methods: {
             async submit(document) {
                 document.salesOrderId = this.salesOrder.id;
-
+                this.showLoader();
                 if(document.id !== null) { // update the document 
                     const response = await axios.put(`/api/documents/${document.id}`, document);
+                    this.hideLoader();
 
                 } else { // store the document
                     const response = await axios.post('/api/documents/', document);
-
+                    this.hideLoader();
+                    
                     this.documents.push(response.data.document);
                 }
             },
 
             async deleteDoc(id) {
+                this.showLoader();
                 const response = await axios.delete(`/api/documents/${id}`);
+                this.hideLoader();
 
                 this.documents = this.documents.filter(doc => doc.id !== id);
+            },
+
+            hideLoader() {
+                this.isLoading = false;
+            },
+            showLoader() {
+                this.isLoading = true;
             }
         },
 
-        created() {
-            // we want to show and hide the loader on every call 
-            axios.interceptors.request.use(config => {
-                this.isLoading = true
-                return config
-            }, error => {
-                this.isLoading = false;
-                return Promise.reject(error);
-            })
-            axios.interceptors.response.use(response => {
-                this.isLoading = false
-                return response
-            }, error => {
-                this.isLoading = false
-                return Promise.reject(error)
-            });
-        },
-
         async mounted() {
-            // load the data
-            // we probably gonna send the data with the 
-            // sales order
-            // that way we only need on request
+            this.documents = this.salesOrder.documents;
         },
     }
 </script>

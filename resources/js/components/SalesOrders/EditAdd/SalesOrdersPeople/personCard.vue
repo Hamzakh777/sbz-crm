@@ -6,8 +6,8 @@
                 <!-- <button class="btn btn-light"> 
                     <i class=""></i>
                     <span>{{ trans.get('voyager.generic.edit') }}</span>
-                </!--> -->
-                <button class="btn btn-danger"> 
+                </!-->
+                <button class="btn btn-danger" @click.prevent="deletePerson(person.id)"> 
                     <i class="voyager-trash"></i>
                     <span>{{ trans.get('voyager.generic.delete') }}</span>
                 </button>
@@ -112,23 +112,19 @@
             </div>
             <div class="col-md-6 products-col">
                 <!-- row to select product -->
-                <!-- <productForm 
-                    v-if="isEditAdd"
+                <productForm 
+                    :isEditAdd="false"
+                    :products="person.products"
                 >
-                </productForm> -->
+                </productForm>
             </div>
-        </div>
-        <div class="row">
-            <hr>
-            <button class="btn btn-primary pull-right" @click="submit">
-                {{ trans.get('voyager.generic.save') }}
-            </button>
         </div>
     </div>
 </template>
 
 <script>
     import productCard from './productCard';
+    import productForm from './productForm';
     import { mapGetters, mapActions } from 'vuex';
 
     export default {
@@ -145,7 +141,7 @@
         },
         
         computed: {
-            ...mapGetters(['DateFormat', 'salesOrder', 'allInsurances', 'allProducts']),
+            ...mapGetters(['salesOrder', 'allProducts']),
 
             birthyear() {
                 if(this.person.birthday !== null) {
@@ -179,10 +175,6 @@
 
         methods: {
             ...mapActions('salesOrdersPeople', ['deletePerson']),
-
-            delete() {
-                this.deletePerson(this.person.id);
-            }
         },
     }
 </script>

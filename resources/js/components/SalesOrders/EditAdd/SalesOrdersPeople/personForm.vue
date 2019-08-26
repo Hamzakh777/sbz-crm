@@ -9,7 +9,7 @@
                     <!-- first name -->
                     <div class="form-group col-md-6">
                         <label class="control-label">{{ trans.get('voyager.generic.first_name') }}</label>
-                        <input v-if="isEditAdd" type="text" class="form-control" :class="{'form-control--error': $v.firstName.$error }" v-model.trim="firstName">
+                        <input  type="text" class="form-control" :class="{'form-control--error': $v.firstName.$error }" v-model.trim="firstName">
                         <div v-if="$v.firstName.$error">
                             <span class="error-text" v-if="!$v.firstName.required">
                                 {{ trans.get('validation_js.required') }}
@@ -21,7 +21,7 @@
                     <div class="form-group col-md-6">
                         <label class="control-label">{{ trans.get('voyager.generic.last_name') }}</label>
                         <input 
-                            v-if="isEditAdd" 
+                             
                             type="text" 
                             class="form-control" 
                             :class="{'form-control--error': $v.lastName.$error }"
@@ -39,7 +39,7 @@
                     <div class="form-group col-md-6">
                         <label class="control-label">{{ trans.get('voyager.generic.gender') }}</label>
                         <select 
-                            v-if="isEditAdd"
+                            
                             class="form-control"
                             v-model="gender"
                             :class="{'form-control--error': $v.gender.$error }"
@@ -62,7 +62,6 @@
                     <div class="form-group col-md-6">
                         <label class="control-label">{{ trans.get('voyager.generic.birthday') }}</label>
                         <Datepicker
-                            v-if="isEditAdd"
                             class="datePicker"
                             input-class="form-control"
                             v-model="birthday"
@@ -82,7 +81,7 @@
                     <div class="form-group col-md-6" v-if="isFamily">
                         <label class="control-label">{{ trans.get('voyager.generic.birthyear') }}</label>
                         <input 
-                            v-if="isEditAdd" 
+                             
                             type="text" 
                             class="form-control" 
                             v-model.trim="birthyear" 
@@ -98,8 +97,7 @@
                     <!-- age -->
                     <div class="form-group col-md-6">
                         <label class="control-label">{{ trans.get('voyager.generic.age') }}</label>
-                        <input 
-                            v-if="isEditAdd"  
+                        <input
                             type="number" 
                             class="form-control" 
                             v-model.trim="age" 
@@ -118,7 +116,7 @@
                     <div class="form-group col-md-6" v-if="isFamily">
                         <label class="control-label">{{ trans.get('voyager.sales_orders.family_member_type') }}</label>
                         <select
-                            v-if="isEditAdd" 
+                             
                             class="form-control"
                             v-model.trim="familyMemberType"
                         >
@@ -143,7 +141,7 @@
                     <!-- police number -->
                     <div class="form-group col-md-6">
                         <label class="control-label">{{ trans.get('voyager.sales_orders.police_number') }}</label>
-                        <input v-if="isEditAdd" type="policeNumber" class="form-control" v-model.trim="policeNumber">
+                        <input  type="policeNumber" class="form-control" v-model.trim="policeNumber">
                     </div>
                 </div>
 
@@ -158,6 +156,8 @@
                 <!-- row to select product -->
                 <productForm 
                     @addProduct="addProduct"
+                    @deleteProduct="deleteProduct"
+                    :products="products"
                 >
                 </productForm>
             </div>
@@ -180,7 +180,7 @@
 
 
     export default {
-        name: 'personFrom',
+        name: 'personForm',
 
         components: {
             Datepicker,
@@ -259,10 +259,10 @@
         methods: {
             ...mapActions('salesOrdersPeople', ['addPerson']),
 
-            submit() {
+            async submit() {
                 this.$v.$touch();
                 if(!this.$v.$invalid) {
-                    this.addPerson(
+                    await this.addPerson(
                         {
                             firstName: this.firstName,
                             lastName: this.lastName,
@@ -272,14 +272,19 @@
                             familyMemberType: this.familyMemberType,
                             policeNumber: this.policeNumber,
                             selectedProduct: this.selectedProduct,
-                            products: this.products 
+                            products: this.products,
+                            salesOrderId: this.salesOrder.id
                         }
                     );
                 }
             },
 
             addProduct(product) {
-                if(product !== null) this.products.unshift(product);
+                this.products.unshift(product);
+            },
+
+            deleteProduct(index){
+                this.products = this.products.filter((product, prodIndex) => prodIndex !== index);
             }
         },
     }
