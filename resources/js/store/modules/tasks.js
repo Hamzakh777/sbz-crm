@@ -94,6 +94,9 @@ const mutations = {
             state.tasksCollection.tasks = data.tasks;
         }
     },
+    setTasksCollectionId(state, id) {
+        state.tasksCollection.id = id;
+    },
     newTask(state, task) {
         state.tasksCollection.tasks.unshift(JSON.parse(JSON.stringify(task)));
     },

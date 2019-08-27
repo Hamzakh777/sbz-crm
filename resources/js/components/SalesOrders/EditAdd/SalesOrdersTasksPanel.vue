@@ -16,7 +16,7 @@
                 <div class="form-group col-md-10" v-if="isExistingTasksCollection">
                     <select 
                         class="form-control col-md-12"
-                        v-model="salesOrder.tasksCollectionId"
+                        v-model="id"
                     >
                         <option 
                             v-for="collection in allTasksCollections"
@@ -28,8 +28,8 @@
                     </select>
                 </div>
             </form>
-            <hr v-if="showTasksForm ">
-            <div class="row" v-if="showTasksForm">
+            <hr v-if="showTasks">
+            <div class="row" v-if="showTasks">
                 <TasksCollection></TasksCollection>
             </div>
         </template>
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-    import {mapGetters, mapActions} from 'vuex';
+    import {mapGetters, mapActions, mapMutations} from 'vuex';
     import BasePanel from '../../baseComponents/BasePanel';
     import TasksCollection from '../../tasks/TasksCollection';
     import { ToggleButton } from "vue-js-toggle-button";
@@ -52,58 +52,52 @@
         },
 
         watch: {
-            isExistingTasksCollection(val, oldVal) {
-                if(val === false) {
-                    // reset the selected collection
-                    this.tasksCollection.id = null;
-                    this.salesOrder.tasksCollectionId = null;
-                    this.tasksCollection.name = null;
-                    this.updateSalesOrder();
+            isExistingTasksCollection(newVal, oldVal) {
+                this.id = null;
+                this.tasksCollection.name = null;
+
+                 if(this.id !== null && this.isExistingTasksCollection === true) { // selected an existing tasks collection
+                    this.showTasks = true;
+                    this.fetchTasks();
+                } else if(this.id === null && this.isExistingTasksCollection === true) { // didnt select an existing tasks collection yet
+                    this.showTasks = false;
+                } else { // create a new task
+                    this.showTasks = true;
                 }
             },
 
-            'tasksCollection.id': function(newVal, oldVal) {
-                this.salesOrder.tasksCollectionId = newVal;
-                this.updateSalesOrder();
-            },
+            id(newVal, oldVal) {
+                this.setTasksCollectionId(newVal);
 
-            'salesOrder.tasksCollectionId': function(newVal, oldVal) {
-                if(this.tasksCollection.id === null && newVal !== null) {
-                    this.tasksCollection.id = newVal;
-                } 
+                if(this.id !== null && this.isExistingTasksCollection === true) { // selected an existing tasks collection
+                    this.showTasks = true;
+                    this.fetchTasks();
+                } else if(this.id === null && this.isExistingTasksCollection === true) { // didnt select an existing tasks collection yet
+                    this.showTasks = false;
+                } else { // create a new task
+                    this.showTasks = true;
+                }
             }
-            
         },
+
 
         computed: {
             ...mapGetters(['salesOrder', 'allTasksCollections']),
             ...mapGetters('tasks', ['tasksCollection']),
-
-            showTasksForm() {
-                if(this.isExistingTasksCollection === true) {
-                    if(this.salesOrder.tasksCollectionId !== null ) {
-                        this.tasksCollection.id = this.salesOrder.tasksCollectionId;
-                        // whenever the selected collection changes, we need to fetch the data
-                        // corresponding to that collection
-                        this.fetchTasks();
-                        return true;
-                    }
-                } else { 
-                    // we need to m
-                    return true;
-                }
-            }
         },
 
         data() {
             return { 
-                isExistingTasksCollection: true
+                isExistingTasksCollection: true,
+                showTasks: false,
+                id: null,
             }
         },
 
         methods: {
             ...mapActions('tasks', ['fetchTasks']),
-            ...mapActions(['updateSalesOrder'])
+            ...mapActions(['updateSalesOrder']),
+            ...mapMutations('tasks',['setTasksCollectionId'])
         }
     }
 </script>

@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\addSalesOrderPerson;
 use App\Http\Requests\StoreSalesOrders;
 
-class ApiSalesOrdersController extends Controller
+class SalesOrdersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -197,7 +197,7 @@ class ApiSalesOrdersController extends Controller
         $salesOrder->save();
 
         return response()->json([
-            'tasksCollectionId' => $tasksCollectionId
+            'id' => $salesOrder->id
         ]);
     }
 

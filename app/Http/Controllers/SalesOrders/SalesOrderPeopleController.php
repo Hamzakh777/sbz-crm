@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\addSalesOrderPerson;
 use Illuminate\Support\Facades\Storage;
 
-class ApiSalesOrderPeopleController extends Controller
+class SalesOrderPeopleController extends Controller
 {
     /**
      * Display a listing of the resource.

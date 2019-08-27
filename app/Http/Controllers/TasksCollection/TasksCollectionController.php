@@ -7,7 +7,7 @@ use App\TasksCollection;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class TasksCollectionApiController extends Controller
+class TasksCollectionController extends Controller
 {
     /**
      * Display a listing of the resource.

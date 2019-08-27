@@ -2,7 +2,7 @@ import salesOrdersPeople from './salesOrdersPeople';
 
 const state = {
     filterData: {},
-    showContractLoader: false,
+    isLoading: false,
     salesOrder: {
         id: (window.salesOrderId === null) ? null : window.salesOrderId,
         currentInsuranceId: null,
@@ -142,6 +142,10 @@ const getters = {
      */
     allTasksCollections(state) {
         return state.tasksCollections;
+    },
+
+    isLoading(state) {
+        return state.isLoading;
     }
 };
 
@@ -151,31 +155,39 @@ const actions = {
      * @param {*} param0
      */
     async fetchSalesOrder({ state, commit }) {
+        this.isLoading = true;
         try {
             const response = await axios.get(`/api/sales-orders/${state.salesOrder.id}`);
 
+            this.isLoading = false;
             commit("setSalesOrder", response.data.salesOrder);
         } catch (error) {
+            this.isLoading = false;
             console.error(error);
         }
     },
 
     async storeSalesOrder({state, commit}) {
+        this.isLoading = true;
         try { 
             const response = await axios.post('/api/sales-orders', state.salesOrder);
             
+            this.isLoading = false;
             commit('setSalesOrderId', response.data.id);
         } catch(error) {
+            this.isLoading = false;
             console.error(error);
         }
     },
 
-    async updateSalesOrder({state, commit }) {
+    async updateSalesOrder({state }) {
+        this.isLoading = true;
         try {
-            const response = await axios.put(`/api/sales-orders/${state.salesOrder.id}`, state.salesOrder);
+            await axios.put(`/api/sales-orders/${state.salesOrder.id}`, state.salesOrder);
 
-            commit('setSalesOrderId', response.data.id);
+            this.isLoading = false;
         } catch (error) {
+            this.isLoading = false;
             console.error(error);
         }
     },

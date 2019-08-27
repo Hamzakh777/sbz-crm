@@ -391,7 +391,7 @@
         },
 
         computed: {
-            ...mapGetters(['DateFormat', 'allInsurances', 'allSalesAgents', 'salesOrder']),
+            ...mapGetters(['DateFormat', 'allInsurances', 'allSalesAgents', 'salesOrder', 'isLoading']),
 
             isHouseholdTypeFamily() {
                 if(this.salesOrder.householdType === 'family') {
@@ -399,13 +399,6 @@
                 } else {
                     return false;
                 }
-            }
-        },
-
-
-        data() {
-            return {
-                isLoading: false
             }
         },
 
@@ -461,21 +454,6 @@
 
         created() {
             // we want to show and hide the loader on every call 
-            axios.interceptors.request.use(config => {
-                this.isLoading = true
-                return config
-            }, error => {
-                this.isLoading = false;
-                return Promise.reject(error);
-            })
-            axios.interceptors.response.use(response => {
-                this.isLoading = false
-                return response
-            }, error => {
-                this.isLoading = false
-                return Promise.reject(error)
-            });
-
             if(this.salesOrder.id !== null) {
                 // fetch the sale order
                 this.fetchSalesOrder();
@@ -491,12 +469,18 @@
         },
 
         methods: {
-            ...mapActions(['storeSalesOrder', 'fetchSalesOrder']),
+            ...mapActions(['storeSalesOrder', 'fetchSalesOrder', 'updateSalesOrder']),
 
             submit() {
                 this.$v.$touch();
                 if(!this.$v.$invalid) {
-                    this.storeSalesOrder();
+                    // update
+                    if(this.salesOrder.id !== null) {
+                        this.updateSalesOrder();
+                    // create
+                    } else {
+                        this.storeSalesOrder();
+                    }
                 }
             }
         },

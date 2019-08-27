@@ -2879,47 +2879,47 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     ToggleButton: vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_3__["ToggleButton"]
   },
   watch: {
-    isExistingTasksCollection: function isExistingTasksCollection(val, oldVal) {
-      if (val === false) {
-        // reset the selected collection
-        this.tasksCollection.id = null;
-        this.salesOrder.tasksCollectionId = null;
-        this.tasksCollection.name = null;
-        this.updateSalesOrder();
+    isExistingTasksCollection: function isExistingTasksCollection(newVal, oldVal) {
+      this.id = null;
+      this.tasksCollection.name = null;
+
+      if (this.id !== null && this.isExistingTasksCollection === true) {
+        // selected an existing tasks collection
+        this.showTasks = true;
+        this.fetchTasks();
+      } else if (this.id === null && this.isExistingTasksCollection === true) {
+        // didnt select an existing tasks collection yet
+        this.showTasks = false;
+      } else {
+        // create a new task
+        this.showTasks = true;
       }
     },
-    'tasksCollection.id': function tasksCollectionId(newVal, oldVal) {
-      this.salesOrder.tasksCollectionId = newVal;
-      this.updateSalesOrder();
-    },
-    'salesOrder.tasksCollectionId': function salesOrderTasksCollectionId(newVal, oldVal) {
-      if (this.tasksCollection.id === null && newVal !== null) {
-        this.tasksCollection.id = newVal;
+    id: function id(newVal, oldVal) {
+      this.setTasksCollectionId(newVal);
+
+      if (this.id !== null && this.isExistingTasksCollection === true) {
+        // selected an existing tasks collection
+        this.showTasks = true;
+        this.fetchTasks();
+      } else if (this.id === null && this.isExistingTasksCollection === true) {
+        // didnt select an existing tasks collection yet
+        this.showTasks = false;
+      } else {
+        // create a new task
+        this.showTasks = true;
       }
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['salesOrder', 'allTasksCollections']), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('tasks', ['tasksCollection']), {
-    showTasksForm: function showTasksForm() {
-      if (this.isExistingTasksCollection === true) {
-        if (this.salesOrder.tasksCollectionId !== null) {
-          this.tasksCollection.id = this.salesOrder.tasksCollectionId; // whenever the selected collection changes, we need to fetch the data
-          // corresponding to that collection
-
-          this.fetchTasks();
-          return true;
-        }
-      } else {
-        // we need to m
-        return true;
-      }
-    }
-  }),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['salesOrder', 'allTasksCollections']), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('tasks', ['tasksCollection'])),
   data: function data() {
     return {
-      isExistingTasksCollection: true
+      isExistingTasksCollection: true,
+      showTasks: false,
+      id: null
     };
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('tasks', ['fetchTasks']), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['updateSalesOrder']))
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('tasks', ['fetchTasks']), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['updateSalesOrder']), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('tasks', ['setTasksCollectionId']))
 });
 
 /***/ }),
@@ -3334,7 +3334,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_5__["mapGetters"])(['DateFormat', 'allInsurances', 'allSalesAgents', 'salesOrder']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_5__["mapGetters"])(['DateFormat', 'allInsurances', 'allSalesAgents', 'salesOrder', 'isLoading']), {
     isHouseholdTypeFamily: function isHouseholdTypeFamily() {
       if (this.salesOrder.householdType === 'family') {
         return true;
@@ -3343,11 +3343,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     }
   }),
-  data: function data() {
-    return {
-      isLoading: false
-    };
-  },
   validations: {
     salesOrder: {
       currentInsuranceId: {
@@ -3398,24 +3393,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   created: function created() {
-    var _this = this;
-
     // we want to show and hide the loader on every call 
-    axios.interceptors.request.use(function (config) {
-      _this.isLoading = true;
-      return config;
-    }, function (error) {
-      _this.isLoading = false;
-      return Promise.reject(error);
-    });
-    axios.interceptors.response.use(function (response) {
-      _this.isLoading = false;
-      return response;
-    }, function (error) {
-      _this.isLoading = false;
-      return Promise.reject(error);
-    });
-
     if (this.salesOrder.id !== null) {
       // fetch the sale order
       this.fetchSalesOrder();
@@ -3427,12 +3405,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.salesOrder.contractStartKVG = date;
     this.salesOrder.contractStartVVG = date;
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_5__["mapActions"])(['storeSalesOrder', 'fetchSalesOrder']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_5__["mapActions"])(['storeSalesOrder', 'fetchSalesOrder', 'updateSalesOrder']), {
     submit: function submit() {
       this.$v.$touch();
 
       if (!this.$v.$invalid) {
-        this.storeSalesOrder();
+        // update
+        if (this.salesOrder.id !== null) {
+          this.updateSalesOrder(); // create
+        } else {
+          this.storeSalesOrder();
+        }
       }
     }
   })
@@ -28899,8 +28882,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.salesOrder.tasksCollectionId,
-                            expression: "salesOrder.tasksCollectionId"
+                            value: _vm.id,
+                            expression: "id"
                           }
                         ],
                         staticClass: "form-control col-md-12",
@@ -28914,13 +28897,9 @@ var render = function() {
                                 var val = "_value" in o ? o._value : o.value
                                 return val
                               })
-                            _vm.$set(
-                              _vm.salesOrder,
-                              "tasksCollectionId",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
+                            _vm.id = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
                           }
                         }
                       },
@@ -28946,9 +28925,9 @@ var render = function() {
                 : _vm._e()
             ]),
             _vm._v(" "),
-            _vm.showTasksForm ? _c("hr") : _vm._e(),
+            _vm.showTasks ? _c("hr") : _vm._e(),
             _vm._v(" "),
-            _vm.showTasksForm
+            _vm.showTasks
               ? _c("div", { staticClass: "row" }, [_c("TasksCollection")], 1)
               : _vm._e()
           ]
@@ -50960,7 +50939,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var state = {
   filterData: {},
-  showContractLoader: false,
+  isLoading: false,
   salesOrder: {
     id: window.salesOrderId === null ? null : window.salesOrderId,
     currentInsuranceId: null,
@@ -51101,6 +51080,9 @@ var getters = {
    */
   allTasksCollections: function allTasksCollections(state) {
     return state.tasksCollections;
+  },
+  isLoading: function isLoading(state) {
+    return state.isLoading;
   }
 };
 var actions = {
@@ -51118,27 +51100,30 @@ var actions = {
           switch (_context.prev = _context.next) {
             case 0:
               state = _ref.state, commit = _ref.commit;
-              _context.prev = 1;
-              _context.next = 4;
+              this.isLoading = true;
+              _context.prev = 2;
+              _context.next = 5;
               return axios.get("/api/sales-orders/".concat(state.salesOrder.id));
 
-            case 4:
+            case 5:
               response = _context.sent;
+              this.isLoading = false;
               commit("setSalesOrder", response.data.salesOrder);
-              _context.next = 11;
+              _context.next = 14;
               break;
 
-            case 8:
-              _context.prev = 8;
-              _context.t0 = _context["catch"](1);
+            case 10:
+              _context.prev = 10;
+              _context.t0 = _context["catch"](2);
+              this.isLoading = false;
               console.error(_context.t0);
 
-            case 11:
+            case 14:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[1, 8]]);
+      }, _callee, this, [[2, 10]]);
     }));
 
     function fetchSalesOrder(_x) {
@@ -51157,27 +51142,30 @@ var actions = {
           switch (_context2.prev = _context2.next) {
             case 0:
               state = _ref2.state, commit = _ref2.commit;
-              _context2.prev = 1;
-              _context2.next = 4;
+              this.isLoading = true;
+              _context2.prev = 2;
+              _context2.next = 5;
               return axios.post('/api/sales-orders', state.salesOrder);
 
-            case 4:
+            case 5:
               response = _context2.sent;
+              this.isLoading = false;
               commit('setSalesOrderId', response.data.id);
-              _context2.next = 11;
+              _context2.next = 14;
               break;
 
-            case 8:
-              _context2.prev = 8;
-              _context2.t0 = _context2["catch"](1);
+            case 10:
+              _context2.prev = 10;
+              _context2.t0 = _context2["catch"](2);
+              this.isLoading = false;
               console.error(_context2.t0);
 
-            case 11:
+            case 14:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[1, 8]]);
+      }, _callee2, this, [[2, 10]]);
     }));
 
     function storeSalesOrder(_x2) {
@@ -51190,33 +51178,34 @@ var actions = {
     var _updateSalesOrder = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3) {
-      var state, commit, response;
+      var state;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              state = _ref3.state, commit = _ref3.commit;
-              _context3.prev = 1;
-              _context3.next = 4;
+              state = _ref3.state;
+              this.isLoading = true;
+              _context3.prev = 2;
+              _context3.next = 5;
               return axios.put("/api/sales-orders/".concat(state.salesOrder.id), state.salesOrder);
 
-            case 4:
-              response = _context3.sent;
-              commit('setSalesOrderId', response.data.id);
-              _context3.next = 11;
+            case 5:
+              this.isLoading = false;
+              _context3.next = 12;
               break;
 
             case 8:
               _context3.prev = 8;
-              _context3.t0 = _context3["catch"](1);
+              _context3.t0 = _context3["catch"](2);
+              this.isLoading = false;
               console.error(_context3.t0);
 
-            case 11:
+            case 12:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3, null, [[1, 8]]);
+      }, _callee3, this, [[2, 8]]);
     }));
 
     function updateSalesOrder(_x3) {
@@ -51758,6 +51747,9 @@ var mutations = {
     if (data.tasks !== undefined) {
       state.tasksCollection.tasks = data.tasks;
     }
+  },
+  setTasksCollectionId: function setTasksCollectionId(state, id) {
+    state.tasksCollection.id = id;
   },
   newTask: function newTask(state, task) {
     state.tasksCollection.tasks.unshift(JSON.parse(JSON.stringify(task)));

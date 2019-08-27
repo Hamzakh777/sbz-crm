@@ -43,13 +43,15 @@ Route::group([
     'middleware' => 'admin.user'
 ], function() {
     Route::resources([
-        'tasks-collections' => 'TasksCollection\TasksCollectionApiController',
+        'tasks-collections' => 'TasksCollection\TasksCollectionController',
         'tasks' => 'Tasks\ApiTasksController',
-        'sales-orders' => 'SalesOrders\ApiSalesOrdersController',
+        'sales-orders' => 'SalesOrders\SalesOrdersController',
         'documents' => 'Documents\ApiDocumentsController',
-        'sales-order-people' => 'SalesOrders\ApiSalesOrderPeopleController',
+        'sales-order-people' => 'SalesOrders\SalesOrderPeopleController',
         'comments' => 'SalesOrders\CommentsController'
     ]);
+
+    Route::put('/sales-orders/{salesOrder}/tasks-collections/{tasksCollection}', 'SalesOrders\TasksCollectionsController@update');
 });
 
 if (config('laravel-localization.routes.enable')) {

@@ -40155,7 +40155,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var state = {
   filterData: {},
-  showContractLoader: false,
+  isLoading: false,
   salesOrder: {
     id: window.salesOrderId === null ? null : window.salesOrderId,
     currentInsuranceId: null,
@@ -40296,6 +40296,9 @@ var getters = {
    */
   allTasksCollections: function allTasksCollections(state) {
     return state.tasksCollections;
+  },
+  isLoading: function isLoading(state) {
+    return state.isLoading;
   }
 };
 var actions = {
@@ -40313,27 +40316,30 @@ var actions = {
           switch (_context.prev = _context.next) {
             case 0:
               state = _ref.state, commit = _ref.commit;
-              _context.prev = 1;
-              _context.next = 4;
+              this.isLoading = true;
+              _context.prev = 2;
+              _context.next = 5;
               return axios.get("/api/sales-orders/".concat(state.salesOrder.id));
 
-            case 4:
+            case 5:
               response = _context.sent;
+              this.isLoading = false;
               commit("setSalesOrder", response.data.salesOrder);
-              _context.next = 11;
+              _context.next = 14;
               break;
 
-            case 8:
-              _context.prev = 8;
-              _context.t0 = _context["catch"](1);
+            case 10:
+              _context.prev = 10;
+              _context.t0 = _context["catch"](2);
+              this.isLoading = false;
               console.error(_context.t0);
 
-            case 11:
+            case 14:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[1, 8]]);
+      }, _callee, this, [[2, 10]]);
     }));
 
     function fetchSalesOrder(_x) {
@@ -40352,27 +40358,30 @@ var actions = {
           switch (_context2.prev = _context2.next) {
             case 0:
               state = _ref2.state, commit = _ref2.commit;
-              _context2.prev = 1;
-              _context2.next = 4;
+              this.isLoading = true;
+              _context2.prev = 2;
+              _context2.next = 5;
               return axios.post('/api/sales-orders', state.salesOrder);
 
-            case 4:
+            case 5:
               response = _context2.sent;
+              this.isLoading = false;
               commit('setSalesOrderId', response.data.id);
-              _context2.next = 11;
+              _context2.next = 14;
               break;
 
-            case 8:
-              _context2.prev = 8;
-              _context2.t0 = _context2["catch"](1);
+            case 10:
+              _context2.prev = 10;
+              _context2.t0 = _context2["catch"](2);
+              this.isLoading = false;
               console.error(_context2.t0);
 
-            case 11:
+            case 14:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[1, 8]]);
+      }, _callee2, this, [[2, 10]]);
     }));
 
     function storeSalesOrder(_x2) {
@@ -40385,33 +40394,34 @@ var actions = {
     var _updateSalesOrder = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3) {
-      var state, commit, response;
+      var state;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              state = _ref3.state, commit = _ref3.commit;
-              _context3.prev = 1;
-              _context3.next = 4;
+              state = _ref3.state;
+              this.isLoading = true;
+              _context3.prev = 2;
+              _context3.next = 5;
               return axios.put("/api/sales-orders/".concat(state.salesOrder.id), state.salesOrder);
 
-            case 4:
-              response = _context3.sent;
-              commit('setSalesOrderId', response.data.id);
-              _context3.next = 11;
+            case 5:
+              this.isLoading = false;
+              _context3.next = 12;
               break;
 
             case 8:
               _context3.prev = 8;
-              _context3.t0 = _context3["catch"](1);
+              _context3.t0 = _context3["catch"](2);
+              this.isLoading = false;
               console.error(_context3.t0);
 
-            case 11:
+            case 12:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3, null, [[1, 8]]);
+      }, _callee3, this, [[2, 8]]);
     }));
 
     function updateSalesOrder(_x3) {
@@ -40953,6 +40963,9 @@ var mutations = {
     if (data.tasks !== undefined) {
       state.tasksCollection.tasks = data.tasks;
     }
+  },
+  setTasksCollectionId: function setTasksCollectionId(state, id) {
+    state.tasksCollection.id = id;
   },
   newTask: function newTask(state, task) {
     state.tasksCollection.tasks.unshift(JSON.parse(JSON.stringify(task)));
