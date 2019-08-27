@@ -9,7 +9,7 @@
         >
             <BaseLoader v-if="isLoading"></BaseLoader>
             <h4 class="title">{{ trans.get('voyager.sales_orders.document_details') }}</h4>
-                <addForm @addProduct="submit"></addForm>
+                <addForm @storeDocument="storeDocument"></addForm>
             <div v-if="noDocuments" >
                 <hr>
                 <h4 class="title">{{ trans.get('voyager.sales_orders.saved_documents') }}</h4>
@@ -75,17 +75,29 @@
 
         methods: {
             async submit(document) {
-                document.salesOrderId = this.salesOrder.id;
-                this.showLoader();
+                
                 if(document.id !== null) { // update the document 
                     const response = await axios.put(`/api/documents/${document.id}`, document);
                     this.hideLoader();
 
                 } else { // store the document
-                    const response = await axios.post('/api/documents/', document);
-                    this.hideLoader();
                     
+                }
+            },
+
+            async storeDocument(document) {
+                this.showLoader();
+                 try {
+                    const response = await axios.post(
+                        '/api/documents/', 
+                        document, {
+                            headers: { 'content-type': 'multipart/form-data' }
+                        });
+
+                    this.hideLoader();
                     this.documents.push(response.data.document);
+                } catch(e) {
+                    console.log(e);
                 }
             },
 
@@ -108,6 +120,11 @@
 </script>
 
 <style lang="sass" scoped>
+hr
+    margin-bottom: 1.6em
+
 .list 
     padding-top: 1em
+    padding-left: 15px
+    padding-right: 15px
 </style>

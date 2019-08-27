@@ -22,7 +22,7 @@ class SalesOrder extends Model
      *
      * @var array
      */
-    protected $with = ['documents', 'people', 'comments'];
+    protected $with = ['documents', 'people', 'comments', 'tasksCollections'];
 
     /**
      * Sales order has one unique associated document
@@ -41,7 +41,7 @@ class SalesOrder extends Model
     /**
      * Has one task collection
      */
-    public function tasksCollection() {
+    public function tasksCollections() {
         return $this->belongsToMany('App\TasksCollection', 'sales_order_tasks_collection', 'sales_order_id');
     }
 

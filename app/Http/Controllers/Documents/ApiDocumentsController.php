@@ -6,6 +6,7 @@ use App\Document;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreDocument;
+use Illuminate\Support\Facades\Storage;
 
 class ApiDocumentsController extends Controller
 {
@@ -37,12 +38,19 @@ class ApiDocumentsController extends Controller
      */
     public function store(StoreDocument $request)
     {
+        if($request->hasFile('file')) {
+            $path = $request->file('file')->store('documents'); 
+        } else {
+            $path = null;
+        }
+        
         $document = new Document();
-
+        
         $document->name = $request->input('name');
         $document->type = $request->input('type');
         $document->status = $request->input('status');
         $document->sales_order_id = $request->input('salesOrderId');
+        $document->path = $path;
 
         $document->save();
 
@@ -106,6 +114,10 @@ class ApiDocumentsController extends Controller
     {
         $doc = Document::findOrFail($id);
 
+        if($doc->path !== null) {
+            Storage::delete($doc->path);
+        }
+        
         $doc->delete();
     }
 }

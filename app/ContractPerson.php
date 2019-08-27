@@ -10,6 +10,11 @@ class ContractPerson extends Model
     protected $table = 'contract_people';
 
     /**
+     * Models to eager load
+     */
+    protected $with = ['products'];
+    
+    /**
      * Each contract person belongs to a contract
      */
     public function contract() {

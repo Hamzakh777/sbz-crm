@@ -79,7 +79,7 @@ class ApiSalesOrdersController extends Controller
         $taskCollectionId = $request->input('taskCollectionId');
 
         if (isset($taskCollectionId)) {
-            $salesOrder->tasksCollection()->attach([$taskCollectionId]);
+            $salesOrder->tasksCollections()->sync([$taskCollectionId]);
         }
 
         $salesOrder->save();
@@ -111,8 +111,14 @@ class ApiSalesOrdersController extends Controller
                 'birthday' => $item->birthday,
                 'policeNumber' => $item->policeNumber,
                 'salesOrderId' => $item->salesOrderId,
+                'products' => $item->products
             ];
         });
+
+        $tasksCollections = $salesOrder->tasksCollections->toArray();
+        if(count($tasksCollections) !== 0) {
+            $salesOrder->taskCollectionId = $tasksCollections[0]['id'];
+        }
 
         return response()->json([
             'salesOrder' => $salesOrder
@@ -144,7 +150,55 @@ class ApiSalesOrdersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // only the ids that in the intermediate table will remaine
+        // $validate = $request->validated();
+
+        $salesOrder = SalesOrder::findOrFail($id);
+
+        // contract info
+        $salesOrder->current_insurance_id = $request->input('currentInsuranceId');
+        $salesOrder->new_insurance_id = $request->input('newInsuranceId');
+        $salesOrder->owner_full_name = $request->input('fullName');
+        $salesOrder->owner_address = $request->input('address');
+        $salesOrder->owner_household_type = $request->input('householdType');
+        $salesOrder->number_of_family_members_in_the_same_household = $request->input('numberOfFamilyMembers');
+        $salesOrder->new_born = $request->input('newBorn');
+        $salesOrder->move_to_switzerland = $request->input('moveToSwitzerland');
+        $salesOrder->sales_lead_source = $request->input('salesLeadSource');
+        $salesOrder->sales_user_id = $request->input('salesPersonId');
+        $salesOrder->sales_order_status = $request->input('salesOrderStatus');
+        $salesOrder->insurance_status = $request->input('insuranceStatus');
+        $salesOrder->contract_duration_VVG = $request->input('contractDurationVVG');
+        $salesOrder->contract_duration_KVG = $request->input('contractDurationKVG');
+        $salesOrder->insurance_tracking_id = $request->input('insuranceTrackingID');
+        $salesOrder->created_by_id = auth()->user()->id;
+
+        if ($request->input('contractStartKVG')) {
+            $salesOrder->contract_start_KVG = Carbon::parse($request->input('contractStartKVG'))->addHour()->format('Y-m-d');
+        }
+        if ($request->input('contractDurationVVG')) {
+            $salesOrder->contract_start_VVG = Carbon::parse($request->input('contractDurationVVG'))->addHour()->format('Y-m-d');
+        }
+        if ($request->input('insuranceSubmittedDate')) {
+            $salesOrder->insurance_submitted_date = Carbon::parse($request->input('insuranceSubmittedDate'))->addHour()->format('Y-m-d');
+        }
+        if ($request->input('signDate')) {
+            $salesOrder->contract_sign_date = Carbon::parse($request->input('signDate'))->addHour()->format('Y-m-d');
+        }
+
+        // tasks
+        // we only need the task collectoin id
+        $taskCollectionId = $request->input('taskCollectionId');
+
+        if (isset($taskCollectionId)) {
+            $salesOrder->tasksCollections()->sync([$taskCollectionId]);
+        }
+
+        $salesOrder->save();
+
+        return response()->json([
+            'id' => $salesOrder->id
+        ]);
     }
 
     /**

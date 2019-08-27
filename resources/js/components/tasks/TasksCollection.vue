@@ -1,5 +1,6 @@
 <template>
 	<div>
+
 		<div class="row row--collection">
 			<h4>{{ trans.get('voyager.tasks_collection.tasks_collection') }}</h4>
 			<div class="row">
@@ -40,6 +41,7 @@ import {mapGetters, mapActions} from 'vuex';
 import Todos from "./Todos.vue";
 import AddTask from "./AddTask";
 import { required } from 'vuelidate/lib/validators';
+import BaseLoader from '../baseComponents/BaseLoader';
 
 export default {
 	name: "TasksCollection",

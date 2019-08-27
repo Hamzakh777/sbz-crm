@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddColsToCompensationsTable extends Migration
+class AddColToContractPeopleTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddColsToCompensationsTable extends Migration
      */
     public function up()
     {
-        Schema::table('compensations', function (Blueprint $table) {
-
+        Schema::table('contract_people', function (Blueprint $table) {
+            $table->string('document_id_path')->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ class AddColsToCompensationsTable extends Migration
      */
     public function down()
     {
-        Schema::table('compensations', function (Blueprint $table) {
-            //
+        Schema::table('contract_people', function (Blueprint $table) {
+            $table->dropColumn();
         });
     }
 }

@@ -103,7 +103,7 @@ if (starts_with(app('VoyagerAuth')->user()->avatar, 'http://') || starts_with(ap
             })();
         </script>
         <!-- Main Content -->
-        <div class="container-fluid" >
+        <div class="container-fluid">
             <div class="side-body padding-top">
                 @yield('page_header')
                 <div id="voyager-notifications"></div>

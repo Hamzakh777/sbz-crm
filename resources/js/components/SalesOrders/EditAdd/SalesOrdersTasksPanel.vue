@@ -71,7 +71,21 @@
                     // empty the tasks collection name field
                     this.tasksCollection.name = null;
                 }
+            },
+
+            // we need to watch the taskscollection id
+            
+            'tasksCollection.id': function(newVal, oldVal) {
+                this.salesOrder.tasksCollectionId = newVal;
+                this.updateSalesOrder();
+            },
+
+            'salesOrder.taskCollectionId': function(newVal, oldVal) {
+                if(this.tasksCollection.id === null && newVal !== null) {
+                    this.tasksCollection.id = newVal;
+                } 
             }
+            
         },
 
         computed: {
@@ -79,16 +93,16 @@
             ...mapGetters('tasks', ['tasksCollection']),
 
             showTasksForm() {
-                if(this.salesOrder.taskCollectionId !== null ) {
-                    this.tasksCollection.id = this.salesOrder.taskCollectionId;
-                    // whenever the selected collection changes, we need to fetch the data
-                    // corresponding to that collection
-                    this.fetchTasks();
-                    return true;
-                } else if(this.isExistingTasksCollection === false) {
-
-                    return true;
+                if(this.isExistingTasksCollection === true) {
+                    if(this.salesOrder.taskCollectionId !== null ) {
+                        this.tasksCollection.id = this.salesOrder.taskCollectionId;
+                        // whenever the selected collection changes, we need to fetch the data
+                        // corresponding to that collection
+                        this.fetchTasks();
+                        return true;
+                    }
                 } else { 
+                    // we need to m
                     return false;
                 }
             }
@@ -96,7 +110,6 @@
 
         data() {
             return { 
-                tasksCollectionId: this.tasksCollection,
                 /**
                  * Determine if we are choosing an 
                  * exising tasks collection or 
@@ -108,7 +121,8 @@
         },
 
         methods: {
-            ...mapActions('tasks', ['fetchTasks'])
+            ...mapActions('tasks', ['fetchTasks']),
+            ...mapActions(['updateSalesOrder'])
         }
     }
 </script>

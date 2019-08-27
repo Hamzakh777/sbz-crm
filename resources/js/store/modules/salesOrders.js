@@ -150,7 +150,7 @@ const actions = {
      * Get all the sales orders
      * @param {*} param0
      */
-    async fetchSalesOrder({ commit }) {
+    async fetchSalesOrder({ state, commit }) {
         try {
             const response = await axios.get(`/api/sales-orders/${state.salesOrder.id}`);
 
@@ -160,7 +160,7 @@ const actions = {
         }
     },
 
-    async storeSalesOrder({commit}) {
+    async storeSalesOrder({state, commit}) {
         try { 
             const response = await axios.post('/api/sales-orders', state.salesOrder);
             
@@ -170,9 +170,9 @@ const actions = {
         }
     },
 
-    async updateSalesOrder({ commit }) {
+    async updateSalesOrder({state, commit }) {
         try {
-            const response = await axios.put('/api/sales-orders', state.salesOrder);
+            const response = await axios.put(`/api/sales-orders/${state.salesOrder.id}`, state.salesOrder);
 
             commit('setSalesOrderId', response.data.id);
         } catch (error) {
@@ -241,6 +241,7 @@ const mutations = {
         state.salesOrder.documents = data.documents;
         state.salesOrder.people = data.people;
         state.salesOrder.comments = data.comments;
+        state.salesOrder.taskCollectionId = data.taskCollectionId;
     },
     setSalesOrderId(state,data){
         state.salesOrder.id = data;

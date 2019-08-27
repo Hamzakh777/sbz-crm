@@ -1,7 +1,7 @@
 <template>
     <div class="comment">
         <div class="avatar">
-            <img :src=" 'https://sbz-appointment.fra1.digitaloceanspaces.com/' + comment.avatar" alt="">
+            <!-- <img :src=" 'https://sbz-appointment.fra1.digitaloceanspaces.com/' + comment.avatar" alt=""> -->
         </div>
         <div class="text">
             <a class="username" href="#">@{{ comment.user.username }}</a> <span>{{ comment.body }}</span>
@@ -27,6 +27,7 @@
     background-color: #fff;
     border-radius: 4px;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);
+    margin-left: 10px;
 }
 
 .comment .avatar {

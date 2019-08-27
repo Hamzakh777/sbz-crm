@@ -52,19 +52,22 @@
     </div>
     <div class="row">
         <div class="form-group col-md-4">
-            upload form goes here
+            <input type="file" class="btn btn-primary" v-on:change="onFileChange">
         </div>
-        <button class="btn btn-success pull-right"
-            type="submit"
-        >
-            {{ trans.get('voyager.generic.add') }}
-        </button>
+        <div class="col-md-4 pull-right">
+            <button class="btn btn-success pull-right"
+                type="submit"
+            >
+                {{ trans.get('voyager.generic.add') }}
+            </button>
+        </div>
     </div>
 </form>
 </template>
 
 <script>
     import { required } from 'vuelidate/lib/validators';
+    import {mapGetters} from 'vuex';
     
     export default {
         name: 'addDocumentsForm',
@@ -82,6 +85,10 @@
             // we dont know if a file is required or not
         },
 
+        computed: {
+            ...mapGetters(['salesOrder']),
+        },
+
         data() {
             return {
                 id: null,
@@ -96,8 +103,20 @@
             submit() {
                 this.$v.$touch();
                 if(!this.$v.$invalid) {
-                    this.$emit('addProduct', this.$data);
+                    let formData = new FormData();
+                    formData.append('file', this.file);
+                    formData.append('name', this.name);
+                    formData.append('type', this.type);
+                    formData.append('status', this.status);
+                    formData.append('status', this.status);
+                    formData.append('salesOrderId', this.salesOrder.id);
+                    
+                    this.$emit('storeDocument', formData);
                 } 
+            },
+
+            onFileChange(e) {
+                this.file = e.target.files[0];
             }
         },
     }

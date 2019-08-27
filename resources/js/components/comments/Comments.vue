@@ -9,9 +9,9 @@
         </div>
         <hr>
         <div class="reply">
-            <div class="avatar">
+            <!-- <div class="avatar">
                 <img :src="'https://sbz-appointment.fra1.digitaloceanspaces.com/'+current_user.avatar" alt="">
-            </div>
+            </div> -->
             <input 
                 type="text" 
                 v-model.trim="reply" 
@@ -56,6 +56,9 @@ import singleComment from './SingleComment'
 
 .comments-wrapper {
     padding-right: 10px;
+    max-height: 300px;
+    overflow-y: scroll;
+    overflow-x: visible;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track

@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\addSalesOrderPerson;
+use Illuminate\Support\Facades\Storage;
 
 class ApiSalesOrderPeopleController extends Controller
 {
@@ -38,6 +39,12 @@ class ApiSalesOrderPeopleController extends Controller
      */
     public function store(addSalesOrderPerson $request)
     {
+        if($request->hasFile('documentCardId')) {
+            $path = $request->file('documentCardId')->store('documents/id-cards');
+        } else {
+            $path = null;
+        }
+        
         $person = new ContractPerson();
 
         $person->first_name = $request->input('firstName');
@@ -46,6 +53,7 @@ class ApiSalesOrderPeopleController extends Controller
         $person->police_number = $request->input('policeNumber');
         $person->birthday = Carbon::parse($request->input('birthday'))->addHour()->format('Y-m-d');
         $person->sales_order_id = $request->input('salesOrderId');
+        $person->document_id_path = $path;
 
         $products = $request->input('products');
         
@@ -111,6 +119,12 @@ class ApiSalesOrderPeopleController extends Controller
      */
     public function destroy($id)
     {
-        
+        $person = ContractPerson::findOrFail($id);
+
+        if($person->document_id_path !== null) {
+            Storage::delete($person->document_id_path);
+        }
+
+        $person->delete();
     }
 }

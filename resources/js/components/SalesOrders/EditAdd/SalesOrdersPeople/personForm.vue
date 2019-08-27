@@ -78,20 +78,13 @@
 
                 <div class="row">
                     <!-- birth year -->
-                    <div class="form-group col-md-6" v-if="isFamily">
+                    <div class="form-group col-md-6">
                         <label class="control-label">{{ trans.get('voyager.generic.birthyear') }}</label>
                         <input 
-                             
                             type="text" 
                             class="form-control" 
                             v-model.trim="birthyear" 
-                            :class="{'form-control--error': $v.birthyear.$error }"
                             readonly>
-                        <div v-if="$v.birthyear.$error">
-                            <span class="error-text" v-if="!$v.birthyear.required">
-                                {{ trans.get('validation_js.required') }}
-                            </span>
-                        </div>
                     </div>
 
                     <!-- age -->
@@ -148,7 +141,7 @@
                 <div class="row">
                     <!-- document id card  -->
                     <div class="form-group col-md-6">
-                        here we need to add form upload 
+                        <input type="file" class="btn btn-primary" v-on:change="onFileChange">
                     </div>
                 </div>
             </div>
@@ -194,7 +187,7 @@
             birthyear() {
                 if(this.birthday !== null) {
                     const date = new Date(this.birthday);
-                    return parseInt(date.getYear());
+                    return parseInt(date.getFullYear());
                 }
             },
 
@@ -202,7 +195,7 @@
                 if(this.birthday !== null) {
                     const date = new Date(this.birthday);
                     const now = new Date();
-                    return parseInt(now.getYear()) - parseInt(date.getYear());
+                    return parseInt(now.getFullYear()) - parseInt(date.getFullYear());
                 }
             },
 
@@ -229,7 +222,7 @@
                 birthday: null,
                 familyMemberType: null,
                 policeNumber: null,
-                selectedProduct: null,
+                documentIdCard: null,
                 products: []
             }
         },
@@ -262,6 +255,17 @@
             async submit() {
                 this.$v.$touch();
                 if(!this.$v.$invalid) {
+                    let formData = new FormData();
+                    formData.append('firstName', this.firstName);
+                    formData.append('lastName', this.lastName);
+                    formData.append('gender', this.gender);
+                    formData.append('birthday', this.birthday);
+                    formData.append('age', this.age);
+                    formData.append('familyMemberType', this.familyMemberType);
+                    formData.append('policeNumber', this.policeNumber);
+                    formData.append('products', this.products);
+                    formData.append('salesOrderId', this.salesOrder.id);
+                    formData.append('documentIdCard', this.documentIdCard)
                     await this.addPerson(
                         {
                             firstName: this.firstName,
@@ -271,7 +275,6 @@
                             age: this.age,
                             familyMemberType: this.familyMemberType,
                             policeNumber: this.policeNumber,
-                            selectedProduct: this.selectedProduct,
                             products: this.products,
                             salesOrderId: this.salesOrder.id
                         }
@@ -285,6 +288,10 @@
 
             deleteProduct(index){
                 this.products = this.products.filter((product, prodIndex) => prodIndex !== index);
+            },
+
+            onFileChange(e) {
+                this.documentIdCard = e.target.files[0];
             }
         },
     }
@@ -313,7 +320,7 @@
     // border: 1px solid #e4eaec
     // border-radius: 3px
     padding: 2em 1em
-    margin-bottom: 3em
+    margin-bottom: 2em
     // box-shadow: 0px 26px 34px -19px rgba(0,0,0,0.12)
     box-shadow: none
 

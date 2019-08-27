@@ -15,12 +15,13 @@
                 <!-- the form to add or edit a contract person -->
                 <personFrom></personFrom>
                 <!-- for viewing already added contract people -->
-                <!-- <personCard 
+                <personCard 
                     v-for="(person, index) in allPeople"
                     :key="index"
                     :person="person"
+                    :index="index + 1"
                 >
-                </personCard> -->
+                </personCard>
             </div>
         </div>
      </div>

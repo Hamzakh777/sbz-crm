@@ -2055,6 +2055,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -2225,20 +2226,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   props: {
     person: {
       type: Object
+    },
+    index: {
+      type: Number
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['salesOrder', 'allProducts']), {
     birthyear: function birthyear() {
       if (this.person.birthday !== null) {
         var date = new Date(this.person.birthday);
-        return parseInt(date.getYear());
+        return parseInt(date.getFullYear());
       }
     },
     age: function age() {
       if (this.person.birthday !== null) {
         var date = new Date(this.person.birthday);
         var now = new Date();
-        return parseInt(now.getYear()) - parseInt(date.getYear());
+        return parseInt(now.getFullYear()) - parseInt(date.getFullYear());
       }
     },
     isFamily: function isFamily() {
@@ -2458,13 +2462,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -2481,14 +2478,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     birthyear: function birthyear() {
       if (this.birthday !== null) {
         var date = new Date(this.birthday);
-        return parseInt(date.getYear());
+        return parseInt(date.getFullYear());
       }
     },
     age: function age() {
       if (this.birthday !== null) {
         var date = new Date(this.birthday);
         var now = new Date();
-        return parseInt(now.getYear()) - parseInt(date.getYear());
+        return parseInt(now.getFullYear()) - parseInt(date.getFullYear());
       }
     },
     isFamily: function isFamily() {
@@ -2514,7 +2511,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       birthday: null,
       familyMemberType: null,
       policeNumber: null,
-      selectedProduct: null,
+      documentIdCard: null,
       products: []
     };
   },
@@ -2542,6 +2539,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _submit = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var formData;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -2549,11 +2547,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 this.$v.$touch();
 
                 if (this.$v.$invalid) {
-                  _context.next = 4;
+                  _context.next = 15;
                   break;
                 }
 
-                _context.next = 4;
+                formData = new FormData();
+                formData.append('firstName', this.firstName);
+                formData.append('lastName', this.lastName);
+                formData.append('gender', this.gender);
+                formData.append('birthday', this.birthday);
+                formData.append('age', this.age);
+                formData.append('familyMemberType', this.familyMemberType);
+                formData.append('policeNumber', this.policeNumber);
+                formData.append('products', this.products);
+                formData.append('salesOrderId', this.salesOrder.id);
+                formData.append('documentIdCard', this.documentIdCard);
+                _context.next = 15;
                 return this.addPerson({
                   firstName: this.firstName,
                   lastName: this.lastName,
@@ -2562,12 +2571,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   age: this.age,
                   familyMemberType: this.familyMemberType,
                   policeNumber: this.policeNumber,
-                  selectedProduct: this.selectedProduct,
                   products: this.products,
                   salesOrderId: this.salesOrder.id
                 });
 
-              case 4:
+              case 15:
               case "end":
                 return _context.stop();
             }
@@ -2588,6 +2596,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.products = this.products.filter(function (product, prodIndex) {
         return prodIndex !== index;
       });
+    },
+    onFileChange: function onFileChange(e) {
+      this.documentIdCard = e.target.files[0];
     }
   })
 });
@@ -2884,27 +2895,36 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         this.tasksCollection.name = null;
       }
+    },
+    // we need to watch the taskscollection id
+    'tasksCollection.id': function tasksCollectionId(newVal, oldVal) {
+      this.salesOrder.tasksCollectionId = newVal;
+      this.updateSalesOrder();
+    },
+    'salesOrder.taskCollectionId': function salesOrderTaskCollectionId(newVal, oldVal) {
+      if (this.tasksCollection.id === null && newVal !== null) {
+        this.tasksCollection.id = newVal;
+      }
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['salesOrder', 'allTasksCollections']), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('tasks', ['tasksCollection']), {
     showTasksForm: function showTasksForm() {
-      if (this.salesOrder.taskCollectionId !== null) {
-        this.tasksCollection.id = this.salesOrder.taskCollectionId; // whenever the selected collection changes, we need to fetch the data
-        // corresponding to that collection
+      if (this.isExistingTasksCollection === true) {
+        if (this.salesOrder.taskCollectionId !== null) {
+          this.tasksCollection.id = this.salesOrder.taskCollectionId; // whenever the selected collection changes, we need to fetch the data
+          // corresponding to that collection
 
-        this.fetchTasks();
-        return true;
-      } else if (this.isExistingTasksCollection === false) {
-        return true;
+          this.fetchTasks();
+          return true;
+        }
       } else {
+        // we need to m
         return false;
       }
     }
   }),
   data: function data() {
     return {
-      tasksCollectionId: this.tasksCollection,
-
       /**
        * Determine if we are choosing an 
        * exising tasks collection or 
@@ -2914,7 +2934,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       isExistingTasksCollection: true
     };
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('tasks', ['fetchTasks']))
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('tasks', ['fetchTasks']), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['updateSalesOrder']))
 });
 
 /***/ }),
@@ -3446,6 +3466,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -3511,6 +3538,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'addDocumentsForm',
@@ -3526,6 +3556,7 @@ __webpack_require__.r(__webpack_exports__);
 
     }
   },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['salesOrder'])),
   data: function data() {
     return {
       id: null,
@@ -3540,8 +3571,18 @@ __webpack_require__.r(__webpack_exports__);
       this.$v.$touch();
 
       if (!this.$v.$invalid) {
-        this.$emit('addProduct', this.$data);
+        var formData = new FormData();
+        formData.append('file', this.file);
+        formData.append('name', this.name);
+        formData.append('type', this.type);
+        formData.append('status', this.status);
+        formData.append('status', this.status);
+        formData.append('salesOrderId', this.salesOrder.id);
+        this.$emit('storeDocument', formData);
       }
+    },
+    onFileChange: function onFileChange(e) {
+      this.file = e.target.files[0];
     }
   }
 });
@@ -3696,39 +3737,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _submit = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(document) {
-        var response, _response;
-
+        var response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                document.salesOrderId = this.salesOrder.id;
-                this.showLoader();
-
                 if (!(document.id !== null)) {
-                  _context.next = 9;
+                  _context.next = 7;
                   break;
                 }
 
-                _context.next = 5;
+                _context.next = 3;
                 return axios.put("/api/documents/".concat(document.id), document);
 
-              case 5:
+              case 3:
                 response = _context.sent;
                 this.hideLoader();
-                _context.next = 14;
+                _context.next = 7;
                 break;
 
-              case 9:
-                _context.next = 11;
-                return axios.post('/api/documents/', document);
-
-              case 11:
-                _response = _context.sent;
-                this.hideLoader();
-                this.documents.push(_response.data.document);
-
-              case 14:
+              case 7:
               case "end":
                 return _context.stop();
             }
@@ -3742,21 +3770,65 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       return submit;
     }(),
-    deleteDoc: function () {
-      var _deleteDoc = _asyncToGenerator(
+    storeDocument: function () {
+      var _storeDocument = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(id) {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(document) {
         var response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 this.showLoader();
-                _context2.next = 3;
+                _context2.prev = 1;
+                _context2.next = 4;
+                return axios.post('/api/documents/', document, {
+                  headers: {
+                    'content-type': 'multipart/form-data'
+                  }
+                });
+
+              case 4:
+                response = _context2.sent;
+                this.hideLoader();
+                this.documents.push(response.data.document);
+                _context2.next = 12;
+                break;
+
+              case 9:
+                _context2.prev = 9;
+                _context2.t0 = _context2["catch"](1);
+                console.log(_context2.t0);
+
+              case 12:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this, [[1, 9]]);
+      }));
+
+      function storeDocument(_x2) {
+        return _storeDocument.apply(this, arguments);
+      }
+
+      return storeDocument;
+    }(),
+    deleteDoc: function () {
+      var _deleteDoc = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(id) {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                this.showLoader();
+                _context3.next = 3;
                 return axios["delete"]("/api/documents/".concat(id));
 
               case 3:
-                response = _context2.sent;
+                response = _context3.sent;
                 this.hideLoader();
                 this.documents = this.documents.filter(function (doc) {
                   return doc.id !== id;
@@ -3764,13 +3836,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
               case 6:
               case "end":
-                return _context2.stop();
+                return _context3.stop();
             }
           }
-        }, _callee2, this);
+        }, _callee3, this);
       }));
 
-      function deleteDoc(_x2) {
+      function deleteDoc(_x3) {
         return _deleteDoc.apply(this, arguments);
       }
 
@@ -4312,6 +4384,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AddTask__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AddTask */ "./resources/js/components/tasks/AddTask.vue");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _baseComponents_BaseLoader__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../baseComponents/BaseLoader */ "./resources/js/components/baseComponents/BaseLoader.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -4354,6 +4427,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+
 
 
 
@@ -4519,7 +4594,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../node_module
 
 
 // module
-exports.push([module.i, "/* global */\n.row[data-v-bb7e3196] {\n  padding: 0px 1em;\n}\n.form-group[data-v-bb7e3196] {\n  padding-left: 0;\n}\n.col-md-6[data-v-bb7e3196] {\n  padding-left: 0;\n}\n.products-col[data-v-bb7e3196] {\n  padding-right: 0;\n}\n.products-col .row[data-v-bb7e3196] {\n  padding-right: 0;\n}\n\n/* elt */\n.card[data-v-bb7e3196] {\n  width: 100%;\n  border: 1px solid #e4eaec;\n  padding: 2em 1em;\n  margin-bottom: 3em;\n  box-shadow: none;\n}\n.card__title[data-v-bb7e3196] {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  margin-bottom: 1em;\n  padding: 0px 1em;\n}\n.card__title h3[data-v-bb7e3196] {\n  color: #58595f;\n}", ""]);
+exports.push([module.i, "/* global */\n.row[data-v-bb7e3196] {\n  padding: 0px 1em;\n}\n.form-group[data-v-bb7e3196] {\n  padding-left: 0;\n}\n.col-md-6[data-v-bb7e3196] {\n  padding-left: 0;\n}\n.products-col[data-v-bb7e3196] {\n  padding-right: 0;\n}\n.products-col .row[data-v-bb7e3196] {\n  padding-right: 0;\n}\n\n/* elt */\n.card[data-v-bb7e3196] {\n  width: 100%;\n  border: 1px solid #e4eaec;\n  padding: 2em 1em;\n  margin-bottom: 2em;\n  box-shadow: none;\n}\n.card__title[data-v-bb7e3196] {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  margin-bottom: 1em;\n  padding: 0px 1em;\n}\n.card__title h3[data-v-bb7e3196] {\n  color: #58595f;\n}\n.card__action--delete[data-v-bb7e3196] {\n  font-size: 20px;\n  cursor: pointer;\n}\n.card__action--delete[data-v-bb7e3196]:hover {\n  color: #fa2a00;\n}", ""]);
 
 // exports
 
@@ -4538,7 +4613,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../node_module
 
 
 // module
-exports.push([module.i, "/* global */\n.row[data-v-820b022e] {\n  padding: 0px 1em;\n}\n.form-group[data-v-820b022e] {\n  padding-left: 0;\n}\n.col-md-6[data-v-820b022e] {\n  padding-left: 0;\n}\n.products-col[data-v-820b022e] {\n  padding-right: 0;\n}\n.products-col .row[data-v-820b022e] {\n  padding-right: 0;\n}\n\n/* elt */\n.card[data-v-820b022e] {\n  width: 100%;\n  border: 1px solid #e4eaec;\n  padding: 2em 1em;\n  margin-bottom: 3em;\n  box-shadow: none;\n}\n.card__title[data-v-820b022e] {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  margin-bottom: 1em;\n  padding: 0px 1em;\n}\n.card__title h3[data-v-820b022e] {\n  color: #58595f;\n}", ""]);
+exports.push([module.i, "/* global */\n.row[data-v-820b022e] {\n  padding: 0px 1em;\n}\n.form-group[data-v-820b022e] {\n  padding-left: 0;\n}\n.col-md-6[data-v-820b022e] {\n  padding-left: 0;\n}\n.products-col[data-v-820b022e] {\n  padding-right: 0;\n}\n.products-col .row[data-v-820b022e] {\n  padding-right: 0;\n}\n\n/* elt */\n.card[data-v-820b022e] {\n  width: 100%;\n  border: 1px solid #e4eaec;\n  padding: 2em 1em;\n  margin-bottom: 2em;\n  box-shadow: none;\n}\n.card__title[data-v-820b022e] {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  margin-bottom: 1em;\n  padding: 0px 1em;\n}\n.card__title h3[data-v-820b022e] {\n  color: #58595f;\n}", ""]);
 
 // exports
 
@@ -4652,7 +4727,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../node_module
 
 
 // module
-exports.push([module.i, ".list[data-v-30a14081] {\n  padding-top: 1em;\n}", ""]);
+exports.push([module.i, "hr[data-v-30a14081] {\n  margin-bottom: 1.6em;\n}\n.list[data-v-30a14081] {\n  padding-top: 1em;\n  padding-left: 15px;\n  padding-right: 15px;\n}", ""]);
 
 // exports
 
@@ -4804,7 +4879,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Single-comment component */\n.comment[data-v-054c33f2] {\n    display: flex;\n    padding: 10px;\n    margin-bottom: 10px;\n    align-items: center;\n    color: #76838f;\n    background-color: #fff;\n    border-radius: 4px;\n    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);\n}\n.comment .avatar[data-v-054c33f2] {\n    align-self: flex-start;\n}\n.comment .avatar > img[data-v-054c33f2] {\n    width: 40px;\n    height: 40px;\n    border-radius: 4px;\n    align-self: start;\n}\n.comment .text[data-v-054c33f2] {\n    text-align: left;\n    margin-left: 5px;\n}\n.comment .text span[data-v-054c33f2] {\n    margin-left: 5px;\n}\n.comment .text .username[data-v-054c33f2] {\n    font-weight: 700;\n    color: #76838f;\n}\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Single-comment component */\n.comment[data-v-054c33f2] {\n    display: flex;\n    padding: 10px;\n    margin-bottom: 10px;\n    align-items: center;\n    color: #76838f;\n    background-color: #fff;\n    border-radius: 4px;\n    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);\n    margin-left: 10px;\n}\n.comment .avatar[data-v-054c33f2] {\n    align-self: flex-start;\n}\n.comment .avatar > img[data-v-054c33f2] {\n    width: 40px;\n    height: 40px;\n    border-radius: 4px;\n    align-self: start;\n}\n.comment .text[data-v-054c33f2] {\n    text-align: left;\n    margin-left: 5px;\n}\n.comment .text span[data-v-054c33f2] {\n    margin-left: 5px;\n}\n.comment .text .username[data-v-054c33f2] {\n    font-weight: 700;\n    color: #76838f;\n}\n\n", ""]);
 
 // exports
 
@@ -4823,7 +4898,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.comments[data-v-1e363d18] {\n    padding-top: 0;\n}\n.comments-wrapper[data-v-1e363d18] {\n    padding-right: 10px;\n}\n.custom-scrollbar[data-v-1e363d18]::-webkit-scrollbar-track\n{\n    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);\n    border-radius: 10px;\n    background-color: #fff;\n}\n.custom-scrollbar[data-v-1e363d18]::-webkit-scrollbar\n{\n    width: 8px;\n    background-color: #fff;\n}\n.custom-scrollbar[data-v-1e363d18]::-webkit-scrollbar-thumb\n{\n    border-radius: 10px;\n    box-shadow: inset 0 0 6px rgba(0,0,0,.3);\n    background-color: #555;\n}\n\n/* Reply component */\n.reply[data-v-1e363d18] {\n    display: flex;\n    position: relative;\n    align-items: center;\n    background-color: #f9f9f9;\n    border-radius: 4px;\n    padding: 5px 10px;\n    overflow: hidden;\n}\n.reply .avatar[data-v-1e363d18] {\n    position: absolute;\n}\n.reply .avatar > img[data-v-1e363d18] {\n    width: 40px;\n    height: 40px;\n    border-radius: 100%;\n}\n.reply .reply--text[data-v-1e363d18] {\n    min-height: 40px;\n    padding: 10px 10px 10px 55px;\n    margin-right: 10px;\n    border: 0;\n    color: #333;\n    width: 100%;\n    outline: 0;\n    background-color: transparent;\n    box-shadow: none;\n}\n.reply input.reply--text[data-v-1e363d18]:valid {\n    margin-right: 71px;\n}\n.reply input.reply--text:valid + .reply--button[data-v-1e363d18] {\n    right: 10px;\n}\n.reply .reply--button[data-v-1e363d18] {\n    position: absolute;\n    right: -100px;\n    border: 1px solid #2ecc71;\n    background-color: transparent;\n    color: #2ecc71;\n    opacity: 0.9;\n    display: inline-block;\n    font-weight: 400;\n    text-align: center;\n    white-space: nowrap;\n    vertical-align: middle;\n    -webkit-user-select: none;\n    -moz-user-select: none;\n    -ms-user-select: none;\n    user-select: none;\n    padding: 0.375rem 0.75rem;\n    font-size: 14px;\n    line-height: 1.5;\n    border-radius: 30px;\n    transition: color 0.25s ease-in-out, background-color 0.25s ease-in-out, border-color 0.25s ease-in-out, box-shadow 0.25s ease-in-out, right 0.25s ease-in-out;\n    outline: 0;\n}\n.reply .reply--button[data-v-1e363d18]:hover {\n    color: #fff;\n    background-color: #2ecc71;\n    opacity: 1;\n}\n.reply .reply--button[data-v-1e363d18]:focus,\n.reply .reply--button[data-v-1e363d18]:active {\n    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);\n}\nhr[data-v-1e363d18] {\n    margin-top: 10px;\n    margin-bottom: 10px;\n}\n", ""]);
+exports.push([module.i, "\n.comments[data-v-1e363d18] {\n    padding-top: 0;\n}\n.comments-wrapper[data-v-1e363d18] {\n    padding-right: 10px;\n    max-height: 300px;\n    overflow-y: scroll;\n    overflow-x: visible;\n}\n.custom-scrollbar[data-v-1e363d18]::-webkit-scrollbar-track\n{\n    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);\n    border-radius: 10px;\n    background-color: #fff;\n}\n.custom-scrollbar[data-v-1e363d18]::-webkit-scrollbar\n{\n    width: 8px;\n    background-color: #fff;\n}\n.custom-scrollbar[data-v-1e363d18]::-webkit-scrollbar-thumb\n{\n    border-radius: 10px;\n    box-shadow: inset 0 0 6px rgba(0,0,0,.3);\n    background-color: #555;\n}\n\n/* Reply component */\n.reply[data-v-1e363d18] {\n    display: flex;\n    position: relative;\n    align-items: center;\n    background-color: #f9f9f9;\n    border-radius: 4px;\n    padding: 5px 10px;\n    overflow: hidden;\n}\n.reply .avatar[data-v-1e363d18] {\n    position: absolute;\n}\n.reply .avatar > img[data-v-1e363d18] {\n    width: 40px;\n    height: 40px;\n    border-radius: 100%;\n}\n.reply .reply--text[data-v-1e363d18] {\n    min-height: 40px;\n    padding: 10px 10px 10px 55px;\n    margin-right: 10px;\n    border: 0;\n    color: #333;\n    width: 100%;\n    outline: 0;\n    background-color: transparent;\n    box-shadow: none;\n}\n.reply input.reply--text[data-v-1e363d18]:valid {\n    margin-right: 71px;\n}\n.reply input.reply--text:valid + .reply--button[data-v-1e363d18] {\n    right: 10px;\n}\n.reply .reply--button[data-v-1e363d18] {\n    position: absolute;\n    right: -100px;\n    border: 1px solid #2ecc71;\n    background-color: transparent;\n    color: #2ecc71;\n    opacity: 0.9;\n    display: inline-block;\n    font-weight: 400;\n    text-align: center;\n    white-space: nowrap;\n    vertical-align: middle;\n    -webkit-user-select: none;\n    -moz-user-select: none;\n    -ms-user-select: none;\n    user-select: none;\n    padding: 0.375rem 0.75rem;\n    font-size: 14px;\n    line-height: 1.5;\n    border-radius: 30px;\n    transition: color 0.25s ease-in-out, background-color 0.25s ease-in-out, border-color 0.25s ease-in-out, box-shadow 0.25s ease-in-out, right 0.25s ease-in-out;\n    outline: 0;\n}\n.reply .reply--button[data-v-1e363d18]:hover {\n    color: #fff;\n    background-color: #2ecc71;\n    opacity: 1;\n}\n.reply .reply--button[data-v-1e363d18]:focus,\n.reply .reply--button[data-v-1e363d18]:active {\n    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);\n}\nhr[data-v-1e363d18] {\n    margin-top: 10px;\n    margin-bottom: 10px;\n}\n", ""]);
 
 // exports
 
@@ -27819,9 +27894,16 @@ var render = function() {
         [
           _vm.isLoading ? _c("BaseLoader") : _vm._e(),
           _vm._v(" "),
-          _c("personFrom")
+          _c("personFrom"),
+          _vm._v(" "),
+          _vm._l(_vm.allPeople, function(person, index) {
+            return _c("personCard", {
+              key: index,
+              attrs: { person: person, index: index + 1 }
+            })
+          })
         ],
-        1
+        2
       )
     ])
   ])
@@ -27862,28 +27944,21 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card" }, [
     _c("div", { staticClass: "card__title" }, [
-      _c("h3", [_vm._v(_vm._s(_vm.trans.get("voyager.generic.person")))]),
+      _c("h3", [
+        _vm._v(
+          _vm._s(_vm.trans.get("voyager.generic.person") + " " + _vm.index)
+        )
+      ]),
       _vm._v(" "),
       _c("div", [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-danger",
-            on: {
-              click: function($event) {
-                $event.preventDefault()
-                return _vm.deletePerson(_vm.person.id)
-              }
+        _c("i", {
+          staticClass: "voyager-trash card__action--delete",
+          on: {
+            click: function($event) {
+              return _vm.deletePerson(_vm.person.id)
             }
-          },
-          [
-            _c("i", { staticClass: "voyager-trash" }),
-            _vm._v(" "),
-            _c("span", [
-              _vm._v(_vm._s(_vm.trans.get("voyager.generic.delete")))
-            ])
-          ]
-        )
+          }
+        })
       ])
     ]),
     _vm._v(" "),
@@ -27942,7 +28017,7 @@ var render = function() {
             _c("b", { staticClass: "form-data" }, [
               _vm._v(
                 "\n                        " +
-                  _vm._s(_vm.person.birthday) +
+                  _vm._s(_vm._f("changeDateFormat")(_vm.person.birthday)) +
                   "\n                    "
               )
             ])
@@ -27950,21 +28025,19 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
-          _vm.isFamily
-            ? _c("div", { staticClass: "form-group col-md-6" }, [
-                _c("label", { staticClass: "control-label" }, [
-                  _vm._v(_vm._s(_vm.trans.get("voyager.generic.birthyear")))
-                ]),
-                _vm._v(" "),
-                _c("b", { staticClass: "form-data" }, [
-                  _vm._v(
-                    "\n                        " +
-                      _vm._s(_vm.person.birthyear) +
-                      "\n                    "
-                  )
-                ])
-              ])
-            : _vm._e(),
+          _c("div", { staticClass: "form-group col-md-6" }, [
+            _c("label", { staticClass: "control-label" }, [
+              _vm._v(_vm._s(_vm.trans.get("voyager.generic.birthyear")))
+            ]),
+            _vm._v(" "),
+            _c("b", { staticClass: "form-data" }, [
+              _vm._v(
+                "\n                        " +
+                  _vm._s(_vm.birthyear) +
+                  "\n                    "
+              )
+            ])
+          ]),
           _vm._v(" "),
           _c("div", { staticClass: "form-group col-md-6" }, [
             _c("label", { staticClass: "control-label" }, [
@@ -27974,7 +28047,7 @@ var render = function() {
             _c("b", { staticClass: "form-data" }, [
               _vm._v(
                 "\n                        " +
-                  _vm._s(_vm.person.age) +
+                  _vm._s(_vm.age) +
                   "\n                    "
               )
             ])
@@ -28043,7 +28116,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "form-group col-md-6" }, [
         _vm._v(
-          "\n                    here we need to add form upload \n                "
+          "\n                    Here we probably need a download button\n                "
         )
       ])
     ])
@@ -28285,56 +28358,37 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
-          _vm.isFamily
-            ? _c("div", { staticClass: "form-group col-md-6" }, [
-                _c("label", { staticClass: "control-label" }, [
-                  _vm._v(_vm._s(_vm.trans.get("voyager.generic.birthyear")))
-                ]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model.trim",
-                      value: _vm.birthyear,
-                      expression: "birthyear",
-                      modifiers: { trim: true }
-                    }
-                  ],
-                  staticClass: "form-control",
-                  class: { "form-control--error": _vm.$v.birthyear.$error },
-                  attrs: { type: "text", readonly: "" },
-                  domProps: { value: _vm.birthyear },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.birthyear = $event.target.value.trim()
-                    },
-                    blur: function($event) {
-                      return _vm.$forceUpdate()
-                    }
+          _c("div", { staticClass: "form-group col-md-6" }, [
+            _c("label", { staticClass: "control-label" }, [
+              _vm._v(_vm._s(_vm.trans.get("voyager.generic.birthyear")))
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model.trim",
+                  value: _vm.birthyear,
+                  expression: "birthyear",
+                  modifiers: { trim: true }
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "text", readonly: "" },
+              domProps: { value: _vm.birthyear },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
                   }
-                }),
-                _vm._v(" "),
-                _vm.$v.birthyear.$error
-                  ? _c("div", [
-                      !_vm.$v.birthyear.required
-                        ? _c("span", { staticClass: "error-text" }, [
-                            _vm._v(
-                              "\n                            " +
-                                _vm._s(
-                                  _vm.trans.get("validation_js.required")
-                                ) +
-                                "\n                        "
-                            )
-                          ])
-                        : _vm._e()
-                    ])
-                  : _vm._e()
-              ])
-            : _vm._e(),
+                  _vm.birthyear = $event.target.value.trim()
+                },
+                blur: function($event) {
+                  return _vm.$forceUpdate()
+                }
+              }
+            })
+          ]),
           _vm._v(" "),
           _c("div", { staticClass: "form-group col-md-6" }, [
             _c("label", { staticClass: "control-label" }, [
@@ -28504,7 +28558,15 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(0)
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "form-group col-md-6" }, [
+            _c("input", {
+              staticClass: "btn btn-primary",
+              attrs: { type: "file" },
+              on: { change: _vm.onFileChange }
+            })
+          ])
+        ])
       ]),
       _vm._v(" "),
       _c(
@@ -28540,20 +28602,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "form-group col-md-6" }, [
-        _vm._v(
-          "\n                    here we need to add form upload \n                "
-        )
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -30304,23 +30353,29 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "form-group col-md-4" }, [
-          _vm._v("\n            upload form goes here\n        ")
+          _c("input", {
+            staticClass: "btn btn-primary",
+            attrs: { type: "file" },
+            on: { change: _vm.onFileChange }
+          })
         ]),
         _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-success pull-right",
-            attrs: { type: "submit" }
-          },
-          [
-            _vm._v(
-              "\n            " +
-                _vm._s(_vm.trans.get("voyager.generic.add")) +
-                "\n        "
-            )
-          ]
-        )
+        _c("div", { staticClass: "col-md-4 pull-right" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-success pull-right",
+              attrs: { type: "submit" }
+            },
+            [
+              _vm._v(
+                "\n                " +
+                  _vm._s(_vm.trans.get("voyager.generic.add")) +
+                  "\n            "
+              )
+            ]
+          )
+        ])
       ])
     ]
   )
@@ -30416,7 +30471,7 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _c("addForm", { on: { addProduct: _vm.submit } }),
+            _c("addForm", { on: { storeDocument: _vm.storeDocument } }),
             _vm._v(" "),
             _vm.noDocuments
               ? _c("div", [
@@ -30594,16 +30649,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "comment" }, [
-    _c("div", { staticClass: "avatar" }, [
-      _c("img", {
-        attrs: {
-          src:
-            "https://sbz-appointment.fra1.digitaloceanspaces.com/" +
-            _vm.comment.avatar,
-          alt: ""
-        }
-      })
-    ]),
+    _c("div", { staticClass: "avatar" }),
     _vm._v(" "),
     _c("div", { staticClass: "text" }, [
       _c("a", { staticClass: "username", attrs: { href: "#" } }, [
@@ -30652,17 +30698,6 @@ var render = function() {
     _c("hr"),
     _vm._v(" "),
     _c("div", { staticClass: "reply" }, [
-      _c("div", { staticClass: "avatar" }, [
-        _c("img", {
-          attrs: {
-            src:
-              "https://sbz-appointment.fra1.digitaloceanspaces.com/" +
-              _vm.current_user.avatar,
-            alt: ""
-          }
-        })
-      ]),
-      _vm._v(" "),
       _c("input", {
         directives: [
           {
@@ -51081,12 +51116,12 @@ var actions = {
     var _fetchSalesOrder = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref) {
-      var commit, response;
+      var state, commit, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              commit = _ref.commit;
+              state = _ref.state, commit = _ref.commit;
               _context.prev = 1;
               _context.next = 4;
               return axios.get("/api/sales-orders/".concat(state.salesOrder.id));
@@ -51120,12 +51155,12 @@ var actions = {
     var _storeSalesOrder = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2) {
-      var commit, response;
+      var state, commit, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              commit = _ref2.commit;
+              state = _ref2.state, commit = _ref2.commit;
               _context2.prev = 1;
               _context2.next = 4;
               return axios.post('/api/sales-orders', state.salesOrder);
@@ -51159,15 +51194,15 @@ var actions = {
     var _updateSalesOrder = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3) {
-      var commit, response;
+      var state, commit, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              commit = _ref3.commit;
+              state = _ref3.state, commit = _ref3.commit;
               _context3.prev = 1;
               _context3.next = 4;
-              return axios.put('/api/sales-orders', state.salesOrder);
+              return axios.put("/api/sales-orders/".concat(state.salesOrder.id), state.salesOrder);
 
             case 4:
               response = _context3.sent;
@@ -51315,6 +51350,7 @@ var mutations = {
     state.salesOrder.documents = data.documents;
     state.salesOrder.people = data.people;
     state.salesOrder.comments = data.comments;
+    state.salesOrder.taskCollectionId = data.taskCollectionId;
   },
   setSalesOrderId: function setSalesOrderId(state, data) {
     state.salesOrder.id = data;
