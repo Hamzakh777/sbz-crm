@@ -188,16 +188,16 @@ class ApiSalesOrdersController extends Controller
 
         // tasks
         // we only need the task collectoin id
-        $taskCollectionId = $request->input('taskCollectionId');
+        $tasksCollectionId = $request->input('tasksCollectionId');
 
-        if (isset($taskCollectionId)) {
-            $salesOrder->tasksCollections()->sync([$taskCollectionId]);
-        }
+
+
+        // $salesOrder->tasksCollections()->sync([$tasksCollectionId]);
 
         $salesOrder->save();
 
         return response()->json([
-            'id' => $salesOrder->id
+            'tasksCollectionId' => $tasksCollectionId
         ]);
     }
 

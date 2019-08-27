@@ -2037,6 +2037,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 
@@ -2046,9 +2048,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   name: "TasksCollection",
   components: {
     Todos: _Todos_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-    AddTask: _AddTask__WEBPACK_IMPORTED_MODULE_2__["default"]
+    AddTask: _AddTask__WEBPACK_IMPORTED_MODULE_2__["default"],
+    BaseLoader: _baseComponents_BaseLoader__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('tasks', ['tasksCollection']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('tasks', ['tasksCollection', 'isLoading']), {
     /**
      * @var {Boolean}
      */
@@ -22533,100 +22536,108 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "row row--collection" }, [
-      _c("h4", [
-        _vm._v(
-          _vm._s(_vm.trans.get("voyager.tasks_collection.tasks_collection"))
-        )
-      ]),
+  return _c(
+    "div",
+    [
+      _vm.isLoading ? _c("BaseLoader") : _vm._e(),
       _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c(
-          "form",
-          {
-            on: {
-              submit: function($event) {
-                $event.preventDefault()
-                return _vm.submit($event)
+      _c("div", { staticClass: "row row--collection" }, [
+        _c("h4", [
+          _vm._v(
+            _vm._s(_vm.trans.get("voyager.tasks_collection.tasks_collection"))
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.submit($event)
+                }
               }
-            }
-          },
-          [
-            _c("div", { staticClass: "form-group col-md-12" }, [
-              _c("label", { staticClass: "control-label" }, [
-                _vm._v(_vm._s(_vm.trans.get("voyager.generic.name")))
+            },
+            [
+              _c("div", { staticClass: "form-group col-md-12" }, [
+                _c("label", { staticClass: "control-label" }, [
+                  _vm._v(_vm._s(_vm.trans.get("voyager.generic.name")))
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.tasksCollection.name,
+                      expression: "tasksCollection.name"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.tasksCollection.name },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.tasksCollection, "name", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm.$v.tasksCollection.name.$dirty
+                  ? _c("div", [
+                      !_vm.$v.tasksCollection.name.required
+                        ? _c("span", { staticClass: "error-text" }, [
+                            _vm._v(
+                              "\n                                " +
+                                _vm._s(
+                                  _vm.trans.get("validation_js.required")
+                                ) +
+                                "\n                            "
+                            )
+                          ])
+                        : _vm._e()
+                    ])
+                  : _vm._e()
               ]),
               _vm._v(" "),
-              _c("input", {
-                directives: [
+              _c("div", { staticClass: "form-group col-md-12" }, [
+                _c(
+                  "button",
                   {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.tasksCollection.name,
-                    expression: "tasksCollection.name"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { type: "text" },
-                domProps: { value: _vm.tasksCollection.name },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.tasksCollection, "name", $event.target.value)
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _vm.$v.tasksCollection.name.$dirty
-                ? _c("div", [
-                    !_vm.$v.tasksCollection.name.required
-                      ? _c("span", { staticClass: "error-text" }, [
-                          _vm._v(
-                            "\n                                " +
-                              _vm._s(_vm.trans.get("validation_js.required")) +
-                              "\n                            "
-                          )
-                        ])
-                      : _vm._e()
-                  ])
-                : _vm._e()
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group col-md-12" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary pull-right",
-                  attrs: { type: "submit" }
-                },
-                [
-                  _c("span", [
-                    _vm._v(_vm._s(_vm.trans.get("voyager.generic.save")))
-                  ])
-                ]
-              )
-            ])
-          ]
-        )
-      ])
-    ]),
-    _vm._v(" "),
-    _vm.isCollectionSaved
-      ? _c("div", [
-          _c("hr"),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "row" },
-            [_c("add-task"), _vm._v(" "), _c("todos")],
-            1
+                    staticClass: "btn btn-primary pull-right",
+                    attrs: { type: "submit" }
+                  },
+                  [
+                    _c("span", [
+                      _vm._v(_vm._s(_vm.trans.get("voyager.generic.save")))
+                    ])
+                  ]
+                )
+              ])
+            ]
           )
         ])
-      : _vm._e()
-  ])
+      ]),
+      _vm._v(" "),
+      _vm.isCollectionSaved
+        ? _c("div", [
+            _c("hr"),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "row" },
+              [_c("add-task"), _vm._v(" "), _c("todos")],
+              1
+            )
+          ])
+        : _vm._e()
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -40169,7 +40180,7 @@ var state = {
     provisionDone: null,
     cancellationOriginal: null,
     cancellationStamped: null,
-    taskCollectionId: null,
+    tasksCollectionId: null,
     documents: [],
     comments: [],
     people: []
@@ -40716,7 +40727,8 @@ var state = {
     name: null,
     id: window.collectionId !== undefined ? window.collectionId : null,
     tasks: []
-  }
+  },
+  isLoading: false
 };
 var getters = {
   allTodos: function allTodos(state) {
@@ -40724,6 +40736,9 @@ var getters = {
   },
   tasksCollection: function tasksCollection(state) {
     return state.tasksCollection;
+  },
+  isLoading: function isLoading(state) {
+    return state.isLoading;
   }
 };
 var actions = {
@@ -40737,21 +40752,31 @@ var actions = {
           switch (_context.prev = _context.next) {
             case 0:
               commit = _ref.commit;
+              this.isLoading = true;
+              _context.prev = 2;
               url = "/api/tasks-collections/".concat(state.tasksCollection.id);
-              _context.next = 4;
+              _context.next = 6;
               return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(url);
 
-            case 4:
+            case 6:
               response = _context.sent;
-              console.log(response);
+              this.isLoading = false;
               commit('setTasksCollection', response.data);
+              _context.next = 15;
+              break;
 
-            case 7:
+            case 11:
+              _context.prev = 11;
+              _context.t0 = _context["catch"](2);
+              this.isLoading = false;
+              alert(_context.t0);
+
+            case 15:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee);
+      }, _callee, this, [[2, 11]]);
     }));
 
     function fetchTasks(_x) {
@@ -40770,22 +40795,32 @@ var actions = {
           switch (_context2.prev = _context2.next) {
             case 0:
               commit = _ref2.commit;
+              this.isLoading = true;
+              _context2.prev = 2;
               data = taskData; // each task needs to have the collection id it belongs to
 
               data.tasksCollectionId = state.tasksCollection.id;
-              _context2.next = 5;
+              _context2.next = 7;
               return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/tasks', data);
 
-            case 5:
+            case 7:
               response = _context2.sent;
               commit('newTask', response.data.task);
+              _context2.next = 15;
+              break;
 
-            case 7:
+            case 11:
+              _context2.prev = 11;
+              _context2.t0 = _context2["catch"](2);
+              this.isLoading = false;
+              alert(_context2.t0);
+
+            case 15:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2);
+      }, _callee2, this, [[2, 11]]);
     }));
 
     function addTask(_x2, _x3) {

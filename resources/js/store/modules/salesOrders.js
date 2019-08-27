@@ -27,7 +27,7 @@ const state = {
         provisionDone: null,
         cancellationOriginal: null,
         cancellationStamped: null,
-        taskCollectionId: null,
+        tasksCollectionId: null,
         documents: [],
         comments: [],
         people: [],
