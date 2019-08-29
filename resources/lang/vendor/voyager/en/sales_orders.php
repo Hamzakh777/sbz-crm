@@ -79,5 +79,11 @@ return [
     'id_card'                           => 'Id card',
     'contract_termination_original'     => 'Contract termination orignal',
     'contract_termination_stamped'      => 'Contract termination stamped',
-    'other'                             => 'Other'
+    'other'                             => 'Other',
+
+    // checkpoint details
+    'checkpoint_details'                => 'Checkpoint details',
+    'cancellation_stamped'              => 'Cancellation stampled',
+    'cancellation_original'             => 'Cancellation original',
+    'provision_done'                    => 'Provision done'
 ];

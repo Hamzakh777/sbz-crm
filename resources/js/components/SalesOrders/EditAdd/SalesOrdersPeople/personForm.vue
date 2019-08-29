@@ -252,7 +252,7 @@
         methods: {
             ...mapActions('salesOrdersPeople', ['addPerson']),
 
-            async submit() {
+            submit() {
                 this.$v.$touch();
                 if(!this.$v.$invalid) {
                     let formData = new FormData();
@@ -265,8 +265,9 @@
                     formData.append('policeNumber', this.policeNumber);
                     formData.append('products', this.products);
                     formData.append('salesOrderId', this.salesOrder.id);
-                    formData.append('documentIdCard', this.documentIdCard)
-                    await this.addPerson(
+                    formData.append('documentIdCard', this.documentIdCard);
+
+                    this.addPerson(
                         {
                             firstName: this.firstName,
                             lastName: this.lastName,

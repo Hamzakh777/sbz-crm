@@ -24,9 +24,11 @@ const state = {
         contractStartKVG: null,
         insuranceTrackingID: null,
         insuranceSubmittedDate: null,
+        // checkpoint details
         provisionDone: null,
         cancellationOriginal: null,
         cancellationStamped: null,
+        // extras 
         tasksCollectionId: null,
         documents: [],
         comments: [],
@@ -254,6 +256,35 @@ const mutations = {
         state.salesOrder.people = data.people;
         state.salesOrder.comments = data.comments;
         state.salesOrder.taskCollectionId = data.taskCollectionId;
+
+        // customer details
+        state.salesOrder.currentInsuranceId = data.current_insurance_id;
+        state.salesOrder.fullName = data.owner_full_name;
+        state.salesOrder.address = data.owner_address;
+        state.salesOrder.householdType = data.owner_household_type;
+        state.salesOrder.newBron = data.new_born;
+        state.salesOrder.moveToSwitzerland = data.move_to_switzerland;
+        
+        // sales details
+        state.salesOrder.salesLeadSource = data.sales_lead_source
+        state.salesOrder.salesPersonId = data.sales_user_id;
+        state.salesOrder.signDate = data.contract_sign_date;
+        
+        // contract details
+        state.salesOrder.salesOrderStatus = data.sales_order_status;
+        state.salesOrder.newInsuranceId = data.new_insurance_id;
+        state.salesOrder.insuranceStatus = data.insuranceStatus;
+        
+        // Insurance details
+        state.salesOrder.contractDurationVVG = data.contract_duration_VVG;
+        state.salesOrder.contractDurationKVG = data.contract_duration_KVG;
+        state.salesOrder.contractStartVVG = data.contract_start_VVG;
+        state.salesOrder.contractStartKVG = data.contract_start_KVG;
+        state.salesOrder.insuranceTrackingID = data.insurance_tracking_id;
+
+        // system details
+        
+
     },
     setSalesOrderId(state,data){
         state.salesOrder.id = data;

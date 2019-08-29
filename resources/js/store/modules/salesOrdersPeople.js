@@ -6,7 +6,7 @@ const state = {
 
 const getters = {
     allPeople(state, getters, rootState) {
-        return state.people.concat(rootState.salesOrders.salesOrder.people);
+        return state.people;
     } ,
     isLoading(state) {
         return state.isLoading;
@@ -14,6 +14,19 @@ const getters = {
 };
 
 const actions = {
+    async fetchPeople({commit, rootGetters}) {
+        state.isLoading = true;
+        const salesOrderId = rootGetters.salesOrder.id;
+        try {
+            const response = await axios.get(`/api/sales-orders/${salesOrderId}/sales-order-people/`)
+
+            state.isLoading = false;
+            commit('setPeople', response.data.people);
+        } catch(e) {
+            state.isLoading = false;
+            alert(e)
+        }
+    },
     /**
     * Add contract person to the
     * sales order
@@ -22,14 +35,19 @@ const actions = {
     */
     async addPerson({ commit }, person) {
         state.isLoading = true;
-        const response = await axios.post('/api/sales-order-people', person);
-
-        state.isLoading = false;
-        if (response.data.person.id) {
-            person.id = response.data.person.id;
+        try {
+            const response = await axios.post('/api/sales-order-people', person);
+    
+            state.isLoading = false;
+            if (response.data.person.id) {
+                person.id = response.data.person.id;
+            }
+            
+            console.log(person);
+            commit("addPerson", person);
+        } catch (error) {
+            alert(error);
         }
-
-        commit("addPerson", person);
     },
 
     /**
@@ -45,9 +63,6 @@ const actions = {
 
         commit('deletePerson', id);
     },
-
-
-    
 };
 
 const mutations = {
@@ -55,7 +70,7 @@ const mutations = {
         state.people = people;
     },
     addPerson(state, person) {
-        state.people.unshift(person);
+        state.people.push(person);
     },
     deletePerson(state, id) {
         state.people = state.people.filter(person => person.id !== id);

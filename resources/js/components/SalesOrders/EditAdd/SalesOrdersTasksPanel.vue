@@ -120,7 +120,23 @@
                 } catch(e) {
                     alert(e);
                 }
+            },
+
+            async fetchSalesTaskCollec() {
+                try {
+                    const url = `/api/sales-orders/${this.salesOrder.id}/tasks-collections`;
+
+                    const response = await axios.get(url);
+
+                    this.id = response.data.tasksCollectionId;
+                } catch(e) {
+                    alert(e);
+                }
             }
+        },
+
+        mounted() {
+            this.fetchSalesTaskCollec();
         }
     }
 </script>

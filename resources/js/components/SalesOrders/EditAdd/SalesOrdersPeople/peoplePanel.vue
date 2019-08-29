@@ -47,7 +47,12 @@
         },
 
         methods: {
-            ...mapMutations('salesOrdersPeople', ['setPeople'])
+            // ...mapMutations('salesOrdersPeople', ['setPeople']),
+            ...mapActions('salesOrdersPeople', ['fetchPeople'])
+        },
+
+        mounted() {
+            this.fetchPeople();
         }
     }
 </script>

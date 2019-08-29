@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\addSalesOrderPerson;
+use App\SalesOrder;
 use Illuminate\Support\Facades\Storage;
 
 class SalesOrderPeopleController extends Controller
@@ -16,9 +17,15 @@ class SalesOrderPeopleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($salesOrderId)
     {
-        //
+        $salesOrder = SalesOrder::findOrFail($salesOrderId);
+
+        $people = $salesOrder->people;
+
+        return response()->json([
+            'people' => $people
+        ]);
     }
 
     /**

@@ -2068,7 +2068,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     BaseLoader: _baseComponents_BaseLoader__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])('salesOrdersPeople', ['allPeople', 'isLoading'])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapMutations"])('salesOrdersPeople', ['setPeople']))
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapActions"])('salesOrdersPeople', ['fetchPeople'])),
+  mounted: function mounted() {
+    this.fetchPeople();
+  }
 });
 
 /***/ }),
@@ -2274,21 +2277,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vuejs_datepicker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuejs-datepicker */ "./node_modules/vuejs-datepicker/dist/vuejs-datepicker.esm.js");
-/* harmony import */ var _productCard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./productCard */ "./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/productCard.vue");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
-/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _productForm_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./productForm.vue */ "./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/productForm.vue");
-
-
+/* harmony import */ var vuejs_datepicker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuejs-datepicker */ "./node_modules/vuejs-datepicker/dist/vuejs-datepicker.esm.js");
+/* harmony import */ var _productCard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./productCard */ "./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/productCard.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _productForm_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./productForm.vue */ "./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/productForm.vue");
 var _validations;
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -2470,11 +2465,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'personForm',
   components: {
-    Datepicker: vuejs_datepicker__WEBPACK_IMPORTED_MODULE_1__["default"],
-    productForm: _productForm_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
-    productCard: _productCard__WEBPACK_IMPORTED_MODULE_2__["default"]
+    Datepicker: vuejs_datepicker__WEBPACK_IMPORTED_MODULE_0__["default"],
+    productForm: _productForm_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    productCard: _productCard__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(['DateFormat', 'salesOrder', 'allInsurances', 'allProducts']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['DateFormat', 'salesOrder', 'allInsurances', 'allProducts']), {
     birthyear: function birthyear() {
       if (this.birthday !== null) {
         var date = new Date(this.birthday);
@@ -2517,78 +2512,52 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   validations: (_validations = {
     firstName: {
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"]
     },
     lastName: {
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"]
     },
     gender: {
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"]
     },
     birthday: {
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"]
     }
   }, _defineProperty(_validations, "birthday", {
-    required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+    required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"]
   }), _defineProperty(_validations, "age", {
-    required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"] // we also need some validation for the upload part
+    required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"] // we also need some validation for the upload part
 
   }), _validations),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapActions"])('salesOrdersPeople', ['addPerson']), {
-    submit: function () {
-      var _submit = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var formData;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                this.$v.$touch();
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])('salesOrdersPeople', ['addPerson']), {
+    submit: function submit() {
+      this.$v.$touch();
 
-                if (this.$v.$invalid) {
-                  _context.next = 15;
-                  break;
-                }
-
-                formData = new FormData();
-                formData.append('firstName', this.firstName);
-                formData.append('lastName', this.lastName);
-                formData.append('gender', this.gender);
-                formData.append('birthday', this.birthday);
-                formData.append('age', this.age);
-                formData.append('familyMemberType', this.familyMemberType);
-                formData.append('policeNumber', this.policeNumber);
-                formData.append('products', this.products);
-                formData.append('salesOrderId', this.salesOrder.id);
-                formData.append('documentIdCard', this.documentIdCard);
-                _context.next = 15;
-                return this.addPerson({
-                  firstName: this.firstName,
-                  lastName: this.lastName,
-                  gender: this.gender,
-                  birthday: this.birthday,
-                  age: this.age,
-                  familyMemberType: this.familyMemberType,
-                  policeNumber: this.policeNumber,
-                  products: this.products,
-                  salesOrderId: this.salesOrder.id
-                });
-
-              case 15:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, this);
-      }));
-
-      function submit() {
-        return _submit.apply(this, arguments);
+      if (!this.$v.$invalid) {
+        var formData = new FormData();
+        formData.append('firstName', this.firstName);
+        formData.append('lastName', this.lastName);
+        formData.append('gender', this.gender);
+        formData.append('birthday', this.birthday);
+        formData.append('age', this.age);
+        formData.append('familyMemberType', this.familyMemberType);
+        formData.append('policeNumber', this.policeNumber);
+        formData.append('products', this.products);
+        formData.append('salesOrderId', this.salesOrder.id);
+        formData.append('documentIdCard', this.documentIdCard);
+        this.addPerson({
+          firstName: this.firstName,
+          lastName: this.lastName,
+          gender: this.gender,
+          birthday: this.birthday,
+          age: this.age,
+          familyMemberType: this.familyMemberType,
+          policeNumber: this.policeNumber,
+          products: this.products,
+          salesOrderId: this.salesOrder.id
+        });
       }
-
-      return submit;
-    }(),
+    },
     addProduct: function addProduct(product) {
       this.products.unshift(product);
     },
@@ -2988,8 +2957,50 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       return updSalesTasksCollec;
+    }(),
+    fetchSalesTaskCollec: function () {
+      var _fetchSalesTaskCollec = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var url, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.prev = 0;
+                url = "/api/sales-orders/".concat(this.salesOrder.id, "/tasks-collections");
+                _context2.next = 4;
+                return axios.get(url);
+
+              case 4:
+                response = _context2.sent;
+                this.id = response.data.tasksCollectionId;
+                _context2.next = 11;
+                break;
+
+              case 8:
+                _context2.prev = 8;
+                _context2.t0 = _context2["catch"](0);
+                alert(_context2.t0);
+
+              case 11:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this, [[0, 8]]);
+      }));
+
+      function fetchSalesTaskCollec() {
+        return _fetchSalesTaskCollec.apply(this, arguments);
+      }
+
+      return fetchSalesTaskCollec;
     }()
-  })
+  }),
+  mounted: function mounted() {
+    this.fetchSalesTaskCollec();
+  }
 });
 
 /***/ }),
@@ -3017,6 +3028,52 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -30107,6 +30164,120 @@ var render = function() {
                   _vm._v(_vm._s(_vm.trans.get("voyager.generic.empty")))
                 ])
           ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("h4", [
+            _vm._v(
+              _vm._s(_vm.trans.get("voyager.sales_orders.checkpoint_details"))
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group col-md-4" }, [
+            _c("label", { staticClass: "control-label" }, [
+              _vm._v(
+                "\n                    " +
+                  _vm._s(
+                    _vm.trans.get("voyager.sales_orders.cancellation_original")
+                  ) +
+                  "\n                "
+              )
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "toggle-button-wrapper" },
+              [
+                _c("toggle-button", {
+                  attrs: {
+                    value: false,
+                    labels: {
+                      checked: _vm.trans.get("voyager.generic.yes"),
+                      unchecked: _vm.trans.get("voyager.generic.no")
+                    }
+                  },
+                  model: {
+                    value: _vm.salesOrder.cancellationOriginal,
+                    callback: function($$v) {
+                      _vm.$set(_vm.salesOrder, "cancellationOriginal", $$v)
+                    },
+                    expression: "salesOrder.cancellationOriginal"
+                  }
+                })
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group col-md-4" }, [
+            _c("label", { staticClass: "control-label" }, [
+              _vm._v(
+                "\n                    " +
+                  _vm._s(
+                    _vm.trans.get("voyager.sales_orders.cancellation_stamped")
+                  ) +
+                  "\n                "
+              )
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "toggle-button-wrapper" },
+              [
+                _c("toggle-button", {
+                  attrs: {
+                    value: false,
+                    labels: {
+                      checked: _vm.trans.get("voyager.generic.yes"),
+                      unchecked: _vm.trans.get("voyager.generic.no")
+                    }
+                  },
+                  model: {
+                    value: _vm.salesOrder.cancellationStamped,
+                    callback: function($$v) {
+                      _vm.$set(_vm.salesOrder, "cancellationStamped", $$v)
+                    },
+                    expression: "salesOrder.cancellationStamped"
+                  }
+                })
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group col-md-4" }, [
+            _c("label", { staticClass: "control-label" }, [
+              _vm._v(
+                "\n                    " +
+                  _vm._s(_vm.trans.get("voyager.sales_orders.provision_done")) +
+                  "\n                "
+              )
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "toggle-button-wrapper" },
+              [
+                _c("toggle-button", {
+                  attrs: {
+                    value: false,
+                    labels: {
+                      checked: _vm.trans.get("voyager.generic.yes"),
+                      unchecked: _vm.trans.get("voyager.generic.no")
+                    }
+                  },
+                  model: {
+                    value: _vm.salesOrder.provisionDone,
+                    callback: function($$v) {
+                      _vm.$set(_vm.salesOrder, "provisionDone", $$v)
+                    },
+                    expression: "salesOrder.provisionDone"
+                  }
+                })
+              ],
+              1
+            )
+          ])
         ])
       ],
       1
@@ -51007,9 +51178,11 @@ var state = {
     contractStartKVG: null,
     insuranceTrackingID: null,
     insuranceSubmittedDate: null,
+    // checkpoint details
     provisionDone: null,
     cancellationOriginal: null,
     cancellationStamped: null,
+    // extras 
     tasksCollectionId: null,
     documents: [],
     comments: [],
@@ -51381,7 +51554,28 @@ var mutations = {
     state.salesOrder.documents = data.documents;
     state.salesOrder.people = data.people;
     state.salesOrder.comments = data.comments;
-    state.salesOrder.taskCollectionId = data.taskCollectionId;
+    state.salesOrder.taskCollectionId = data.taskCollectionId; // customer details
+
+    state.salesOrder.currentInsuranceId = data.current_insurance_id;
+    state.salesOrder.fullName = data.owner_full_name;
+    state.salesOrder.address = data.owner_address;
+    state.salesOrder.householdType = data.owner_household_type;
+    state.salesOrder.newBron = data.new_born;
+    state.salesOrder.moveToSwitzerland = data.move_to_switzerland; // sales details
+
+    state.salesOrder.salesLeadSource = data.sales_lead_source;
+    state.salesOrder.salesPersonId = data.sales_user_id;
+    state.salesOrder.signDate = data.contract_sign_date; // contract details
+
+    state.salesOrder.salesOrderStatus = data.sales_order_status;
+    state.salesOrder.newInsuranceId = data.new_insurance_id;
+    state.salesOrder.insuranceStatus = data.insuranceStatus; // Insurance details
+
+    state.salesOrder.contractDurationVVG = data.contract_duration_VVG;
+    state.salesOrder.contractDurationKVG = data.contract_duration_KVG;
+    state.salesOrder.contractStartVVG = data.contract_start_VVG;
+    state.salesOrder.contractStartKVG = data.contract_start_KVG;
+    state.salesOrder.insuranceTrackingID = data.insurance_tracking_id; // system details
   },
   setSalesOrderId: function setSalesOrderId(state, data) {
     state.salesOrder.id = data;
@@ -51425,13 +51619,57 @@ var state = {
 };
 var getters = {
   allPeople: function allPeople(state, getters, rootState) {
-    return state.people.concat(rootState.salesOrders.salesOrder.people);
+    return state.people;
   },
   isLoading: function isLoading(state) {
     return state.isLoading;
   }
 };
 var actions = {
+  fetchPeople: function () {
+    var _fetchPeople = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref) {
+      var commit, rootGetters, salesOrderId, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              commit = _ref.commit, rootGetters = _ref.rootGetters;
+              state.isLoading = true;
+              salesOrderId = rootGetters.salesOrder.id;
+              _context.prev = 3;
+              _context.next = 6;
+              return axios.get("/api/sales-orders/".concat(salesOrderId, "/sales-order-people/"));
+
+            case 6:
+              response = _context.sent;
+              state.isLoading = false;
+              commit('setPeople', response.data.people);
+              _context.next = 15;
+              break;
+
+            case 11:
+              _context.prev = 11;
+              _context.t0 = _context["catch"](3);
+              state.isLoading = false;
+              alert(_context.t0);
+
+            case 15:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[3, 11]]);
+    }));
+
+    function fetchPeople(_x) {
+      return _fetchPeople.apply(this, arguments);
+    }
+
+    return fetchPeople;
+  }(),
+
   /**
   * Add contract person to the
   * sales order
@@ -51441,36 +51679,45 @@ var actions = {
   addPerson: function () {
     var _addPerson = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref, person) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2, person) {
       var commit, response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
-          switch (_context.prev = _context.next) {
+          switch (_context2.prev = _context2.next) {
             case 0:
-              commit = _ref.commit;
+              commit = _ref2.commit;
               state.isLoading = true;
-              _context.next = 4;
+              _context2.prev = 2;
+              _context2.next = 5;
               return axios.post('/api/sales-order-people', person);
 
-            case 4:
-              response = _context.sent;
+            case 5:
+              response = _context2.sent;
               state.isLoading = false;
 
               if (response.data.person.id) {
                 person.id = response.data.person.id;
               }
 
+              console.log(person);
               commit("addPerson", person);
+              _context2.next = 15;
+              break;
 
-            case 8:
+            case 12:
+              _context2.prev = 12;
+              _context2.t0 = _context2["catch"](2);
+              alert(_context2.t0);
+
+            case 15:
             case "end":
-              return _context.stop();
+              return _context2.stop();
           }
         }
-      }, _callee);
+      }, _callee2, null, [[2, 12]]);
     }));
 
-    function addPerson(_x, _x2) {
+    function addPerson(_x2, _x3) {
       return _addPerson.apply(this, arguments);
     }
 
@@ -51485,15 +51732,15 @@ var actions = {
   deletePerson: function () {
     var _deletePerson = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2, id) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3, id) {
       var commit;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
         while (1) {
-          switch (_context2.prev = _context2.next) {
+          switch (_context3.prev = _context3.next) {
             case 0:
-              commit = _ref2.commit;
+              commit = _ref3.commit;
               state.isLoading = true;
-              _context2.next = 4;
+              _context3.next = 4;
               return axios["delete"]("/api/sales-order-people/".concat(id));
 
             case 4:
@@ -51502,13 +51749,13 @@ var actions = {
 
             case 6:
             case "end":
-              return _context2.stop();
+              return _context3.stop();
           }
         }
-      }, _callee2);
+      }, _callee3);
     }));
 
-    function deletePerson(_x3, _x4) {
+    function deletePerson(_x4, _x5) {
       return _deletePerson.apply(this, arguments);
     }
 
@@ -51520,7 +51767,7 @@ var mutations = {
     state.people = people;
   },
   addPerson: function addPerson(state, person) {
-    state.people.unshift(person);
+    state.people.push(person);
   },
   deletePerson: function deletePerson(state, id) {
     state.people = state.people.filter(function (person) {

@@ -51,7 +51,12 @@ Route::group([
         'comments' => 'SalesOrders\CommentsController'
     ]);
 
+    // tasks collections in sales orders
     Route::put('/sales-orders/{salesOrderId}/tasks-collections/{tasksCollecId?}', 'SalesOrders\TasksCollectionsController@update');
+    Route::get('/sales-orders/{salesOrderId}/tasks-collections', 'SalesOrders\TasksCollectionsController@index');
+    
+    // people in sales orders
+    Route::get('/sales-orders/{salesOrderId}/sales-order-people/', 'SalesOrders\SalesOrderPeopleController@index');
 });
 
 if (config('laravel-localization.routes.enable')) {

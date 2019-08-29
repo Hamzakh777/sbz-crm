@@ -74,13 +74,13 @@ class SalesOrdersController extends Controller
             $salesOrder->contract_sign_date = Carbon::parse($request->input('signDate'))->addHour()->format('Y-m-d');
         }
 
-        // tasks
-        // we only need the task collectoin id
-        $taskCollectionId = $request->input('taskCollectionId');
+        // // tasks
+        // // we only need the task collectoin id
+        // $taskCollectionId = $request->input('taskCollectionId');
 
-        if (isset($taskCollectionId)) {
-            $salesOrder->tasksCollections()->sync([$taskCollectionId]);
-        }
+        // if (isset($taskCollectionId)) {
+        //     $salesOrder->tasksCollections()->sync([$taskCollectionId]);
+        // }
 
         $salesOrder->save();
 
@@ -111,7 +111,8 @@ class SalesOrdersController extends Controller
                 'birthday' => $item->birthday,
                 'policeNumber' => $item->policeNumber,
                 'salesOrderId' => $item->salesOrderId,
-                'products' => $item->products
+                'products' => $item->products,
+                'id' => $item->id
             ];
         });
 
@@ -171,7 +172,6 @@ class SalesOrdersController extends Controller
         $salesOrder->contract_duration_VVG = $request->input('contractDurationVVG');
         $salesOrder->contract_duration_KVG = $request->input('contractDurationKVG');
         $salesOrder->insurance_tracking_id = $request->input('insuranceTrackingID');
-        $salesOrder->created_by_id = auth()->user()->id;
 
         if ($request->input('contractStartKVG')) {
             $salesOrder->contract_start_KVG = Carbon::parse($request->input('contractStartKVG'))->addHour()->format('Y-m-d');
@@ -188,7 +188,7 @@ class SalesOrdersController extends Controller
 
         // tasks
         // we only need the task collectoin id
-        $tasksCollectionId = $request->input('tasksCollectionId');
+        // $tasksCollectionId = $request->input('tasksCollectionId');
 
 
 

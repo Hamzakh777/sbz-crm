@@ -13,9 +13,21 @@ class TasksCollectionsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($salesOrderId)
     {
-        //
+        $salesOrders = SalesOrder::findOrFail($salesOrderId);
+
+        $collec = $salesOrders->tasksCollections->first();
+
+        if(isset($collec)) {
+            $tasksCollectionId = $collec->id;
+        } else {
+            $tasksCollectionId = null;
+        }
+
+        return response()->json([
+            'tasksCollectionId' => $tasksCollectionId
+        ]);
     }
 
     /**

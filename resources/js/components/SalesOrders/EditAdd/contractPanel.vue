@@ -353,6 +353,52 @@
                     <b v-else>{{ trans.get('voyager.generic.empty') }}</b>
                 </div>
             </div>  
+
+            <!-- checkpoint details -->
+            <div class="row">   
+                <h4>{{ trans.get('voyager.sales_orders.checkpoint_details') }}</h4>
+                <!-- Insurance submitted date  -->
+                <div class="form-group col-md-4">
+                    <label class="control-label">
+                        {{ trans.get('voyager.sales_orders.cancellation_original') }}
+                    </label>
+                    <div class="toggle-button-wrapper">
+                        <toggle-button
+                            v-model="salesOrder.cancellationOriginal"
+                            :value="false"
+                            :labels="{checked: trans.get('voyager.generic.yes'), unchecked: trans.get('voyager.generic.no')}"
+                        />
+                    </div>
+                </div>
+                
+                <!-- cancellation stamped -->
+                <div class="form-group col-md-4">
+                    <label class="control-label">
+                        {{ trans.get('voyager.sales_orders.cancellation_stamped') }}
+                    </label>
+                    <div class="toggle-button-wrapper">
+                        <toggle-button
+                            v-model="salesOrder.cancellationStamped"
+                            :value="false"
+                            :labels="{checked: trans.get('voyager.generic.yes'), unchecked: trans.get('voyager.generic.no')}"
+                        />
+                    </div>
+                </div>
+
+                <!-- provision done -->
+                <div class="form-group col-md-4">
+                    <label class="control-label">
+                        {{ trans.get('voyager.sales_orders.provision_done') }}
+                    </label>
+                    <div class="toggle-button-wrapper">
+                        <toggle-button
+                            v-model="salesOrder.provisionDone"
+                            :value="false"
+                            :labels="{checked: trans.get('voyager.generic.yes'), unchecked: trans.get('voyager.generic.no')}"
+                        />
+                    </div>
+                </div>
+            </div>  
         </div>
         <div class="panel-footer">
             <div class="row">
