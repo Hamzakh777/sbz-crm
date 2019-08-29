@@ -150,6 +150,7 @@ import singleComment from './SingleComment'
     border-radius: 30px;
     transition: color 0.25s ease-in-out, background-color 0.25s ease-in-out, border-color 0.25s ease-in-out, box-shadow 0.25s ease-in-out, right 0.25s ease-in-out;
     outline: 0;
+    top: 10px;
 }
 
 .reply .reply--button:hover {

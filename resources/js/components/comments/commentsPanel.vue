@@ -53,14 +53,15 @@ export default {
 
   methods: {
     submitComment(reply) {
-      axios
-        .post('/api/comments/', {
-          body: reply,
-          salesOrderId: this.salesOrder.id
-        })
-        .then(response => {
-          this.comments.push(response.data.comment);
-        });
+      console.log(reply);
+      // axios
+      //   .post('/api/comments/', {
+      //     body: reply,
+      //     salesOrderId: this.salesOrder.id
+      //   })
+      //   .then(response => {
+      //     this.comments.push(response.data.comment);
+      //   });
 
       // const response = await axios.post('/api/comments/', {
       //   body: reply,
