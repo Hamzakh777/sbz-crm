@@ -180,7 +180,7 @@ const actions = {
         }
     },
 
-    async updateSalesOrder({state }) {
+    async updateSalesOrder({state}) {
         this.isLoading = true;
         try {
             await axios.put(`/api/sales-orders/${state.salesOrder.id}`, state.salesOrder);

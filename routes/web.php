@@ -51,7 +51,7 @@ Route::group([
         'comments' => 'SalesOrders\CommentsController'
     ]);
 
-    Route::put('/sales-orders/{salesOrder}/tasks-collections/{tasksCollection}', 'SalesOrders\TasksCollectionsController@update');
+    Route::put('/sales-orders/{salesOrderId}/tasks-collections/{tasksCollecId?}', 'SalesOrders\TasksCollectionsController@update');
 });
 
 if (config('laravel-localization.routes.enable')) {

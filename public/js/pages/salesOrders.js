@@ -2818,11 +2818,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _baseComponents_BasePanel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../baseComponents/BasePanel */ "./resources/js/components/baseComponents/BasePanel.vue");
-/* harmony import */ var _tasks_TasksCollection__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../tasks/TasksCollection */ "./resources/js/components/tasks/TasksCollection.vue");
-/* harmony import */ var vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-js-toggle-button */ "./node_modules/vue-js-toggle-button/dist/index.js");
-/* harmony import */ var vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _baseComponents_BasePanel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../baseComponents/BasePanel */ "./resources/js/components/baseComponents/BasePanel.vue");
+/* harmony import */ var _tasks_TasksCollection__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../tasks/TasksCollection */ "./resources/js/components/tasks/TasksCollection.vue");
+/* harmony import */ var vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-js-toggle-button */ "./node_modules/vue-js-toggle-button/dist/index.js");
+/* harmony import */ var vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_4__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -2874,14 +2882,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'SalesOrdresTasks',
   components: {
-    BasePanel: _baseComponents_BasePanel__WEBPACK_IMPORTED_MODULE_1__["default"],
-    TasksCollection: _tasks_TasksCollection__WEBPACK_IMPORTED_MODULE_2__["default"],
-    ToggleButton: vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_3__["ToggleButton"]
+    BasePanel: _baseComponents_BasePanel__WEBPACK_IMPORTED_MODULE_2__["default"],
+    TasksCollection: _tasks_TasksCollection__WEBPACK_IMPORTED_MODULE_3__["default"],
+    ToggleButton: vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_4__["ToggleButton"]
   },
   watch: {
     isExistingTasksCollection: function isExistingTasksCollection(newVal, oldVal) {
       this.id = null;
       this.tasksCollection.name = null;
+      this.updSalesTasksCollec(this.id);
 
       if (this.id !== null && this.isExistingTasksCollection === true) {
         // selected an existing tasks collection
@@ -2897,6 +2906,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     id: function id(newVal, oldVal) {
       this.setTasksCollectionId(newVal);
+      this.updSalesTasksCollec(newVal);
 
       if (this.id !== null && this.isExistingTasksCollection === true) {
         // selected an existing tasks collection
@@ -2909,9 +2919,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         // create a new task
         this.showTasks = true;
       }
+    },
+    'tasksCollection.id': function tasksCollectionId(newVal, oldVal) {
+      if (newVal !== null) {
+        this.id = newVal;
+        this.updSalesTasksCollec(newVal);
+      }
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['salesOrder', 'allTasksCollections']), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('tasks', ['tasksCollection'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['salesOrder', 'allTasksCollections']), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('tasks', ['tasksCollection'])),
   data: function data() {
     return {
       isExistingTasksCollection: true,
@@ -2919,7 +2935,61 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       id: null
     };
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('tasks', ['fetchTasks']), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['updateSalesOrder']), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])('tasks', ['setTasksCollectionId']))
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('tasks', ['fetchTasks']), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['updateSalesOrder']), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapMutations"])('tasks', ['setTasksCollectionId']), {
+    updSalesTasksCollec: function () {
+      var _updSalesTasksCollec = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(id) {
+        var url, _url;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.prev = 0;
+
+                if (!(id === null)) {
+                  _context.next = 7;
+                  break;
+                }
+
+                url = "/api/sales-orders/".concat(this.salesOrder.id, "/tasks-collections");
+                _context.next = 5;
+                return axios.put(url);
+
+              case 5:
+                _context.next = 10;
+                break;
+
+              case 7:
+                _url = "/api/sales-orders/".concat(this.salesOrder.id, "/tasks-collections/").concat(id);
+                _context.next = 10;
+                return axios.put(_url);
+
+              case 10:
+                _context.next = 15;
+                break;
+
+              case 12:
+                _context.prev = 12;
+                _context.t0 = _context["catch"](0);
+                alert(_context.t0);
+
+              case 15:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[0, 12]]);
+      }));
+
+      function updSalesTasksCollec(_x) {
+        return _updSalesTasksCollec.apply(this, arguments);
+      }
+
+      return updSalesTasksCollec;
+    }()
+  })
 });
 
 /***/ }),

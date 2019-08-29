@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\SalesOrders;
 
+use App\SalesOrder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -67,9 +68,19 @@ class TasksCollectionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $salesOrderId, $tasksCollecId)
+    public function update(Request $request, $salesOrderId, $tasksCollecId = null)
     {   
-        
+        $salesOrder = SalesOrder::findOrFail($salesOrderId);
+
+        if (isset($tasksCollecId)) {
+            $salesOrder->tasksCollections()->sync([$tasksCollecId]);
+        } else {
+            $salesOrder->tasksCollections()->sync([]);
+        }
+
+        return response()->json([
+            'saleOrderTasksColl' => $salesOrder->tasksCollections()
+        ]);
     }
 
     /**

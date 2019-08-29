@@ -56,6 +56,7 @@
                 this.id = null;
                 this.tasksCollection.name = null;
 
+                this.updSalesTasksCollec(this.id);
                  if(this.id !== null && this.isExistingTasksCollection === true) { // selected an existing tasks collection
                     this.showTasks = true;
                     this.fetchTasks();
@@ -68,7 +69,7 @@
 
             id(newVal, oldVal) {
                 this.setTasksCollectionId(newVal);
-
+                this.updSalesTasksCollec(newVal);
                 if(this.id !== null && this.isExistingTasksCollection === true) { // selected an existing tasks collection
                     this.showTasks = true;
                     this.fetchTasks();
@@ -77,6 +78,14 @@
                 } else { // create a new task
                     this.showTasks = true;
                 }
+            },
+
+            'tasksCollection.id': function(newVal, oldVal) {
+                if(newVal !== null) {
+                    this.id = newVal;
+                    this.updSalesTasksCollec(newVal);
+                }
+
             }
         },
 
@@ -97,7 +106,21 @@
         methods: {
             ...mapActions('tasks', ['fetchTasks']),
             ...mapActions(['updateSalesOrder']),
-            ...mapMutations('tasks',['setTasksCollectionId'])
+            ...mapMutations('tasks',['setTasksCollectionId']),
+
+            async updSalesTasksCollec(id) {
+                try {
+                    if(id === null) {
+                        const url = `/api/sales-orders/${this.salesOrder.id}/tasks-collections`;
+                        await axios.put(url);
+                    } else {
+                        const url = `/api/sales-orders/${this.salesOrder.id}/tasks-collections/${id}`;
+                        await axios.put(url);
+                    }
+                } catch(e) {
+                    alert(e);
+                }
+            }
         }
     }
 </script>
