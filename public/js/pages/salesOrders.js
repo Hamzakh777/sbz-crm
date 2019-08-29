@@ -4059,6 +4059,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'comments',
@@ -4163,17 +4165,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
+                console.log(reply);
+                _context.next = 3;
                 return axios.post('/api/comments/', {
                   body: reply,
                   salesOrderId: this.salesOrder.id
                 });
 
-              case 2:
+              case 3:
                 response = _context.sent;
                 this.comments.push(response.data.comment);
 
-              case 4:
+              case 5:
               case "end":
                 return _context.stop();
             }
@@ -30735,58 +30738,60 @@ var render = function() {
     _c("hr"),
     _vm._v(" "),
     _c("div", { staticClass: "reply" }, [
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model.trim",
-            value: _vm.reply,
-            expression: "reply",
-            modifiers: { trim: true }
-          }
-        ],
-        staticClass: "reply--text",
-        attrs: {
-          type: "text",
-          placeholder: "Kommentar erfassen...",
-          maxlength: "250"
-        },
-        domProps: { value: _vm.reply },
-        on: {
-          keyup: function($event) {
-            if (
-              !$event.type.indexOf("key") &&
-              _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-            ) {
-              return null
+      _c("form", { attrs: { action: "" } }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model.trim",
+              value: _vm.reply,
+              expression: "reply",
+              modifiers: { trim: true }
             }
-            return _vm.submitComment($event)
+          ],
+          staticClass: "reply--text",
+          attrs: {
+            type: "text",
+            placeholder: "Kommentar erfassen...",
+            maxlength: "250"
           },
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.reply = $event.target.value.trim()
-          },
-          blur: function($event) {
-            return _vm.$forceUpdate()
-          }
-        }
-      }),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "reply--button",
+          domProps: { value: _vm.reply },
           on: {
-            click: function($event) {
-              $event.preventDefault()
+            keyup: function($event) {
+              if (
+                !$event.type.indexOf("key") &&
+                _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+              ) {
+                return null
+              }
               return _vm.submitComment($event)
+            },
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.reply = $event.target.value.trim()
+            },
+            blur: function($event) {
+              return _vm.$forceUpdate()
             }
           }
-        },
-        [_c("i", { staticClass: "voyager-paper-plane" }), _vm._v(" Send")]
-      )
+        }),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "reply--button",
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                return _vm.submitComment($event)
+              }
+            }
+          },
+          [_c("i", { staticClass: "voyager-paper-plane" }), _vm._v(" Send")]
+        )
+      ])
     ])
   ])
 }

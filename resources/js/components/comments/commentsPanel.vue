@@ -53,15 +53,7 @@ export default {
 
   methods: {
     async submitComment(reply) {
-      // axios
-      //   .post("/comments/" + this.appointmentId, {
-      //     body: reply,
-      //     appointmentId: this.appointmentId
-      //   })
-      //   .then(response => {
-      //     this.comments.push(response.data.comment);
-      //   });
-
+      console.log(reply);
       const response = await axios.post('/api/comments/', {
         body: reply,
         salesOrderId: this.salesOrder.id

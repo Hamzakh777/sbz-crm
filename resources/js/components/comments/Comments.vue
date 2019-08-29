@@ -12,15 +12,17 @@
             <!-- <div class="avatar">
                 <img :src="'https://sbz-appointment.fra1.digitaloceanspaces.com/'+current_user.avatar" alt="">
             </div> -->
-            <input 
-                type="text" 
-                v-model.trim="reply" 
-                class="reply--text" 
-                placeholder="Kommentar erfassen..."
-                maxlength="250"
-                @keyup.enter="submitComment"
-            />
-            <button class="reply--button" @click.prevent="submitComment"><i class="voyager-paper-plane"></i> Send</button>
+            <form action="">
+                <input 
+                    type="text" 
+                    v-model.trim="reply" 
+                    class="reply--text" 
+                    placeholder="Kommentar erfassen..."
+                    maxlength="250"
+                    @keyup.enter="submitComment"
+                />
+                <button class="reply--button" @click.prevent="submitComment"><i class="voyager-paper-plane"></i> Send</button>     
+            </form>
         </div>
     </div>
 </template>
