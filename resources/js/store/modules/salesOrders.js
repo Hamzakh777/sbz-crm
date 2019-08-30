@@ -2,7 +2,7 @@ import salesOrdersPeople from './salesOrdersPeople';
 
 const state = {
     filterData: {},
-    isLoading: false,
+    Loading: false,
     salesOrder: {
         id: (window.salesOrderId === null) ? null : window.salesOrderId,
         currentInsuranceId: null,
@@ -11,23 +11,23 @@ const state = {
         address: null,
         householdType: null,
         numberOfFamilyMembers: null,
-        newBorn: null,
-        moveToSwitzerland: null,
+        newBorn: false,
+        moveToSwitzerland: false,
         salesLeadSource: null,
         salesPersonId: null,
         signDate: null,
         salesOrderStatus: null,
         insuranceStatus: null,
-        contractDurationVVG: 60,
-        contractDurationKVG: 60,
+        contractDurationVVG: '60',
+        contractDurationKVG: '60',
         contractStartVVG: null,
         contractStartKVG: null,
         insuranceTrackingID: null,
         insuranceSubmittedDate: null,
         // checkpoint details
-        provisionDone: null,
-        cancellationOriginal: null,
-        cancellationStamped: null,
+        provisionDone: false,
+        cancellationOriginal: false,
+        cancellationStamped: false,
         // extras 
         tasksCollectionId: null,
         documents: [],
@@ -146,8 +146,8 @@ const getters = {
         return state.tasksCollections;
     },
 
-    isLoading(state) {
-        return state.isLoading;
+    Loading(state) {
+        return state.Loading;
     }
 };
 
@@ -157,39 +157,39 @@ const actions = {
      * @param {*} param0
      */
     async fetchSalesOrder({ state, commit }) {
-        this.isLoading = true;
+        state.Loading = true;
         try {
             const response = await axios.get(`/api/sales-orders/${state.salesOrder.id}`);
-
-            this.isLoading = false;
+            
+            state.Loading = false;
             commit("setSalesOrder", response.data.salesOrder);
         } catch (error) {
-            this.isLoading = false;
+            state.Loading = false;
             console.error(error);
         }
     },
 
     async storeSalesOrder({state, commit}) {
-        this.isLoading = true;
+        state.Loading = true;
         try { 
             const response = await axios.post('/api/sales-orders', state.salesOrder);
             
-            this.isLoading = false;
+            state.Loading = false;
             commit('setSalesOrderId', response.data.id);
         } catch(error) {
-            this.isLoading = false;
+            this.Loading = false;
             console.error(error);
         }
     },
 
     async updateSalesOrder({state}) {
-        this.isLoading = true;
+        state.Loading = true;
         try {
             await axios.put(`/api/sales-orders/${state.salesOrder.id}`, state.salesOrder);
 
-            this.isLoading = false;
+            state.Loading = false;
         } catch (error) {
-            this.isLoading = false;
+            state.Loading = false;
             console.error(error);
         }
     },
@@ -262,8 +262,8 @@ const mutations = {
         state.salesOrder.fullName = data.owner_full_name;
         state.salesOrder.address = data.owner_address;
         state.salesOrder.householdType = data.owner_household_type;
-        state.salesOrder.newBron = data.new_born;
-        state.salesOrder.moveToSwitzerland = data.move_to_switzerland;
+        state.salesOrder.newBorn = data.new_born === 1 ? true : false;
+        state.salesOrder.moveToSwitzerland = data.move_to_switzerland === 1 ? true : false;
         
         // sales details
         state.salesOrder.salesLeadSource = data.sales_lead_source
@@ -273,7 +273,7 @@ const mutations = {
         // contract details
         state.salesOrder.salesOrderStatus = data.sales_order_status;
         state.salesOrder.newInsuranceId = data.new_insurance_id;
-        state.salesOrder.insuranceStatus = data.insuranceStatus;
+        state.salesOrder.insuranceStatus = data.insurance_status;
         
         // Insurance details
         state.salesOrder.contractDurationVVG = data.contract_duration_VVG;
@@ -283,7 +283,12 @@ const mutations = {
         state.salesOrder.insuranceTrackingID = data.insurance_tracking_id;
 
         // system details
-        
+        state.salesOrder.insuranceSubmittedDate = data.insurance_submitted_date;
+
+        // checkpoint details
+        state.salesOrder.cancellationOriginal = data.cancellation_orignal === 1 ? true : false;
+        state.salesOrder.cancellationStamped = data.cancellation_stampled === 1 ? true : false;
+        state.salesOrder.provisionDone = data.provision_done === 1 ? true : false;
 
     },
     setSalesOrderId(state,data){

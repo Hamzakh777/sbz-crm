@@ -1972,6 +1972,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (this.task.completed === 0) {
         this.task.completed = 1;
         this.updateTask(this.task);
+      } else {
+        this.task.completed = 0;
+        this.updateTask(this.task);
       }
     }
   })
@@ -41010,7 +41013,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var state = {
   filterData: {},
-  isLoading: false,
+  Loading: false,
   salesOrder: {
     id: window.salesOrderId === null ? null : window.salesOrderId,
     currentInsuranceId: null,
@@ -41019,23 +41022,23 @@ var state = {
     address: null,
     householdType: null,
     numberOfFamilyMembers: null,
-    newBorn: null,
-    moveToSwitzerland: null,
+    newBorn: false,
+    moveToSwitzerland: false,
     salesLeadSource: null,
     salesPersonId: null,
     signDate: null,
     salesOrderStatus: null,
     insuranceStatus: null,
-    contractDurationVVG: 60,
-    contractDurationKVG: 60,
+    contractDurationVVG: '60',
+    contractDurationKVG: '60',
     contractStartVVG: null,
     contractStartKVG: null,
     insuranceTrackingID: null,
     insuranceSubmittedDate: null,
     // checkpoint details
-    provisionDone: null,
-    cancellationOriginal: null,
-    cancellationStamped: null,
+    provisionDone: false,
+    cancellationOriginal: false,
+    cancellationStamped: false,
     // extras 
     tasksCollectionId: null,
     documents: [],
@@ -41154,8 +41157,8 @@ var getters = {
   allTasksCollections: function allTasksCollections(state) {
     return state.tasksCollections;
   },
-  isLoading: function isLoading(state) {
-    return state.isLoading;
+  Loading: function Loading(state) {
+    return state.Loading;
   }
 };
 var actions = {
@@ -41173,14 +41176,14 @@ var actions = {
           switch (_context.prev = _context.next) {
             case 0:
               state = _ref.state, commit = _ref.commit;
-              this.isLoading = true;
+              state.Loading = true;
               _context.prev = 2;
               _context.next = 5;
               return axios.get("/api/sales-orders/".concat(state.salesOrder.id));
 
             case 5:
               response = _context.sent;
-              this.isLoading = false;
+              state.Loading = false;
               commit("setSalesOrder", response.data.salesOrder);
               _context.next = 14;
               break;
@@ -41188,7 +41191,7 @@ var actions = {
             case 10:
               _context.prev = 10;
               _context.t0 = _context["catch"](2);
-              this.isLoading = false;
+              state.Loading = false;
               console.error(_context.t0);
 
             case 14:
@@ -41196,7 +41199,7 @@ var actions = {
               return _context.stop();
           }
         }
-      }, _callee, this, [[2, 10]]);
+      }, _callee, null, [[2, 10]]);
     }));
 
     function fetchSalesOrder(_x) {
@@ -41215,14 +41218,14 @@ var actions = {
           switch (_context2.prev = _context2.next) {
             case 0:
               state = _ref2.state, commit = _ref2.commit;
-              this.isLoading = true;
+              state.Loading = true;
               _context2.prev = 2;
               _context2.next = 5;
               return axios.post('/api/sales-orders', state.salesOrder);
 
             case 5:
               response = _context2.sent;
-              this.isLoading = false;
+              state.Loading = false;
               commit('setSalesOrderId', response.data.id);
               _context2.next = 14;
               break;
@@ -41230,7 +41233,7 @@ var actions = {
             case 10:
               _context2.prev = 10;
               _context2.t0 = _context2["catch"](2);
-              this.isLoading = false;
+              this.Loading = false;
               console.error(_context2.t0);
 
             case 14:
@@ -41257,20 +41260,20 @@ var actions = {
           switch (_context3.prev = _context3.next) {
             case 0:
               state = _ref3.state;
-              this.isLoading = true;
+              state.Loading = true;
               _context3.prev = 2;
               _context3.next = 5;
               return axios.put("/api/sales-orders/".concat(state.salesOrder.id), state.salesOrder);
 
             case 5:
-              this.isLoading = false;
+              state.Loading = false;
               _context3.next = 12;
               break;
 
             case 8:
               _context3.prev = 8;
               _context3.t0 = _context3["catch"](2);
-              this.isLoading = false;
+              state.Loading = false;
               console.error(_context3.t0);
 
             case 12:
@@ -41278,7 +41281,7 @@ var actions = {
               return _context3.stop();
           }
         }
-      }, _callee3, this, [[2, 8]]);
+      }, _callee3, null, [[2, 8]]);
     }));
 
     function updateSalesOrder(_x3) {
@@ -41414,8 +41417,8 @@ var mutations = {
     state.salesOrder.fullName = data.owner_full_name;
     state.salesOrder.address = data.owner_address;
     state.salesOrder.householdType = data.owner_household_type;
-    state.salesOrder.newBron = data.new_born;
-    state.salesOrder.moveToSwitzerland = data.move_to_switzerland; // sales details
+    state.salesOrder.newBorn = data.new_born === 1 ? true : false;
+    state.salesOrder.moveToSwitzerland = data.move_to_switzerland === 1 ? true : false; // sales details
 
     state.salesOrder.salesLeadSource = data.sales_lead_source;
     state.salesOrder.salesPersonId = data.sales_user_id;
@@ -41423,13 +41426,19 @@ var mutations = {
 
     state.salesOrder.salesOrderStatus = data.sales_order_status;
     state.salesOrder.newInsuranceId = data.new_insurance_id;
-    state.salesOrder.insuranceStatus = data.insuranceStatus; // Insurance details
+    state.salesOrder.insuranceStatus = data.insurance_status; // Insurance details
 
     state.salesOrder.contractDurationVVG = data.contract_duration_VVG;
     state.salesOrder.contractDurationKVG = data.contract_duration_KVG;
     state.salesOrder.contractStartVVG = data.contract_start_VVG;
     state.salesOrder.contractStartKVG = data.contract_start_KVG;
     state.salesOrder.insuranceTrackingID = data.insurance_tracking_id; // system details
+
+    state.salesOrder.insuranceSubmittedDate = data.insurance_submitted_date; // checkpoint details
+
+    state.salesOrder.cancellationOriginal = data.cancellation_orignal === 1 ? true : false;
+    state.salesOrder.cancellationStamped = data.cancellation_stampled === 1 ? true : false;
+    state.salesOrder.provisionDone = data.provision_done === 1 ? true : false;
   },
   setSalesOrderId: function setSalesOrderId(state, data) {
     state.salesOrder.id = data;

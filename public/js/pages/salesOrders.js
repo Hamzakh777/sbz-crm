@@ -3438,6 +3438,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3461,7 +3467,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_5__["mapGetters"])(['DateFormat', 'allInsurances', 'allSalesAgents', 'salesOrder', 'isLoading']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_5__["mapGetters"])(['DateFormat', 'allInsurances', 'allSalesAgents', 'salesOrder', 'Loading']), {
     isHouseholdTypeFamily: function isHouseholdTypeFamily() {
       if (this.salesOrder.householdType === 'family') {
         return true;
@@ -3470,60 +3476,98 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     }
   }),
-  validations: {
-    salesOrder: {
-      currentInsuranceId: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
-      },
-      newInsuranceId: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
-      },
-      fullName: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
-      },
-      address: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
-      },
-      householdType: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
-      },
-      numberOfFamilyMembers: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
-      },
-      moveToSwitzerland: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
-      },
-      salesPersonId: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
-      },
-      signDate: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
-      },
-      salesOrderStatus: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
-      },
-      insuranceStatus: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
-      },
-      contractDurationVVG: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
-      },
-      contractDurationKVG: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
-      },
-      contractStartVVG: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
-      },
-      contractStartKVG: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
-      }
-    }
-  },
-  created: function created() {
-    // we want to show and hide the loader on every call 
-    if (this.salesOrder.id !== null) {
-      // fetch the sale order
-      this.fetchSalesOrder();
+  validations: function validations() {
+    if (this.salesOrder.householdType === 'single') {
+      return {
+        salesOrder: {
+          currentInsuranceId: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+          },
+          newInsuranceId: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+          },
+          fullName: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+          },
+          address: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+          },
+          householdType: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+          },
+          salesPersonId: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+          },
+          signDate: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+          },
+          salesOrderStatus: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+          },
+          insuranceStatus: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+          },
+          contractDurationVVG: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+          },
+          contractDurationKVG: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+          },
+          contractStartVVG: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+          },
+          contractStartKVG: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+          }
+        }
+      };
+    } else {
+      return {
+        salesOrder: {
+          currentInsuranceId: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+          },
+          newInsuranceId: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+          },
+          fullName: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+          },
+          address: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+          },
+          householdType: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+          },
+          numberOfFamilyMembers: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+          },
+          salesPersonId: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+          },
+          signDate: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+          },
+          salesOrderStatus: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+          },
+          insuranceStatus: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+          },
+          contractDurationVVG: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+          },
+          contractDurationKVG: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+          },
+          contractStartVVG: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+          },
+          contractStartKVG: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+          }
+        }
+      };
     }
   },
   mounted: function mounted() {
@@ -3531,10 +3575,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var date = new Date(nextYear, 0, 1);
     this.salesOrder.contractStartKVG = date;
     this.salesOrder.contractStartVVG = date;
+
+    if (this.salesOrder.id !== null) {
+      // fetch the sale order
+      this.fetchSalesOrder();
+    }
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_5__["mapActions"])(['storeSalesOrder', 'fetchSalesOrder', 'updateSalesOrder']), {
     submit: function submit() {
       this.$v.$touch();
+      console.log('clicked');
+      console.log(this.$v.$salesOrder);
 
       if (!this.$v.$invalid) {
         // update
@@ -4467,6 +4518,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     completed: function completed() {
       if (this.task.completed === 0) {
         this.task.completed = 1;
+        this.updateTask(this.task);
+      } else {
+        this.task.completed = 0;
         this.updateTask(this.task);
       }
     }
@@ -29110,7 +29164,9 @@ var render = function() {
       "div",
       { staticClass: "panel-body mt-2" },
       [
-        _vm.isLoading ? _c("baseLoader") : _vm._e(),
+        _c("h1", [_vm._v(_vm._s(_vm.Loading))]),
+        _vm._v(" "),
+        _vm.Loading ? _c("baseLoader") : _vm._e(),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
           _c("h4", [
@@ -29420,7 +29476,8 @@ var render = function() {
               [
                 _c("toggle-button", {
                   attrs: {
-                    value: false,
+                    value: _vm.salesOrder.newBorn,
+                    sync: true,
                     labels: {
                       checked: _vm.trans.get("voyager.generic.yes"),
                       unchecked: _vm.trans.get("voyager.generic.no")
@@ -29454,7 +29511,8 @@ var render = function() {
               [
                 _c("toggle-button", {
                   attrs: {
-                    value: false,
+                    value: _vm.salesOrder.moveToSwitzerland,
+                    sync: true,
                     labels: {
                       checked: _vm.trans.get("voyager.generic.yes"),
                       unchecked: _vm.trans.get("voyager.generic.no")
@@ -29842,7 +29900,7 @@ var render = function() {
                 }
               },
               [
-                _c("option", { attrs: { value: "" } }, [
+                _c("option", { attrs: { value: "none" } }, [
                   _vm._v(_vm._s(_vm.trans.get("voyager.sales_orders.none")))
                 ]),
                 _vm._v(" "),
@@ -29933,17 +29991,17 @@ var render = function() {
                 }
               },
               [
-                _c("option", { attrs: { value: "12" } }, [_vm._v("12")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "24" } }, [_vm._v("24")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "36" } }, [_vm._v("36")]),
+                _c("option", { attrs: { value: "60", selected: "selected" } }, [
+                  _vm._v("60")
+                ]),
                 _vm._v(" "),
                 _c("option", { attrs: { value: "48" } }, [_vm._v("48")]),
                 _vm._v(" "),
-                _c("option", { attrs: { value: "60", selected: "" } }, [
-                  _vm._v("60")
-                ])
+                _c("option", { attrs: { value: "36" } }, [_vm._v("36")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "24" } }, [_vm._v("24")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "12" } }, [_vm._v("12")])
               ]
             ),
             _vm._v(" "),
@@ -30006,17 +30064,17 @@ var render = function() {
                 }
               },
               [
-                _c("option", { attrs: { value: "12" } }, [_vm._v("12")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "24" } }, [_vm._v("24")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "36" } }, [_vm._v("36")]),
+                _c("option", { attrs: { value: "60", selected: "selected" } }, [
+                  _vm._v("60")
+                ]),
                 _vm._v(" "),
                 _c("option", { attrs: { value: "48" } }, [_vm._v("48")]),
                 _vm._v(" "),
-                _c("option", { attrs: { value: "60", selected: "" } }, [
-                  _vm._v("60")
-                ])
+                _c("option", { attrs: { value: "36" } }, [_vm._v("36")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "24" } }, [_vm._v("24")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "12" } }, [_vm._v("12")])
               ]
             ),
             _vm._v(" "),
@@ -30226,7 +30284,8 @@ var render = function() {
               [
                 _c("toggle-button", {
                   attrs: {
-                    value: false,
+                    sync: true,
+                    value: _vm.salesOrder.cancellationOriginal,
                     labels: {
                       checked: _vm.trans.get("voyager.generic.yes"),
                       unchecked: _vm.trans.get("voyager.generic.no")
@@ -30262,7 +30321,8 @@ var render = function() {
               [
                 _c("toggle-button", {
                   attrs: {
-                    value: false,
+                    sync: true,
+                    value: _vm.salesOrder.cancellationStamped,
                     labels: {
                       checked: _vm.trans.get("voyager.generic.yes"),
                       unchecked: _vm.trans.get("voyager.generic.no")
@@ -30296,7 +30356,8 @@ var render = function() {
               [
                 _c("toggle-button", {
                   attrs: {
-                    value: false,
+                    sync: true,
+                    value: _vm.salesOrder.provisionDone,
                     labels: {
                       checked: _vm.trans.get("voyager.generic.yes"),
                       unchecked: _vm.trans.get("voyager.generic.no")
@@ -51192,7 +51253,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var state = {
   filterData: {},
-  isLoading: false,
+  Loading: false,
   salesOrder: {
     id: window.salesOrderId === null ? null : window.salesOrderId,
     currentInsuranceId: null,
@@ -51201,23 +51262,23 @@ var state = {
     address: null,
     householdType: null,
     numberOfFamilyMembers: null,
-    newBorn: null,
-    moveToSwitzerland: null,
+    newBorn: false,
+    moveToSwitzerland: false,
     salesLeadSource: null,
     salesPersonId: null,
     signDate: null,
     salesOrderStatus: null,
     insuranceStatus: null,
-    contractDurationVVG: 60,
-    contractDurationKVG: 60,
+    contractDurationVVG: '60',
+    contractDurationKVG: '60',
     contractStartVVG: null,
     contractStartKVG: null,
     insuranceTrackingID: null,
     insuranceSubmittedDate: null,
     // checkpoint details
-    provisionDone: null,
-    cancellationOriginal: null,
-    cancellationStamped: null,
+    provisionDone: false,
+    cancellationOriginal: false,
+    cancellationStamped: false,
     // extras 
     tasksCollectionId: null,
     documents: [],
@@ -51336,8 +51397,8 @@ var getters = {
   allTasksCollections: function allTasksCollections(state) {
     return state.tasksCollections;
   },
-  isLoading: function isLoading(state) {
-    return state.isLoading;
+  Loading: function Loading(state) {
+    return state.Loading;
   }
 };
 var actions = {
@@ -51355,14 +51416,14 @@ var actions = {
           switch (_context.prev = _context.next) {
             case 0:
               state = _ref.state, commit = _ref.commit;
-              this.isLoading = true;
+              state.Loading = true;
               _context.prev = 2;
               _context.next = 5;
               return axios.get("/api/sales-orders/".concat(state.salesOrder.id));
 
             case 5:
               response = _context.sent;
-              this.isLoading = false;
+              state.Loading = false;
               commit("setSalesOrder", response.data.salesOrder);
               _context.next = 14;
               break;
@@ -51370,7 +51431,7 @@ var actions = {
             case 10:
               _context.prev = 10;
               _context.t0 = _context["catch"](2);
-              this.isLoading = false;
+              state.Loading = false;
               console.error(_context.t0);
 
             case 14:
@@ -51378,7 +51439,7 @@ var actions = {
               return _context.stop();
           }
         }
-      }, _callee, this, [[2, 10]]);
+      }, _callee, null, [[2, 10]]);
     }));
 
     function fetchSalesOrder(_x) {
@@ -51397,14 +51458,14 @@ var actions = {
           switch (_context2.prev = _context2.next) {
             case 0:
               state = _ref2.state, commit = _ref2.commit;
-              this.isLoading = true;
+              state.Loading = true;
               _context2.prev = 2;
               _context2.next = 5;
               return axios.post('/api/sales-orders', state.salesOrder);
 
             case 5:
               response = _context2.sent;
-              this.isLoading = false;
+              state.Loading = false;
               commit('setSalesOrderId', response.data.id);
               _context2.next = 14;
               break;
@@ -51412,7 +51473,7 @@ var actions = {
             case 10:
               _context2.prev = 10;
               _context2.t0 = _context2["catch"](2);
-              this.isLoading = false;
+              this.Loading = false;
               console.error(_context2.t0);
 
             case 14:
@@ -51439,20 +51500,20 @@ var actions = {
           switch (_context3.prev = _context3.next) {
             case 0:
               state = _ref3.state;
-              this.isLoading = true;
+              state.Loading = true;
               _context3.prev = 2;
               _context3.next = 5;
               return axios.put("/api/sales-orders/".concat(state.salesOrder.id), state.salesOrder);
 
             case 5:
-              this.isLoading = false;
+              state.Loading = false;
               _context3.next = 12;
               break;
 
             case 8:
               _context3.prev = 8;
               _context3.t0 = _context3["catch"](2);
-              this.isLoading = false;
+              state.Loading = false;
               console.error(_context3.t0);
 
             case 12:
@@ -51460,7 +51521,7 @@ var actions = {
               return _context3.stop();
           }
         }
-      }, _callee3, this, [[2, 8]]);
+      }, _callee3, null, [[2, 8]]);
     }));
 
     function updateSalesOrder(_x3) {
@@ -51596,8 +51657,8 @@ var mutations = {
     state.salesOrder.fullName = data.owner_full_name;
     state.salesOrder.address = data.owner_address;
     state.salesOrder.householdType = data.owner_household_type;
-    state.salesOrder.newBron = data.new_born;
-    state.salesOrder.moveToSwitzerland = data.move_to_switzerland; // sales details
+    state.salesOrder.newBorn = data.new_born === 1 ? true : false;
+    state.salesOrder.moveToSwitzerland = data.move_to_switzerland === 1 ? true : false; // sales details
 
     state.salesOrder.salesLeadSource = data.sales_lead_source;
     state.salesOrder.salesPersonId = data.sales_user_id;
@@ -51605,13 +51666,19 @@ var mutations = {
 
     state.salesOrder.salesOrderStatus = data.sales_order_status;
     state.salesOrder.newInsuranceId = data.new_insurance_id;
-    state.salesOrder.insuranceStatus = data.insuranceStatus; // Insurance details
+    state.salesOrder.insuranceStatus = data.insurance_status; // Insurance details
 
     state.salesOrder.contractDurationVVG = data.contract_duration_VVG;
     state.salesOrder.contractDurationKVG = data.contract_duration_KVG;
     state.salesOrder.contractStartVVG = data.contract_start_VVG;
     state.salesOrder.contractStartKVG = data.contract_start_KVG;
     state.salesOrder.insuranceTrackingID = data.insurance_tracking_id; // system details
+
+    state.salesOrder.insuranceSubmittedDate = data.insurance_submitted_date; // checkpoint details
+
+    state.salesOrder.cancellationOriginal = data.cancellation_orignal === 1 ? true : false;
+    state.salesOrder.cancellationStamped = data.cancellation_stampled === 1 ? true : false;
+    state.salesOrder.provisionDone = data.provision_done === 1 ? true : false;
   },
   setSalesOrderId: function setSalesOrderId(state, data) {
     state.salesOrder.id = data;

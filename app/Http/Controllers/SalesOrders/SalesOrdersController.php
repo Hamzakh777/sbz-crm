@@ -64,8 +64,8 @@ class SalesOrdersController extends Controller
         if($request->input('contractStartKVG')) {
             $salesOrder->contract_start_KVG = Carbon::parse($request->input('contractStartKVG'))->addHour()->format('Y-m-d');
         }
-        if ($request->input('contractDurationVVG')) {
-            $salesOrder->contract_start_VVG = Carbon::parse($request->input('contractDurationVVG'))->addHour()->format('Y-m-d');
+        if ($request->input('contractStartVVG')) {
+            $salesOrder->contract_start_VVG = Carbon::parse($request->input('contractStartVVG'))->addHour()->format('Y-m-d');
         }
         if ($request->input('insuranceSubmittedDate')) {
             $salesOrder->insurance_submitted_date = Carbon::parse($request->input('insuranceSubmittedDate'))->addHour()->format('Y-m-d');
@@ -74,13 +74,10 @@ class SalesOrdersController extends Controller
             $salesOrder->contract_sign_date = Carbon::parse($request->input('signDate'))->addHour()->format('Y-m-d');
         }
 
-        // // tasks
-        // // we only need the task collectoin id
-        // $taskCollectionId = $request->input('taskCollectionId');
-
-        // if (isset($taskCollectionId)) {
-        //     $salesOrder->tasksCollections()->sync([$taskCollectionId]);
-        // }
+        // checkpoint details
+        $salesOrder->cancellation_original = $request->input('cancellationOriginal');
+        $salesOrder->cancellation_stamped = $request->input('cancellationStamped');
+        $salesOrder->provision_done = $request->input('provisionDone');
 
         $salesOrder->save();
 
@@ -173,11 +170,16 @@ class SalesOrdersController extends Controller
         $salesOrder->contract_duration_KVG = $request->input('contractDurationKVG');
         $salesOrder->insurance_tracking_id = $request->input('insuranceTrackingID');
 
+        // checkpoint details
+        $salesOrder->cancellation_original = $request->input('cancellationOriginal');
+        $salesOrder->cancellation_stamped = $request->input('cancellationStamped');
+        $salesOrder->provision_done = $request->input('provisionDone');
+
         if ($request->input('contractStartKVG')) {
             $salesOrder->contract_start_KVG = Carbon::parse($request->input('contractStartKVG'))->addHour()->format('Y-m-d');
         }
-        if ($request->input('contractDurationVVG')) {
-            $salesOrder->contract_start_VVG = Carbon::parse($request->input('contractDurationVVG'))->addHour()->format('Y-m-d');
+        if ($request->input('contractStartVVG')) {
+            $salesOrder->contract_start_VVG = Carbon::parse($request->input('contractStartVVG'))->addHour()->format('Y-m-d');
         }
         if ($request->input('insuranceSubmittedDate')) {
             $salesOrder->insurance_submitted_date = Carbon::parse($request->input('insuranceSubmittedDate'))->addHour()->format('Y-m-d');
@@ -185,15 +187,7 @@ class SalesOrdersController extends Controller
         if ($request->input('signDate')) {
             $salesOrder->contract_sign_date = Carbon::parse($request->input('signDate'))->addHour()->format('Y-m-d');
         }
-
-        // tasks
-        // we only need the task collectoin id
-        // $tasksCollectionId = $request->input('tasksCollectionId');
-
-
-
-        // $salesOrder->tasksCollections()->sync([$tasksCollectionId]);
-
+        
         $salesOrder->save();
 
         return response()->json([

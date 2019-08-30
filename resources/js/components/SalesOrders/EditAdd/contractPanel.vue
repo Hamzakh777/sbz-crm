@@ -7,7 +7,8 @@
             </div>
         </div>
         <div class="panel-body mt-2">
-            <baseLoader v-if="isLoading">
+            <h1>{{ Loading}}</h1>
+            <baseLoader v-if="Loading">
             </baseLoader>
             <!-- customer details -->
             <div class="row">
@@ -108,7 +109,8 @@
                     <div class="toggle-button-wrapper">
                         <toggle-button
                             v-model="salesOrder.newBorn"
-                            :value="false"
+                            :value="salesOrder.newBorn"
+                            :sync="true"
                             :labels="{checked: trans.get('voyager.generic.yes'), unchecked: trans.get('voyager.generic.no')}"
                         />
                     </div>
@@ -120,7 +122,8 @@
                     <div class="toggle-button-wrapper">
                         <toggle-button
                             v-model="salesOrder.moveToSwitzerland"
-                            :value="false"
+                            :value="salesOrder.moveToSwitzerland"
+                            :sync="true"
                             :labels="{checked: trans.get('voyager.generic.yes'), unchecked: trans.get('voyager.generic.no')}"
                         />
                     </div>
@@ -241,7 +244,7 @@
                         v-model="salesOrder.insuranceStatus"
                         :class="{'form-control--error': $v.salesOrder.insuranceStatus.$error }"
                     >
-                        <option value="">{{ trans.get('voyager.sales_orders.none') }}</option>
+                        <option value="none">{{ trans.get('voyager.sales_orders.none') }}</option>
                         <option value="submitted">{{ trans.get('voyager.sales_orders.submitted') }}</option>
                         <option value="feedback">{{ trans.get('voyager.sales_orders.feedback') }}</option>
                         <option value="rejected">{{ trans.get('voyager.sales_orders.rejected') }}</option>
@@ -266,11 +269,11 @@
                         v-model="salesOrder.contractDurationVVG"
                         :class="{'form-control--error': $v.salesOrder.contractDurationVVG.$error }"
                     >
-                        <option value="12">12</option>
-                        <option value="24">24</option>
-                        <option value="36">36</option>
+                        <option value="60" selected="selected">60</option>
                         <option value="48">48</option>
-                        <option value="60" selected>60</option>
+                        <option value="36">36</option>
+                        <option value="24">24</option>
+                        <option value="12">12</option>
                     </select>
                     <div v-if="$v.salesOrder.contractDurationVVG.$error">
                         <span class="error-text" v-if="!$v.salesOrder.contractDurationVVG.required">
@@ -287,11 +290,11 @@
                         v-model="salesOrder.contractDurationKVG"
                         :class="{'form-control--error': $v.salesOrder.contractDurationKVG.$error }"
                     >
-                        <option value="12">12</option>
-                        <option value="24">24</option>
-                        <option value="36">36</option>
+                        <option value="60" selected="selected">60</option>
                         <option value="48">48</option>
-                        <option value="60" selected>60</option>
+                        <option value="36">36</option>
+                        <option value="24">24</option>
+                        <option value="12">12</option>
                     </select>
                     <div v-if="$v.salesOrder.contractDurationKVG.$error">
                         <span class="error-text" v-if="!$v.salesOrder.contractDurationKVG.required">
@@ -365,7 +368,8 @@
                     <div class="toggle-button-wrapper">
                         <toggle-button
                             v-model="salesOrder.cancellationOriginal"
-                            :value="false"
+                            :sync="true"
+                            :value="salesOrder.cancellationOriginal"
                             :labels="{checked: trans.get('voyager.generic.yes'), unchecked: trans.get('voyager.generic.no')}"
                         />
                     </div>
@@ -379,7 +383,8 @@
                     <div class="toggle-button-wrapper">
                         <toggle-button
                             v-model="salesOrder.cancellationStamped"
-                            :value="false"
+                            :sync="true"
+                            :value="salesOrder.cancellationStamped"
                             :labels="{checked: trans.get('voyager.generic.yes'), unchecked: trans.get('voyager.generic.no')}"
                         />
                     </div>
@@ -393,7 +398,8 @@
                     <div class="toggle-button-wrapper">
                         <toggle-button
                             v-model="salesOrder.provisionDone"
-                            :value="false"
+                            :sync="true"
+                            :value="salesOrder.provisionDone"
                             :labels="{checked: trans.get('voyager.generic.yes'), unchecked: trans.get('voyager.generic.no')}"
                         />
                     </div>
@@ -437,7 +443,7 @@
         },
 
         computed: {
-            ...mapGetters(['DateFormat', 'allInsurances', 'allSalesAgents', 'salesOrder', 'isLoading']),
+            ...mapGetters(['DateFormat', 'allInsurances', 'allSalesAgents', 'salesOrder', 'Loading']),
 
             isHouseholdTypeFamily() {
                 if(this.salesOrder.householdType === 'family') {
@@ -448,61 +454,98 @@
             }
         },
 
-        validations: {
-            salesOrder: {
-                currentInsuranceId: {
-                    required
-                },
-                newInsuranceId: {
-                    required
-                },
-                fullName: {
-                    required
-                },
-                address: {
-                    required
-                },
-                householdType: {
-                    required
-                },
-                numberOfFamilyMembers: {
-                    required
-                },
-                moveToSwitzerland: {
-                    required
-                },
-                salesPersonId: {
-                    required
-                },
-                signDate: {
-                    required
-                },
-                salesOrderStatus: {
-                    required
-                },
-                insuranceStatus: {
-                    required
-                },
-                contractDurationVVG: {
-                    required
-                },
-                contractDurationKVG: {
-                    required
-                },
-                contractStartVVG: {
-                    required
-                },
-                contractStartKVG: {
-                    required
+        validations() {
+            if( this.salesOrder.householdType === 'single') {
+                return {
+                    salesOrder: {
+                        currentInsuranceId: {
+                            required
+                        },
+                        newInsuranceId: {
+                            required
+                        },
+                        fullName: {
+                            required
+                        },
+                        address: {
+                            required
+                        },
+                        householdType: {
+                            required
+                        },
+                        salesPersonId: {
+                            required
+                        },
+                        signDate: {
+                            required
+                        },
+                        salesOrderStatus: {
+                            required
+                        },
+                        insuranceStatus: {
+                            required
+                        },
+                        contractDurationVVG: {
+                            required
+                        },
+                        contractDurationKVG: {
+                            required
+                        },
+                        contractStartVVG: {
+                            required
+                        },
+                        contractStartKVG: {
+                            required
+                        }
+                    },
                 }
-            }
-        },
-
-        created() {
-            // we want to show and hide the loader on every call 
-            if(this.salesOrder.id !== null) {
-                // fetch the sale order
-                this.fetchSalesOrder();
+            } else {
+                return {
+                    salesOrder: {
+                        currentInsuranceId: {
+                            required
+                        },
+                        newInsuranceId: {
+                            required
+                        },
+                        fullName: {
+                            required
+                        },
+                        address: {
+                            required
+                        },
+                        householdType: {
+                            required
+                        },
+                        numberOfFamilyMembers: {
+                            required
+                        },
+                        salesPersonId: {
+                            required
+                        },
+                        signDate: {
+                            required
+                        },
+                        salesOrderStatus: {
+                            required
+                        },
+                        insuranceStatus: {
+                            required
+                        },
+                        contractDurationVVG: {
+                            required
+                        },
+                        contractDurationKVG: {
+                            required
+                        },
+                        contractStartVVG: {
+                            required
+                        },
+                        contractStartKVG: {
+                            required
+                        }
+                    },
+                }
             }
         },
 
@@ -512,6 +555,11 @@
             
             this.salesOrder.contractStartKVG = date;
             this.salesOrder.contractStartVVG = date;
+
+            if(this.salesOrder.id !== null) {
+                // fetch the sale order
+                this.fetchSalesOrder();
+            }
         },
 
         methods: {
@@ -519,6 +567,8 @@
 
             submit() {
                 this.$v.$touch();
+                console.log('clicked');
+                console.log(this.$v.$salesOrder);
                 if(!this.$v.$invalid) {
                     // update
                     if(this.salesOrder.id !== null) {

@@ -69,6 +69,9 @@
                 if(this.task.completed === 0) {
                     this.task.completed = 1;
                     this.updateTask(this.task);                                                                     
+                } else {
+                    this.task.completed = 0;
+                    this.updateTask(this.task); 
                 }
             }
         },
