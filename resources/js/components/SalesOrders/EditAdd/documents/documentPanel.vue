@@ -109,6 +109,7 @@
                 this.documents = this.documents.filter(doc => doc.id !== id);
             },
 
+
             hideLoader() {
                 this.isLoading = false;
             },

@@ -15,6 +15,11 @@
                     class="voyager-trash"
                     @click="remove"
                 ></i>
+                <a :href="'/api/file-download?path=' + document.path" v-if="document.path !== null" target="_blank">
+                    <i class="voyager-double-down"
+                    >
+                    </i>
+                </a>
             </div>
         </div>
     </div>
@@ -35,7 +40,10 @@
     
         methods: {
             remove() {
-                this.$emit('remove', this.document.id)
+                this.$emit('remove', this.document.id);
+            },
+            download() {
+                this.$emit('download', this.document.path);
             }
         },
     }
@@ -61,4 +69,15 @@
 
         &:hover
             color: #FB4027
+
+    .voyager-double-down 
+        cursor: pointer
+        display: block
+        margin-top: -5px
+        font-size: 24px
+        float: right
+        margin-right: 12px
+
+        &:hover
+            color: #2ecc71
 </style>

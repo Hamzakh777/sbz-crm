@@ -22,67 +22,91 @@ const getters = {
 
 
 const actions = {
-    async fetchTasks({ commit }) {
-        this.isLoading = true
+    async fetchTasks({ state, commit }) {
+        state.isLoading = true
         try {
             const url = `/api/tasks-collections/${state.tasksCollection.id}`;
             const response = await axios.get(url);
     
-            this.isLoading = false;
+            state.isLoading = false;
             commit('setTasksCollection', response.data);
         } catch(e) {
-            this.isLoading = false;
+            state.isLoading = false;
             alert(e);
         }  
     },
 
-    async addTask({ commit }, taskData) {
-        this.isLoading = true;
+    async addTask({ commit, state }, taskData) {
+        state.isLoading = true;
         try {
             const data = taskData;
             // each task needs to have the collection id it belongs to
             data.tasksCollectionId = state.tasksCollection.id;
             const response = await axios.post('/api/tasks', data);
     
+            state.isLoading = false;
             commit('newTask', response.data.task);
         } catch (error) {
-            this.isLoading = false
+            state.isLoading = false
             alert(error);
         }
     },
 
     async deleteTask({ commit }, id) {
-        const url = `/api/tasks/${id}`;
-        await axios.delete(url);
+        state.isLoading = true;
+        try {
+            const url = `/api/tasks/${id}`;
+            await axios.delete(url);
 
-        commit('deleteTask', id);
+            state.isLoading = false;
+            commit('deleteTask', id);
+        } catch (error) {
+            state.isLoading = false;
+            alert(error)
+        }
+        
     },
 
     async updateTask({ commit }, updTask) {
-        const url = `/api/tasks/${updTask.id}`;
-        const response = await axios.put(url, updTask);
+        state.isLoading = true;
+        try {
+            const url = `/api/tasks/${updTask.id}`;
+            const response = await axios.put(url, updTask);
 
-        commit('updateTask', response.data);
+            state.isLoading = false;
+            commit('updateTask', response.data);
+        } catch (error) {
+            state.isLoading = false;
+            alert(error)
+        }
     },
 
     async storeCollection({ commit }) {
         // collection doesnt exists
-        if (state.tasksCollection.id === undefined || state.tasksCollection.id === null || state.tasksCollection.id === "") {
-            const response = await axios.post('/api/tasks-collections', state.tasksCollection);
+        state.isLoading = true;
+        try {
+            if (state.tasksCollection.id === undefined || state.tasksCollection.id === null || state.tasksCollection.id === "") {
+                const response = await axios.post('/api/tasks-collections', state.tasksCollection);
 
-            commit('setTasksCollection', response.data);
-        } 
-        // collection already exists 
-        else {
-            const url = `/api/tasks-collections/${state.tasksCollection.id}`;
-            const data = {
-                name: state.tasksCollection.name
-            };
+                state.isLoading = false;
+                commit('setTasksCollection', response.data);
+            }
+            // collection already exists 
+            else {
+                const url = `/api/tasks-collections/${state.tasksCollection.id}`;
+                const data = {
+                    name: state.tasksCollection.name
+                };
 
-            const response = await axios.put(url, data);
-
-            commit('setTasksCollection', response.data);
+                const response = await axios.put(url, data);
+                state.isLoading = false;
+                commit('setTasksCollection', response.data);
+            }
+        } catch (error) {
+            state.isLoading = false;
+            alert(error)
         }
+        
     }
 };
 

@@ -57,6 +57,9 @@ Route::group([
     
     // people in sales orders
     Route::get('/sales-orders/{salesOrderId}/sales-order-people/', 'SalesOrders\SalesOrderPeopleController@index');
+
+    // to download files 
+    Route::get('/file-download', 'FileDownloadController@index');
 });
 
 if (config('laravel-localization.routes.enable')) {

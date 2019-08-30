@@ -7,7 +7,6 @@
             </div>
         </div>
         <div class="panel-body mt-2">
-            <h1>{{ Loading}}</h1>
             <baseLoader v-if="Loading">
             </baseLoader>
             <!-- customer details -->

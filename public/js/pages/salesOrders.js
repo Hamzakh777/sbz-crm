@@ -3443,7 +3443,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 
@@ -3767,6 +3766,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'documentCard',
@@ -3779,6 +3783,9 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     remove: function remove() {
       this.$emit('remove', this.document.id);
+    },
+    download: function download() {
+      this.$emit('download', this.document.path);
     }
   }
 });
@@ -4870,7 +4877,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../node_module
 
 
 // module
-exports.push([module.i, ".document-card[data-v-1ca32f23] {\n  background-color: #fff;\n  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.07);\n  border-left: 2px solid #4E73DF;\n  padding: 1.4em 0.6em 1em 0.6em;\n  margin-bottom: 1em;\n}\n.document-card .row > [class*=col-][data-v-1ca32f23] {\n  margin-bottom: 0;\n}\n.document-card .voyager-trash[data-v-1ca32f23] {\n  cursor: pointer;\n  display: block;\n  margin-top: -3px;\n  font-size: 20px;\n  float: right;\n}\n.document-card .voyager-trash[data-v-1ca32f23]:hover {\n  color: #FB4027;\n}", ""]);
+exports.push([module.i, ".document-card[data-v-1ca32f23] {\n  background-color: #fff;\n  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.07);\n  border-left: 2px solid #4E73DF;\n  padding: 1.4em 0.6em 1em 0.6em;\n  margin-bottom: 1em;\n}\n.document-card .row > [class*=col-][data-v-1ca32f23] {\n  margin-bottom: 0;\n}\n.document-card .voyager-trash[data-v-1ca32f23] {\n  cursor: pointer;\n  display: block;\n  margin-top: -3px;\n  font-size: 20px;\n  float: right;\n}\n.document-card .voyager-trash[data-v-1ca32f23]:hover {\n  color: #FB4027;\n}\n.document-card .voyager-double-down[data-v-1ca32f23] {\n  cursor: pointer;\n  display: block;\n  margin-top: -5px;\n  font-size: 24px;\n  float: right;\n  margin-right: 12px;\n}\n.document-card .voyager-double-down[data-v-1ca32f23]:hover {\n  color: #2ecc71;\n}", ""]);
 
 // exports
 
@@ -29164,8 +29171,6 @@ var render = function() {
       "div",
       { staticClass: "panel-body mt-2" },
       [
-        _c("h1", [_vm._v(_vm._s(_vm.Loading))]),
-        _vm._v(" "),
         _vm.Loading ? _c("baseLoader") : _vm._e(),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
@@ -30704,7 +30709,20 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-1" }, [
-        _c("i", { staticClass: "voyager-trash", on: { click: _vm.remove } })
+        _c("i", { staticClass: "voyager-trash", on: { click: _vm.remove } }),
+        _vm._v(" "),
+        _vm.document.path !== null
+          ? _c(
+              "a",
+              {
+                attrs: {
+                  href: "/api/file-download?path=" + _vm.document.path,
+                  target: "_blank"
+                }
+              },
+              [_c("i", { staticClass: "voyager-double-down" })]
+            )
+          : _vm._e()
       ])
     ])
   ])
@@ -51936,13 +51954,13 @@ var actions = {
     var _fetchTasks = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref) {
-      var commit, url, response;
+      var state, commit, url, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              commit = _ref.commit;
-              this.isLoading = true;
+              state = _ref.state, commit = _ref.commit;
+              state.isLoading = true;
               _context.prev = 2;
               url = "/api/tasks-collections/".concat(state.tasksCollection.id);
               _context.next = 6;
@@ -51950,7 +51968,7 @@ var actions = {
 
             case 6:
               response = _context.sent;
-              this.isLoading = false;
+              state.isLoading = false;
               commit('setTasksCollection', response.data);
               _context.next = 15;
               break;
@@ -51958,7 +51976,7 @@ var actions = {
             case 11:
               _context.prev = 11;
               _context.t0 = _context["catch"](2);
-              this.isLoading = false;
+              state.isLoading = false;
               alert(_context.t0);
 
             case 15:
@@ -51966,7 +51984,7 @@ var actions = {
               return _context.stop();
           }
         }
-      }, _callee, this, [[2, 11]]);
+      }, _callee, null, [[2, 11]]);
     }));
 
     function fetchTasks(_x) {
@@ -51979,13 +51997,13 @@ var actions = {
     var _addTask = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2, taskData) {
-      var commit, data, response;
+      var commit, state, data, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              commit = _ref2.commit;
-              this.isLoading = true;
+              commit = _ref2.commit, state = _ref2.state;
+              state.isLoading = true;
               _context2.prev = 2;
               data = taskData; // each task needs to have the collection id it belongs to
 
@@ -51995,22 +52013,23 @@ var actions = {
 
             case 7:
               response = _context2.sent;
+              state.isLoading = false;
               commit('newTask', response.data.task);
-              _context2.next = 15;
+              _context2.next = 16;
               break;
 
-            case 11:
-              _context2.prev = 11;
+            case 12:
+              _context2.prev = 12;
               _context2.t0 = _context2["catch"](2);
-              this.isLoading = false;
+              state.isLoading = false;
               alert(_context2.t0);
 
-            case 15:
+            case 16:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, this, [[2, 11]]);
+      }, _callee2, null, [[2, 12]]);
     }));
 
     function addTask(_x2, _x3) {
@@ -52029,19 +52048,30 @@ var actions = {
           switch (_context3.prev = _context3.next) {
             case 0:
               commit = _ref3.commit;
+              state.isLoading = true;
+              _context3.prev = 2;
               url = "/api/tasks/".concat(id);
-              _context3.next = 4;
+              _context3.next = 6;
               return axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"](url);
 
-            case 4:
+            case 6:
+              state.isLoading = false;
               commit('deleteTask', id);
+              _context3.next = 14;
+              break;
 
-            case 5:
+            case 10:
+              _context3.prev = 10;
+              _context3.t0 = _context3["catch"](2);
+              state.isLoading = false;
+              alert(_context3.t0);
+
+            case 14:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3);
+      }, _callee3, null, [[2, 10]]);
     }));
 
     function deleteTask(_x4, _x5) {
@@ -52060,20 +52090,31 @@ var actions = {
           switch (_context4.prev = _context4.next) {
             case 0:
               commit = _ref4.commit;
+              state.isLoading = true;
+              _context4.prev = 2;
               url = "/api/tasks/".concat(updTask.id);
-              _context4.next = 4;
+              _context4.next = 6;
               return axios__WEBPACK_IMPORTED_MODULE_1___default.a.put(url, updTask);
 
-            case 4:
-              response = _context4.sent;
-              commit('updateTask', response.data);
-
             case 6:
+              response = _context4.sent;
+              state.isLoading = false;
+              commit('updateTask', response.data);
+              _context4.next = 15;
+              break;
+
+            case 11:
+              _context4.prev = 11;
+              _context4.t0 = _context4["catch"](2);
+              state.isLoading = false;
+              alert(_context4.t0);
+
+            case 15:
             case "end":
               return _context4.stop();
           }
         }
-      }, _callee4);
+      }, _callee4, null, [[2, 11]]);
     }));
 
     function updateTask(_x6, _x7) {
@@ -52093,39 +52134,54 @@ var actions = {
           switch (_context5.prev = _context5.next) {
             case 0:
               commit = _ref5.commit;
+              // collection doesnt exists
+              state.isLoading = true;
+              _context5.prev = 2;
 
               if (!(state.tasksCollection.id === undefined || state.tasksCollection.id === null || state.tasksCollection.id === "")) {
-                _context5.next = 8;
+                _context5.next = 11;
                 break;
               }
 
-              _context5.next = 4;
+              _context5.next = 6;
               return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/tasks-collections', state.tasksCollection);
 
-            case 4:
+            case 6:
               response = _context5.sent;
+              state.isLoading = false;
               commit('setTasksCollection', response.data);
-              _context5.next = 14;
+              _context5.next = 18;
               break;
 
-            case 8:
+            case 11:
               url = "/api/tasks-collections/".concat(state.tasksCollection.id);
               data = {
                 name: state.tasksCollection.name
               };
-              _context5.next = 12;
+              _context5.next = 15;
               return axios__WEBPACK_IMPORTED_MODULE_1___default.a.put(url, data);
 
-            case 12:
+            case 15:
               _response = _context5.sent;
+              state.isLoading = false;
               commit('setTasksCollection', _response.data);
 
-            case 14:
+            case 18:
+              _context5.next = 24;
+              break;
+
+            case 20:
+              _context5.prev = 20;
+              _context5.t0 = _context5["catch"](2);
+              state.isLoading = false;
+              alert(_context5.t0);
+
+            case 24:
             case "end":
               return _context5.stop();
           }
         }
-      }, _callee5);
+      }, _callee5, null, [[2, 20]]);
     }));
 
     function storeCollection(_x8) {
