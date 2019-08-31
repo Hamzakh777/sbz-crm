@@ -1832,11 +1832,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 
@@ -4333,6 +4328,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var vuejs_datepicker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuejs-datepicker */ "./node_modules/vuejs-datepicker/dist/vuejs-datepicker.esm.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -4412,12 +4409,36 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'AddTask',
   components: {
     Datepicker: vuejs_datepicker__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  validations: {
+    name: {
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["required"]
+    },
+    status: {
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["required"]
+    }
   },
   data: function data() {
     return {
@@ -4435,10 +4456,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
      * clear the form
      */
     onSubmit: function onSubmit() {
-      this.addTask(this.$data); // this.name = null;
-      // this.taskOwnerId = null;
-      // this.date = null;
-      // this.status = null;
+      this.addTask(this.$data);
+    },
+    clearForm: function clearForm() {
+      this.name = null;
+      this.taskOwnerId = null;
+      this.date = null;
+      this.status = null;
     }
   })
 });
@@ -27881,26 +27905,6 @@ var render = function() {
         _c(
           "button",
           {
-            staticClass: "btn btn-light pull-right",
-            on: {
-              click: function($event) {
-                $event.preventDefault()
-                return _vm.clearForm($event)
-              }
-            }
-          },
-          [
-            _c("i", { staticClass: "voyager-trash" }),
-            _vm._v(" "),
-            _c("span", [
-              _vm._v(_vm._s(_vm.trans.get("voyager.generic.clear_filter")))
-            ])
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
             staticClass: "btn btn-primary pull-right",
             on: {
               click: function($event) {
@@ -31163,6 +31167,7 @@ var render = function() {
                 }
               ],
               staticClass: "form-control",
+              class: { "form-control--error": _vm.$v.name.$error },
               attrs: { type: "text" },
               domProps: { value: _vm.name },
               on: {
@@ -31173,7 +31178,21 @@ var render = function() {
                   _vm.name = $event.target.value
                 }
               }
-            })
+            }),
+            _vm._v(" "),
+            _vm.$v.name.$error
+              ? _c("div", [
+                  !_vm.$v.name.required
+                    ? _c("span", { staticClass: "error-text" }, [
+                        _vm._v(
+                          "\n                        " +
+                            _vm._s(_vm.trans.get("validation_js.required")) +
+                            "\n                    "
+                        )
+                      ])
+                    : _vm._e()
+                ])
+              : _vm._e()
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "form-group col-md-3" }, [
@@ -31213,20 +31232,26 @@ var render = function() {
                   }
                 }
               },
-              _vm._l(_vm.users, function(agent, index) {
-                return _c(
-                  "option",
-                  { key: index, domProps: { value: agent.id } },
-                  [
-                    _vm._v(
-                      "\n                        " +
-                        _vm._s(agent.username) +
-                        "\n                    "
-                    )
-                  ]
-                )
-              }),
-              0
+              [
+                _c("option", { attrs: { value: "" } }, [
+                  _vm._v(_vm._s(_vm.trans.get("voyager.generic.none")))
+                ]),
+                _vm._v(" "),
+                _vm._l(_vm.users, function(agent, index) {
+                  return _c(
+                    "option",
+                    { key: index, domProps: { value: agent.id } },
+                    [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(agent.username) +
+                          "\n                    "
+                      )
+                    ]
+                  )
+                })
+              ],
+              2
             )
           ]),
           _vm._v(" "),
@@ -31324,6 +31349,26 @@ var render = function() {
                 [
                   _c("span", [
                     _vm._v(_vm._s(_vm.trans.get("voyager.generic.add")))
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-light pull-right",
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.clearForm($event)
+                    }
+                  }
+                },
+                [
+                  _c("i", { staticClass: "voyager-trash" }),
+                  _vm._v(" "),
+                  _c("span", [
+                    _vm._v(_vm._s(_vm.trans.get("voyager.generic.clear_form")))
                   ])
                 ]
               )
@@ -51234,6 +51279,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _modules_salesOrders__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/salesOrders */ "./resources/js/store/modules/salesOrders.js");
 /* harmony import */ var _modules_tasks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/tasks */ "./resources/js/store/modules/tasks.js");
+/* harmony import */ var _modules_compensations__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/compensations */ "./resources/js/store/modules/compensations/index.js");
+
 
 
 
@@ -51244,9 +51291,107 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_0__
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_0__["default"].Store({
   modules: {
     salesOrders: _modules_salesOrders__WEBPACK_IMPORTED_MODULE_2__["default"],
-    tasks: _modules_tasks__WEBPACK_IMPORTED_MODULE_3__["default"]
+    tasks: _modules_tasks__WEBPACK_IMPORTED_MODULE_3__["default"],
+    compensations: _modules_compensations__WEBPACK_IMPORTED_MODULE_4__["default"]
   }
 }));
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/compensations/actions.js":
+/*!*************************************************************!*\
+  !*** ./resources/js/store/modules/compensations/actions.js ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var actions = {
+  fetchCompensation: function fetchCompensation(_ref) {
+    var commit = _ref.commit,
+        state = _ref.state;
+    console.log('fetching');
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (actions);
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/compensations/getters.js":
+/*!*************************************************************!*\
+  !*** ./resources/js/store/modules/compensations/getters.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var getters = {
+  isLoading: function isLoading(state) {
+    return state.isLoading;
+  }
+};
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/compensations/index.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/store/modules/compensations/index.js ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./resources/js/store/modules/compensations/actions.js");
+/* harmony import */ var _getters__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getters */ "./resources/js/store/modules/compensations/getters.js");
+/* harmony import */ var _getters__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_getters__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _state__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./state */ "./resources/js/store/modules/compensations/state.js");
+/* harmony import */ var _mutations__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./mutations */ "./resources/js/store/modules/compensations/mutations.js");
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: _state__WEBPACK_IMPORTED_MODULE_2__["default"],
+  getters: _getters__WEBPACK_IMPORTED_MODULE_1___default.a,
+  actions: _actions__WEBPACK_IMPORTED_MODULE_0__["default"],
+  mutations: _mutations__WEBPACK_IMPORTED_MODULE_3__["default"]
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/compensations/mutations.js":
+/*!***************************************************************!*\
+  !*** ./resources/js/store/modules/compensations/mutations.js ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var mutations = {
+  setCompensation: function setCompensation(state, compensation) {
+    state.compensation = compensation;
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (mutations);
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/compensations/state.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/store/modules/compensations/state.js ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var state = {
+  isLoading: false
+};
+/* harmony default export */ __webpack_exports__["default"] = (state);
 
 /***/ }),
 

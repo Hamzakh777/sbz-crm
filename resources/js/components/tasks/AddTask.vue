@@ -8,7 +8,17 @@
                     <label class="control-label">
                         {{ trans.get('voyager.generic.name') }}
                     </label>
-                    <input  class="form-control" type="text" v-model="name">
+                    <input  
+                        class="form-control" 
+                        type="text" 
+                        v-model="name"
+                        :class="{'form-control--error': $v.name.$error }"
+                    >
+                    <div v-if="$v.name.$error">
+                        <span class="error-text" v-if="!$v.name.required">
+                            {{ trans.get('validation_js.required') }}
+                        </span>
+                    </div>
                 </div>
 
                 <!-- owner -->
@@ -20,6 +30,7 @@
                         class="form-control"
                         v-model="taskOwnerId"
                     >
+                        <option value="">{{ trans.get('voyager.generic.none') }}</option>
                         <option 
                             v-for="(agent, index) in users"
                             :value="agent.id"
@@ -59,10 +70,14 @@
                 </div>
 
                 <div class="row">
-                    <!-- <input type="submit" :value="trans.get('voyager.generic.add')" class="btn btn-primary pull-right"> -->
                     <div class="col-md-12">
                         <button type="submit" class="btn btn-primary pull-right">
                             <span>{{ trans.get('voyager.generic.add') }}</span>
+                        </button>
+                        <button class="btn btn-light pull-right" @click.prevent="clearForm">
+                            <i class="voyager-trash"></i>
+                            <!-- clear filter -->
+                            <span>{{ trans.get('voyager.generic.clear_form') }}</span>
                         </button>
                     </div>
                 </div>
@@ -74,12 +89,21 @@
 <script>
 import { mapActions, mapGetters} from 'vuex';
 import Datepicker from "vuejs-datepicker";
-
+import { required } from 'vuelidate/lib/validators';
 export default {
     name: 'AddTask',
 
     components: {
         Datepicker
+    },
+
+    validations: {
+        name: {
+            required
+        },
+        status: {
+            required
+        }
     },
     
     data() {
@@ -105,12 +129,14 @@ export default {
          */
         onSubmit() {
             this.addTask(this.$data);
-
-            // this.name = null;
-            // this.taskOwnerId = null;
-            // this.date = null;
-            // this.status = null;
         },
+
+        clearForm() {
+            this.name = null;
+            this.taskOwnerId = null;
+            this.date = null;
+            this.status = null;
+        }
     }
 
 }

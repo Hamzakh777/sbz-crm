@@ -1,5 +1,9 @@
 <template>
-    <BasePanel :show-footer="!isCollectionSaved">
+    <BasePanel 
+        :show-footer="!isCollectionSaved"
+        name="voyager.tasks.tasks"
+        icon="voyager-list"
+        >
 		<template v-slot:body>
             <TasksCollection></TasksCollection>
 		</template>

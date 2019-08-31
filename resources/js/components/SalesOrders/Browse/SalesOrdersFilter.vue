@@ -101,11 +101,6 @@
         </div>
       </div>
       <div class="row pr-2">
-        <button class="btn btn-light pull-right" @click.prevent="clearForm">
-          <i class="voyager-trash"></i>
-          <!-- clear filter -->
-          <span>{{ trans.get('voyager.generic.clear_filter') }}</span>
-        </button>
         <button class="btn btn-primary pull-right" @click.prevent="filterSalesOrders($data)">
           <i class="voyager-search"></i>
           <!-- filter results -->

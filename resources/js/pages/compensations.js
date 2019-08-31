@@ -1,14 +1,14 @@
 import "../bootstrap";
 import store from "../store";
 import Vuelidate from 'vuelidate';
-import TasksPanel from '../components/tasks/TasksPanel.vue';
+import CompensationsPanel from '../components/compensation/compensationPanel.vue';
 
 Vue.config.productionTip = false;
 
-Vue.use(Vuelidate);
+// Vue.use(Vuelidate);
 new Vue({
     components: {
-        TasksPanel
+        CompensationsPanel
     },
     store,
 }).$mount("#app");

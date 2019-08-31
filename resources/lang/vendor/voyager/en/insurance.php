@@ -2,6 +2,7 @@
 
 return [
     'id'                => 'SBZ Insurnace ID',
+    'insurance'         => 'Insurance',
     'current_insurance' => 'Current Insurance',
     'new_insurance'     => 'New Insurance',
     'name'              => 'Insurance name',

@@ -30,6 +30,7 @@ return [
     'compass'                => 'Compass',
     'created_at'             => 'Created at',
     'clear_filter'           => 'Clear filter',
+    'clear_form'             => 'Clear form',
     'custom'                 => 'Custom',
     'dashboard'              => 'Dashboard',
     'database'               => 'Database',

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddColToContractPeopleTable extends Migration
+class AddColsToCompensationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddColToContractPeopleTable extends Migration
      */
     public function up()
     {
-        Schema::table('contract_people', function (Blueprint $table) {
-            $table->string('document_id_path')->nullable();
+        Schema::table('compensations', function (Blueprint $table) {
+            $table->unsignedBigInteger('insurance_id')->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ class AddColToContractPeopleTable extends Migration
      */
     public function down()
     {
-        Schema::table('contract_people', function (Blueprint $table) {
-            $table->dropColumn('document_id_path');
+        Schema::table('compensations', function (Blueprint $table) {
+            $table->dropColumn('insurance_id');
         });
     }
 }
