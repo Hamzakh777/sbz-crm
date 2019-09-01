@@ -3578,8 +3578,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_5__["mapActions"])(['storeSalesOrder', 'fetchSalesOrder', 'updateSalesOrder']), {
     submit: function submit() {
       this.$v.$touch();
-      console.log('clicked');
-      console.log(this.$v.$salesOrder);
 
       if (!this.$v.$invalid) {
         // update
@@ -4142,6 +4140,10 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _SingleComment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SingleComment */ "./resources/js/components/comments/SingleComment.vue");
+//
+//
+//
+//
 //
 //
 //
@@ -30999,64 +31001,77 @@ var render = function() {
     _c("hr"),
     _vm._v(" "),
     _c("div", { staticClass: "reply" }, [
-      _c("form", { attrs: { action: "" } }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model.trim",
-              value: _vm.reply,
-              expression: "reply",
-              modifiers: { trim: true }
-            }
-          ],
-          staticClass: "reply--text",
-          attrs: {
-            type: "text",
-            placeholder: "Kommentar erfassen...",
-            maxlength: "250"
-          },
-          domProps: { value: _vm.reply },
+      _c(
+        "form",
+        {
           on: {
-            keyup: function($event) {
-              if (
-                !$event.type.indexOf("key") &&
-                _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-              ) {
-                return null
-              }
+            submit: function($event) {
+              $event.preventDefault()
               return _vm.submitComment($event)
-            },
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.reply = $event.target.value.trim()
-            },
-            blur: function($event) {
-              return _vm.$forceUpdate()
             }
           }
-        }),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "reply--button",
+        },
+        [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model.trim",
+                value: _vm.reply,
+                expression: "reply",
+                modifiers: { trim: true }
+              }
+            ],
+            staticClass: "reply--text",
+            attrs: {
+              type: "text",
+              placeholder: "Kommentar erfassen...",
+              maxlength: "250"
+            },
+            domProps: { value: _vm.reply },
             on: {
-              click: function($event) {
-                $event.preventDefault()
+              keyup: function($event) {
+                if (
+                  !$event.type.indexOf("key") &&
+                  _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                ) {
+                  return null
+                }
                 return _vm.submitComment($event)
+              },
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.reply = $event.target.value.trim()
+              },
+              blur: function($event) {
+                return _vm.$forceUpdate()
               }
             }
-          },
-          [_c("i", { staticClass: "voyager-paper-plane" }), _vm._v(" Send")]
-        )
-      ])
+          }),
+          _vm._v(" "),
+          _vm._m(0)
+        ]
+      )
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      { staticClass: "reply--button", attrs: { type: "submit" } },
+      [
+        _c("i", { staticClass: "voyager-paper-plane" }),
+        _vm._v(" Send\n            ")
+      ]
+    )
+  }
+]
 render._withStripped = true
 
 
@@ -51855,8 +51870,8 @@ var mutations = {
 
     state.salesOrder.insuranceSubmittedDate = data.insurance_submitted_date; // checkpoint details
 
-    state.salesOrder.cancellationOriginal = data.cancellation_orignal === 1 ? true : false;
-    state.salesOrder.cancellationStamped = data.cancellation_stampled === 1 ? true : false;
+    state.salesOrder.cancellationOriginal = data.cancellation_original === 1 ? true : false;
+    state.salesOrder.cancellationStamped = data.cancellation_stamped === 1 ? true : false;
     state.salesOrder.provisionDone = data.provision_done === 1 ? true : false;
   },
   setSalesOrderId: function setSalesOrderId(state, data) {

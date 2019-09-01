@@ -39291,8 +39291,8 @@ var mutations = {
 
     state.salesOrder.insuranceSubmittedDate = data.insurance_submitted_date; // checkpoint details
 
-    state.salesOrder.cancellationOriginal = data.cancellation_orignal === 1 ? true : false;
-    state.salesOrder.cancellationStamped = data.cancellation_stampled === 1 ? true : false;
+    state.salesOrder.cancellationOriginal = data.cancellation_original === 1 ? true : false;
+    state.salesOrder.cancellationStamped = data.cancellation_stamped === 1 ? true : false;
     state.salesOrder.provisionDone = data.provision_done === 1 ? true : false;
   },
   setSalesOrderId: function setSalesOrderId(state, data) {

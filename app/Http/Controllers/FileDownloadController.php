@@ -11,21 +11,27 @@ class FileDownloadController extends Controller
         $path = $request->query('path');
         $exists = Storage::disk('spaces')->exists($path);
 
+        $downloadPath = Storage::disk('spaces')->url($path);
+
+        // extension
+        $ext = pathinfo($downloadPath, PATHINFO_EXTENSION);
+        $name = pathinfo($downloadPath, PATHINFO_FILENAME);
+
+        $filename =  $name . '.' . $ext;
+
         $headers = [
-            'Content-Type' => 'application/pdf',
+            'Content-Disposition: attachment; filename' . $filename,
+            'Content-Description: File Transfer'
         ];
 
-        $downloadPath = Storage::disk('spaces')->url($path);
         if($exists) {
-            return response($downloadPath)
-            ->header('Content-Disposition', 'attachment; filename="test.png"')
-            ->header('Content-Description', 'File Transfer');
+            return Storage::download($path, $name. '.' . $ext, $headers);
         } else {
             return response()->json([
                 'error' => [
                     'message' => 'File not found'
                 ]
-                ], 404);
+            ], 404);
         }
     }
 }

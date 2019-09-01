@@ -12,7 +12,7 @@
             <!-- <div class="avatar">
                 <img :src="'https://sbz-appointment.fra1.digitaloceanspaces.com/'+current_user.avatar" alt="">
             </div> -->
-            <form action="">
+            <form @submit.prevent="submitComment">
                 <input 
                     type="text" 
                     v-model.trim="reply" 
@@ -21,7 +21,11 @@
                     maxlength="250"
                     @keyup.enter="submitComment"
                 />
-                <button class="reply--button" @click.prevent="submitComment"><i class="voyager-paper-plane"></i> Send</button>     
+                <button 
+                    class="reply--button" 
+                    type="submit">
+                    <i class="voyager-paper-plane"></i> Send
+                </button>     
             </form>
         </div>
     </div>

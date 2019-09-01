@@ -566,8 +566,6 @@
 
             submit() {
                 this.$v.$touch();
-                console.log('clicked');
-                console.log(this.$v.$salesOrder);
                 if(!this.$v.$invalid) {
                     // update
                     if(this.salesOrder.id !== null) {
