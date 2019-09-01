@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use TCG\Voyager\Facades\Voyager;
 use App\Http\Controllers\Voyager\VoyagerBaseController;
+use App\SalesOrder;
 
 class VoyagerCompensationsController extends VoyagerBaseController
 {
@@ -54,12 +55,14 @@ class VoyagerCompensationsController extends VoyagerBaseController
         }
 
         $insurances = Insurance::all();
+        $salesOrders = SalesOrder::all();
 
         return Voyager::view($view, compact(
             'dataType', 
             'dataTypeContent', 
             'isModelTranslatable',
-            'insurances'
+            'insurances',
+            'salesOrders'
         ));
     }
 
@@ -117,12 +120,14 @@ class VoyagerCompensationsController extends VoyagerBaseController
         }
 
         $insurances = Insurance::all();
+        $salesOrders = SalesOrder::all();
 
         return Voyager::view($view, compact(
             'dataType',
             'dataTypeContent',
             'isModelTranslatable',
-            'insurances'
+            'insurances',
+            'salesOrders'
         ));
     }
 }

@@ -64,7 +64,7 @@
 .product-card
     background-color: #fff
     box-shadow: 0px 6px 20px rgba(0,0,0,0.07)
-    border-left: 2px solid #4E73DF
+    border-left: 4px solid #4E73DF
     padding: 1.4em 0.6em 1.1em 0.6em
     margin-bottom: 1em
 

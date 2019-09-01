@@ -50,7 +50,8 @@ const state = {
     products: window.products !== undefined ? window.products : null,
     productCategories: window.productCategories !== undefined ? window.productCategories : null,
     users: window.users !== undefined ? window.users : null,
-    tasksCollections: window.tasksCollections !== undefined ? window.tasksCollections : null,
+    tasksCollections: window.tasksCo1llections !== undefined ? window.tasksCollections : null,
+    salesOrders: window.salesOrders !== undefined ? window.salesOrders : null,
     dateFormat: "dd MM yyyy"
 };
 

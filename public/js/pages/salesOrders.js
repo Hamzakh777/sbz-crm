@@ -4825,7 +4825,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../node_module
 
 
 // module
-exports.push([module.i, ".product-card[data-v-acec18c2] {\n  background-color: #fff;\n  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.07);\n  border-left: 2px solid #4E73DF;\n  padding: 1.4em 0.6em 1.1em 0.6em;\n  margin-bottom: 1em;\n}\n.product-card .row > [class*=col-][data-v-acec18c2] {\n  margin-bottom: 0;\n}\n.product-card .voyager-trash[data-v-acec18c2] {\n  cursor: pointer;\n  display: block;\n  margin-top: -3px;\n  font-size: 20px;\n}\n.product-card .voyager-trash[data-v-acec18c2]:hover {\n  color: #FB4027;\n}", ""]);
+exports.push([module.i, ".product-card[data-v-acec18c2] {\n  background-color: #fff;\n  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.07);\n  border-left: 4px solid #4E73DF;\n  padding: 1.4em 0.6em 1.1em 0.6em;\n  margin-bottom: 1em;\n}\n.product-card .row > [class*=col-][data-v-acec18c2] {\n  margin-bottom: 0;\n}\n.product-card .voyager-trash[data-v-acec18c2] {\n  cursor: pointer;\n  display: block;\n  margin-top: -3px;\n  font-size: 20px;\n}\n.product-card .voyager-trash[data-v-acec18c2]:hover {\n  color: #FB4027;\n}", ""]);
 
 // exports
 
@@ -4901,7 +4901,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../node_module
 
 
 // module
-exports.push([module.i, ".document-card[data-v-1ca32f23] {\n  background-color: #fff;\n  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.07);\n  border-left: 2px solid #4E73DF;\n  padding: 1.4em 0.6em 1em 0.6em;\n  margin-bottom: 1em;\n}\n.document-card .row > [class*=col-][data-v-1ca32f23] {\n  margin-bottom: 0;\n}\n.document-card .voyager-trash[data-v-1ca32f23] {\n  cursor: pointer;\n  display: block;\n  margin-top: -3px;\n  font-size: 20px;\n  float: right;\n}\n.document-card .voyager-trash[data-v-1ca32f23]:hover {\n  color: #FB4027;\n}\n.document-card .voyager-double-down[data-v-1ca32f23] {\n  cursor: pointer;\n  display: block;\n  margin-top: -5px;\n  font-size: 24px;\n  float: right;\n  margin-right: 12px;\n}\n.document-card .voyager-double-down[data-v-1ca32f23]:hover {\n  color: #2ecc71;\n}", ""]);
+exports.push([module.i, ".document-card[data-v-1ca32f23] {\n  background-color: #fff;\n  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.07);\n  border-left: 4px solid #4E73DF;\n  padding: 1.4em 0.6em 1em 0.6em;\n  margin-bottom: 1em;\n}\n.document-card .row > [class*=col-][data-v-1ca32f23] {\n  margin-bottom: 0;\n}\n.document-card .voyager-trash[data-v-1ca32f23] {\n  cursor: pointer;\n  display: block;\n  margin-top: -3px;\n  font-size: 20px;\n  float: right;\n}\n.document-card .voyager-trash[data-v-1ca32f23]:hover {\n  color: #FB4027;\n}\n.document-card .voyager-double-down[data-v-1ca32f23] {\n  cursor: pointer;\n  display: block;\n  margin-top: -5px;\n  font-size: 24px;\n  float: right;\n  margin-right: 12px;\n}\n.document-card .voyager-double-down[data-v-1ca32f23]:hover {\n  color: #2ecc71;\n}", ""]);
 
 // exports
 
@@ -5015,7 +5015,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".card[data-v-292727c1] {\n  background-color: #fff;\n  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.07);\n  border-left: 2px solid #4E73DF;\n  padding: 1.8em 0.6em 0.8em 0.6em;\n  margin-bottom: 1em;\n  font-size: 1em;\n}\n.card--done[data-v-292727c1] {\n  border-left-color: #2ecc71;\n}\n.card__actions[data-v-292727c1] {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-end;\n  align-items: center;\n}\n.card__actions .voyager-trash[data-v-292727c1] {\n  cursor: pointer;\n  display: block;\n  margin-top: -3px;\n  font-size: 20px;\n}\n.card__actions .voyager-trash[data-v-292727c1]:hover {\n  color: #FB4027;\n}\n.card__actions .voyager-check[data-v-292727c1] {\n  cursor: pointer;\n  display: block;\n  margin-top: -3px;\n  font-size: 26px;\n  margin-right: 1em;\n}\n.card__actions .voyager-check--green[data-v-292727c1] {\n  color: #2ecc71;\n}\n.card__actions .voyager-check[data-v-292727c1]:hover {\n  color: #2ecc71;\n}", ""]);
+exports.push([module.i, ".card[data-v-292727c1] {\n  background-color: #fff;\n  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.07);\n  border-left: 4px solid #4E73DF;\n  padding: 1.8em 0.6em 0.8em 0.6em;\n  margin-bottom: 1em;\n  font-size: 1em;\n}\n.card--done[data-v-292727c1] {\n  border-left-color: #2ecc71;\n}\n.card__actions[data-v-292727c1] {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-end;\n  align-items: center;\n}\n.card__actions .voyager-trash[data-v-292727c1] {\n  cursor: pointer;\n  display: block;\n  margin-top: -3px;\n  font-size: 20px;\n}\n.card__actions .voyager-trash[data-v-292727c1]:hover {\n  color: #FB4027;\n}\n.card__actions .voyager-check[data-v-292727c1] {\n  cursor: pointer;\n  display: block;\n  margin-top: -3px;\n  font-size: 26px;\n  margin-right: 1em;\n}\n.card__actions .voyager-check--green[data-v-292727c1] {\n  color: #2ecc71;\n}\n.card__actions .voyager-check[data-v-292727c1]:hover {\n  color: #2ecc71;\n}", ""]);
 
 // exports
 
@@ -51322,14 +51322,20 @@ var actions = {
 /*!*************************************************************!*\
   !*** ./resources/js/store/modules/compensations/getters.js ***!
   \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
 var getters = {
   isLoading: function isLoading(state) {
     return state.isLoading;
+  },
+  compensation: function compensation(state) {
+    return state.compensation;
   }
 };
+/* harmony default export */ __webpack_exports__["default"] = (getters);
 
 /***/ }),
 
@@ -51344,7 +51350,6 @@ var getters = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./resources/js/store/modules/compensations/actions.js");
 /* harmony import */ var _getters__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getters */ "./resources/js/store/modules/compensations/getters.js");
-/* harmony import */ var _getters__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_getters__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _state__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./state */ "./resources/js/store/modules/compensations/state.js");
 /* harmony import */ var _mutations__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./mutations */ "./resources/js/store/modules/compensations/mutations.js");
 
@@ -51354,7 +51359,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   namespaced: true,
   state: _state__WEBPACK_IMPORTED_MODULE_2__["default"],
-  getters: _getters__WEBPACK_IMPORTED_MODULE_1___default.a,
+  getters: _getters__WEBPACK_IMPORTED_MODULE_1__["default"],
   actions: _actions__WEBPACK_IMPORTED_MODULE_0__["default"],
   mutations: _mutations__WEBPACK_IMPORTED_MODULE_3__["default"]
 });
@@ -51389,7 +51394,17 @@ var mutations = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 var state = {
-  isLoading: false
+  isLoading: false,
+  compensation: {
+    insuranceId: null,
+    insuranceProvisoinPeriodPlanMonth: null,
+    insuranceProvisoinPeriodPlanYear: null,
+    salesOrderId: null,
+    insuranceProvisionPeriodPlanCompleted: false,
+    totalProvisionPaid: 0,
+    // sales compensation
+    payoutRate: 100
+  }
 };
 /* harmony default export */ __webpack_exports__["default"] = (state);
 
@@ -51464,7 +51479,8 @@ var state = {
   products: window.products !== undefined ? window.products : null,
   productCategories: window.productCategories !== undefined ? window.productCategories : null,
   users: window.users !== undefined ? window.users : null,
-  tasksCollections: window.tasksCollections !== undefined ? window.tasksCollections : null,
+  tasksCollections: window.tasksCo1llections !== undefined ? window.tasksCollections : null,
+  salesOrders: window.salesOrders !== undefined ? window.salesOrders : null,
   dateFormat: "dd MM yyyy"
 };
 var getters = {
