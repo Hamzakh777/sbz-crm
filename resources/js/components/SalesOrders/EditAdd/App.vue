@@ -1,5 +1,6 @@
 <template>
     <div>
+        <progressBar></progressBar>
         <contractPanel></contractPanel>
         <div v-if="salesOrder.id">
             <SalesOrdersPeoplePanel></SalesOrdersPeoplePanel>
@@ -17,6 +18,7 @@
     import SalesOrdersTasksPanel from './SalesOrdersTasksPanel';
     import documentPanel from './documents/documentPanel';
     import commentsPanel from '../../comments/commentsPanel';
+    import progressBar from '../../SalesOrders/EditAdd/progressBar';
     import {mapGetters} from 'vuex';
 
     export default {
@@ -28,7 +30,8 @@
             SalesOrdersPeoplePanel,
             SalesOrdersTasksPanel,
             documentPanel,
-            commentsPanel
+            commentsPanel,
+            progressBar
         },
 
         computed: {
