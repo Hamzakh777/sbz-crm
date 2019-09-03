@@ -55,14 +55,12 @@ class VoyagerCompensationsController extends VoyagerBaseController
         }
 
         $insurances = Insurance::all();
-        $salesOrders = SalesOrder::all();
 
         return Voyager::view($view, compact(
             'dataType', 
             'dataTypeContent', 
             'isModelTranslatable',
             'insurances',
-            'salesOrders'
         ));
     }
 
@@ -120,14 +118,12 @@ class VoyagerCompensationsController extends VoyagerBaseController
         }
 
         $insurances = Insurance::all();
-        $salesOrders = SalesOrder::all();
 
         return Voyager::view($view, compact(
             'dataType',
             'dataTypeContent',
             'isModelTranslatable',
-            'insurances',
-            'salesOrders'
+            'insurances'
         ));
     }
 }

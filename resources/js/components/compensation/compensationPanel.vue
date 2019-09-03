@@ -2,6 +2,7 @@
     <BasePanel
         name="voyager.compensations.compensations"
         icon="voyager-dollar"
+        :showFooter="true"
     >
         <template v-slot:body>
             <BaseLoader
@@ -34,7 +35,7 @@
                     <label class="control-label">
                         {{ trans.get('voyager.compensations.sbz_sales_order_id') }}
                     </label>
-                    <select 
+                    <!-- <select 
                         class="form-control"
                         v-model="compensation.salesOrderId"
                         >
@@ -45,7 +46,21 @@
                         >
                             {{ salesOrder.id }}
                         </option>
-                    </select>
+                    </select> -->
+                    <div>
+                        <vSelect 
+                            :value="compensation.salesOrder.id"
+                            @input="setSelected"
+                            :filterable="false"
+                            :options="salesOrdersIdsList"
+                            @search="fetchSalesOrders">
+                        </vSelect>
+                        <div v-if="$v.search.$error">
+                            <span class="error-text" v-if="!$v.search.numeric">
+                                {{ trans.get('validation_js.numeric_only') }}
+                            </span>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- insurance provision period plan -->
@@ -127,6 +142,19 @@
                     </valueCard>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <label class="control-label">
+                        {{ trans.get('voyager.compensations.provision_feedback') }}
+                    </label>
+                    <textarea 
+                        class="form-control" 
+                        v-model="compensation.provisionFeedback"
+                        cols="30" 
+                        rows="5">
+                    </textarea>
+                </div>
+            </div>
 
             <!-- sales compensations -->
             <div class="row">
@@ -201,7 +229,40 @@
                         >
                         </valueCardFrom>
                     </div>
+
+                    <!-- sales compensations to be paid -->
+                    <div class="form-group col-md-4">
+                        <valueCard
+                            name="voyager.compensations.sales_compensations_to_be_paid"
+                            :value="compensationToBePaid"
+                            accentColor="#2ecc71"
+                        >
+                        </valueCard>
+                    </div>
                 </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <label class="control-label">
+                        {{ trans.get('voyager.compensations.sales_compensation_feedback') }}
+                    </label>
+                    <textarea 
+                        class="form-control" 
+                        v-model="compensation.salesCompensationFeedback"
+                        cols="30" 
+                        rows="5">
+                    </textarea>
+                </div>
+            </div>
+        </template>
+        <template #footer>
+            <div class="row">
+                <button
+                    class="btn btn-success pull-right"
+                    @click.prevent="submit"
+                >
+                    {{ trans.get('voyager.generic.save') }}
+                </button>
             </div>
         </template>
     </BasePanel>
@@ -210,10 +271,12 @@
 <script>
     import BasePanel from '../baseComponents/BasePanel';
     import BaseLoader from '../baseComponents/BaseLoader';
-    import { mapActions, mapGetters } from 'vuex';
+    import { mapActions, mapGetters, mapMutations } from 'vuex';
     import { ToggleButton } from "vue-js-toggle-button";
     import valueCard from './compensationValueCard';
     import valueCardFrom from './compensationValueCardForm';
+    import {required, integer, minValue } from 'vuelidate/lib/validators';
+    import vSelect from 'vue-select';
 
     export default {
         name: 'compensationPanel',
@@ -223,7 +286,8 @@
             BaseLoader,
             valueCard,
             ToggleButton,
-            valueCardFrom
+            valueCardFrom,
+            vSelect
         },
 
         computed: {
@@ -246,6 +310,7 @@
 
             /**
              * Sum of all product values with the same field
+             * requires a sales order to be selected  
              * @return {Number}
              */
             totalExpectedProvision() {
@@ -258,19 +323,94 @@
 
             salesCompensationsTotal() {
                 return 12042;
+            },
+
+            compensationToBePaid() {
+                return (this.salesCompensationsTotal * this.compensation.payoutRate) / 100;
+            }
+        },
+
+        data() {
+            return {
+                search: null,
+                salesOrdersIdsList: []
+            }
+        },
+
+        validations: {
+            search: {
+                integer,
+                required,
+                minValue: minValue(1)
             }
         },
 
         methods: {
-            ...mapActions('compensations',['fetchCompensation'])
+            ...mapActions('compensations',['fetchCompensation']),
+            ...mapMutations('compensations', ['setSalesOrder']),
+
+            async fetchSalesOrders(search, loading) {
+                // we want to vaidate that search is a numeric value
+                this.search = search;
+                this.$v.$touch();
+                if(!this.$v.$invalid) {
+                    loading(true); 
+                    try {
+                        const response = await axios.get(`/api/sales-orders/${search}`);
+
+                        // we reset the list before adding a new item(s)
+                        this.salesOrdersIdsList = [];
+                        this.salesOrdersIdsList.push(response.data.salesOrder.id);
+                        loading(false);
+                    } catch (error) {
+                        loading(false);
+                        alert(error);
+                    }
+                }
+            },
+
+            /** 
+             * When working with vuex
+             * we cant mutate the state directly 
+             * so we trigger an action to do it
+            */
+            setSelected(value) {
+                if(value !== undefined && value !== null && value !== '') {
+                    this.setSalesOrder(value);
+                } else {
+                    this.setSalesOrder({
+                        id: null,
+                        people: null
+                    })
+                }
+            },
+
+            /**
+             * handle the submitting of the data
+             */
+            submit() {
+                if(this.compensation.id === null) {
+                    console.log('store');
+                } else {
+                    console.log('update');
+                }
+            }
+
         },
     }
 </script>
 
 <style lang="sass" scoped>
+
 h4 
     color: #344055
 
-.toggle-button-wrapper
+
+.toggle-button-wrapper 
     margin-top: 0.9em
+
+
+.v-select 
+    padding-top: 6px 
+
 </style>

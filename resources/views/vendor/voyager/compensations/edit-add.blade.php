@@ -55,9 +55,9 @@
 @section('javascript')
     <script>
         window.insurances = {!! $insurances->toJson() !!};
-        window.salesOrders = {!! $salesOrders->toJson() !!}
     </script>
     <script src="{{ mix('js/pages/compensations.js') }}"></script>
+    
     <script>
         var params = {};
         var $file;

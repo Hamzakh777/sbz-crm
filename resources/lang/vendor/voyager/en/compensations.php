@@ -12,5 +12,7 @@ return [
     'total_provision_open'         => 'Total provision open',
     'sales_compensations_total'    => 'Sales compensations total',
     'sales_compensations_payout_rate'   => 'Sales compensations payout rate',
-    'sales_compensations_to_be_paidi'   => 'Sales compensations to be paid'
+    'sales_compensations_to_be_paid'   => 'Sales compensations to be paid',
+    'provision_feedback'                => 'Provision feedback',
+    'sales_compensation_feedback'       => 'Sales compensation feedback'
 ];

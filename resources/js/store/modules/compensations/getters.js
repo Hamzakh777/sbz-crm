@@ -5,6 +5,10 @@ const getters = {
 
     compensation(state) {
         return state.compensation;
+    },
+
+    totalExpectedProvision(state) {
+        
     }
 }
 

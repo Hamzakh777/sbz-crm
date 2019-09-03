@@ -41108,7 +41108,8 @@ var getters = {
   },
   compensation: function compensation(state) {
     return state.compensation;
-  }
+  },
+  totalExpectedProvision: function totalExpectedProvision(state) {}
 };
 /* harmony default export */ __webpack_exports__["default"] = (getters);
 
@@ -41153,6 +41154,11 @@ __webpack_require__.r(__webpack_exports__);
 var mutations = {
   setCompensation: function setCompensation(state, compensation) {
     state.compensation = compensation;
+  },
+  setSalesOrder: function setSalesOrder(state, value) {
+    // since we only need the people and the sales order id
+    state.compensation.salesOrder.id = value.id;
+    state.compensation.salesOrder.people = value.people;
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (mutations);
@@ -41171,14 +41177,21 @@ __webpack_require__.r(__webpack_exports__);
 var state = {
   isLoading: false,
   compensation: {
+    id: window.compensationId !== undefined ? window.compensationId : null,
     insuranceId: null,
     insuranceProvisoinPeriodPlanMonth: null,
     insuranceProvisoinPeriodPlanYear: null,
-    salesOrderId: null,
     insuranceProvisionPeriodPlanCompleted: false,
     totalProvisionPaid: 0,
+    provisionFeedback: null,
     // sales compensation
-    payoutRate: 100
+    payoutRate: 100,
+    salesCompensationFeedback: null,
+    // each compensation has a unique sales order
+    salesOrder: {
+      id: null,
+      people: null
+    }
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (state);
@@ -41255,7 +41268,6 @@ var state = {
   productCategories: window.productCategories !== undefined ? window.productCategories : null,
   users: window.users !== undefined ? window.users : null,
   tasksCollections: window.tasksCo1llections !== undefined ? window.tasksCollections : null,
-  salesOrders: window.salesOrders !== undefined ? window.salesOrders : null,
   dateFormat: "dd MM yyyy"
 };
 var getters = {

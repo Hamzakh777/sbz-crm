@@ -68,9 +68,6 @@
 </script>
 
 <style lang="sass" scoped>
-.range-slider-fill
-    background-color: #2ecc71 !important
-
 .card
     background-color: #fff
     box-shadow: 0px 6px 20px rgba(0,0,0,0.07)

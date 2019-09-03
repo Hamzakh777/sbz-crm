@@ -18,5 +18,11 @@ mix.js("resources/js/app.js", "public/js")
     .js("resources/js/pages/compensations.js", "public/js/pages/compensations.js")
     .js("resources/js/vendor/app.js", "public/js/vendor/app.js")
     .sass("resources/sass/vendor/app.sass", "public/css/vendor/app.css")
-    .sass("resources/sass/app.scss", "public/css");
+    .sass("resources/sass/app.scss", "public/css")
+    .options({
+        hmrOptions: {
+            host: 'sbz_crm.test',
+            port: 3000
+        }
+    });
 

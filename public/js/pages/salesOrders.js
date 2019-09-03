@@ -4018,6 +4018,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -4034,8 +4041,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'progressBar'
+  name: 'progressBar',
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['salesOrder']))
 });
 
 /***/ }),
@@ -4976,7 +4985,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".path[data-v-45112115] {\n  display: flex;\n}", ""]);
+exports.push([module.i, ".path[data-v-45112115] {\n  display: flex;\n}\n.path__nav[data-v-45112115] {\n  display: flex;\n  flex-direction: row;\n  align-items: flex-start;\n  list-style: none;\n  background-color: #fff;\n  padding: 0.825em;\n  box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.07);\n}\n.path__item[data-v-45112115] {\n  width: 200px;\n  height: 2em;\n  margin-right: 0.125rem;\n  border-right-color: transparent;\n  position: relative;\n}\n.path__item[data-v-45112115]:after, .path__item[data-v-45112115]:before {\n  content: \"\";\n  position: absolute;\n  right: -0.575rem;\n  left: -0.25rem;\n  background-color: #fff;\n  background-image: linear-gradient(90deg, #4E73DF, #4E73DF 0.125rem, transparent 0.125rem), linear-gradient(90deg, #4E73DF, #4E73DF 0.125rem, transparent 0.125rem), linear-gradient(#4E73DF, #4E73DF 0.125rem, transparent 0.125rem);\n  background-repeat: no-repeat;\n  background-size: 0.2rem 100%, 0.2rem 100%, 100% 0.2rem;\n}\n.path__item[data-v-45112115]:before {\n  top: 0;\n  height: 1rem;\n  transform: skew(30deg) translate3d(0, 0, 0);\n  left: 1.125rem;\n  background-position: top right, top left, top left;\n}\n.path__item[data-v-45112115]:after {\n  bottom: 0;\n  height: 1rem;\n  transform: skew(-30deg) translate3d(0, 0, 0);\n  left: 1.125rem;\n  background-position: top right, top left, bottom left;\n}\n.path__item[data-v-45112115]:nth-child(1) {\n  border-top-left-radius: 2rem;\n  border-bottom-left-radius: 2rem;\n}\n.path__item[data-v-45112115]:nth-child(1):before, .path__item[data-v-45112115]:nth-child(1):after {\n  left: 1.25rem;\n}\n.path__item__text[data-v-45112115] {\n  text-align: center;\n  color: #fff;\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  font-weight: 500;\n  z-index: 5;\n}\n.path__item--done[data-v-45112115] {\n  background-color: #4E73DF;\n}\n.path__item--done[data-v-45112115]:before, .path__item--done[data-v-45112115]:after {\n  background-color: #4E73DF;\n}", ""]);
 
 // exports
 
@@ -30927,7 +30936,9 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "path" }, [
       _c("ul", { staticClass: "path__nav" }, [
-        _c("li", { staticClass: "path__item" }),
+        _c("li", { staticClass: "path__item path__item--done" }, [
+          _c("span", { staticClass: "path__item__text" }, [_vm._v("test")])
+        ]),
         _vm._v(" "),
         _c("li", { staticClass: "path__item" }),
         _vm._v(" "),
@@ -51560,7 +51571,8 @@ var getters = {
   },
   compensation: function compensation(state) {
     return state.compensation;
-  }
+  },
+  totalExpectedProvision: function totalExpectedProvision(state) {}
 };
 /* harmony default export */ __webpack_exports__["default"] = (getters);
 
@@ -51605,6 +51617,11 @@ __webpack_require__.r(__webpack_exports__);
 var mutations = {
   setCompensation: function setCompensation(state, compensation) {
     state.compensation = compensation;
+  },
+  setSalesOrder: function setSalesOrder(state, value) {
+    // since we only need the people and the sales order id
+    state.compensation.salesOrder.id = value.id;
+    state.compensation.salesOrder.people = value.people;
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (mutations);
@@ -51623,14 +51640,21 @@ __webpack_require__.r(__webpack_exports__);
 var state = {
   isLoading: false,
   compensation: {
+    id: window.compensationId !== undefined ? window.compensationId : null,
     insuranceId: null,
     insuranceProvisoinPeriodPlanMonth: null,
     insuranceProvisoinPeriodPlanYear: null,
-    salesOrderId: null,
     insuranceProvisionPeriodPlanCompleted: false,
     totalProvisionPaid: 0,
+    provisionFeedback: null,
     // sales compensation
-    payoutRate: 100
+    payoutRate: 100,
+    salesCompensationFeedback: null,
+    // each compensation has a unique sales order
+    salesOrder: {
+      id: null,
+      people: null
+    }
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (state);
@@ -51707,7 +51731,6 @@ var state = {
   productCategories: window.productCategories !== undefined ? window.productCategories : null,
   users: window.users !== undefined ? window.users : null,
   tasksCollections: window.tasksCo1llections !== undefined ? window.tasksCollections : null,
-  salesOrders: window.salesOrders !== undefined ? window.salesOrders : null,
   dateFormat: "dd MM yyyy"
 };
 var getters = {
