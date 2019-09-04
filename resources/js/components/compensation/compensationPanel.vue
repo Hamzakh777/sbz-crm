@@ -304,7 +304,7 @@
              * that we way we won't be triggering the call each time 
              * the id updates
              */
-            'compensation.id': (newVal, oldVal) => {
+            'compensation.id': function(newVal, oldVal) {
                 if(oldVal === null) {
                     this.fetchCompensation();
                 }
@@ -315,10 +315,11 @@
              * is calculated using the sales order people products,
              * Thus we need to watch if the products change so we can recalculate it
              */
-            'compensation.salesOrder.people': (newVal, oldVal) => {
+            'compensation.salesOrder.people': function(newVal, oldVal) {
                 let sum = 0;
+
                 try {
-                    if(newVal !== null) {
+                    if(newVal !== null && this.compensation.totalSalesCompensation === 0) {
                         newVal.forEach(person => {
                             const products = person.products;
                             if(products.length !== 0) {
@@ -329,8 +330,6 @@
                         });
 
                         this.setTotalSalesCompensations(sum);
-                    } else {
-                        this.setTotalSalesCompensations(0);
                     }
                 } catch (error) {
                     console.log(error);
@@ -395,7 +394,7 @@
             },
 
             compensationToBePaid() {
-                return (this.totalSalesCompensation * this.compensation.payoutRate) / 100;
+                return (this.compensation.totalSalesCompensation * this.compensation.payoutRate) / 100;
             }
         },
 

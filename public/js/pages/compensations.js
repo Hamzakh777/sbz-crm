@@ -1788,8 +1788,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue-select */ "./node_modules/vue-select/dist/vue-select.js");
 /* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(vue_select__WEBPACK_IMPORTED_MODULE_7__);
-var _this = undefined;
-
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -2100,7 +2098,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
      */
     'compensation.id': function compensationId(newVal, oldVal) {
       if (oldVal === null) {
-        _this.fetchCompensation();
+        this.fetchCompensation();
       }
     },
 
@@ -2113,7 +2111,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var sum = 0;
 
       try {
-        if (newVal !== null) {
+        if (newVal !== null && this.compensation.totalSalesCompensation === 0) {
           newVal.forEach(function (person) {
             var products = person.products;
 
@@ -2125,10 +2123,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
             ;
           });
-
-          _this.setTotalSalesCompensations(sum);
-        } else {
-          _this.setTotalSalesCompensations(0);
+          this.setTotalSalesCompensations(sum);
         }
       } catch (error) {
         console.log(error);
@@ -2191,7 +2186,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return this.totalExpectedProvision - this.compensation.totalProvisionPaid;
     },
     compensationToBePaid: function compensationToBePaid() {
-      return this.totalSalesCompensation * this.compensation.payoutRate / 100;
+      return this.compensation.totalSalesCompensation * this.compensation.payoutRate / 100;
     }
   }),
   data: function data() {
@@ -2222,7 +2217,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])('compensations', ['fetchCompensation', 'store', 'update']), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapMutations"])('compensations', ['setSalesOrderId', 'setTotalSalesCompensations']), {
     fetchSalesOrders: function fetchSalesOrders(search, loading) {
-      var _this2 = this;
+      var _this = this;
 
       // we want to vaidate that search is a numeric value
       this.search = search;
@@ -2232,11 +2227,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         loading(true);
         axios.get("/api/sales-orders/".concat(search)).then(function (response) {
           // we reset the list before adding a new item(s)
-          _this2.salesOrdersIdsList = [];
+          _this.salesOrdersIdsList = [];
 
-          _this2.salesOrdersIdsList.push(response.data.salesOrder.id);
+          _this.salesOrdersIdsList.push(response.data.salesOrder.id);
 
-          _this2.compensation.salesOrder.people = response.data.salesOrder.people;
+          _this.compensation.salesOrder.people = response.data.salesOrder.people;
           loading(false);
         })["catch"](function (e) {
           loading(false);
@@ -2500,7 +2495,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".card[data-v-0f8d8be1] {\n  background-color: #fff;\n  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.07);\n  border-left: 4px solid #4E73DF;\n  padding: 1em 1em 1em 1.5em;\n  margin-bottom: 1em;\n  height: 90px;\n}\n.card__title[data-v-0f8d8be1] {\n  margin-bottom: 2px;\n  font-weight: bold;\n  color: #4E73DF;\n}\n.card__value[data-v-0f8d8be1] {\n  font-size: 20px;\n  font-weight: bold;\n  color: #5a5c69;\n}\n.card__value__input[data-v-0f8d8be1] {\n  font-size: 20px;\n  font-weight: bold;\n  color: #5a5c69;\n  padding-left: 0;\n}\n.card__value__input[data-v-0f8d8be1]::-webkit-inner-spin-button, .card__value__input[data-v-0f8d8be1]::-webkit-outer-spin-button {\n  -webkit-appearance: none;\n  margin: 0;\n}\n.card__value__input[data-v-0f8d8be1]:focus {\n  border-bottom-color: #2ecc71 !important;\n}\n.card__value__input--small[data-v-0f8d8be1] {\n  width: 42px;\n  padding-right: 0;\n  margin-top: -6px;\n}\n.card .slider[data-v-0f8d8be1] {\n  width: 100%;\n  padding-right: 30px;\n  padding-left: 0;\n}\n.card .wrapper[data-v-0f8d8be1] {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n}", ""]);
+exports.push([module.i, ".card[data-v-0f8d8be1] {\n  background-color: #fff;\n  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.07);\n  border-left: 4px solid #4E73DF;\n  padding: 1em 1em 1em 1.5em;\n  margin-bottom: 1em;\n  height: 90px;\n}\n.card__title[data-v-0f8d8be1] {\n  margin-bottom: 2px;\n  font-weight: bold;\n  color: #4E73DF;\n}\n.card__value[data-v-0f8d8be1] {\n  font-size: 20px;\n  font-weight: bold;\n  color: #5a5c69;\n}\n.card__value__input[data-v-0f8d8be1] {\n  font-size: 20px;\n  font-weight: bold;\n  color: #5a5c69;\n  padding-left: 0;\n}\n.card__value__input[data-v-0f8d8be1]::-webkit-inner-spin-button, .card__value__input[data-v-0f8d8be1]::-webkit-outer-spin-button {\n  -webkit-appearance: none;\n  margin: 0;\n}\n.card__value__input[data-v-0f8d8be1]:focus {\n  border-bottom-color: #2ecc71 !important;\n}\n.card__value__input--small[data-v-0f8d8be1] {\n  width: 42px;\n  padding-right: 0;\n  margin-top: -6px;\n}\n.card__value__input--blue[data-v-0f8d8be1]:focus {\n  border-bottom-color: #4E73DF !important;\n}\n.card .slider[data-v-0f8d8be1] {\n  width: 100%;\n  padding-right: 30px;\n  padding-left: 0;\n}\n.card .wrapper[data-v-0f8d8be1] {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n}", ""]);
 
 // exports
 
@@ -24069,7 +24064,10 @@ var render = function() {
                 }
               ],
               staticClass: "card__value__input form-control",
-              class: { "card__value__input--small": _vm.isSlider },
+              class: {
+                "card__value__input--small": _vm.isSlider,
+                "card__value__input--blue": _vm.accentColor === "#4E73DF"
+              },
               attrs: { type: "number", oninput: "validity.valid||(value='');" },
               domProps: { value: _vm.compensation[_vm.propertyName] },
               on: {

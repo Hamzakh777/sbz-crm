@@ -23,7 +23,7 @@
                     type="number" 
                     v-model="compensation[propertyName]" 
                     class="card__value__input form-control" 
-                    :class="{'card__value__input--small': isSlider}"
+                    :class="{'card__value__input--small': isSlider, 'card__value__input--blue': accentColor === '#4E73DF'}"
                     oninput="validity.valid||(value='');"
                 >
             </div>
@@ -101,7 +101,11 @@
             &--small
                 width: 42px
                 padding-right: 0
-                margin-top: -6px
+                margin-top: -6px 
+
+            &--blue 
+                &:focus 
+                    border-bottom-color: #4E73DF !important
 
     .slider 
         width: 100%
