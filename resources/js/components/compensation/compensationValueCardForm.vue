@@ -34,7 +34,6 @@
 <script>
     import {mapGetters} from 'vuex';
     import RangeSlider from 'vue-range-slider';
-    import 'vue-range-slider/dist/vue-range-slider.css'
 
     export default {
         name: 'CompensationValueCard',

@@ -1,9 +1,11 @@
 // Variables
-// @import 'variables';
+@import 'variables';
 
 // Components
 @import 'components/switch-btn-lang.sass';
 
-@import 'components/_vue_slider.sass';
+@import 'components/_vue-slider.sass';
 
-@import 'components/_vue_select.sass';
+@import 'components/_vue-select.sass';
+
+@import 'components/_vue-range-slider.sass';

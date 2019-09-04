@@ -1,0 +1,22 @@
+@import "vue-select/src/scss/vue-select.scss"
+
+.v-select
+    .vs__dropdown-toggle 
+        border-radius: 0
+        border-top-color: transparent 
+        border-right-color: transparent 
+        border-left-color: transparent
+        border-bottom-color: $light-grey
+
+        .vs__open-indicator, .vs__clear
+            fill: darken($light-grey, 40%)
+            transform: scale(0.8)
+
+    &.vs--open
+        .vs__dropdown-toggle 
+            border-color: $light-grey
+            border-top-color: $light-grey 
+            border-right-color: $light-grey 
+            border-left-color: $light-grey
+
+

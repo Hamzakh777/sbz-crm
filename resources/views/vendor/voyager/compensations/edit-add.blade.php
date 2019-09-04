@@ -55,7 +55,16 @@
 @section('javascript')
     <script>
         window.insurances = {!! $insurances->toJson() !!};
-    </script>
+        @if(setting('admin.period_plan_month') !== null ) 
+            window.periodPlanMonth =  {{ setting('admin.period_plan_month') }};
+        @endif
+        @if(setting('admin.period_plan_year') !== null ) 
+            window.periodPlanYear =  {{ setting('admin.period_plan_year') }};
+        @endif
+        @if($edit) 
+            window.compensationId =  {{ $dataTypeContent->getKey()  }};
+        @endif
+        </script>
     <script src="{{ mix('js/pages/compensations.js') }}"></script>
     
     <script>

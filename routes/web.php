@@ -48,7 +48,8 @@ Route::group([
         'sales-orders' => 'SalesOrders\SalesOrdersController',
         'documents' => 'Documents\ApiDocumentsController',
         'sales-order-people' => 'SalesOrders\SalesOrderPeopleController',
-        'comments' => 'SalesOrders\CommentsController'
+        'comments' => 'SalesOrders\CommentsController',
+        'compensations' => 'Compensations\CompensationsController'
     ]);
 
     // tasks collections in sales orders

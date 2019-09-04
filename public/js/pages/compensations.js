@@ -1777,24 +1777,18 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _baseComponents_BasePanel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../baseComponents/BasePanel */ "./resources/js/components/baseComponents/BasePanel.vue");
-/* harmony import */ var _baseComponents_BaseLoader__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../baseComponents/BaseLoader */ "./resources/js/components/baseComponents/BaseLoader.vue");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-js-toggle-button */ "./node_modules/vue-js-toggle-button/dist/index.js");
-/* harmony import */ var vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _compensationValueCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./compensationValueCard */ "./resources/js/components/compensation/compensationValueCard.vue");
-/* harmony import */ var _compensationValueCardForm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./compensationValueCardForm */ "./resources/js/components/compensation/compensationValueCardForm.vue");
-/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
-/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vue-select */ "./node_modules/vue-select/dist/vue-select.js");
-/* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(vue_select__WEBPACK_IMPORTED_MODULE_8__);
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+/* harmony import */ var _baseComponents_BasePanel__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../baseComponents/BasePanel */ "./resources/js/components/baseComponents/BasePanel.vue");
+/* harmony import */ var _baseComponents_BaseLoader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../baseComponents/BaseLoader */ "./resources/js/components/baseComponents/BaseLoader.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-js-toggle-button */ "./node_modules/vue-js-toggle-button/dist/index.js");
+/* harmony import */ var vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _compensationValueCard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./compensationValueCard */ "./resources/js/components/compensation/compensationValueCard.vue");
+/* harmony import */ var _compensationValueCardForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./compensationValueCardForm */ "./resources/js/components/compensation/compensationValueCardForm.vue");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue-select */ "./node_modules/vue-select/dist/vue-select.js");
+/* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(vue_select__WEBPACK_IMPORTED_MODULE_7__);
+var _this = undefined;
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -1802,6 +1796,14 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2083,14 +2085,57 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'compensationPanel',
   components: {
-    BasePanel: _baseComponents_BasePanel__WEBPACK_IMPORTED_MODULE_1__["default"],
-    BaseLoader: _baseComponents_BaseLoader__WEBPACK_IMPORTED_MODULE_2__["default"],
-    valueCard: _compensationValueCard__WEBPACK_IMPORTED_MODULE_5__["default"],
-    ToggleButton: vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_4__["ToggleButton"],
-    valueCardFrom: _compensationValueCardForm__WEBPACK_IMPORTED_MODULE_6__["default"],
-    vSelect: vue_select__WEBPACK_IMPORTED_MODULE_8___default.a
+    BasePanel: _baseComponents_BasePanel__WEBPACK_IMPORTED_MODULE_0__["default"],
+    BaseLoader: _baseComponents_BaseLoader__WEBPACK_IMPORTED_MODULE_1__["default"],
+    valueCard: _compensationValueCard__WEBPACK_IMPORTED_MODULE_4__["default"],
+    ToggleButton: vue_js_toggle_button__WEBPACK_IMPORTED_MODULE_3__["ToggleButton"],
+    valueCardFrom: _compensationValueCardForm__WEBPACK_IMPORTED_MODULE_5__["default"],
+    vSelect: vue_select__WEBPACK_IMPORTED_MODULE_7___default.a
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])('compensations', ['isLoading', 'compensation']), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(['allInsurances', 'allSalesOrders']), {
+  watch: {
+    /**
+     * Only trigger an action if the old value is null
+     * that we way we won't be triggering the call each time 
+     * the id updates
+     */
+    'compensation.id': function compensationId(newVal, oldVal) {
+      if (oldVal === null) {
+        _this.fetchCompensation();
+      }
+    },
+
+    /**
+     * The default value for the totalSalesCompensation
+     * is calculated using the sales order people products,
+     * Thus we need to watch if the products change so we can recalculate it
+     */
+    'compensation.salesOrder.people': function compensationSalesOrderPeople(newVal, oldVal) {
+      var sum = 0;
+
+      try {
+        if (newVal !== null) {
+          newVal.forEach(function (person) {
+            var products = person.products;
+
+            if (products.length !== 0) {
+              products.forEach(function (product) {
+                sum += product.provision;
+              });
+            }
+
+            ;
+          });
+
+          _this.setTotalSalesCompensations(sum);
+        } else {
+          _this.setTotalSalesCompensations(0);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])('compensations', ['isLoading', 'compensation']), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['allInsurances', 'allSalesOrders']), {
     /**
      * years from now to 17 years later
      * @return {Array}
@@ -2108,21 +2153,45 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
 
     /**
-     * Sum of all product values with the same field
+     * Sum of all product values - provision - with the same field
      * requires a sales order to be selected  
+     * @param {}
      * @return {Number}
      */
     totalExpectedProvision: function totalExpectedProvision() {
-      return 12042;
+      if (this.compensation.salesOrder.id === null) {
+        return 0;
+      } else {
+        var people = this.compensation.salesOrder.people;
+        var sum = 0;
+
+        try {
+          if (people !== null) {
+            people.forEach(function (person) {
+              var products = person.products;
+
+              if (products.length !== 0) {
+                products.forEach(function (product) {
+                  sum += product.provision;
+                });
+              }
+
+              ;
+            });
+            return sum;
+          } else {
+            return 0;
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
     },
     totalProvisionOpen: function totalProvisionOpen() {
       return this.totalExpectedProvision - this.compensation.totalProvisionPaid;
     },
-    salesCompensationsTotal: function salesCompensationsTotal() {
-      return 12042;
-    },
     compensationToBePaid: function compensationToBePaid() {
-      return this.salesCompensationsTotal * this.compensation.payoutRate / 100;
+      return this.totalSalesCompensation * this.compensation.payoutRate / 100;
     }
   }),
   data: function data() {
@@ -2133,64 +2202,47 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   validations: {
     search: {
-      integer: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_7__["integer"],
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_7__["required"],
-      minValue: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_7__["minValue"])(1)
+      integer: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_6__["integer"],
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_6__["required"],
+      minValue: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_6__["minValue"])(1)
+    },
+    compensation: {
+      salesCompensationFeedback: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_6__["required"]
+      },
+      insuranceId: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_6__["required"]
+      },
+      salesOrder: {
+        id: {
+          required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_6__["required"]
+        }
+      }
     }
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapActions"])('compensations', ['fetchCompensation']), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapMutations"])('compensations', ['setSalesOrder']), {
-    fetchSalesOrders: function () {
-      var _fetchSalesOrders = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(search, loading) {
-        var response;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                // we want to vaidate that search is a numeric value
-                this.search = search;
-                this.$v.$touch();
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])('compensations', ['fetchCompensation', 'store', 'update']), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapMutations"])('compensations', ['setSalesOrderId', 'setTotalSalesCompensations']), {
+    fetchSalesOrders: function fetchSalesOrders(search, loading) {
+      var _this2 = this;
 
-                if (this.$v.$invalid) {
-                  _context.next = 17;
-                  break;
-                }
+      // we want to vaidate that search is a numeric value
+      this.search = search;
+      this.$v.search.$touch();
 
-                loading(true);
-                _context.prev = 4;
-                _context.next = 7;
-                return axios.get("/api/sales-orders/".concat(search));
+      if (!this.$v.search.$invalid) {
+        loading(true);
+        axios.get("/api/sales-orders/".concat(search)).then(function (response) {
+          // we reset the list before adding a new item(s)
+          _this2.salesOrdersIdsList = [];
 
-              case 7:
-                response = _context.sent;
-                // we reset the list before adding a new item(s)
-                this.salesOrdersIdsList = [];
-                this.salesOrdersIdsList.push(response.data.salesOrder.id);
-                loading(false);
-                _context.next = 17;
-                break;
+          _this2.salesOrdersIdsList.push(response.data.salesOrder.id);
 
-              case 13:
-                _context.prev = 13;
-                _context.t0 = _context["catch"](4);
-                loading(false);
-                alert(_context.t0);
-
-              case 17:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, this, [[4, 13]]);
-      }));
-
-      function fetchSalesOrders(_x, _x2) {
-        return _fetchSalesOrders.apply(this, arguments);
+          _this2.compensation.salesOrder.people = response.data.salesOrder.people;
+          loading(false);
+        })["catch"](function (e) {
+          loading(false);
+        });
       }
-
-      return fetchSalesOrders;
-    }(),
+    },
 
     /** 
      * When working with vuex
@@ -2199,12 +2251,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     */
     setSelected: function setSelected(value) {
       if (value !== undefined && value !== null && value !== '') {
-        this.setSalesOrder(value);
+        this.setSalesOrderId(value);
       } else {
-        this.setSalesOrder({
-          id: null,
-          people: null
-        });
+        this.setSalesOrderId(null);
       }
     },
 
@@ -2212,13 +2261,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
      * handle the submitting of the data
      */
     submit: function submit() {
-      if (this.compensation.id === null) {
-        console.log('store');
-      } else {
-        console.log('update');
+      this.$v.compensation.$touch();
+
+      if (!this.$v.compensation.$invalid) {
+        if (this.compensation.id === null) {
+          this.store();
+        } else {
+          this.update();
+        }
       }
     }
-  })
+  }),
+  mounted: function mounted() {
+    if (this.compensation.id !== null) {
+      this.fetchCompensation();
+    }
+  }
 });
 
 /***/ }),
@@ -2286,8 +2344,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var vue_range_slider__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-range-slider */ "./node_modules/vue-range-slider/dist/vue-range-slider.cjs.js");
 /* harmony import */ var vue_range_slider__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_range_slider__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var vue_range_slider_dist_vue_range_slider_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-range-slider/dist/vue-range-slider.css */ "./node_modules/vue-range-slider/dist/vue-range-slider.css");
-/* harmony import */ var vue_range_slider_dist_vue_range_slider_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_range_slider_dist_vue_range_slider_css__WEBPACK_IMPORTED_MODULE_2__);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -2327,7 +2383,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2446,25 +2501,6 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 // module
 exports.push([module.i, ".card[data-v-0f8d8be1] {\n  background-color: #fff;\n  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.07);\n  border-left: 4px solid #4E73DF;\n  padding: 1em 1em 1em 1.5em;\n  margin-bottom: 1em;\n  height: 90px;\n}\n.card__title[data-v-0f8d8be1] {\n  margin-bottom: 2px;\n  font-weight: bold;\n  color: #4E73DF;\n}\n.card__value[data-v-0f8d8be1] {\n  font-size: 20px;\n  font-weight: bold;\n  color: #5a5c69;\n}\n.card__value__input[data-v-0f8d8be1] {\n  font-size: 20px;\n  font-weight: bold;\n  color: #5a5c69;\n  padding-left: 0;\n}\n.card__value__input[data-v-0f8d8be1]::-webkit-inner-spin-button, .card__value__input[data-v-0f8d8be1]::-webkit-outer-spin-button {\n  -webkit-appearance: none;\n  margin: 0;\n}\n.card__value__input[data-v-0f8d8be1]:focus {\n  border-bottom-color: #2ecc71 !important;\n}\n.card__value__input--small[data-v-0f8d8be1] {\n  width: 42px;\n  padding-right: 0;\n  margin-top: -6px;\n}\n.card .slider[data-v-0f8d8be1] {\n  width: 100%;\n  padding-right: 30px;\n  padding-left: 0;\n}\n.card .wrapper[data-v-0f8d8be1] {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n}", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-range-slider/dist/vue-range-slider.css":
-/*!*************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader??ref--7-1!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-range-slider/dist/vue-range-slider.css ***!
-  \*************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, ".range-slider {\n  display: inline-block;\n  padding: 0 10px;\n  height: 20px;\n  width: 130px;\n}\n\n.range-slider.disabled {\n  opacity: 0.5;\n}\n\n.range-slider-inner {\n  display: inline-block;\n  position: relative;\n  height: 100%;\n  width: 100%;\n}\n\n.range-slider-rail,\n.range-slider-fill {\n  display: block;\n  position: absolute;\n  top: 50%;\n  left: 0;\n  height: 4px;\n  border-radius: 2px;\n  transform: translateY(-50%);\n}\n\n.range-slider-rail {\n  width: 100%;\n  background-color: #e2e2e2;\n}\n\n.range-slider-fill {\n  background-color: #21fb92;\n}\n\n.range-slider-knob {\n  display: block;\n  position: absolute;\n  top: 50%;\n  left: 0;\n  box-sizing: border-box;\n  height: 20px;\n  width: 20px;\n  border: 1px solid #f5f5f5;\n  border-radius: 50%;\n  background-color: #fff;\n  box-shadow: 1px 1px rgba(0, 0, 0, 0.2);\n  transform: translate(-50%, -50%);\n  cursor: pointer;\n}\n\n.range-slider-hidden {\n  display: none;\n}\n", ""]);
 
 // exports
 
@@ -23233,6 +23269,10 @@ var render = function() {
                       }
                     ],
                     staticClass: "form-control",
+                    class: {
+                      "form-control--error":
+                        _vm.$v.compensation.insuranceId.$error
+                    },
                     on: {
                       change: function($event) {
                         var $$selectedVal = Array.prototype.filter
@@ -23267,7 +23307,23 @@ var render = function() {
                     )
                   }),
                   0
-                )
+                ),
+                _vm._v(" "),
+                _vm.$v.compensation.insuranceId.$error
+                  ? _c("div", [
+                      !_vm.$v.compensation.insuranceId.required
+                        ? _c("span", { staticClass: "error-text" }, [
+                            _vm._v(
+                              "\n                        " +
+                                _vm._s(
+                                  _vm.trans.get("validation_js.required")
+                                ) +
+                                "\n                    "
+                            )
+                          ])
+                        : _vm._e()
+                    ])
+                  : _vm._e()
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group col-md-4" }, [
@@ -23298,7 +23354,7 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
-                    _vm.$v.search.$error
+                    _vm.$v.search.$error && !_vm.$v.search.numeric
                       ? _c("div", [
                           !_vm.$v.search.numeric
                             ? _c("span", { staticClass: "error-text" }, [
@@ -23308,6 +23364,23 @@ var render = function() {
                                       _vm.trans.get(
                                         "validation_js.numeric_only"
                                       )
+                                    ) +
+                                    "\n                        "
+                                )
+                              ])
+                            : _vm._e()
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.$v.compensation.salesOrder.id.$error &&
+                    !_vm.$v.compensation.salesOrder.id.required
+                      ? _c("div", [
+                          !_vm.$v.compensation.salesOrder.id.required
+                            ? _c("span", { staticClass: "error-text" }, [
+                                _vm._v(
+                                  "\n                            " +
+                                    _vm._s(
+                                      _vm.trans.get("validation_js.required")
                                     ) +
                                     "\n                        "
                                 )
@@ -23604,9 +23677,9 @@ var render = function() {
                               rawName: "v-model",
                               value:
                                 _vm.compensation
-                                  .salesCompensationsPeriodPlanMonth,
+                                  .salesCompensationPeriodPlanMonth,
                               expression:
-                                "compensation.salesCompensationsPeriodPlanMonth"
+                                "compensation.salesCompensationPeriodPlanMonth"
                             }
                           ],
                           staticClass: "form-control ",
@@ -23622,7 +23695,7 @@ var render = function() {
                                 })
                               _vm.$set(
                                 _vm.compensation,
-                                "salesCompensationsPeriodPlanMonth",
+                                "salesCompensationPeriodPlanMonth",
                                 $event.target.multiple
                                   ? $$selectedVal
                                   : $$selectedVal[0]
@@ -23657,9 +23730,9 @@ var render = function() {
                               rawName: "v-model",
                               value:
                                 _vm.compensation
-                                  .salesCompensationsPeriodPlanYear,
+                                  .salesCompensationPeriodPlanYear,
                               expression:
-                                "compensation.salesCompensationsPeriodPlanYear"
+                                "compensation.salesCompensationPeriodPlanYear"
                             }
                           ],
                           staticClass: "form-control ",
@@ -23675,7 +23748,7 @@ var render = function() {
                                 })
                               _vm.$set(
                                 _vm.compensation,
-                                "salesCompensationsPeriodPlanYear",
+                                "salesCompensationPeriodPlanYear",
                                 $event.target.multiple
                                   ? $$selectedVal
                                   : $$selectedVal[0]
@@ -23718,7 +23791,7 @@ var render = function() {
                           sync: true,
                           value:
                             _vm.compensation
-                              .insuranceProvisionPeriodPlanCompleted,
+                              .salesCompensationPeriodPlanCompleted,
                           labels: {
                             checked: _vm.trans.get("voyager.generic.yes"),
                             unchecked: _vm.trans.get("voyager.generic.no")
@@ -23727,16 +23800,16 @@ var render = function() {
                         model: {
                           value:
                             _vm.compensation
-                              .insuranceProvisionPeriodPlanCompleted,
+                              .salesCompensationPeriodPlanCompleted,
                           callback: function($$v) {
                             _vm.$set(
                               _vm.compensation,
-                              "insuranceProvisionPeriodPlanCompleted",
+                              "salesCompensationPeriodPlanCompleted",
                               $$v
                             )
                           },
                           expression:
-                            "compensation.insuranceProvisionPeriodPlanCompleted"
+                            "compensation.salesCompensationPeriodPlanCompleted"
                         }
                       })
                     ],
@@ -23750,10 +23823,10 @@ var render = function() {
                   "div",
                   { staticClass: "form-group col-md-4" },
                   [
-                    _c("valueCard", {
+                    _c("valueCardFrom", {
                       attrs: {
-                        name: "voyager.compensations.sales_compensations_total",
-                        value: _vm.salesCompensationsTotal,
+                        name: "voyager.compensations.total_provision_paid",
+                        propertyName: "totalSalesCompensation",
                         accentColor: "#4E73DF"
                       }
                     })
@@ -23820,6 +23893,10 @@ var render = function() {
                     }
                   ],
                   staticClass: "form-control",
+                  class: {
+                    "form-control--error":
+                      _vm.$v.compensation.salesCompensationFeedback.$error
+                  },
                   attrs: { cols: "30", rows: "5" },
                   domProps: {
                     value: _vm.compensation.salesCompensationFeedback
@@ -23836,7 +23913,23 @@ var render = function() {
                       )
                     }
                   }
-                })
+                }),
+                _vm._v(" "),
+                _vm.$v.compensation.salesCompensationFeedback.$error
+                  ? _c("div", [
+                      !_vm.$v.compensation.salesCompensationFeedback.required
+                        ? _c("span", { staticClass: "error-text" }, [
+                            _vm._v(
+                              "\n                        " +
+                                _vm._s(
+                                  _vm.trans.get("validation_js.required")
+                                ) +
+                                "\n                    "
+                            )
+                          ])
+                        : _vm._e()
+                    ])
+                  : _vm._e()
               ])
             ])
           ]
@@ -24426,36 +24519,6 @@ var RangeSlider = { render: function render() {
 
 module.exports = RangeSlider;
 
-
-/***/ }),
-
-/***/ "./node_modules/vue-range-slider/dist/vue-range-slider.css":
-/*!*****************************************************************!*\
-  !*** ./node_modules/vue-range-slider/dist/vue-range-slider.css ***!
-  \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(/*! !../../css-loader??ref--7-1!../../postcss-loader/src??ref--7-2!./vue-range-slider.css */ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-range-slider/dist/vue-range-slider.css");
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(/*! ../../style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
 
 /***/ }),
 
@@ -40015,12 +40078,139 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_0__
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 var actions = {
-  fetchCompensation: function fetchCompensation(_ref) {
-    var commit = _ref.commit,
-        state = _ref.state;
-    console.log('fetching');
-  }
+  fetchCompensation: function () {
+    var _fetchCompensation = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref) {
+      var commit, state, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              commit = _ref.commit, state = _ref.state;
+              state.isLoading = true;
+              _context.prev = 2;
+              _context.next = 5;
+              return axios.get("/api/compensations/".concat(state.compensation.id));
+
+            case 5:
+              response = _context.sent;
+              commit('setCompensation', response.data.compensation);
+              state.isLoading = false;
+              _context.next = 14;
+              break;
+
+            case 10:
+              _context.prev = 10;
+              _context.t0 = _context["catch"](2);
+              state.isLoading = false;
+              alert(_context.t0);
+
+            case 14:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[2, 10]]);
+    }));
+
+    function fetchCompensation(_x) {
+      return _fetchCompensation.apply(this, arguments);
+    }
+
+    return fetchCompensation;
+  }(),
+  store: function () {
+    var _store = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2) {
+      var commit, state, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              commit = _ref2.commit, state = _ref2.state;
+              state.isLoading = true;
+              _context2.prev = 2;
+              _context2.next = 5;
+              return axios.post("/api/compensations/", state.compensation);
+
+            case 5:
+              response = _context2.sent;
+              state.isLoading = false;
+              commit('setCompensationId', response.data.compensation.id);
+              _context2.next = 14;
+              break;
+
+            case 10:
+              _context2.prev = 10;
+              _context2.t0 = _context2["catch"](2);
+              state.isLoading = false;
+              alert(_context2.t0);
+
+            case 14:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[2, 10]]);
+    }));
+
+    function store(_x2) {
+      return _store.apply(this, arguments);
+    }
+
+    return store;
+  }(),
+  update: function () {
+    var _update = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3) {
+      var commit, state;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              commit = _ref3.commit, state = _ref3.state;
+              state.isLoading = true;
+              _context3.prev = 2;
+              _context3.next = 5;
+              return axios.put("/api/compensations/".concat(state.compensation.id), state.compensation);
+
+            case 5:
+              state.isLoading = false;
+              _context3.next = 12;
+              break;
+
+            case 8:
+              _context3.prev = 8;
+              _context3.t0 = _context3["catch"](2);
+              state.isLoading;
+              alert(_context3.t0);
+
+            case 12:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[2, 8]]);
+    }));
+
+    function update(_x3) {
+      return _update.apply(this, arguments);
+    }
+
+    return update;
+  }()
 };
 /* harmony default export */ __webpack_exports__["default"] = (actions);
 
@@ -40086,12 +40276,31 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 var mutations = {
   setCompensation: function setCompensation(state, compensation) {
-    state.compensation = compensation;
+    state.compensation.insuranceId = compensation.insurance_id;
+    state.compensation.insuranceProvisionPeriodPlanMonth = compensation.insurance_provision_period_plan_month;
+    state.compensation.insuranceProvisionPeriodPlanYear = compensation.insurance_provision_period_plan_year;
+    state.compensation.insuranceProvisionPeriodPlanCompleted = compensation.insurance_provision_period_plan_completed === 1 ? true : false;
+    state.compensation.totalProvisionPaid = compensation.total_provision_paid;
+    state.compensation.provisionFeedback = compensation.provision_feedback;
+    state.compensation.payoutRate = compensation.sales_compensations_payout_rate;
+    state.compensation.salesCompensationFeedback = compensation.sales_compensation_feedback;
+    state.compensation.insuranceId = compensation.insurance_id;
+    state.compensation.salesCompensationPeriodPlanMonth = compensation.sales_compensations_period_plan_month;
+    state.compensation.salesCompensationPeriodPlanYear = compensation.sales_compensations_period_plan_year;
+    state.compensation.salesCompensationPeriodPlanCompleted = compensation.sales_compensations_period_plan_completed === 1 ? true : false;
+    state.compensation.totalSalesCompensation = compensation.sales_compensations_total;
+    state.compensation.salesOrder.id = compensation.sales_order_id;
+    state.compensation.salesOrder.people = compensation.sales_order_people;
   },
-  setSalesOrder: function setSalesOrder(state, value) {
+  setSalesOrderId: function setSalesOrderId(state, value) {
     // since we only need the people and the sales order id
-    state.compensation.salesOrder.id = value.id;
-    state.compensation.salesOrder.people = value.people;
+    state.compensation.salesOrder.id = value;
+  },
+  setCompensationId: function setCompensationId(state, value) {
+    state.compensation.id = value;
+  },
+  setTotalSalesCompensations: function setTotalSalesCompensations(state, value) {
+    state.compensation.totalSalesCompensation = value;
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (mutations);
@@ -40112,14 +40321,18 @@ var state = {
   compensation: {
     id: window.compensationId !== undefined ? window.compensationId : null,
     insuranceId: null,
-    insuranceProvisoinPeriodPlanMonth: null,
-    insuranceProvisoinPeriodPlanYear: null,
+    insuranceProvisionPeriodPlanMonth: window.periodPlanMonth !== undefined ? window.periodPlanMonth : null,
+    insuranceProvisionPeriodPlanYear: window.periodPlanYear !== undefined ? window.periodPlanYear : null,
     insuranceProvisionPeriodPlanCompleted: false,
     totalProvisionPaid: 0,
     provisionFeedback: null,
     // sales compensation
     payoutRate: 100,
     salesCompensationFeedback: null,
+    salesCompensationPeriodPlanMonth: window.periodPlanMonth !== undefined ? window.periodPlanMonth : null,
+    salesCompensationPeriodPlanYear: window.periodPlanYear !== undefined ? window.periodPlanYear : null,
+    salesCompensationPeriodPlanCompleted: false,
+    totalSalesCompensation: 0,
     // each compensation has a unique sales order
     salesOrder: {
       id: null,

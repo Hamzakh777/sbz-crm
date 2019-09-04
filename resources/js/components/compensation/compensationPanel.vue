@@ -19,6 +19,7 @@
                     <select 
                         class="form-control"
                         v-model="compensation.insuranceId"
+                        :class="{'form-control--error': $v.compensation.insuranceId.$error }"
                         >
                         <option 
                             v-for="insurance in allInsurances"
@@ -28,6 +29,11 @@
                             {{ insurance.name }}
                         </option>
                     </select>
+                    <div v-if="$v.compensation.insuranceId.$error ">
+                        <span class="error-text" v-if="!$v.compensation.insuranceId.required">
+                            {{ trans.get('validation_js.required') }}
+                        </span>
+                    </div>
                 </div>
 
                 <!-- SBZ sales order -->
@@ -35,18 +41,6 @@
                     <label class="control-label">
                         {{ trans.get('voyager.compensations.sbz_sales_order_id') }}
                     </label>
-                    <!-- <select 
-                        class="form-control"
-                        v-model="compensation.salesOrderId"
-                        >
-                        <option
-                            v-for="salesOrder in allSalesOrders"
-                            :key="salesOrder.id"
-                            :value="salesOrder.id"
-                        >
-                            {{ salesOrder.id }}
-                        </option>
-                    </select> -->
                     <div>
                         <vSelect 
                             :value="compensation.salesOrder.id"
@@ -55,9 +49,14 @@
                             :options="salesOrdersIdsList"
                             @search="fetchSalesOrders">
                         </vSelect>
-                        <div v-if="$v.search.$error">
+                        <div v-if="$v.search.$error && !$v.search.numeric">
                             <span class="error-text" v-if="!$v.search.numeric">
                                 {{ trans.get('validation_js.numeric_only') }}
+                            </span>
+                        </div>
+                        <div v-if="$v.compensation.salesOrder.id.$error && !$v.compensation.salesOrder.id.required">
+                            <span class="error-text" v-if="!$v.compensation.salesOrder.id.required">
+                                {{ trans.get('validation_js.required') }}
                             </span>
                         </div>
                     </div>
@@ -169,7 +168,7 @@
                             <div class="col-md-6">
                                 <select 
                                     class="form-control "
-                                    v-model="compensation.salesCompensationsPeriodPlanMonth"
+                                    v-model="compensation.salesCompensationPeriodPlanMonth"
                                 >
                                     <option 
                                         v-for="n in 12"
@@ -183,7 +182,7 @@
                             <div class="col-md-6">
                                 <select 
                                     class="form-control "
-                                    v-model="compensation.salesCompensationsPeriodPlanYear"
+                                    v-model="compensation.salesCompensationPeriodPlanYear"
                                 >
                                     <option 
                                         v-for="n in periodplanYears"
@@ -201,22 +200,23 @@
                         </label>
                         <div class="toggle-button-wrapper">
                             <toggle-button
-                                v-model="compensation.insuranceProvisionPeriodPlanCompleted"
+                                v-model="compensation.salesCompensationPeriodPlanCompleted"
                                 :sync="true"
-                                :value="compensation.insuranceProvisionPeriodPlanCompleted"
+                                :value="compensation.salesCompensationPeriodPlanCompleted"
                                 :labels="{checked: trans.get('voyager.generic.yes'), unchecked: trans.get('voyager.generic.no')}"
                             />
                         </div>
                     </div>
                 </div>
                 <div class="row">
+                    <!-- sales compensations total -->
                     <div class="form-group col-md-4">
-                        <valueCard
-                            name="voyager.compensations.sales_compensations_total"
-                            :value="salesCompensationsTotal"
+                        <valueCardFrom
+                            name="voyager.compensations.total_provision_paid"
+                            :propertyName="'totalSalesCompensation'"
                             accentColor="#4E73DF"
                         >
-                        </valueCard>
+                        </valueCardFrom>
                     </div>
 
                     <!-- sales compensations payout rate -->
@@ -242,6 +242,7 @@
                 </div>
             </div>
             <div class="row">
+                <!-- sales compensations feedback -->
                 <div class="col-md-12 form-group">
                     <label class="control-label">
                         {{ trans.get('voyager.compensations.sales_compensation_feedback') }}
@@ -250,11 +251,18 @@
                         class="form-control" 
                         v-model="compensation.salesCompensationFeedback"
                         cols="30" 
+                        :class="{'form-control--error': $v.compensation.salesCompensationFeedback.$error }"
                         rows="5">
                     </textarea>
+                    <div v-if="$v.compensation.salesCompensationFeedback.$error">
+                        <span class="error-text" v-if="!$v.compensation.salesCompensationFeedback.required">
+                            {{ trans.get('validation_js.required') }}
+                        </span>
+                    </div>
                 </div>
             </div>
         </template>
+
         <template #footer>
             <div class="row">
                 <button
@@ -290,6 +298,46 @@
             vSelect
         },
 
+        watch: {
+            /**
+             * Only trigger an action if the old value is null
+             * that we way we won't be triggering the call each time 
+             * the id updates
+             */
+            'compensation.id': (newVal, oldVal) => {
+                if(oldVal === null) {
+                    this.fetchCompensation();
+                }
+            },
+
+            /**
+             * The default value for the totalSalesCompensation
+             * is calculated using the sales order people products,
+             * Thus we need to watch if the products change so we can recalculate it
+             */
+            'compensation.salesOrder.people': (newVal, oldVal) => {
+                let sum = 0;
+                try {
+                    if(newVal !== null) {
+                        newVal.forEach(person => {
+                            const products = person.products;
+                            if(products.length !== 0) {
+                                products.forEach(product => {
+                                    sum += product.provision;
+                                });
+                            };
+                        });
+
+                        this.setTotalSalesCompensations(sum);
+                    } else {
+                        this.setTotalSalesCompensations(0);
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+        },
+
         computed: {
             ...mapGetters('compensations',['isLoading', 'compensation']),
             ...mapGetters(['allInsurances', 'allSalesOrders']),
@@ -309,24 +357,45 @@
             },
 
             /**
-             * Sum of all product values with the same field
+             * Sum of all product values - provision - with the same field
              * requires a sales order to be selected  
+             * @param {}
              * @return {Number}
              */
             totalExpectedProvision() {
-                return 12042;
+                if(this.compensation.salesOrder.id === null) {
+                    return 0;
+                } else {
+                    const people = this.compensation.salesOrder.people;
+                    let sum = 0;
+
+                    try {
+                        if(people !== null) {
+                            people.forEach(person => {
+                                const products = person.products;
+                                if(products.length !== 0) {
+                                    products.forEach(product => {
+                                        sum += product.provision;
+                                    });
+                                };
+                            });
+    
+                            return sum;
+                        } else {
+                            return 0;
+                        }
+                    } catch (error) {
+                        console.log(error);
+                    }
+                }
             },
 
             totalProvisionOpen() {
                 return this.totalExpectedProvision - this.compensation.totalProvisionPaid;
             },
 
-            salesCompensationsTotal() {
-                return 12042;
-            },
-
             compensationToBePaid() {
-                return (this.salesCompensationsTotal * this.compensation.payoutRate) / 100;
+                return (this.totalSalesCompensation * this.compensation.payoutRate) / 100;
             }
         },
 
@@ -342,30 +411,49 @@
                 integer,
                 required,
                 minValue: minValue(1)
+            },
+            compensation: {
+                salesCompensationFeedback: {
+                    required
+                },
+                insuranceId: {
+                    required
+                },
+                salesOrder: {
+                    id: {
+                        required
+                    }
+                }
             }
         },
 
         methods: {
-            ...mapActions('compensations',['fetchCompensation']),
-            ...mapMutations('compensations', ['setSalesOrder']),
+            ...mapActions('compensations',[
+                'fetchCompensation',
+                'store',
+                'update'
+            ]),
+            ...mapMutations('compensations', [
+                'setSalesOrderId',
+                'setTotalSalesCompensations'
+            ]),
 
-            async fetchSalesOrders(search, loading) {
+            fetchSalesOrders(search, loading) {
                 // we want to vaidate that search is a numeric value
                 this.search = search;
-                this.$v.$touch();
-                if(!this.$v.$invalid) {
+                this.$v.search.$touch();
+                if(!this.$v.search.$invalid) {
                     loading(true); 
-                    try {
-                        const response = await axios.get(`/api/sales-orders/${search}`);
-
-                        // we reset the list before adding a new item(s)
-                        this.salesOrdersIdsList = [];
-                        this.salesOrdersIdsList.push(response.data.salesOrder.id);
-                        loading(false);
-                    } catch (error) {
-                        loading(false);
-                        alert(error);
-                    }
+                    axios.get(`/api/sales-orders/${search}`)
+                        .then(response => {
+                            // we reset the list before adding a new item(s)
+                            this.salesOrdersIdsList = [];
+                            this.salesOrdersIdsList.push(response.data.salesOrder.id);
+                            this.compensation.salesOrder.people = response.data.salesOrder.people;
+                            loading(false);
+                        }).catch(e => {
+                            loading(false);
+                        });
                 }
             },
 
@@ -376,12 +464,9 @@
             */
             setSelected(value) {
                 if(value !== undefined && value !== null && value !== '') {
-                    this.setSalesOrder(value);
+                    this.setSalesOrderId(value);
                 } else {
-                    this.setSalesOrder({
-                        id: null,
-                        people: null
-                    })
+                    this.setSalesOrderId(null);
                 }
             },
 
@@ -389,13 +474,21 @@
              * handle the submitting of the data
              */
             submit() {
-                if(this.compensation.id === null) {
-                    console.log('store');
-                } else {
-                    console.log('update');
+                this.$v.compensation.$touch();
+                if(!this.$v.compensation.$invalid) {
+                    if(this.compensation.id === null) {
+                        this.store();
+                    } else {
+                        this.update();
+                    }
                 }
             }
+        },
 
+        mounted() {
+            if(this.compensation.id !== null) {
+                this.fetchCompensation();
+            }
         },
     }
 </script>

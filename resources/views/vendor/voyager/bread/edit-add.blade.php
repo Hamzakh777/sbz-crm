@@ -23,8 +23,14 @@
     <div class="page-content edit-add container-fluid">
         <div class="row">
             <div class="col-md-12">
-
-                <div class="panel panel-bordered">
+                
+                <div class="panel panel-bordered panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title panel-icon"><i class="{{ $dataType->icon }}"></i>{{ __('voyager::generic.'.($edit ? 'edit' : 'add')).' '.$dataType->display_name_singular }}</h3>
+                        <div class="panel-actions">
+                            <a class="panel-action voyager-angle-up" data-toggle="panel-collapse" aria-hidden="true"></a>
+                        </div>
+                    </div>
                     <!-- form start -->
                     <form role="form"
                             class="form-edit-add"

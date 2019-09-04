@@ -41082,12 +41082,139 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_0__
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 var actions = {
-  fetchCompensation: function fetchCompensation(_ref) {
-    var commit = _ref.commit,
-        state = _ref.state;
-    console.log('fetching');
-  }
+  fetchCompensation: function () {
+    var _fetchCompensation = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref) {
+      var commit, state, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              commit = _ref.commit, state = _ref.state;
+              state.isLoading = true;
+              _context.prev = 2;
+              _context.next = 5;
+              return axios.get("/api/compensations/".concat(state.compensation.id));
+
+            case 5:
+              response = _context.sent;
+              commit('setCompensation', response.data.compensation);
+              state.isLoading = false;
+              _context.next = 14;
+              break;
+
+            case 10:
+              _context.prev = 10;
+              _context.t0 = _context["catch"](2);
+              state.isLoading = false;
+              alert(_context.t0);
+
+            case 14:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[2, 10]]);
+    }));
+
+    function fetchCompensation(_x) {
+      return _fetchCompensation.apply(this, arguments);
+    }
+
+    return fetchCompensation;
+  }(),
+  store: function () {
+    var _store = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2) {
+      var commit, state, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              commit = _ref2.commit, state = _ref2.state;
+              state.isLoading = true;
+              _context2.prev = 2;
+              _context2.next = 5;
+              return axios.post("/api/compensations/", state.compensation);
+
+            case 5:
+              response = _context2.sent;
+              state.isLoading = false;
+              commit('setCompensationId', response.data.compensation.id);
+              _context2.next = 14;
+              break;
+
+            case 10:
+              _context2.prev = 10;
+              _context2.t0 = _context2["catch"](2);
+              state.isLoading = false;
+              alert(_context2.t0);
+
+            case 14:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[2, 10]]);
+    }));
+
+    function store(_x2) {
+      return _store.apply(this, arguments);
+    }
+
+    return store;
+  }(),
+  update: function () {
+    var _update = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3) {
+      var commit, state;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              commit = _ref3.commit, state = _ref3.state;
+              state.isLoading = true;
+              _context3.prev = 2;
+              _context3.next = 5;
+              return axios.put("/api/compensations/".concat(state.compensation.id), state.compensation);
+
+            case 5:
+              state.isLoading = false;
+              _context3.next = 12;
+              break;
+
+            case 8:
+              _context3.prev = 8;
+              _context3.t0 = _context3["catch"](2);
+              state.isLoading;
+              alert(_context3.t0);
+
+            case 12:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[2, 8]]);
+    }));
+
+    function update(_x3) {
+      return _update.apply(this, arguments);
+    }
+
+    return update;
+  }()
 };
 /* harmony default export */ __webpack_exports__["default"] = (actions);
 
@@ -41153,12 +41280,31 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 var mutations = {
   setCompensation: function setCompensation(state, compensation) {
-    state.compensation = compensation;
+    state.compensation.insuranceId = compensation.insurance_id;
+    state.compensation.insuranceProvisionPeriodPlanMonth = compensation.insurance_provision_period_plan_month;
+    state.compensation.insuranceProvisionPeriodPlanYear = compensation.insurance_provision_period_plan_year;
+    state.compensation.insuranceProvisionPeriodPlanCompleted = compensation.insurance_provision_period_plan_completed === 1 ? true : false;
+    state.compensation.totalProvisionPaid = compensation.total_provision_paid;
+    state.compensation.provisionFeedback = compensation.provision_feedback;
+    state.compensation.payoutRate = compensation.sales_compensations_payout_rate;
+    state.compensation.salesCompensationFeedback = compensation.sales_compensation_feedback;
+    state.compensation.insuranceId = compensation.insurance_id;
+    state.compensation.salesCompensationPeriodPlanMonth = compensation.sales_compensations_period_plan_month;
+    state.compensation.salesCompensationPeriodPlanYear = compensation.sales_compensations_period_plan_year;
+    state.compensation.salesCompensationPeriodPlanCompleted = compensation.sales_compensations_period_plan_completed === 1 ? true : false;
+    state.compensation.totalSalesCompensation = compensation.sales_compensations_total;
+    state.compensation.salesOrder.id = compensation.sales_order_id;
+    state.compensation.salesOrder.people = compensation.sales_order_people;
   },
-  setSalesOrder: function setSalesOrder(state, value) {
+  setSalesOrderId: function setSalesOrderId(state, value) {
     // since we only need the people and the sales order id
-    state.compensation.salesOrder.id = value.id;
-    state.compensation.salesOrder.people = value.people;
+    state.compensation.salesOrder.id = value;
+  },
+  setCompensationId: function setCompensationId(state, value) {
+    state.compensation.id = value;
+  },
+  setTotalSalesCompensations: function setTotalSalesCompensations(state, value) {
+    state.compensation.totalSalesCompensation = value;
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (mutations);
@@ -41179,14 +41325,18 @@ var state = {
   compensation: {
     id: window.compensationId !== undefined ? window.compensationId : null,
     insuranceId: null,
-    insuranceProvisoinPeriodPlanMonth: null,
-    insuranceProvisoinPeriodPlanYear: null,
+    insuranceProvisionPeriodPlanMonth: window.periodPlanMonth !== undefined ? window.periodPlanMonth : null,
+    insuranceProvisionPeriodPlanYear: window.periodPlanYear !== undefined ? window.periodPlanYear : null,
     insuranceProvisionPeriodPlanCompleted: false,
     totalProvisionPaid: 0,
     provisionFeedback: null,
     // sales compensation
     payoutRate: 100,
     salesCompensationFeedback: null,
+    salesCompensationPeriodPlanMonth: window.periodPlanMonth !== undefined ? window.periodPlanMonth : null,
+    salesCompensationPeriodPlanYear: window.periodPlanYear !== undefined ? window.periodPlanYear : null,
+    salesCompensationPeriodPlanCompleted: false,
+    totalSalesCompensation: 0,
     // each compensation has a unique sales order
     salesOrder: {
       id: null,
