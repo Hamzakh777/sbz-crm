@@ -1,0 +1,23 @@
+// responsivness
+@mixin breakpoint($point) 
+    @if $point == xl 
+        @media ( max-width: 1300px ) 
+            @content 
+
+    @else if $point == l 
+        @media (max-width: 1199px)  
+            @content 
+
+    @else if $point == m 
+        @media (max-width: 999px) 
+            @content 
+    
+    @else if $point == s 
+        @media (max-width: 750px)   
+            @content 
+    
+    @else if $point == xs 
+        @media (max-width: 480px)   
+            @content 
+
+    

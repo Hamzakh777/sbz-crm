@@ -7,7 +7,7 @@ Vue.config.productionTip = false;
 Vue.use(Vuelidate);
 new Vue({
     components: {
-        CompensationsPanel
+        CompensationsPanel,
     },
     store,
 }).$mount("#app");

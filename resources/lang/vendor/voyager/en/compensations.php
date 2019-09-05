@@ -2,6 +2,7 @@
 
 return [
     'compensations'                => 'Compensations',
+    'compensation_details'         => 'Compensation details',
     'insurance_provision'          => 'Insurance provision',
     'sales_compensations'          => 'Sales compensations',
     'sbz_sales_order_id'           => 'Sbz sales order Id',

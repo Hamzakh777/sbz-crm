@@ -12,18 +12,24 @@
 @section('page_title', __('voyager::generic.'.($edit ? 'edit' : 'add')).' '.$dataType->display_name_singular)
 
 @section('page_header')
-    <h1 class="page-title">
-        <i class="{{ $dataType->icon }}"></i>
-        {{ __('voyager::generic.'.($edit ? 'edit' : 'add')).' '.$dataType->display_name_singular }}
-    </h1>
-    @include('voyager::multilingual.language-selector')
+    
 @stop
 
 @section('content')
-    <div class="page-content edit-add container-fluid" id="app">
-        <div class="row">
-            <div class="col-md-12">
-                <app></app>
+    <div id="app">
+        <div class="page-head">
+            <h1 class="page-title">
+                    <i class="{{ $dataType->icon }}"></i>
+                    {{ __('voyager::generic.'.($edit ? 'edit' : 'add')).' '.$dataType->display_name_singular }}
+                </h1>
+                @include('voyager::multilingual.language-selector')
+            <progress-bar></progress-bar>
+        </div>
+        <div class="page-content edit-add container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <app></app>
+                </div>
             </div>
         </div>
     </div>

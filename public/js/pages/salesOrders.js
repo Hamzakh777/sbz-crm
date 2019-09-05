@@ -1943,8 +1943,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _SalesOrdersTasksPanel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./SalesOrdersTasksPanel */ "./resources/js/components/SalesOrders/EditAdd/SalesOrdersTasksPanel.vue");
 /* harmony import */ var _documents_documentPanel__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./documents/documentPanel */ "./resources/js/components/SalesOrders/EditAdd/documents/documentPanel.vue");
 /* harmony import */ var _comments_commentsPanel__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../comments/commentsPanel */ "./resources/js/components/comments/commentsPanel.vue");
-/* harmony import */ var _SalesOrders_EditAdd_progressBar__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../SalesOrders/EditAdd/progressBar */ "./resources/js/components/SalesOrders/EditAdd/progressBar.vue");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -1963,8 +1962,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-
 
 
 
@@ -1980,10 +1977,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     SalesOrdersPeoplePanel: _SalesOrdersPeople_peoplePanel__WEBPACK_IMPORTED_MODULE_2__["default"],
     SalesOrdersTasksPanel: _SalesOrdersTasksPanel__WEBPACK_IMPORTED_MODULE_3__["default"],
     documentPanel: _documents_documentPanel__WEBPACK_IMPORTED_MODULE_4__["default"],
-    commentsPanel: _comments_commentsPanel__WEBPACK_IMPORTED_MODULE_5__["default"],
-    progressBar: _SalesOrders_EditAdd_progressBar__WEBPACK_IMPORTED_MODULE_6__["default"]
+    commentsPanel: _comments_commentsPanel__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_7__["mapGetters"])(['salesOrder']))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_6__["mapGetters"])(['salesOrder']))
 });
 
 /***/ }),
@@ -4985,7 +4981,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".path[data-v-45112115] {\n  display: flex;\n}\n.path__nav[data-v-45112115] {\n  display: flex;\n  flex-direction: row;\n  align-items: flex-start;\n  list-style: none;\n  background-color: #fff;\n  padding: 0.825em;\n  box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.07);\n}\n.path__item[data-v-45112115] {\n  width: 200px;\n  height: 2em;\n  margin-right: 0.125rem;\n  border-right-color: transparent;\n  position: relative;\n}\n.path__item[data-v-45112115]:after, .path__item[data-v-45112115]:before {\n  content: \"\";\n  position: absolute;\n  right: -0.575rem;\n  left: -0.25rem;\n  background-color: #fff;\n  background-image: linear-gradient(90deg, #4E73DF, #4E73DF 0.125rem, transparent 0.125rem), linear-gradient(90deg, #4E73DF, #4E73DF 0.125rem, transparent 0.125rem), linear-gradient(#4E73DF, #4E73DF 0.125rem, transparent 0.125rem);\n  background-repeat: no-repeat;\n  background-size: 0.2rem 100%, 0.2rem 100%, 100% 0.2rem;\n}\n.path__item[data-v-45112115]:before {\n  top: 0;\n  height: 1rem;\n  transform: skew(30deg) translate3d(0, 0, 0);\n  left: 1.125rem;\n  background-position: top right, top left, top left;\n}\n.path__item[data-v-45112115]:after {\n  bottom: 0;\n  height: 1rem;\n  transform: skew(-30deg) translate3d(0, 0, 0);\n  left: 1.125rem;\n  background-position: top right, top left, bottom left;\n}\n.path__item[data-v-45112115]:nth-child(1) {\n  border-top-left-radius: 2rem;\n  border-bottom-left-radius: 2rem;\n}\n.path__item[data-v-45112115]:nth-child(1):before, .path__item[data-v-45112115]:nth-child(1):after {\n  left: 1.25rem;\n}\n.path__item__text[data-v-45112115] {\n  text-align: center;\n  color: #fff;\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  font-weight: 500;\n  z-index: 5;\n}\n.path__item--done[data-v-45112115] {\n  background-color: #4E73DF;\n}\n.path__item--done[data-v-45112115]:before, .path__item--done[data-v-45112115]:after {\n  background-color: #4E73DF;\n}", ""]);
+exports.push([module.i, ".path[data-v-45112115] {\n  display: flex;\n}\n.path__nav[data-v-45112115] {\n  display: flex;\n  flex-direction: row;\n  align-items: flex-start;\n  list-style: none;\n  background-color: #fff;\n  padding: 0.825em;\n  box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.07);\n}\n.path__item[data-v-45112115] {\n  width: 200px;\n  height: 2em;\n  margin-right: 0.125rem;\n  border-right-color: transparent;\n  position: relative;\n  cursor: pointer;\n  margin-right: 1.25em;\n}\n.path__item[data-v-45112115]:after, .path__item[data-v-45112115]:before {\n  content: \"\";\n  position: absolute;\n  right: -0.575rem;\n  left: -0.5rem;\n  background-color: #4E73DF;\n}\n.path__item[data-v-45112115]:before {\n  top: 0;\n  height: 1rem;\n  transform: skew(30deg) translate3d(0, 0, 0);\n  left: -0.25rem;\n}\n.path__item[data-v-45112115]:after {\n  bottom: 0;\n  height: 1rem;\n  transform: skew(-30deg) translate3d(0, 0, 0);\n  left: -0.25rem;\n}\n.path__item[data-v-45112115]:nth-child(1) {\n  border-top-left-radius: 2rem;\n  border-bottom-left-radius: 2rem;\n}\n.path__item[data-v-45112115]:nth-child(1):before, .path__item[data-v-45112115]:nth-child(1):after {\n  left: 1.25rem;\n}\n.path__item[data-v-45112115]:last-child {\n  background-color: #4E73DF;\n  border-top-right-radius: 2rem;\n  border-bottom-right-radius: 2rem;\n  margin-right: 0;\n}\n.path__item[data-v-45112115]:last-child:after, .path__item[data-v-45112115]:last-child:before {\n  right: 1rem;\n}\n.path__item__text[data-v-45112115] {\n  text-align: center;\n  color: #fff;\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  font-weight: 500;\n  font-size: 14px;\n  z-index: 5;\n  transition: all 0.2s ease-in;\n}\n.path__item--done[data-v-45112115] {\n  background-color: #2ecc71;\n}\n.path__item--done[data-v-45112115]:before, .path__item--done[data-v-45112115]:after {\n  background-color: #2ecc71;\n}", ""]);
 
 // exports
 
@@ -28078,8 +28074,6 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("progressBar"),
-      _vm._v(" "),
       _c("contractPanel"),
       _vm._v(" "),
       _vm.salesOrder.id
@@ -30937,12 +30931,18 @@ var staticRenderFns = [
     return _c("div", { staticClass: "path" }, [
       _c("ul", { staticClass: "path__nav" }, [
         _c("li", { staticClass: "path__item path__item--done" }, [
-          _c("span", { staticClass: "path__item__text" }, [_vm._v("test")])
+          _c("span", { staticClass: "path__item__text" }, [_vm._v("Test")])
         ]),
         _vm._v(" "),
-        _c("li", { staticClass: "path__item" }),
+        _c("li", { staticClass: "path__item" }, [
+          _c("span", { staticClass: "path__item__text" }, [
+            _vm._v("Another test")
+          ])
+        ]),
         _vm._v(" "),
-        _c("li", { staticClass: "path__item" })
+        _c("li", { staticClass: "path__item" }, [
+          _c("span", { staticClass: "path__item__text" }, [_vm._v("Last test")])
+        ])
       ])
     ])
   }
@@ -51471,7 +51471,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store */ "./resources/js/store/index.js");
 /* harmony import */ var _components_SalesOrders_Browse_SalesOrdersFilter_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/SalesOrders/Browse/SalesOrdersFilter.vue */ "./resources/js/components/SalesOrders/Browse/SalesOrdersFilter.vue");
 /* harmony import */ var _components_SalesOrders_Browse_SalesOrdersPaginator_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/SalesOrders/Browse/SalesOrdersPaginator.vue */ "./resources/js/components/SalesOrders/Browse/SalesOrdersPaginator.vue");
-/* harmony import */ var _components_SalesOrders_EditAdd_App_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/SalesOrders/EditAdd/App.vue */ "./resources/js/components/SalesOrders/EditAdd/App.vue");
+/* harmony import */ var _components_SalesOrders_EditAdd_progressBar__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/SalesOrders/EditAdd/progressBar */ "./resources/js/components/SalesOrders/EditAdd/progressBar.vue");
+/* harmony import */ var _components_SalesOrders_EditAdd_App_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/SalesOrders/EditAdd/App.vue */ "./resources/js/components/SalesOrders/EditAdd/App.vue");
+
 
 
 
@@ -51496,7 +51498,8 @@ new Vue({
   components: {
     SalesOrdersPaginator: _components_SalesOrders_Browse_SalesOrdersPaginator_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
     SalesOrdersFilter: _components_SalesOrders_Browse_SalesOrdersFilter_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-    App: _components_SalesOrders_EditAdd_App_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
+    ProgressBar: _components_SalesOrders_EditAdd_progressBar__WEBPACK_IMPORTED_MODULE_5__["default"],
+    App: _components_SalesOrders_EditAdd_App_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
   },
   store: _store__WEBPACK_IMPORTED_MODULE_2__["default"]
 }).$mount("#app");

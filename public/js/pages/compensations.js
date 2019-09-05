@@ -23223,8 +23223,8 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("BasePanel", {
     attrs: {
-      name: "voyager.compensations.compensations",
-      icon: "voyager-dollar",
+      name: "voyager.compensations.compensation_details",
+      icon: "voyager-plus",
       showFooter: true
     },
     scopedSlots: _vm._u([
@@ -23410,9 +23410,9 @@ var render = function() {
                             rawName: "v-model",
                             value:
                               _vm.compensation
-                                .insuranceProvisoinPeriodPlanMonth,
+                                .insuranceProvisionPeriodPlanMonth,
                             expression:
-                              "compensation.insuranceProvisoinPeriodPlanMonth"
+                              "compensation.insuranceProvisionPeriodPlanMonth"
                           }
                         ],
                         staticClass: "form-control ",
@@ -23428,7 +23428,7 @@ var render = function() {
                               })
                             _vm.$set(
                               _vm.compensation,
-                              "insuranceProvisoinPeriodPlanMonth",
+                              "insuranceProvisionPeriodPlanMonth",
                               $event.target.multiple
                                 ? $$selectedVal
                                 : $$selectedVal[0]
@@ -23462,9 +23462,9 @@ var render = function() {
                             name: "model",
                             rawName: "v-model",
                             value:
-                              _vm.compensation.insuranceProvisoinPeriodPlanYear,
+                              _vm.compensation.insuranceProvisionPeriodPlanYear,
                             expression:
-                              "compensation.insuranceProvisoinPeriodPlanYear"
+                              "compensation.insuranceProvisionPeriodPlanYear"
                           }
                         ],
                         staticClass: "form-control ",
@@ -23480,7 +23480,7 @@ var render = function() {
                               })
                             _vm.$set(
                               _vm.compensation,
-                              "insuranceProvisoinPeriodPlanYear",
+                              "insuranceProvisionPeriodPlanYear",
                               $event.target.multiple
                                 ? $$selectedVal
                                 : $$selectedVal[0]

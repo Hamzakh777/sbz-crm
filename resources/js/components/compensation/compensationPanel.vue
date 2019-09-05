@@ -1,7 +1,7 @@
 <template>
     <BasePanel
-        name="voyager.compensations.compensations"
-        icon="voyager-dollar"
+        name="voyager.compensations.compensation_details"
+        icon="voyager-plus"
         :showFooter="true"
     >
         <template v-slot:body>
@@ -71,7 +71,7 @@
                         <div class="col-md-6">
                             <select 
                                 class="form-control "
-                                v-model="compensation.insuranceProvisoinPeriodPlanMonth"
+                                v-model="compensation.insuranceProvisionPeriodPlanMonth"
                             >
                                 <option 
                                     v-for="n in 12"
@@ -85,7 +85,7 @@
                         <div class="col-md-6">
                             <select 
                                 class="form-control "
-                                v-model="compensation.insuranceProvisoinPeriodPlanYear"
+                                v-model="compensation.insuranceProvisionPeriodPlanYear"
                             >
                                 <option 
                                     v-for="n in periodplanYears"

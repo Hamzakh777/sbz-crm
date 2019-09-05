@@ -1,11 +1,17 @@
 // Variables
-@import 'variables';
+@import "variables";
+
+// Mixins
+@import "./abstracts/mixins.sass";
+
+// Pages
+@import "pages/sales-orders.sass";
 
 // Components
-@import 'components/switch-btn-lang.sass';
+@import "components/switch-btn-lang.sass";
 
-@import 'components/_vue-slider.sass';
+@import "components/vue-slider.sass";
 
-@import 'components/_vue-select.sass';
+@import "components/vue-select.sass";
 
-@import 'components/_vue-range-slider.sass';
+@import "components/vue-range-slider.sass";
