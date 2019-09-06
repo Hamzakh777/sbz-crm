@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class TasksCollection extends Model
 {
+    use Searchable;
+    
     protected $table = 'tasks_collections';
     /**
      * Task collection has many tasks

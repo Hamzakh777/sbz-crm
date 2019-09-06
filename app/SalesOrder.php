@@ -4,9 +4,11 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class SalesOrder extends Model
 {
+    use Searchable;
     /**
      * Pagination
      */
