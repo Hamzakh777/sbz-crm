@@ -11,7 +11,6 @@ return [
     'contract_start_VVG'                => 'Contract start VVG',
     'contract_start_KVG'                => 'Contract start KVG',
     'current_insurance'                 => 'Current insurance',
-    'closing'                           => 'Closing',
     'insurance_status'                  => 'Insurance status',
     'actions'                           => 'Actions',
     'add_product'                       => 'Add product',
@@ -19,7 +18,6 @@ return [
     'cancellation_stamped'              => 'Cancellation Stamped',
     'contract_start_year'               => 'Contract start year',
     'employee_lead'                     => 'Employee lead',
-    'entry'                             => 'Entry',
     'filter_title'                      => 'Fitler Sales Orders',
     'title'                             => 'Sales Ordres',
     'id'                                => 'ID',
@@ -41,7 +39,6 @@ return [
     'sign_date'                         => 'Sign date',    
     'new_tasks_collection'              => 'New tasks collection',
     'provison_done'                     => 'Provison Done',
-    'processing'                        => 'Processing',
     'cancellation_original'             => 'Cancellation Original',
     'family_member_type'                => 'Family member type',
     'household_type'                    => 'Household type',
@@ -52,6 +49,15 @@ return [
     'police_number'                     => 'Police number',
     'contract'                          => 'Contract',
     'total_provision'                   => 'Totat provision',
+
+    // household type
+    'single'                            => 'Single',
+    'family'                            => 'Family',
+
+    // sales order status
+    'entry'                             => 'Entry',
+    'processing'                        => 'Processing',
+    'closing'                           => 'Closing',
 
     // insurance status
     'none'                              => 'None',

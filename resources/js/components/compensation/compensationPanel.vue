@@ -37,7 +37,9 @@
                 </div>
 
                 <!-- SBZ sales order -->
-                <div class="form-group col-md-4">
+                <div 
+                    v-if="!salesOrderPage"
+                    class="form-group col-md-4">
                     <label class="control-label">
                         {{ trans.get('voyager.compensations.sbz_sales_order_id') }}
                     </label>
@@ -217,6 +219,7 @@
                             accentColor="#4E73DF"
                         >
                         </valueCardFrom>
+                        <small>If set to 0, it will be calculated using the added products</small>
                     </div>
 
                     <!-- sales compensations payout rate -->
@@ -298,12 +301,15 @@
             vSelect
         },
 
+        props: {
+            salesOrderPage: {
+                type: Boolean,
+                required: false,
+                default: false
+            }
+        },
+
         watch: {
-            /**
-             * Only trigger an action if the old value is null
-             * that we way we won't be triggering the call each time 
-             * the id updates
-             */
             'compensation.id': function(newVal, oldVal) {
                 if(oldVal === null) {
                     this.fetchCompensation();
@@ -313,22 +319,16 @@
             /**
              * The default value for the totalSalesCompensation
              * is calculated using the sales order people products,
-             * Thus we need to watch if the products change so we can recalculate it
+             * Thus we need to watch if the products change so we can recalculate it,
+             * yes we could have used a computed property for this, but we need the value 
+             * to be also stored in the backend, that's why we test again 0 since its the 
+             * default one
              */
             'compensation.salesOrder.people': function(newVal, oldVal) {
-                let sum = 0;
-
+                const people = this.salesOrderPeople;
                 try {
-                    if(newVal !== null && this.compensation.totalSalesCompensation === 0) {
-                        newVal.forEach(person => {
-                            const products = person.products;
-                            if(products.length !== 0) {
-                                products.forEach(product => {
-                                    sum += product.provision;
-                                });
-                            };
-                        });
-
+                    if(people !== null && this.compensation.totalSalesCompensation === 0) {
+                        const sum = this.calcSumOfProducts(people, 'compensation');
                         this.setTotalSalesCompensations(sum);
                     }
                 } catch (error) {
@@ -338,7 +338,7 @@
         },
 
         computed: {
-            ...mapGetters('compensations',['isLoading', 'compensation']),
+            ...mapGetters('compensations',['isLoading', 'compensation', 'salesOrderPeople']),
             ...mapGetters(['allInsurances', 'allSalesOrders']),
 
             /**
@@ -365,24 +365,9 @@
                 if(this.compensation.salesOrder.id === null) {
                     return 0;
                 } else {
-                    const people = this.compensation.salesOrder.people;
-                    let sum = 0;
-
+                    const people = this.salesOrderPeople;
                     try {
-                        if(people !== null) {
-                            people.forEach(person => {
-                                const products = person.products;
-                                if(products.length !== 0) {
-                                    products.forEach(product => {
-                                        sum += product.provision;
-                                    });
-                                };
-                            });
-    
-                            return sum;
-                        } else {
-                            return 0;
-                        }
+                        return this.calcSumOfProducts(people, 'provision');
                     } catch (error) {
                         console.log(error);
                     }
@@ -437,6 +422,28 @@
                 'setTotalSalesCompensations'
             ]),
 
+            /**
+             * 
+             * @param 
+             */
+            calcSumOfProducts(people, provisionOrCompensation) {
+                let sum = 0;
+                if(people !== null) {
+                    people.forEach(person => {
+                        const products = person.products;
+                        if(products.length !== 0) {
+                            products.forEach(product => {
+                                sum += product[provisionOrCompensation];
+                            });
+                        };
+                    });
+
+                    return sum;
+                } else {
+                    return 0;
+                }
+            },
+
             fetchSalesOrders(search, loading) {
                 // we want to vaidate that search is a numeric value
                 this.search = search;
@@ -485,7 +492,7 @@
         },
 
         mounted() {
-            if(this.compensation.id !== null) {
+            if(this.compensation.id !== null || this.salesOrderPage === true) {
                 this.fetchCompensation();
             }
         },

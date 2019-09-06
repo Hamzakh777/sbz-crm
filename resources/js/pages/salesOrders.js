@@ -4,6 +4,7 @@ import store from "../store";
 import SalesOrdersFilter from "../components/SalesOrders/Browse/SalesOrdersFilter.vue";
 import SalesOrdersPaginator from '../components/SalesOrders/Browse/SalesOrdersPaginator.vue';
 import ProgressBar from '../components/SalesOrders/EditAdd/progressBar';
+import BaseLoader from '../components/baseComponents/BaseLoader.vue';
 import App from '../components/SalesOrders/EditAdd/App.vue';
 
 Vue.config.productionTip = false;
@@ -26,6 +27,7 @@ new Vue({
         SalesOrdersPaginator,
         SalesOrdersFilter,
         ProgressBar,
+        BaseLoader,
         App
     },
     store,

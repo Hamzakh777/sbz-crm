@@ -1,34 +1,37 @@
 <template>
     <div>
-        <contractPanel></contractPanel>
+        <ContractPanel></ContractPanel>
         <div v-if="salesOrder.id">
             <SalesOrdersPeoplePanel></SalesOrdersPeoplePanel>
-            <documentPanel></documentPanel>
+            <DocumentPanel></DocumentPanel>
+            <CompensationPanel
+                :salesOrderPage="true"
+                ></CompensationPanel>
             <SalesOrdersTasksPanel></SalesOrdersTasksPanel>
-            <commentsPanel></commentsPanel>
+            <CommentsPanel></CommentsPanel>
         </div>
     </div>
 </template>
 
 <script>
-    import contractPanel from './contractPanel';
-    import SalesOrdersContractPath from './SalesOrdersContractPath';
+    import ContractPanel from './contractPanel';
     import SalesOrdersPeoplePanel from './SalesOrdersPeople/peoplePanel';
     import SalesOrdersTasksPanel from './SalesOrdersTasksPanel';
-    import documentPanel from './documents/documentPanel';
-    import commentsPanel from '../../comments/commentsPanel';
+    import DocumentPanel from './documents/documentPanel';
+    import CommentsPanel from '../../comments/commentsPanel';
+    import CompensationPanel from '../../compensation/compensationPanel';
     import {mapGetters} from 'vuex';
 
     export default {
         name: 'App',
 
         components: {
-            SalesOrdersContractPath,
-            contractPanel,
+            ContractPanel,
             SalesOrdersPeoplePanel,
             SalesOrdersTasksPanel,
-            documentPanel,
-            commentsPanel,
+            DocumentPanel,
+            CommentsPanel,
+            CompensationPanel
         },
 
         computed: {

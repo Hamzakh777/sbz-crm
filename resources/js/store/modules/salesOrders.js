@@ -3,6 +3,8 @@ import salesOrdersPeople from './salesOrdersPeople';
 const state = {
     filterData: {},
     Loading: false,
+    tableLoader: false,
+    salesOrders: [],
     salesOrder: {
         id: (window.salesOrderId === null) ? null : window.salesOrderId,
         currentInsuranceId: null,
@@ -148,6 +150,10 @@ const getters = {
 
     Loading(state) {
         return state.Loading;
+    },
+
+    tableLoader(state) {
+        return state.tableLoader;
     }
 };
 
@@ -199,7 +205,8 @@ const actions = {
      * @param {*} param0
      * @param {Number} page
      */
-    async changePaginationPage({ commit }, page = 1) {
+    async changePaginationPage({ commit, state}, page = 1) {
+        state.tableLoader = true;
         try {
             const response = await axios.post(
                 `/sales-orders/filter?page=${page}`,
@@ -210,10 +217,12 @@ const actions = {
             // we send it over and display it on the frontend
             const table = document.querySelector("#table-wrapper");
             table.innerHTML = response.data.table;
+            state.tableLoader = false;
 
             // update the paginator
             commit("setSalesOrders", response.data.dataTypeContent);
         } catch (error) {
+            state.tableLoader = false;
             alert(error);
         }
     },
@@ -225,7 +234,8 @@ const actions = {
      * @param {*} param0
      * @param {Object} data
      */
-    async filterSalesOrders({ commit }, data, page = 1) {
+    async filterSalesOrders({ commit, state }, data, page = 1) {
+        state.tableLoader = true;
         try {
             // update the filter data
             state.filterData = data;
@@ -239,10 +249,11 @@ const actions = {
             // we send it over and display it on the frontend
             const table = document.querySelector("#table-wrapper");
             table.innerHTML = response.data.table;
-
+            state.tableLoader = false;
             // update the paginator
             commit("setSalesOrders", response.data.dataTypeContent);
         } catch (error) {
+            state.tableLoader = false;
             console.warn(error);
         }
     },
@@ -291,12 +302,15 @@ const mutations = {
         state.salesOrder.provisionDone = data.provision_done === 1 ? true : false;
 
     },
+    setSalesOrders(state, data) {
+        state.salesOrders = data;
+    },
     setSalesOrderId(state,data){
         state.salesOrder.id = data;
     },
     setContractPerson(state, data) {
         state.salesOrder.contractPeople.push(data);
-    }
+    },
 };
 
 export default {

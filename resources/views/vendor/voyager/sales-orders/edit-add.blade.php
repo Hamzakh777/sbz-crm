@@ -66,6 +66,12 @@
         window.productCategories = {!! $productCategories->toJson() !!};
         window.users = {!! $users->toJson() !!};
         window.tasksCollections = {!! $tasksCollections->toJson() !!};
+        @if(setting('admin.period_plan_month') !== null ) 
+            window.periodPlanMonth =  {{ setting('admin.period_plan_month') }};
+        @endif
+        @if(setting('admin.period_plan_year') !== null ) 
+            window.periodPlanYear =  {{ setting('admin.period_plan_year') }};
+        @endif
         @if(is_null($dataTypeContent->getKey()))
             window.salesOrderId = null;
         @else 

@@ -96,6 +96,7 @@
                         </div>
                     </div>
                     <div class="panel-body">
+                        <base-loader v-if="$store.getters.tableLoader"></base-loader>
                         <div class="table-responsive" id="table-wrapper">
                             <table class="table table-hover">
                                 <thead>

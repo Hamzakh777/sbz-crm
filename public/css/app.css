@@ -5,6 +5,12 @@
   align-items: center;
 }
 
+@media (max-width: 700px) {
+  .page-head {
+    flex-direction: column;
+  }
+}
+
 #language-selector {
   float: none !important;
   display: block;

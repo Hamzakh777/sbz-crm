@@ -1,14 +1,15 @@
 <template>
     <div class="path">
         <ul class="path__nav">
-            <li class="path__item path__item--done">
-                <span class="path__item__text">Test</span>
-            </li>
-            <li class="path__item">
-                <span class="path__item__text">Another test</span>
-            </li>
-            <li class="path__item">
-                <span class="path__item__text">Last test</span>
+            <li 
+                class="path__item"
+                v-for="(status, index) in statusWithState"
+                :key="index"
+                :class="{'path__item--done': status.done}"
+            >
+                <span class="path__item__text">
+                    {{ trans.get('voyager.sales_orders.' + status.name) }}
+                </span>
             </li>
         </ul>
     </div>
@@ -21,8 +22,37 @@
         name: 'progressBar',
 
         computed: {
-            ...mapGetters(['salesOrder'])
-        }
+            ...mapGetters(['salesOrder']),
+
+            statusWithState() {
+                let pastDone = false;
+                let result = [];
+
+                this.status.forEach(status => {
+                    let obj = {};
+                    obj.name = status;
+                    if(status === this.salesOrder.salesOrderStatus ) {
+                        obj.done = true;
+                        pastDone = true;
+                    }  else if(pastDone === true) {
+                        obj.done = false;
+                    } else if(this.salesOrder.salesOrderStatus !== null) {
+                        obj.done = true;
+                    } else {
+                        obj.done = false;
+                    }
+                    result.push(obj);
+                })
+
+                return result;
+            }
+        },
+
+        data() {
+            return {
+                status: ['entry', 'processing', 'closing']
+            }
+        },
     }
 </script>
 
@@ -74,6 +104,7 @@ $green: #2ecc71
         &:nth-child(1) 
             border-top-left-radius: 2rem
             border-bottom-left-radius: 2rem
+            background-color: $blue
 
             &:before, &:after
                 left: 1.25rem
@@ -103,6 +134,9 @@ $green: #2ecc71
             background-color: $green
 
             &:before, &:after
+                background-color: $green
+
+            &:nth-child(1), &:last-child
                 background-color: $green
 
 

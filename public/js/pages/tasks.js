@@ -41095,36 +41095,57 @@ var actions = {
     var _fetchCompensation = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref) {
-      var commit, state, response;
+      var commit, state, rootState, response, salesOrderId, _response;
+
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              commit = _ref.commit, state = _ref.state;
+              commit = _ref.commit, state = _ref.state, rootState = _ref.rootState;
               state.isLoading = true;
               _context.prev = 2;
-              _context.next = 5;
+
+              if (!(state.compensation.id !== null && state.compensation.id !== undefined)) {
+                _context.next = 11;
+                break;
+              }
+
+              _context.next = 6;
               return axios.get("/api/compensations/".concat(state.compensation.id));
 
-            case 5:
+            case 6:
               response = _context.sent;
               commit('setCompensation', response.data.compensation);
               state.isLoading = false;
-              _context.next = 14;
+              _context.next = 17;
               break;
 
-            case 10:
-              _context.prev = 10;
+            case 11:
+              salesOrderId = rootState.salesOrders.salesOrder.id;
+              _context.next = 14;
+              return axios.get("/api/sales-orders/".concat(salesOrderId, "/compensation"));
+
+            case 14:
+              _response = _context.sent;
+              commit('setCompensation', _response.data.compensation);
+              state.isLoading = false;
+
+            case 17:
+              _context.next = 23;
+              break;
+
+            case 19:
+              _context.prev = 19;
               _context.t0 = _context["catch"](2);
               state.isLoading = false;
               alert(_context.t0);
 
-            case 14:
+            case 23:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[2, 10]]);
+      }, _callee, null, [[2, 19]]);
     }));
 
     function fetchCompensation(_x) {
@@ -41236,6 +41257,13 @@ var getters = {
   compensation: function compensation(state) {
     return state.compensation;
   },
+  salesOrderPeople: function salesOrderPeople(state, getters, rootState) {
+    if (rootState.salesOrders.salesOrder.id !== null) {
+      return state.compensation.salesOrder.people;
+    } else {
+      return rootState.salesOrders.salesOrder.people;
+    }
+  },
   totalExpectedProvision: function totalExpectedProvision(state) {}
 };
 /* harmony default export */ __webpack_exports__["default"] = (getters);
@@ -41280,21 +41308,24 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 var mutations = {
   setCompensation: function setCompensation(state, compensation) {
-    state.compensation.insuranceId = compensation.insurance_id;
-    state.compensation.insuranceProvisionPeriodPlanMonth = compensation.insurance_provision_period_plan_month;
-    state.compensation.insuranceProvisionPeriodPlanYear = compensation.insurance_provision_period_plan_year;
-    state.compensation.insuranceProvisionPeriodPlanCompleted = compensation.insurance_provision_period_plan_completed === 1 ? true : false;
-    state.compensation.totalProvisionPaid = compensation.total_provision_paid;
-    state.compensation.provisionFeedback = compensation.provision_feedback;
-    state.compensation.payoutRate = compensation.sales_compensations_payout_rate;
-    state.compensation.salesCompensationFeedback = compensation.sales_compensation_feedback;
-    state.compensation.insuranceId = compensation.insurance_id;
-    state.compensation.salesCompensationPeriodPlanMonth = compensation.sales_compensations_period_plan_month;
-    state.compensation.salesCompensationPeriodPlanYear = compensation.sales_compensations_period_plan_year;
-    state.compensation.salesCompensationPeriodPlanCompleted = compensation.sales_compensations_period_plan_completed === 1 ? true : false;
-    state.compensation.totalSalesCompensation = compensation.sales_compensations_total;
-    state.compensation.salesOrder.id = compensation.sales_order_id;
-    state.compensation.salesOrder.people = compensation.sales_order_people;
+    if (compensation !== null) {
+      state.compensation.id = compensation.id;
+      state.compensation.insuranceId = compensation.insurance_id;
+      state.compensation.insuranceProvisionPeriodPlanMonth = compensation.insurance_provision_period_plan_month;
+      state.compensation.insuranceProvisionPeriodPlanYear = compensation.insurance_provision_period_plan_year;
+      state.compensation.insuranceProvisionPeriodPlanCompleted = compensation.insurance_provision_period_plan_completed === 1 ? true : false;
+      state.compensation.totalProvisionPaid = compensation.total_provision_paid;
+      state.compensation.provisionFeedback = compensation.provision_feedback;
+      state.compensation.payoutRate = compensation.sales_compensations_payout_rate;
+      state.compensation.salesCompensationFeedback = compensation.sales_compensation_feedback;
+      state.compensation.insuranceId = compensation.insurance_id;
+      state.compensation.salesCompensationPeriodPlanMonth = compensation.sales_compensations_period_plan_month;
+      state.compensation.salesCompensationPeriodPlanYear = compensation.sales_compensations_period_plan_year;
+      state.compensation.salesCompensationPeriodPlanCompleted = compensation.sales_compensations_period_plan_completed === 1 ? true : false;
+      state.compensation.totalSalesCompensation = compensation.sales_compensations_total;
+      state.compensation.salesOrder.id = compensation.sales_order_id;
+      state.compensation.salesOrder.people = compensation.sales_order_people;
+    }
   },
   setSalesOrderId: function setSalesOrderId(state, value) {
     // since we only need the people and the sales order id
@@ -41370,6 +41401,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var state = {
   filterData: {},
   Loading: false,
+  tableLoader: false,
+  salesOrders: [],
   salesOrder: {
     id: window.salesOrderId === null ? null : window.salesOrderId,
     currentInsuranceId: null,
@@ -41515,6 +41548,9 @@ var getters = {
   },
   Loading: function Loading(state) {
     return state.Loading;
+  },
+  tableLoader: function tableLoader(state) {
+    return state.tableLoader;
   }
 };
 var actions = {
@@ -41657,6 +41693,7 @@ var actions = {
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref4) {
       var commit,
+          state,
           page,
           response,
           table,
@@ -41665,34 +41702,37 @@ var actions = {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
-              commit = _ref4.commit;
+              commit = _ref4.commit, state = _ref4.state;
               page = _args4.length > 1 && _args4[1] !== undefined ? _args4[1] : 1;
-              _context4.prev = 2;
-              _context4.next = 5;
+              state.tableLoader = true;
+              _context4.prev = 3;
+              _context4.next = 6;
               return axios.post("/sales-orders/filter?page=".concat(page), state.filterData);
 
-            case 5:
+            case 6:
               response = _context4.sent;
               // the table is rendered in the backend
               // we send it over and display it on the frontend
               table = document.querySelector("#table-wrapper");
-              table.innerHTML = response.data.table; // update the paginator
+              table.innerHTML = response.data.table;
+              state.tableLoader = false; // update the paginator
 
               commit("setSalesOrders", response.data.dataTypeContent);
-              _context4.next = 14;
+              _context4.next = 17;
               break;
 
-            case 11:
-              _context4.prev = 11;
-              _context4.t0 = _context4["catch"](2);
+            case 13:
+              _context4.prev = 13;
+              _context4.t0 = _context4["catch"](3);
+              state.tableLoader = false;
               alert(_context4.t0);
 
-            case 14:
+            case 17:
             case "end":
               return _context4.stop();
           }
         }
-      }, _callee4, null, [[2, 11]]);
+      }, _callee4, null, [[3, 13]]);
     }));
 
     function changePaginationPage(_x4) {
@@ -41714,6 +41754,7 @@ var actions = {
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(_ref5, data) {
       var commit,
+          state,
           page,
           response,
           table,
@@ -41722,36 +41763,39 @@ var actions = {
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
-              commit = _ref5.commit;
+              commit = _ref5.commit, state = _ref5.state;
               page = _args5.length > 2 && _args5[2] !== undefined ? _args5[2] : 1;
-              _context5.prev = 2;
+              state.tableLoader = true;
+              _context5.prev = 3;
               // update the filter data
               state.filterData = data;
-              _context5.next = 6;
+              _context5.next = 7;
               return axios.post("sales-orders/filter?page=".concat(page), data);
 
-            case 6:
+            case 7:
               response = _context5.sent;
               // the table is rendered in the backend
               // we send it over and display it on the frontend
               table = document.querySelector("#table-wrapper");
-              table.innerHTML = response.data.table; // update the paginator
+              table.innerHTML = response.data.table;
+              state.tableLoader = false; // update the paginator
 
               commit("setSalesOrders", response.data.dataTypeContent);
-              _context5.next = 15;
+              _context5.next = 18;
               break;
 
-            case 12:
-              _context5.prev = 12;
-              _context5.t0 = _context5["catch"](2);
+            case 14:
+              _context5.prev = 14;
+              _context5.t0 = _context5["catch"](3);
+              state.tableLoader = false;
               console.warn(_context5.t0);
 
-            case 15:
+            case 18:
             case "end":
               return _context5.stop();
           }
         }
-      }, _callee5, null, [[2, 12]]);
+      }, _callee5, null, [[3, 14]]);
     }));
 
     function filterSalesOrders(_x5, _x6) {
@@ -41795,6 +41839,9 @@ var mutations = {
     state.salesOrder.cancellationOriginal = data.cancellation_original === 1 ? true : false;
     state.salesOrder.cancellationStamped = data.cancellation_stamped === 1 ? true : false;
     state.salesOrder.provisionDone = data.provision_done === 1 ? true : false;
+  },
+  setSalesOrders: function setSalesOrders(state, data) {
+    state.salesOrders = data;
   },
   setSalesOrderId: function setSalesOrderId(state, data) {
     state.salesOrder.id = data;

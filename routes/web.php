@@ -59,6 +59,9 @@ Route::group([
     // people in sales orders
     Route::get('/sales-orders/{salesOrderId}/sales-order-people/', 'SalesOrders\SalesOrderPeopleController@index');
 
+    // compensation in sales ordre
+    Route::get('/sales-orders/{salesOrderId}/compensation/', 'SalesOrders\CompensationsController@index');
+
     // to download files 
     Route::get('/file-download', 'FileDownloadController@index');
 });

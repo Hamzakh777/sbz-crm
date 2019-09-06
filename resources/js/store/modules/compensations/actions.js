@@ -1,11 +1,19 @@
 const actions = {
-    async fetchCompensation({commit, state}) {
+    async fetchCompensation({commit, state, rootState}) {
         state.isLoading = true;
         try {
-            const response = await axios.get(`/api/compensations/${state.compensation.id}`);
+            if (state.compensation.id !== null && state.compensation.id !== undefined) {
+                const response = await axios.get(`/api/compensations/${state.compensation.id}`);
+    
+                commit('setCompensation', response.data.compensation);
+                state.isLoading = false;
+            } else {
+                const salesOrderId = rootState.salesOrders.salesOrder.id;
+                const response = await axios.get(`/api/sales-orders/${salesOrderId}/compensation`);
 
-            commit('setCompensation', response.data.compensation);
-            state.isLoading = false;
+                commit('setCompensation', response.data.compensation);
+                state.isLoading = false;
+            }
         } catch (error) {
             state.isLoading = false;
             alert(error);

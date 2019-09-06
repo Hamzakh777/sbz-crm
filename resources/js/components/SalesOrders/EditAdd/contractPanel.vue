@@ -76,8 +76,8 @@
                         v-model="salesOrder.householdType"
                         :class="{'form-control--error': $v.salesOrder.householdType.$error }"
                     >
-                        <option value="single">{{ trans.get('voyager.generic.single') }}</option>
-                        <option value="family">{{ trans.get('voyager.generic.family') }}</option>
+                        <option value="single">{{ trans.get('voyager.sales_orders.single') }}</option>
+                        <option value="family">{{ trans.get('voyager.sales_orders.family') }}</option>
                     </select>
                     <div v-if="$v.salesOrder.householdType.$error">
                         <span class="error-text" v-if="!$v.salesOrder.householdType.required">

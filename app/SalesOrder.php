@@ -53,6 +53,13 @@ class SalesOrder extends Model
     }
 
     /**
+     * Has one compensation
+     */
+    public function compensation() {
+        return $this->hasOne('App\Compensation', 'sales_order_id');
+    }
+
+    /**
      * Scope filter sales orders
      */
     public function scopeFilterSalesOrders($query, $request) {
