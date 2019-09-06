@@ -214,7 +214,7 @@
                     <!-- sales compensations total -->
                     <div class="form-group col-md-4">
                         <valueCardFrom
-                            name="voyager.compensations.total_provision_paid"
+                            name="voyager.compensations.sales_compensations_total"
                             :propertyName="'totalSalesCompensation'"
                             accentColor="#4E73DF"
                         >

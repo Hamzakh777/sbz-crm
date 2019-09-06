@@ -106,6 +106,7 @@ return [
     'set'                    => 'Set',
     'settings'               => 'Settings',
     'status'                 => 'Status',
+    'start_typing'           => 'Start typing',
     'showing_entries'        => 'Showing :from to :to of :all entry|Showing :from to :to of :all entries',
     'submit'                 => 'Submit',
     'successfully_added_new' => 'Successfully Added New',

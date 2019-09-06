@@ -32673,7 +32673,7 @@ var render = function() {
                   [
                     _c("valueCardFrom", {
                       attrs: {
-                        name: "voyager.compensations.total_provision_paid",
+                        name: "voyager.compensations.sales_compensations_total",
                         propertyName: "totalSalesCompensation",
                         accentColor: "#4E73DF"
                       }

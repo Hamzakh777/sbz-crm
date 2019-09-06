@@ -194,6 +194,7 @@ return [
 
     'additional_js' => [
         'js/vendor/app.js',
+        'js/widgets/searchBar.js'
     ],
 
     'googlemaps' => [

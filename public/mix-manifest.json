@@ -6,5 +6,6 @@
     "/js/pages/salesOrders.js": "/js/pages/salesOrders.js",
     "/js/pages/tasks.js": "/js/pages/tasks.js",
     "/js/pages/users.js": "/js/pages/users.js",
-    "/js/vendor/app.js": "/js/vendor/app.js"
+    "/js/vendor/app.js": "/js/vendor/app.js",
+    "/js/widgets/searchBar.js": "/js/widgets/searchBar.js"
 }
