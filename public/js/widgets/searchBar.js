@@ -9658,12 +9658,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'SearchBar',
   components: {
     AisInstantSearch: vue_instantsearch__WEBPACK_IMPORTED_MODULE_1__["AisInstantSearch"],
+    AisStateResults: vue_instantsearch__WEBPACK_IMPORTED_MODULE_1__["AisStateResults"],
     AisSearchBox: vue_instantsearch__WEBPACK_IMPORTED_MODULE_1__["AisSearchBox"],
     AisHits: vue_instantsearch__WEBPACK_IMPORTED_MODULE_1__["AisHits"]
   },
@@ -54878,104 +54884,58 @@ var render = function() {
       }
     },
     [
-      _c(
-        "ais-search-box",
-        {
-          attrs: {
-            "show-loading-indicator": true,
-            placeholder: _vm.trans.get("voyager.generic.start_typing")
-          },
-          scopedSlots: _vm._u([
+      _c("ais-search-box", {
+        attrs: {
+          "show-loading-indicator": true,
+          placeholder: _vm.trans.get("voyager.generic.start_typing")
+        }
+      }),
+      _vm._v(" "),
+      _c("ais-state-results", {
+        scopedSlots: _vm._u(
+          [
             {
               key: "default",
               fn: function(ref) {
-                var currentRefinement = ref.currentRefinement
-                var isSearchStalled = ref.isSearchStalled
-                var refine = ref.refine
-                return _c("div", {}, [
-                  _c(
-                    "form",
-                    {
-                      staticClass: "ais-SearchBox-form",
-                      attrs: { role: "search" }
-                    },
-                    [
-                      _c("input", {
-                        directives: [
+                var query = ref.query
+                return query.length > 0
+                  ? _c("ais-hits", {
+                      scopedSlots: _vm._u(
+                        [
                           {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.searchValue,
-                            expression: "searchValue"
+                            key: "default",
+                            fn: function(ref) {
+                              var items = ref.items
+                              return _c(
+                                "ul",
+                                { staticClass: "hits" },
+                                _vm._l(items, function(item) {
+                                  return _c("li", { key: item.objectID }, [
+                                    _vm._v(
+                                      "\n                    " +
+                                        _vm._s(item.owner_full_name) +
+                                        "\n                "
+                                    )
+                                  ])
+                                }),
+                                0
+                              )
+                            }
                           }
                         ],
-                        staticClass: "ais-SearchBox-input",
-                        attrs: { type: "search" },
-                        domProps: { value: _vm.searchValue },
-                        on: {
-                          input: [
-                            function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.searchValue = $event.target.value
-                            },
-                            function($event) {
-                              return refine($event.currentTarget.value)
-                            }
-                          ]
-                        }
-                      })
-                    ]
-                  )
-                ])
+                        null,
+                        false,
+                        2350801310
+                      )
+                    })
+                  : _c("div")
               }
             }
-          ])
-        },
-        [
-          _c(
-            "div",
-            {
-              attrs: { slot: "submit-icon ais-SearchBox-submit" },
-              slot: "submit-icon ais-SearchBox-submit"
-            },
-            [_c("i", { staticClass: "voyager-search" })]
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _vm.searchValue !== "" && _vm.searchValue !== null
-        ? _c("ais-hits", {
-            scopedSlots: _vm._u(
-              [
-                {
-                  key: "default",
-                  fn: function(ref) {
-                    var items = ref.items
-                    return _c(
-                      "ul",
-                      { staticClass: "hits" },
-                      _vm._l(items, function(item) {
-                        return _c("li", { key: item.objectID }, [
-                          _vm._v(
-                            "\n            " +
-                              _vm._s(item.owner_full_name) +
-                              "\n            "
-                          )
-                        ])
-                      }),
-                      0
-                    )
-                  }
-                }
-              ],
-              null,
-              false,
-              3432286622
-            )
-          })
-        : _vm._e()
+          ],
+          null,
+          true
+        )
+      })
     ],
     1
   )

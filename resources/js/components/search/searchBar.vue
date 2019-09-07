@@ -8,7 +8,7 @@
         <ais-search-box 
             :show-loading-indicator="true"
             :placeholder="trans.get('voyager.generic.start_typing')">
-            <div slot="submit-icon ais-SearchBox-submit">
+            <!-- <div slot="submit-icon ais-SearchBox-submit">
                 <i class="voyager-search"></i>
             </div>
             <div slot-scope="{ currentRefinement, isSearchStalled, refine }">
@@ -20,29 +20,35 @@
                         class="ais-SearchBox-input">
                     
                 </form>
-            </div>
+            </div> -->
         </ais-search-box>
-        <ais-hits v-if="searchValue !== '' && searchValue !== null">
-            <ul 
-                class="hits"
-                slot-scope="{ items }">
-                <li v-for="item in items" :key="item.objectID">
-                {{ item.owner_full_name }}
-                </li>
-            </ul>
-        </ais-hits>
+        <ais-state-results>
+            <ais-hits slot-scope="{ query }" v-if="query.length > 0">
+                <ul 
+                    class="hits"
+                    slot-scope="{ items }"
+                >
+                    <li v-for="item in items" :key="item.objectID">
+                        {{ item.owner_full_name }}
+                    </li>
+                </ul>
+            </ais-hits>
+            <div v-else></div>
+        </ais-state-results>
     </ais-instant-search>
+
 </template>
 
 <script>
     import algoliasearch from 'algoliasearch/lite';
-    import { AisInstantSearch, AisSearchBox, AisHits } from 'vue-instantsearch';
+    import { AisInstantSearch, AisSearchBox, AisHits, AisStateResults } from 'vue-instantsearch';
 
     export default {
         name: 'SearchBar',
 
         components: {
             AisInstantSearch,
+            AisStateResults,
             AisSearchBox,
             AisHits
         },
