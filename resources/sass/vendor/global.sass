@@ -1,0 +1,52 @@
+// global
+.row 
+    margin-right: 0
+    margin-left: 0
+
+.card .form-control[readonly] 
+    background-color: #fff !important
+
+.voyager .panel.panel-primary
+    .panel-heading
+        background-color: #f8f9fc !important
+        border-bottom: 1px solid #e3e6f0 !important
+        color: #4e73df !important
+
+        .panel-title ,.panel-icon
+            color: #4e73df !important
+
+        .panel-action
+            color: #4e73df
+            
+
+.voyager .navbar, .voyager .navbar.navbar-default 
+    box-shadow: 0 4px 30px rgba(0,0,0,0.10)
+
+.form-control, .form-control:focus
+    border-radius: 0 !important
+    border-top-color: transparent
+    border-right-color: transparent
+    border-left-color: transparent
+    border-width: 1px !important
+    border-bottom-color: #e4eaec !important
+
+    &:focus
+        border-bottom-color: #62a8ea !important
+
+.control-label 
+    margin-bottom: 0
+
+h4.title 
+    color: #344055
+// removing the overflow hidden from the pannels
+.panel-bordered>.panel-body
+    overflow: visible
+
+// vue date picker adds readonly attribute to the input field
+// and since voyager comes with a preconfigured css 
+// the background of that field is grey
+// which fucks up the look
+.vdp-datepicker
+    z-index: 100
+    .form-control[readonly]
+        background-color: #fff !important

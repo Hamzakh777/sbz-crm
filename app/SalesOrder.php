@@ -9,6 +9,13 @@ use Laravel\Scout\Searchable;
 class SalesOrder extends Model
 {
     use Searchable;
+    use \Bkwld\Cloner\Cloneable;
+    
+    /**
+     * Which relationships to clone with the model
+     */
+    protected $cloneable_relations = ['documents', 'people', 'comments', 'tasksCollections', 'compensation'];
+
     /**
      * Pagination
      */

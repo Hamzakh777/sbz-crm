@@ -32,7 +32,7 @@
             </ol>
             @show --}}
         </div>
-        <div class="navbar-search" id="search-bar">
+        <div class="nav-search" id="search-bar">
             <search-bar></search-bar>
         </div>
         <ul class="nav navbar-nav @if (config('voyager.multilingual.rtl')) navbar-left @else navbar-right @endif">

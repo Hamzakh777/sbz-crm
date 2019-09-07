@@ -9621,6 +9621,30 @@ module.exports = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var algoliasearch_lite__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! algoliasearch/lite */ "./node_modules/algoliasearch/src/browser/builds/algoliasearchLite.js");
 /* harmony import */ var algoliasearch_lite__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(algoliasearch_lite__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_instantsearch__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-instantsearch */ "./node_modules/vue-instantsearch/dist/vue-instantsearch.esm.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -9635,11 +9659,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'SearchBar',
+  components: {
+    AisInstantSearch: vue_instantsearch__WEBPACK_IMPORTED_MODULE_1__["AisInstantSearch"],
+    AisSearchBox: vue_instantsearch__WEBPACK_IMPORTED_MODULE_1__["AisSearchBox"],
+    AisHits: vue_instantsearch__WEBPACK_IMPORTED_MODULE_1__["AisHits"]
+  },
   data: function data() {
     return {
-      searchClient: algoliasearch_lite__WEBPACK_IMPORTED_MODULE_0___default()('LTUJ91APSO', '453b545427930f6194b4701c5b537fd8')
+      searchClient: algoliasearch_lite__WEBPACK_IMPORTED_MODULE_0___default()('LTUJ91APSO', '453b545427930f6194b4701c5b537fd8'),
+      searchValue: null
     };
   }
 });
@@ -9658,7 +9689,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".searchh[data-v-3cfa01ef] {\n  background-color: #FAFAFC;\n  border-radius: 6px;\n  max-width: 500px;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  padding: 4px 6px;\n  margin-top: 11px;\n  margin-left: 25px;\n}\n.searchh__input[data-v-3cfa01ef] {\n  border-color: transparent;\n  background-color: transparent;\n  flex-grow: 1;\n  margin-left: 8px;\n}\n.searchh__icon[data-v-3cfa01ef] {\n  font-size: 20px;\n  display: block;\n  margin-bottom: -6px;\n  margin-left: 6px;\n}", ""]);
+exports.push([module.i, ".searchh[data-v-3cfa01ef] {\n  background-color: #FAFAFC;\n  border-radius: 6px;\n  max-width: 500px;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  padding: 4px 6px;\n}\n.searchh__input[data-v-3cfa01ef] {\n  border-color: transparent;\n  background-color: transparent;\n  flex-grow: 1;\n  margin-left: 8px;\n}\n.searchh__icon[data-v-3cfa01ef] {\n  font-size: 20px;\n  display: block;\n  margin-bottom: -6px;\n  margin-left: 6px;\n}\n.hits[data-v-3cfa01ef] {\n  background-color: #fff;\n  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);\n  list-style: none;\n}", ""]);
 
 // exports
 
@@ -54840,12 +54871,111 @@ var render = function() {
   return _c(
     "ais-instant-search",
     {
-      attrs: { "search-client": _vm.searchClient, "index-name": "sales_orders" }
+      attrs: {
+        "search-client": _vm.searchClient,
+        "stalled-search-delay": 1000,
+        "index-name": "sales_orders"
+      }
     },
     [
-      _c("ais-search-box", { attrs: { placeholder: "Search contacts..." } }),
+      _c(
+        "ais-search-box",
+        {
+          attrs: {
+            "show-loading-indicator": true,
+            placeholder: _vm.trans.get("voyager.generic.start_typing")
+          },
+          scopedSlots: _vm._u([
+            {
+              key: "default",
+              fn: function(ref) {
+                var currentRefinement = ref.currentRefinement
+                var isSearchStalled = ref.isSearchStalled
+                var refine = ref.refine
+                return _c("div", {}, [
+                  _c(
+                    "form",
+                    {
+                      staticClass: "ais-SearchBox-form",
+                      attrs: { role: "search" }
+                    },
+                    [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.searchValue,
+                            expression: "searchValue"
+                          }
+                        ],
+                        staticClass: "ais-SearchBox-input",
+                        attrs: { type: "search" },
+                        domProps: { value: _vm.searchValue },
+                        on: {
+                          input: [
+                            function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.searchValue = $event.target.value
+                            },
+                            function($event) {
+                              return refine($event.currentTarget.value)
+                            }
+                          ]
+                        }
+                      })
+                    ]
+                  )
+                ])
+              }
+            }
+          ])
+        },
+        [
+          _c(
+            "div",
+            {
+              attrs: { slot: "submit-icon ais-SearchBox-submit" },
+              slot: "submit-icon ais-SearchBox-submit"
+            },
+            [_c("i", { staticClass: "voyager-search" })]
+          )
+        ]
+      ),
       _vm._v(" "),
-      _c("ais-hits")
+      _vm.searchValue !== "" && _vm.searchValue !== null
+        ? _c("ais-hits", {
+            scopedSlots: _vm._u(
+              [
+                {
+                  key: "default",
+                  fn: function(ref) {
+                    var items = ref.items
+                    return _c(
+                      "ul",
+                      { staticClass: "hits" },
+                      _vm._l(items, function(item) {
+                        return _c("li", { key: item.objectID }, [
+                          _vm._v(
+                            "\n            " +
+                              _vm._s(item.owner_full_name) +
+                              "\n            "
+                          )
+                        ])
+                      }),
+                      0
+                    )
+                  }
+                }
+              ],
+              null,
+              false,
+              3432286622
+            )
+          })
+        : _vm._e()
     ],
     1
   )
@@ -67143,12 +67273,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../bootstrap */ "./resources/js/bootstrap.js");
 /* harmony import */ var _components_search_searchBar_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/search/searchBar.vue */ "./resources/js/components/search/searchBar.vue");
-/* harmony import */ var vue_instantsearch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-instantsearch */ "./node_modules/vue-instantsearch/dist/vue-instantsearch.esm.js");
-
 
 
 Vue.config.productionTip = false;
-Vue.use(vue_instantsearch__WEBPACK_IMPORTED_MODULE_2__["default"]);
 new Vue({
   components: {
     SearchBar: _components_search_searchBar_vue__WEBPACK_IMPORTED_MODULE_1__["default"]

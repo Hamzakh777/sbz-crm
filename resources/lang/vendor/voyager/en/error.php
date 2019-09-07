@@ -8,4 +8,5 @@ return [
     'symlink_missing_button' => 'Fix it',
     'symlink_missing_text'   => 'We could not find a storage symlink. This could cause problems with loading media files from the browser.',
     'symlink_missing_title'  => 'Missing storage symlink',
+    'error_happened'         => 'An error happened, please try again'
 ];

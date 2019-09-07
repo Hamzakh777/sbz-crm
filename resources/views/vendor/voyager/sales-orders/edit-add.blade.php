@@ -23,6 +23,11 @@
                     {{ __('voyager::generic.'.($edit ? 'edit' : 'add')).' '.$dataType->display_name_singular }}
                 </h1>
                 @include('voyager::multilingual.language-selector')
+            @if ($edit)
+                <duplicate-button
+                    :sales-order-id="{{ $dataTypeContent->getKey() }}"
+                ></duplicate-button>
+            @endif
             <progress-bar></progress-bar>
         </div>
         <div class="page-content edit-add container-fluid">
