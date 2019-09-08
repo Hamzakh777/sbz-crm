@@ -9663,6 +9663,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -9670,13 +9675,14 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     AisInstantSearch: vue_instantsearch__WEBPACK_IMPORTED_MODULE_1__["AisInstantSearch"],
     AisStateResults: vue_instantsearch__WEBPACK_IMPORTED_MODULE_1__["AisStateResults"],
+    AisConfigure: vue_instantsearch__WEBPACK_IMPORTED_MODULE_1__["AisConfigure"],
     AisSearchBox: vue_instantsearch__WEBPACK_IMPORTED_MODULE_1__["AisSearchBox"],
     AisHits: vue_instantsearch__WEBPACK_IMPORTED_MODULE_1__["AisHits"]
   },
   data: function data() {
     return {
       searchClient: algoliasearch_lite__WEBPACK_IMPORTED_MODULE_0___default()('LTUJ91APSO', '453b545427930f6194b4701c5b537fd8'),
-      searchValue: null
+      query: ''
     };
   }
 });
@@ -9695,7 +9701,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".searchh[data-v-3cfa01ef] {\n  background-color: #FAFAFC;\n  border-radius: 6px;\n  max-width: 500px;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  padding: 4px 6px;\n}\n.searchh__input[data-v-3cfa01ef] {\n  border-color: transparent;\n  background-color: transparent;\n  flex-grow: 1;\n  margin-left: 8px;\n}\n.searchh__icon[data-v-3cfa01ef] {\n  font-size: 20px;\n  display: block;\n  margin-bottom: -6px;\n  margin-left: 6px;\n}\n.hits[data-v-3cfa01ef] {\n  background-color: #fff;\n  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);\n  list-style: none;\n}", ""]);
+exports.push([module.i, ".searchh[data-v-3cfa01ef] {\n  background-color: #FAFAFC;\n  border-radius: 6px;\n  max-width: 500px;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  padding: 4px 6px;\n}\n.searchh__input[data-v-3cfa01ef] {\n  border-color: transparent;\n  background-color: transparent;\n  flex-grow: 1;\n  margin-left: 8px;\n}\n.searchh__icon[data-v-3cfa01ef] {\n  font-size: 20px;\n  display: block;\n  margin-bottom: -6px;\n  margin-left: 6px;\n}\n.hits[data-v-3cfa01ef] {\n  background-color: #fff;\n  box-shadow: 0px -2px 28px rgba(52, 64, 85, 0.16);\n  list-style: none;\n  margin-top: 4px;\n  border-radius: 6px;\n  padding-left: 10px;\n}", ""]);
 
 // exports
 
@@ -54875,67 +54881,102 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "ais-instant-search",
-    {
-      attrs: {
-        "search-client": _vm.searchClient,
-        "stalled-search-delay": 1000,
-        "index-name": "sales_orders"
-      }
-    },
+    "div",
     [
-      _c("ais-search-box", {
-        attrs: {
-          "show-loading-indicator": true,
-          placeholder: _vm.trans.get("voyager.generic.start_typing")
-        }
-      }),
-      _vm._v(" "),
-      _c("ais-state-results", {
-        scopedSlots: _vm._u(
-          [
-            {
-              key: "default",
-              fn: function(ref) {
-                var query = ref.query
-                return query.length > 0
-                  ? _c("ais-hits", {
-                      scopedSlots: _vm._u(
-                        [
-                          {
-                            key: "default",
-                            fn: function(ref) {
-                              var items = ref.items
-                              return _c(
-                                "ul",
-                                { staticClass: "hits" },
-                                _vm._l(items, function(item) {
-                                  return _c("li", { key: item.objectID }, [
-                                    _vm._v(
-                                      "\n                    " +
-                                        _vm._s(item.owner_full_name) +
-                                        "\n                "
-                                    )
-                                  ])
-                                }),
-                                0
-                              )
-                            }
-                          }
-                        ],
-                        null,
-                        false,
-                        2350801310
-                      )
-                    })
-                  : _c("div")
-              }
+      _c(
+        "ais-instant-search",
+        {
+          attrs: {
+            "search-client": _vm.searchClient,
+            "stalled-search-delay": 1000,
+            "index-name": "sales_orders"
+          }
+        },
+        [
+          _c("ais-search-box", {
+            attrs: {
+              "show-loading-indicator": true,
+              placeholder: _vm.trans.get("voyager.generic.start_typing")
             }
-          ],
-          null,
-          true
-        )
-      })
+          }),
+          _vm._v(" "),
+          _c("ais-state-results", {
+            scopedSlots: _vm._u(
+              [
+                {
+                  key: "default",
+                  fn: function(ref) {
+                    var query = ref.query
+                    return query.length > 0
+                      ? _c("ais-hits", {
+                          scopedSlots: _vm._u(
+                            [
+                              {
+                                key: "default",
+                                fn: function(ref) {
+                                  var items = ref.items
+                                  return _c(
+                                    "ul",
+                                    { staticClass: "hits" },
+                                    _vm._l(items, function(item) {
+                                      return _c("li", { key: item.objectID }, [
+                                        _vm._v(
+                                          "\n                        " +
+                                            _vm._s(item.owner_full_name) +
+                                            "\n                    "
+                                        )
+                                      ])
+                                    }),
+                                    0
+                                  )
+                                }
+                              }
+                            ],
+                            null,
+                            false,
+                            113507486
+                          )
+                        })
+                      : _c("div")
+                  }
+                }
+              ],
+              null,
+              true
+            )
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "ais-instant-search",
+        { attrs: { "search-client": _vm.searchClient, "index-name": "users" } },
+        [
+          _c("ais-configure", { attrs: { query: _vm.query, hitsPerPage: 8 } }),
+          _vm._v(" "),
+          _c("ais-hits", {
+            scopedSlots: _vm._u([
+              {
+                key: "item",
+                fn: function(ref) {
+                  var item = ref.item
+                  return [
+                    _c("h3", [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(item.id) +
+                          "\n                "
+                      )
+                    ])
+                  ]
+                }
+              }
+            ])
+          })
+        ],
+        1
+      )
     ],
     1
   )
