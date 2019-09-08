@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\addSalesOrderPerson;
 use App\SalesOrder;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Resources\ContractPerson as ContractPersonResource;
 
 class SalesOrderPeopleController extends Controller
 {
@@ -24,7 +25,7 @@ class SalesOrderPeopleController extends Controller
         $people = $salesOrder->people;
 
         return response()->json([
-            'people' => $people
+            'people' => ContractPersonResource::collection($people)
         ]);
     }
 
@@ -46,8 +47,8 @@ class SalesOrderPeopleController extends Controller
      */
     public function store(addSalesOrderPerson $request)
     {
-        if($request->hasFile('documentCardId')) {
-            $path = $request->file('documentCardId')->store('documents/id-cards');
+        if($request->hasFile('documentIdCard')) {
+            $path = $request->file('documentIdCard')->store('documents/id-cards');
         } else {
             $path = null;
         }
@@ -58,11 +59,11 @@ class SalesOrderPeopleController extends Controller
         $person->last_name = $request->input('lastName');
         $person->gender = $request->input('gender');
         $person->police_number = $request->input('policeNumber');
-        $person->birthday = Carbon::parse($request->input('birthday'))->addHour()->format('Y-m-d');
+        // $person->birthday = Carbon::parse($request->input('birthday'))->addHour()->format('Y-m-d');
+        $person->birthday = Carbon::createFromFormat('D M d Y H:i:s e+',$request->input('birthday'))->addHour()->format('Y-m-d');
         $person->sales_order_id = $request->input('salesOrderId');
         $person->document_id_path = $path;
-
-        $products = $request->input('products');
+        $products = json_decode($request->input('products'));
         
         $person->save();
 
@@ -72,6 +73,7 @@ class SalesOrderPeopleController extends Controller
         if (isset($products) && count($products) !== 0) {
             $productsIds = [];
             foreach ($products as $key => $product) {
+                $product = (array)$product;
                 array_push($productsIds, $product['id']);
             }
             $person->products()->attach($productsIds);
@@ -80,7 +82,7 @@ class SalesOrderPeopleController extends Controller
         // then we need to save the product with the person
 
         return response()->json([
-            'person' => $person
+            'person' => new ContractPersonResource($person),
         ]);
     }
 

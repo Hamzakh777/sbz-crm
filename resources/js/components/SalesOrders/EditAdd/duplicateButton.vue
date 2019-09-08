@@ -1,6 +1,6 @@
 <template>
     <button
-        class="btn btn-primary"
+        class="btn btn-success"
         @click.prevent="click"
     >   
         <BaseLoader v-if="isLoading"></BaseLoader>
@@ -13,6 +13,10 @@
 
     export default {
         name: 'duplicateButton',
+
+        components: {
+            BaseLoader
+        },
 
         props: {
             salesOrderId: {
@@ -36,16 +40,12 @@
                     this.$toasted.success(this.trans.get('voyager.success.duplicated_successfully'), {
                         action: {
                             text: this.trans.get('voyager.generic.open'),
-                            onClick : (e, toastObject) => {
-                                // window.location.href = 
-                                console.log('clicked')
-                            }
                         },
-                        icon: 'voyager-check'
                     })
+                    this.isLoading = false;
                 } catch (error) {
+                    this.isLoading = false;
                     this.$toasted.error(this.trans.get('voyager.error.error_happened'), {
-                        icon: 'voyager-warning'
                     })
                 }
             }
@@ -53,6 +53,7 @@
     }
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="sass" scoped>
+.btn 
+    position: relative
 </style>

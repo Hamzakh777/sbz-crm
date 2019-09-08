@@ -2197,6 +2197,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -2520,20 +2521,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         formData.append('age', this.age);
         formData.append('familyMemberType', this.familyMemberType);
         formData.append('policeNumber', this.policeNumber);
-        formData.append('products', this.products);
+        formData.append('products', JSON.stringify(this.products));
         formData.append('salesOrderId', this.salesOrder.id);
         formData.append('documentIdCard', this.documentIdCard);
-        this.addPerson({
-          firstName: this.firstName,
-          lastName: this.lastName,
-          gender: this.gender,
-          birthday: this.birthday,
-          age: this.age,
-          familyMemberType: this.familyMemberType,
-          policeNumber: this.policeNumber,
-          products: this.products,
-          salesOrderId: this.salesOrder.id
-        });
+        this.addPerson(formData);
       }
     },
     addProduct: function addProduct(product) {
@@ -4019,6 +4010,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'duplicateButton',
+  components: {
+    BaseLoader: _baseComponents_BaseLoader__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
   props: {
     salesOrderId: {
       type: Number,
@@ -4049,30 +4043,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 response = _context.sent;
                 this.$toasted.success(this.trans.get('voyager.success.duplicated_successfully'), {
                   action: {
-                    text: this.trans.get('voyager.generic.open'),
-                    onClick: function onClick(e, toastObject) {
-                      // window.location.href = 
-                      console.log('clicked');
-                    }
-                  },
-                  icon: 'voyager-check'
+                    text: this.trans.get('voyager.generic.open')
+                  }
                 });
-                _context.next = 11;
+                this.isLoading = false;
+                _context.next = 13;
                 break;
 
-              case 8:
-                _context.prev = 8;
+              case 9:
+                _context.prev = 9;
                 _context.t0 = _context["catch"](1);
-                this.$toasted.error(this.trans.get('voyager.error.error_happened'), {
-                  icon: 'voyager-warning'
-                });
+                this.isLoading = false;
+                this.$toasted.error(this.trans.get('voyager.error.error_happened'), {});
 
-              case 11:
+              case 13:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[1, 8]]);
+        }, _callee, this, [[1, 9]]);
       }));
 
       function click() {
@@ -5586,7 +5575,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../node_module
 
 
 // module
-exports.push([module.i, "/* global */\n.row[data-v-bb7e3196] {\n  padding: 0px 1em;\n}\n.form-group[data-v-bb7e3196] {\n  padding-left: 0;\n}\n.col-md-6[data-v-bb7e3196] {\n  padding-left: 0;\n}\n.products-col[data-v-bb7e3196] {\n  padding-right: 0;\n}\n.products-col .row[data-v-bb7e3196] {\n  padding-right: 0;\n}\n\n/* elt */\n.card[data-v-bb7e3196] {\n  width: 100%;\n  border: 1px solid #e4eaec;\n  padding: 2em 1em;\n  margin-bottom: 2em;\n  box-shadow: none;\n}\n.card__title[data-v-bb7e3196] {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  margin-bottom: 1em;\n  padding: 0px 1em;\n}\n.card__title h3[data-v-bb7e3196] {\n  color: #58595f;\n}\n.card__action--delete[data-v-bb7e3196] {\n  font-size: 20px;\n  cursor: pointer;\n}\n.card__action--delete[data-v-bb7e3196]:hover {\n  color: #fa2a00;\n}", ""]);
+exports.push([module.i, "/* global */\n.row[data-v-bb7e3196] {\n  padding: 0px 1em;\n}\n.form-group[data-v-bb7e3196] {\n  padding-left: 0;\n}\n.col-md-6[data-v-bb7e3196] {\n  padding-left: 0;\n}\n.products-col[data-v-bb7e3196] {\n  padding-right: 0;\n}\n.products-col .row[data-v-bb7e3196] {\n  padding-right: 0;\n}\n\n/* elt */\n.card[data-v-bb7e3196] {\n  width: 100%;\n  border: 1px solid #e4eaec;\n  padding: 2em 1em;\n  margin-bottom: 2em;\n  box-shadow: none;\n}\n.card__title[data-v-bb7e3196] {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  margin-bottom: 1em;\n  padding: 0px 1em;\n}\n.card__title h3[data-v-bb7e3196] {\n  color: #58595f;\n}\n.card__actions[data-v-bb7e3196] {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-end;\n  align-items: center;\n}\n.card__action--delete[data-v-bb7e3196] {\n  font-size: 20px;\n  cursor: pointer;\n}\n.card__action--delete[data-v-bb7e3196]:hover {\n  color: #fa2a00;\n}\n.card__link[data-v-bb7e3196] {\n  color: #4e73df;\n  text-decoration: none;\n  transition: color 0.1s ease-out;\n  margin-right: 10px;\n}\n.card__link[data-v-bb7e3196]:hover {\n  color: #1e42a9;\n}", ""]);
 
 // exports
 
@@ -5726,6 +5715,25 @@ exports.push([module.i, "hr[data-v-30a14081] {\n  margin-bottom: 1.6em;\n}\n.lis
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/duplicateButton.vue?vue&type=style&index=0&id=5650ff8c&lang=sass&scoped=true&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--9-2!./node_modules/sass-loader/dist/cjs.js??ref--9-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SalesOrders/EditAdd/duplicateButton.vue?vue&type=style&index=0&id=5650ff8c&lang=sass&scoped=true& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".btn[data-v-5650ff8c] {\n  position: relative;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/progressBar.vue?vue&type=style&index=0&id=45112115&lang=sass&scoped=true&":
 /*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--9-2!./node_modules/sass-loader/dist/cjs.js??ref--9-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SalesOrders/EditAdd/progressBar.vue?vue&type=style&index=0&id=45112115&lang=sass&scoped=true& ***!
@@ -5738,7 +5746,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".path[data-v-45112115] {\n  display: flex;\n  max-width: 100%;\n  overflow-x: scroll;\n}\n.path__nav[data-v-45112115] {\n  display: flex;\n  flex-direction: row;\n  align-items: flex-start;\n  list-style: none;\n  padding: 0.825em;\n  margin-bottom: 0;\n}\n.path__item[data-v-45112115] {\n  width: 200px;\n  height: 2em;\n  margin-right: 0.125rem;\n  border-right-color: transparent;\n  position: relative;\n  cursor: pointer;\n  margin-right: 1.25em;\n}\n.path__item[data-v-45112115]:after, .path__item[data-v-45112115]:before {\n  content: \"\";\n  position: absolute;\n  right: -0.575rem;\n  left: -0.5rem;\n  background-color: #4E73DF;\n}\n.path__item[data-v-45112115]:before {\n  top: 0;\n  height: 1rem;\n  transform: skew(30deg) translate3d(0, 0, 0);\n  left: -0.25rem;\n}\n.path__item[data-v-45112115]:after {\n  bottom: 0;\n  height: 1rem;\n  transform: skew(-30deg) translate3d(0, 0, 0);\n  left: -0.25rem;\n}\n.path__item[data-v-45112115]:nth-child(1) {\n  border-top-left-radius: 2rem;\n  border-bottom-left-radius: 2rem;\n  background-color: #4E73DF;\n}\n.path__item[data-v-45112115]:nth-child(1):before, .path__item[data-v-45112115]:nth-child(1):after {\n  left: 1.25rem;\n}\n.path__item[data-v-45112115]:last-child {\n  background-color: #4E73DF;\n  border-top-right-radius: 2rem;\n  border-bottom-right-radius: 2rem;\n  margin-right: 0;\n}\n.path__item[data-v-45112115]:last-child:after, .path__item[data-v-45112115]:last-child:before {\n  right: 1rem;\n}\n.path__item__text[data-v-45112115] {\n  text-align: center;\n  color: #fff;\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  font-weight: 500;\n  font-size: 13px;\n  z-index: 5;\n  transition: all 0.2s ease-in;\n}\n.path__item--done[data-v-45112115] {\n  background-color: #2ecc71;\n}\n.path__item--done[data-v-45112115]:before, .path__item--done[data-v-45112115]:after {\n  background-color: #2ecc71;\n}\n.path__item--done[data-v-45112115]:nth-child(1), .path__item--done[data-v-45112115]:last-child {\n  background-color: #2ecc71;\n}", ""]);
+exports.push([module.i, ".path[data-v-45112115] {\n  display: flex;\n  max-width: 100%;\n  overflow-x: scroll;\n  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.08);\n}\n.path__nav[data-v-45112115] {\n  display: flex;\n  flex-direction: row;\n  align-items: flex-start;\n  list-style: none;\n  padding: 0.825em;\n  margin-bottom: 0;\n}\n.path__item[data-v-45112115] {\n  width: 200px;\n  height: 2em;\n  margin-right: 0.125rem;\n  border-right-color: transparent;\n  position: relative;\n  cursor: pointer;\n  margin-right: 1.25em;\n}\n.path__item[data-v-45112115]:after, .path__item[data-v-45112115]:before {\n  content: \"\";\n  position: absolute;\n  right: -0.575rem;\n  left: -0.5rem;\n  background-color: #4E73DF;\n}\n.path__item[data-v-45112115]:before {\n  top: 0;\n  height: 1rem;\n  transform: skew(30deg) translate3d(0, 0, 0);\n  left: -0.25rem;\n}\n.path__item[data-v-45112115]:after {\n  bottom: 0;\n  height: 1rem;\n  transform: skew(-30deg) translate3d(0, 0, 0);\n  left: -0.25rem;\n}\n.path__item[data-v-45112115]:nth-child(1) {\n  border-top-left-radius: 2rem;\n  border-bottom-left-radius: 2rem;\n  background-color: #4E73DF;\n}\n.path__item[data-v-45112115]:nth-child(1):before, .path__item[data-v-45112115]:nth-child(1):after {\n  left: 1.25rem;\n}\n.path__item[data-v-45112115]:last-child {\n  background-color: #4E73DF;\n  border-top-right-radius: 2rem;\n  border-bottom-right-radius: 2rem;\n  margin-right: 0;\n}\n.path__item[data-v-45112115]:last-child:after, .path__item[data-v-45112115]:last-child:before {\n  right: 1rem;\n}\n.path__item__text[data-v-45112115] {\n  text-align: center;\n  color: #fff;\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  font-weight: 500;\n  font-size: 13px;\n  z-index: 5;\n  transition: all 0.2s ease-in;\n}\n.path__item--done[data-v-45112115] {\n  background-color: #2ecc71;\n}\n.path__item--done[data-v-45112115]:before, .path__item--done[data-v-45112115]:after {\n  background-color: #2ecc71;\n}\n.path__item--done[data-v-45112115]:nth-child(1), .path__item--done[data-v-45112115]:last-child {\n  background-color: #2ecc71;\n}", ""]);
 
 // exports
 
@@ -26720,6 +26728,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/duplicateButton.vue?vue&type=style&index=0&id=5650ff8c&lang=sass&scoped=true&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--9-2!./node_modules/sass-loader/dist/cjs.js??ref--9-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SalesOrders/EditAdd/duplicateButton.vue?vue&type=style&index=0&id=5650ff8c&lang=sass&scoped=true& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../node_modules/css-loader!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--9-2!../../../../../node_modules/sass-loader/dist/cjs.js??ref--9-3!../../../../../node_modules/vue-loader/lib??vue-loader-options!./duplicateButton.vue?vue&type=style&index=0&id=5650ff8c&lang=sass&scoped=true& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/duplicateButton.vue?vue&type=style&index=0&id=5650ff8c&lang=sass&scoped=true&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/progressBar.vue?vue&type=style&index=0&id=45112115&lang=sass&scoped=true&":
 /*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--9-2!./node_modules/sass-loader/dist/cjs.js??ref--9-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SalesOrders/EditAdd/progressBar.vue?vue&type=style&index=0&id=45112115&lang=sass&scoped=true& ***!
@@ -29096,7 +29134,29 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _c("div", [
+      _c("div", { staticClass: "card__actions" }, [
+        _vm.person.documentIdPath !== null
+          ? _c(
+              "a",
+              {
+                staticClass: "card__link",
+                attrs: {
+                  href: "/api/file-download?path=" + _vm.person.documentIdPath,
+                  target: "_blank"
+                }
+              },
+              [
+                _vm._v(
+                  "   \n                " +
+                    _vm._s(
+                      _vm.trans.get("voyager.sales_orders.download_document")
+                    ) +
+                    "\n            "
+                )
+              ]
+            )
+          : _vm._e(),
+        _vm._v(" "),
         _c("i", {
           staticClass: "voyager-trash card__action--delete",
           on: {
@@ -29236,9 +29296,7 @@ var render = function() {
               )
             ])
           ])
-        ]),
-        _vm._v(" "),
-        _vm._m(0)
+        ])
       ]),
       _vm._v(" "),
       _c(
@@ -29254,20 +29312,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "form-group col-md-6" }, [
-        _vm._v(
-          "\n                    Here we probably need a download button\n                "
-        )
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -31806,7 +31851,7 @@ var render = function() {
   return _c(
     "button",
     {
-      staticClass: "btn btn-primary",
+      staticClass: "btn btn-success",
       on: {
         click: function($event) {
           $event.preventDefault()
@@ -52607,7 +52652,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _duplicateButton_vue_vue_type_template_id_5650ff8c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./duplicateButton.vue?vue&type=template&id=5650ff8c&scoped=true& */ "./resources/js/components/SalesOrders/EditAdd/duplicateButton.vue?vue&type=template&id=5650ff8c&scoped=true&");
 /* harmony import */ var _duplicateButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./duplicateButton.vue?vue&type=script&lang=js& */ "./resources/js/components/SalesOrders/EditAdd/duplicateButton.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _duplicateButton_vue_vue_type_style_index_0_id_5650ff8c_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./duplicateButton.vue?vue&type=style&index=0&id=5650ff8c&lang=sass&scoped=true& */ "./resources/js/components/SalesOrders/EditAdd/duplicateButton.vue?vue&type=style&index=0&id=5650ff8c&lang=sass&scoped=true&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -52615,7 +52662,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _duplicateButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _duplicateButton_vue_vue_type_template_id_5650ff8c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
   _duplicateButton_vue_vue_type_template_id_5650ff8c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -52644,6 +52691,22 @@ component.options.__file = "resources/js/components/SalesOrders/EditAdd/duplicat
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_duplicateButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./duplicateButton.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/duplicateButton.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_duplicateButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/SalesOrders/EditAdd/duplicateButton.vue?vue&type=style&index=0&id=5650ff8c&lang=sass&scoped=true&":
+/*!***********************************************************************************************************************************!*\
+  !*** ./resources/js/components/SalesOrders/EditAdd/duplicateButton.vue?vue&type=style&index=0&id=5650ff8c&lang=sass&scoped=true& ***!
+  \***********************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_dist_cjs_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_duplicateButton_vue_vue_type_style_index_0_id_5650ff8c_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader!../../../../../node_modules/css-loader!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--9-2!../../../../../node_modules/sass-loader/dist/cjs.js??ref--9-3!../../../../../node_modules/vue-loader/lib??vue-loader-options!./duplicateButton.vue?vue&type=style&index=0&id=5650ff8c&lang=sass&scoped=true& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SalesOrders/EditAdd/duplicateButton.vue?vue&type=style&index=0&id=5650ff8c&lang=sass&scoped=true&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_dist_cjs_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_duplicateButton_vue_vue_type_style_index_0_id_5650ff8c_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_dist_cjs_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_duplicateButton_vue_vue_type_style_index_0_id_5650ff8c_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_dist_cjs_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_duplicateButton_vue_vue_type_style_index_0_id_5650ff8c_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_dist_cjs_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_duplicateButton_vue_vue_type_style_index_0_id_5650ff8c_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_dist_cjs_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_duplicateButton_vue_vue_type_style_index_0_id_5650ff8c_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -53917,7 +53980,7 @@ __webpack_require__.r(__webpack_exports__);
 Vue.config.productionTip = false;
 Vue.use(vuelidate__WEBPACK_IMPORTED_MODULE_1___default.a);
 Vue.use(vue_toasted__WEBPACK_IMPORTED_MODULE_9___default.a, {
-  duration: 4000,
+  // duration: 4000,
   keepOnHover: true,
   className: 'toast-card'
 });
@@ -54866,28 +54929,25 @@ var actions = {
 
             case 5:
               response = _context2.sent;
-              state.isLoading = false;
+              state.isLoading = false; // if (response.data.person.id) {
+              //     person.id = response.data.person.id;
+              // }
 
-              if (response.data.person.id) {
-                person.id = response.data.person.id;
-              }
-
-              console.log(person);
-              commit("addPerson", person);
-              _context2.next = 15;
+              commit("addPerson", response.data.person);
+              _context2.next = 13;
               break;
 
-            case 12:
-              _context2.prev = 12;
+            case 10:
+              _context2.prev = 10;
               _context2.t0 = _context2["catch"](2);
               alert(_context2.t0);
 
-            case 15:
+            case 13:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[2, 12]]);
+      }, _callee2, null, [[2, 10]]);
     }));
 
     function addPerson(_x2, _x3) {

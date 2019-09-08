@@ -18,16 +18,18 @@
 @section('content')
     <div id="app">
         <div class="page-head">
-            <h1 class="page-title">
+            <div>
+                <h1 class="page-title">
                     <i class="{{ $dataType->icon }}"></i>
                     {{ __('voyager::generic.'.($edit ? 'edit' : 'add')).' '.$dataType->display_name_singular }}
                 </h1>
                 @include('voyager::multilingual.language-selector')
-            @if ($edit)
-                <duplicate-button
-                    :sales-order-id="{{ $dataTypeContent->getKey() }}"
-                ></duplicate-button>
-            @endif
+                @if ($edit)
+                    <duplicate-button
+                        :sales-order-id="{{ $dataTypeContent->getKey() }}"
+                    ></duplicate-button>
+                @endif
+            </div>
             <progress-bar></progress-bar>
         </div>
         <div class="page-content edit-add container-fluid">

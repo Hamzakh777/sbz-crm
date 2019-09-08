@@ -86,6 +86,7 @@ return [
     'contract_termination_original'     => 'Contract termination orignal',
     'contract_termination_stamped'      => 'Contract termination stamped',
     'other'                             => 'Other',
+    'download_document'                 => 'Download document',
 
     // checkpoint details
     'checkpoint_details'                => 'Checkpoint details',

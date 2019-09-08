@@ -40969,28 +40969,25 @@ var actions = {
 
             case 5:
               response = _context2.sent;
-              state.isLoading = false;
+              state.isLoading = false; // if (response.data.person.id) {
+              //     person.id = response.data.person.id;
+              // }
 
-              if (response.data.person.id) {
-                person.id = response.data.person.id;
-              }
-
-              console.log(person);
-              commit("addPerson", person);
-              _context2.next = 15;
+              commit("addPerson", response.data.person);
+              _context2.next = 13;
               break;
 
-            case 12:
-              _context2.prev = 12;
+            case 10:
+              _context2.prev = 10;
               _context2.t0 = _context2["catch"](2);
               alert(_context2.t0);
 
-            case 15:
+            case 13:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[2, 12]]);
+      }, _callee2, null, [[2, 10]]);
     }));
 
     function addPerson(_x2, _x3) {

@@ -1,6 +1,5 @@
 <template>
     <div>
-
         <ais-instant-search
             :search-client="searchClient"
             :stalled-search-delay="1000"
@@ -24,22 +23,6 @@
                 </ais-hits>
                 <div v-else></div>
             </ais-state-results>
-        </ais-instant-search>
-        <ais-instant-search
-            :search-client="searchClient"
-            index-name="users"
-            >
-            <ais-configure
-                :query="query"
-                :hitsPerPage="8"
-            />
-            <ais-hits>
-                <template slot="item" slot-scope="{ item }">
-                    <h3>
-                        {{item.id}}
-                    </h3>
-                </template>
-            </ais-hits>
         </ais-instant-search>
     </div>
 </template>

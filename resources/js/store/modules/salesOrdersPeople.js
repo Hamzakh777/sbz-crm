@@ -39,12 +39,10 @@ const actions = {
             const response = await axios.post('/api/sales-order-people', person);
     
             state.isLoading = false;
-            if (response.data.person.id) {
-                person.id = response.data.person.id;
-            }
-            
-            console.log(person);
-            commit("addPerson", person);
+            // if (response.data.person.id) {
+            //     person.id = response.data.person.id;
+            // }
+            commit("addPerson", response.data.person);
         } catch (error) {
             alert(error);
         }

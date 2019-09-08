@@ -57,7 +57,7 @@ return [
     'first_name'             => 'First name',
     'female'                 => 'Female',
     'gender'                 => 'Gender',
-    'last_name'              => 'last_name',
+    'last_name'              => 'Last name',
     'home'                   => 'Home',
     'how_to_use'             => 'How To Use',
     'index'                  => 'Index',

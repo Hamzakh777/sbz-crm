@@ -9651,23 +9651,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -54944,35 +54927,6 @@ var render = function() {
               null,
               true
             )
-          })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "ais-instant-search",
-        { attrs: { "search-client": _vm.searchClient, "index-name": "users" } },
-        [
-          _c("ais-configure", { attrs: { query: _vm.query, hitsPerPage: 8 } }),
-          _vm._v(" "),
-          _c("ais-hits", {
-            scopedSlots: _vm._u([
-              {
-                key: "item",
-                fn: function(ref) {
-                  var item = ref.item
-                  return [
-                    _c("h3", [
-                      _vm._v(
-                        "\n                    " +
-                          _vm._s(item.id) +
-                          "\n                "
-                      )
-                    ])
-                  ]
-                }
-              }
-            ])
           })
         ],
         1

@@ -98,7 +98,7 @@
                     <div class="panel-body">
                         <base-loader v-if="$store.getters.tableLoader"></base-loader>
                         <div class="table-responsive" id="table-wrapper">
-                            <table class="table table-hover">
+                            <table class="table table-hover" id="dataTable">
                                 <thead>
                                     <tr>
                                         @can('delete',app($dataType->model_name))

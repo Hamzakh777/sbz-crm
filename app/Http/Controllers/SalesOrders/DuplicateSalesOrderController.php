@@ -13,9 +13,26 @@ class DuplicateSalesOrderController extends Controller
 
         $newSalesOrder = $salesOrder->duplicate();
 
-        sleep(4);
-        // duplicating people causes of problem of adding products that weren't assigned originally
+        $newSalesOrderId = $newSalesOrder->id;
+        // duplicating people using the duplication package -- check the sales order model -- 
+        //causes of problem of adding products that weren't assigned originally
         // we might need to do that manually
+        $people = $salesOrder->people;
+        foreach ($people as $key => $person) {
+            $copy = $person->replicate();
+            $copy->sales_order_id = $newSalesOrderId;
+            $copy->push();
+
+            // then we add the products
+            $products = $person->products;
+            if(count($products) !== 0) {
+                $productsIds = [];
+                foreach ($products as $key => $product) {
+                    array_push($productsIds, $product->id);
+                }
+                $copy->products()->attach($productsIds);
+            }
+        }
         return response()->json([
             'id' => $newSalesOrder->id
         ]);

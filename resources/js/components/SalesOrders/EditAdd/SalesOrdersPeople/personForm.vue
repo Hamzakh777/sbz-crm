@@ -263,22 +263,12 @@
                     formData.append('age', this.age);
                     formData.append('familyMemberType', this.familyMemberType);
                     formData.append('policeNumber', this.policeNumber);
-                    formData.append('products', this.products);
+                    formData.append('products', JSON.stringify(this.products));
                     formData.append('salesOrderId', this.salesOrder.id);
                     formData.append('documentIdCard', this.documentIdCard);
 
                     this.addPerson(
-                        {
-                            firstName: this.firstName,
-                            lastName: this.lastName,
-                            gender: this.gender,
-                            birthday: this.birthday,
-                            age: this.age,
-                            familyMemberType: this.familyMemberType,
-                            policeNumber: this.policeNumber,
-                            products: this.products,
-                            salesOrderId: this.salesOrder.id
-                        }
+                        formData
                     );
                 }
             },

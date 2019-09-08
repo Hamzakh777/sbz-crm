@@ -2,15 +2,23 @@
     <div class="card">
         <div class="card__title">
             <h3>{{ trans.get('voyager.generic.person') + ' ' + index }}</h3>
-            <div >
+            <div class="card__actions">
                 <!-- <button class="btn btn-light"> 
                     <i class=""></i>
                     <span>{{ trans.get('voyager.generic.edit') }}</span>
                 </!-->
-                    <i 
-                        @click="deletePerson(person.id)"
-                        class="voyager-trash card__action--delete">
-                    </i>
+                <a 
+                    :href="'/api/file-download?path=' + person.documentIdPath"
+                    class="card__link"
+                    v-if="person.documentIdPath !== null"
+                    target="_blank"
+                >   
+                    {{ trans.get('voyager.sales_orders.download_document') }}
+                </a>
+                <i 
+                    @click="deletePerson(person.id)"
+                    class="voyager-trash card__action--delete">
+                </i>
             </div>
         </div>
         <div class="row">
@@ -100,13 +108,6 @@
                         >
                             {{ person.policeNumber }}
                         </b>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <!-- document id card  -->
-                    <div class="form-group col-md-6">
-                        Here we probably need a download button
                     </div>
                 </div>
             </div>
@@ -218,6 +219,12 @@
 
         h3 
             color: #58595f
+        
+    &__actions 
+        display: flex
+        flex-direction: row
+        justify-content: flex-end
+        align-items: center
 
     &__action
         &--delete
@@ -227,4 +234,12 @@
             &:hover
                 color: #fa2a00
     
+    &__link
+        color: #4e73df
+        text-decoration: none
+        transition: color 0.1s ease-out
+        margin-right: 10px
+
+        &:hover
+            color: darken(#4e73df, 20%)
 </style>
