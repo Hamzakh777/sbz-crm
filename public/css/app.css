@@ -482,14 +482,6 @@
   background-color: #2ecc71;
 }
 
-.nav-search {
-  display: inline-block;
-  width: 80%;
-  max-width: 500px;
-  margin-top: 11px;
-  margin-left: 25px;
-}
-
 .ais-Breadcrumb-list,
 .ais-CurrentRefinements-list,
 .ais-HierarchicalMenu-list,
@@ -1381,6 +1373,29 @@ a[class^=ais-] {
   color: #a5aed1;
   cursor: not-allowed;
   background: inherit;
+}
+
+.nav-search {
+  display: inline-block;
+  width: 80%;
+  max-width: 500px;
+  margin-top: 13px;
+  margin-left: 25px;
+}
+
+@media (max-width: 770px) {
+  .nav-search {
+    display: none;
+  }
+}
+
+.nav-search .ais-SearchBox-input {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.nav-search .ais-SearchBox {
+  flex-grow: 1;
 }
 
 .toasted-container.top-right {

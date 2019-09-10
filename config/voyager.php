@@ -19,7 +19,7 @@ return [
         // Otherwise `php artisan voyager:install` will fail with class not found error.
         'namespace'                    => null,
         'default_avatar'               => 'users/default.png',
-        'redirect'                     => '/',
+        'redirect'                     => '/sales-orders',
     ],
 
     /*

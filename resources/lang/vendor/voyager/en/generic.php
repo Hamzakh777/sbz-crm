@@ -132,4 +132,9 @@ return [
     'whoopsie'               => 'Whoopsie!',
     'yes'                    => 'Yes',
     'yes_please'             => 'Yes, Please',
+
+    'documents'              => 'Documents',
+    'sales_orders'           => 'Sales orders',
+    'users'                  => 'Users',
+    'tasks_collections'      => 'Tasks collections'
 ];

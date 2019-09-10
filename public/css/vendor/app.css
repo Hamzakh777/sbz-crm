@@ -81,3 +81,7 @@ h4.title {
   font-size: 12px;
 }
 
+.voyager nav.navbar.navbar-default.navbar-top {
+  background-color: #fff !important;
+}
+

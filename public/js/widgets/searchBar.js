@@ -9651,6 +9651,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -9658,14 +9685,15 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     AisInstantSearch: vue_instantsearch__WEBPACK_IMPORTED_MODULE_1__["AisInstantSearch"],
     AisStateResults: vue_instantsearch__WEBPACK_IMPORTED_MODULE_1__["AisStateResults"],
-    AisConfigure: vue_instantsearch__WEBPACK_IMPORTED_MODULE_1__["AisConfigure"],
     AisSearchBox: vue_instantsearch__WEBPACK_IMPORTED_MODULE_1__["AisSearchBox"],
+    AisHighlight: vue_instantsearch__WEBPACK_IMPORTED_MODULE_1__["AisHighlight"],
     AisHits: vue_instantsearch__WEBPACK_IMPORTED_MODULE_1__["AisHits"]
   },
   data: function data() {
     return {
       searchClient: algoliasearch_lite__WEBPACK_IMPORTED_MODULE_0___default()('LTUJ91APSO', '453b545427930f6194b4701c5b537fd8'),
-      query: ''
+      query: '',
+      selectedIndex: 'sales_orders'
     };
   }
 });
@@ -9684,7 +9712,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".searchh[data-v-3cfa01ef] {\n  background-color: #FAFAFC;\n  border-radius: 6px;\n  max-width: 500px;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  padding: 4px 6px;\n}\n.searchh__input[data-v-3cfa01ef] {\n  border-color: transparent;\n  background-color: transparent;\n  flex-grow: 1;\n  margin-left: 8px;\n}\n.searchh__icon[data-v-3cfa01ef] {\n  font-size: 20px;\n  display: block;\n  margin-bottom: -6px;\n  margin-left: 6px;\n}\n.hits[data-v-3cfa01ef] {\n  background-color: #fff;\n  box-shadow: 0px -2px 28px rgba(52, 64, 85, 0.16);\n  list-style: none;\n  margin-top: 4px;\n  border-radius: 6px;\n  padding-left: 10px;\n}", ""]);
+exports.push([module.i, ".search-wrapper[data-v-3cfa01ef] {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n  max-width: 400px;\n  width: 100%;\n}\n.search-wrapper__dropdown[data-v-3cfa01ef] {\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  background-position: right 50%;\n  background-repeat: no-repeat;\n  background-image: url('data:image/svg+xml;utf8,<?xml version=\"1.0\" encoding=\"utf-8\"?><!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"12\" version=\"1\"><path d=\"M4 8L0 4h8z\"/></svg>');\n  padding-left: 0.7em;\n  border-top-left-radius: 0;\n  border-bottom-left-radius: 0;\n  height: 32px;\n  font-size: 13px;\n  background-color: #fff;\n  border: 1px solid #c4c8d8;\n  border-left: 0;\n  width: 130px;\n}\n.hits[data-v-3cfa01ef] {\n  background-color: #fff;\n  box-shadow: 0px -2px 28px rgba(52, 64, 85, 0.16);\n  list-style: none;\n  margin-top: 4px;\n  border-radius: 6px;\n  padding: 10px;\n  max-width: 270px;\n}\n.hits .hit[data-v-3cfa01ef] {\n  padding: 6px;\n}", ""]);
 
 // exports
 
@@ -54872,16 +54900,74 @@ var render = function() {
           attrs: {
             "search-client": _vm.searchClient,
             "stalled-search-delay": 1000,
-            "index-name": "sales_orders"
+            "index-name": _vm.selectedIndex
           }
         },
         [
-          _c("ais-search-box", {
-            attrs: {
-              "show-loading-indicator": true,
-              placeholder: _vm.trans.get("voyager.generic.start_typing")
-            }
-          }),
+          _c(
+            "div",
+            { staticClass: "search-wrapper" },
+            [
+              _c("ais-search-box", {
+                attrs: {
+                  "show-loading-indicator": true,
+                  placeholder: _vm.trans.get("voyager.generic.start_typing")
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.selectedIndex,
+                      expression: "selectedIndex"
+                    }
+                  ],
+                  staticClass: "search-wrapper__dropdown",
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.selectedIndex = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                [
+                  _c("option", { attrs: { value: "sales_orders" } }, [
+                    _vm._v(
+                      _vm._s(_vm.trans.get("voyager.generic.sales_orders"))
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "users" } }, [
+                    _vm._v(_vm._s(_vm.trans.get("voyager.generic.users")))
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "documents" } }, [
+                    _vm._v(_vm._s(_vm.trans.get("voyager.generic.documents")))
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "tasks_collections" } }, [
+                    _vm._v(
+                      _vm._s(_vm.trans.get("voyager.generic.tasks_collections"))
+                    )
+                  ])
+                ]
+              )
+            ],
+            1
+          ),
           _vm._v(" "),
           _c("ais-state-results", {
             scopedSlots: _vm._u(
@@ -54902,13 +54988,94 @@ var render = function() {
                                     "ul",
                                     { staticClass: "hits" },
                                     _vm._l(items, function(item) {
-                                      return _c("li", { key: item.objectID }, [
-                                        _vm._v(
-                                          "\n                        " +
-                                            _vm._s(item.owner_full_name) +
-                                            "\n                    "
-                                        )
-                                      ])
+                                      return _c(
+                                        "li",
+                                        {
+                                          key: item.objectID,
+                                          staticClass: "hit"
+                                        },
+                                        [
+                                          _vm.selectedIndex === "sales_orders"
+                                            ? _c(
+                                                "a",
+                                                { attrs: { href: "#" } },
+                                                [
+                                                  _vm._v(
+                                                    "\n                            Id: " +
+                                                      _vm._s(item.id) +
+                                                      " - \n                            "
+                                                  ),
+                                                  _c("ais-highlight", {
+                                                    attrs: {
+                                                      attribute:
+                                                        "owner_full_name",
+                                                      hit: item
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              )
+                                            : _vm.selectedIndex === "documents"
+                                            ? _c(
+                                                "a",
+                                                { attrs: { href: "#" } },
+                                                [
+                                                  _vm._v(
+                                                    "\n                            Id: " +
+                                                      _vm._s(item.id) +
+                                                      " - \n                            "
+                                                  ),
+                                                  _c("ais-highlight", {
+                                                    attrs: {
+                                                      attribute: "name",
+                                                      hit: item
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              )
+                                            : _vm.selectedIndex ===
+                                              "tasks_collections"
+                                            ? _c(
+                                                "a",
+                                                { attrs: { href: "#" } },
+                                                [
+                                                  _vm._v(
+                                                    "\n                            Id: " +
+                                                      _vm._s(item.id) +
+                                                      " - \n                            "
+                                                  ),
+                                                  _c("ais-highlight", {
+                                                    attrs: {
+                                                      attribute: "name",
+                                                      hit: item
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              )
+                                            : _vm.selectedIndex === "users"
+                                            ? _c(
+                                                "a",
+                                                { attrs: { href: "#" } },
+                                                [
+                                                  _vm._v(
+                                                    "\n                            Id: " +
+                                                      _vm._s(item.id) +
+                                                      " - \n                            Name: "
+                                                  ),
+                                                  _c("ais-highlight", {
+                                                    attrs: {
+                                                      attribute: "username",
+                                                      hit: item
+                                                    }
+                                                  })
+                                                ],
+                                                1
+                                              )
+                                            : _vm._e()
+                                        ]
+                                      )
                                     }),
                                     0
                                   )
@@ -54917,7 +55084,7 @@ var render = function() {
                             ],
                             null,
                             false,
-                            113507486
+                            3509042549
                           )
                         })
                       : _c("div")
