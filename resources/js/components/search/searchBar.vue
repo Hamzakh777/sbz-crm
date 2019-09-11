@@ -28,19 +28,19 @@
                         slot-scope="{ items }"
                     >
                         <li class="hit" v-for="item in items" :key="item.objectID">
-                            <a href="#" v-if="selectedIndex === 'sales_orders'">
+                            <a :href="'/sales-orders/' + item.id + '/edit'" v-if="selectedIndex === 'sales_orders'">
                                 Id: {{ item.id }} - 
                                 <ais-highlight attribute="owner_full_name" :hit="item" />
                             </a>
-                            <a href="#" v-else-if="selectedIndex === 'documents'">
+                            <a :href="'/documents/' + item.id + '/edit'" v-else-if="selectedIndex === 'documents'">
                                 Id: {{ item.id }} - 
                                 <ais-highlight attribute="name" :hit="item" />
                             </a>
-                            <a href="#" v-else-if="selectedIndex === 'tasks_collections'">
+                            <a :href="'/tasks-collections/' + item.id + '/edit'" v-else-if="selectedIndex === 'tasks_collections'">
                                 Id: {{ item.id }} - 
                                 <ais-highlight attribute="name" :hit="item" />
                             </a>
-                            <a href="#" v-else-if="selectedIndex === 'users'">
+                            <a :href="'/users/' + item.id + '/edit'" v-else-if="selectedIndex === 'users'">
                                 Id: {{ item.id }} - 
                                 Name: <ais-highlight attribute="username" :hit="item" />
                             </a>

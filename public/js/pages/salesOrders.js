@@ -1832,6 +1832,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5537,7 +5544,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".filter-form {\n  margin-top: 1.6em;\n}\n.filter-form .btn {\n  margin-left: 1em;\n}\n.filter-form .pr-2 {\n  padding-right: 1em;\n}\n.filter-form .datePicker--input, .filter-form .datePicker--input[readonly] {\n  color: #76838f;\n  background-color: #fff !important;\n  background-image: none;\n  border: 1px solid #e4eaec;\n}", ""]);
+exports.push([module.i, ".filter-form {\n  margin-top: 1.6em;\n}\n.filter-form .btn {\n  margin-left: 1em;\n}\n.filter-form .pr-2 {\n  padding-right: 1em;\n}\n.filter-form .datePicker--input, .filter-form .datePicker--input[readonly] {\n  color: #76838f;\n  background-color: #fff !important;\n  background-image: none;\n  border: 1px solid #e4eaec;\n}\n.filter-form .toggle-wrapper {\n  margin-top: 12px;\n}", ""]);
 
 // exports
 
@@ -28914,6 +28921,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
+            { staticClass: "toggle-wrapper" },
             [
               _c("toggle-button", {
                 attrs: {
@@ -28951,6 +28959,26 @@ var render = function() {
             _vm._v(" "),
             _c("span", [
               _vm._v(_vm._s(_vm.trans.get("voyager.generic.filter")))
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-light pull-right",
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                return _vm.clearForm($event)
+              }
+            }
+          },
+          [
+            _c("i", { staticClass: "voyager-trash" }),
+            _vm._v(" "),
+            _c("span", [
+              _vm._v(_vm._s(_vm.trans.get("voyager.generic.clear_filter")))
             ])
           ]
         )

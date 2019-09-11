@@ -79,7 +79,7 @@ class SalesOrder extends Model
         $salesUserId = $request->input('salesUserId');
         $insuranceId = $request->input('insuranceId');
         $contractStartYear = $request->input('contractStartYear');
-        $salesOrderCompleted = $request->input('salesOrder');
+        $salesOrderCompleted = $request->input('salesOrderCompleted');
 
         if ($salesDateFrom != null) {
             $salesDateFrom = Carbon::parse($salesDateFrom, 'Europe/London')->format('Y-m-d');
@@ -106,6 +106,9 @@ class SalesOrder extends Model
             })
             ->when($insuranceId, function ($data, $insuranceId) {
                 return $data->where('new_insurance_id', $insuranceId);
+            })
+            ->when($salesOrderCompleted, function($data) {
+                return $data->where('sales_order_status', 'closed');
             })
             ->when($contractStartYear, function ($data, $contractStartYear) {
                 return $data->where('contract_start_VVG', $contractStartYear);

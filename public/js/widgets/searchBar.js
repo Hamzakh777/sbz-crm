@@ -54998,7 +54998,14 @@ var render = function() {
                                           _vm.selectedIndex === "sales_orders"
                                             ? _c(
                                                 "a",
-                                                { attrs: { href: "#" } },
+                                                {
+                                                  attrs: {
+                                                    href:
+                                                      "/sales-orders/" +
+                                                      item.id +
+                                                      "/edit"
+                                                  }
+                                                },
                                                 [
                                                   _vm._v(
                                                     "\n                            Id: " +
@@ -55018,7 +55025,14 @@ var render = function() {
                                             : _vm.selectedIndex === "documents"
                                             ? _c(
                                                 "a",
-                                                { attrs: { href: "#" } },
+                                                {
+                                                  attrs: {
+                                                    href:
+                                                      "/documents/" +
+                                                      item.id +
+                                                      "/edit"
+                                                  }
+                                                },
                                                 [
                                                   _vm._v(
                                                     "\n                            Id: " +
@@ -55038,7 +55052,14 @@ var render = function() {
                                               "tasks_collections"
                                             ? _c(
                                                 "a",
-                                                { attrs: { href: "#" } },
+                                                {
+                                                  attrs: {
+                                                    href:
+                                                      "/tasks-collections/" +
+                                                      item.id +
+                                                      "/edit"
+                                                  }
+                                                },
                                                 [
                                                   _vm._v(
                                                     "\n                            Id: " +
@@ -55057,7 +55078,14 @@ var render = function() {
                                             : _vm.selectedIndex === "users"
                                             ? _c(
                                                 "a",
-                                                { attrs: { href: "#" } },
+                                                {
+                                                  attrs: {
+                                                    href:
+                                                      "/users/" +
+                                                      item.id +
+                                                      "/edit"
+                                                  }
+                                                },
                                                 [
                                                   _vm._v(
                                                     "\n                            Id: " +
@@ -55084,7 +55112,7 @@ var render = function() {
                             ],
                             null,
                             false,
-                            3509042549
+                            854568901
                           )
                         })
                       : _c("div")

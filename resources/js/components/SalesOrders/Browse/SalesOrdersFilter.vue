@@ -91,7 +91,7 @@
         <!-- Sales order completed -->
         <div class="form-group col-md-4">
           <label class="control-label">{{ trans.get('voyager.sales_orders.sales_order_completed')}}</label>
-          <div>
+          <div class="toggle-wrapper">
             <toggle-button
               v-model="salesOrderCompleted"
               :value="false"
@@ -105,6 +105,13 @@
           <i class="voyager-search"></i>
           <!-- filter results -->
           <span>{{ trans.get('voyager.generic.filter') }}</span>
+        </button>
+        <button
+          class="btn btn-light pull-right"
+          @click.prevent="clearForm"
+        >
+          <i class="voyager-trash"></i>
+          <span>{{ trans.get('voyager.generic.clear_filter') }}</span>
         </button>
       </div>
     </div>
@@ -151,7 +158,7 @@ export default {
       this.contractStartYear = null,
       this.salesOrderCompleted = false,
       this.callDateStart = null;
-    }
+    },
   }
 };
 </script>
@@ -171,5 +178,8 @@ export default {
       background-color: #fff !important
       background-image: none
       border: 1px solid #e4eaec
+
+    .toggle-wrapper
+        margin-top: 12px
 
 </style>
