@@ -41158,36 +41158,38 @@ var actions = {
     var _store = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2) {
-      var commit, state, response;
+      var commit, state, rootState, data, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              commit = _ref2.commit, state = _ref2.state;
+              commit = _ref2.commit, state = _ref2.state, rootState = _ref2.rootState;
               state.isLoading = true;
               _context2.prev = 2;
-              _context2.next = 5;
+              data = state.compensation;
+              data.salesOrder.id = rootState.salesOrders.salesOrder.id !== null ? rootState.salesOrders.salesOrder.id : state.compensation.salesOrder.id;
+              _context2.next = 7;
               return axios.post("/api/compensations/", state.compensation);
 
-            case 5:
+            case 7:
               response = _context2.sent;
               state.isLoading = false;
               commit('setCompensationId', response.data.compensation.id);
-              _context2.next = 14;
+              _context2.next = 16;
               break;
 
-            case 10:
-              _context2.prev = 10;
+            case 12:
+              _context2.prev = 12;
               _context2.t0 = _context2["catch"](2);
               state.isLoading = false;
               alert(_context2.t0);
 
-            case 14:
+            case 16:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[2, 10]]);
+      }, _callee2, null, [[2, 12]]);
     }));
 
     function store(_x2) {
@@ -41258,7 +41260,10 @@ var getters = {
     return state.compensation;
   },
   salesOrderPeople: function salesOrderPeople(state, getters, rootState) {
-    if (rootState.salesOrders.salesOrder.id !== null) {
+    // since the same component will be used on two independ 
+    // views, one of which the salesorder people is already
+    // defined, we want to get it
+    if (rootState.salesOrders.salesOrder.id === null) {
       return state.compensation.salesOrder.people;
     } else {
       return rootState.salesOrders.salesOrder.people;
@@ -41450,7 +41455,7 @@ var state = {
   products: window.products !== undefined ? window.products : null,
   productCategories: window.productCategories !== undefined ? window.productCategories : null,
   users: window.users !== undefined ? window.users : null,
-  tasksCollections: window.tasksCo1llections !== undefined ? window.tasksCollections : null,
+  tasksCollections: window.tasksCollections !== undefined ? window.tasksCollections : null,
   dateFormat: "dd MM yyyy"
 };
 var getters = {

@@ -63,7 +63,7 @@ Route::group([
     Route::get('/sales-orders/{salesOrderId}/compensation/', 'SalesOrders\CompensationsController@index');
 
     // duplicate a sales order
-    Route::get('/sales-orders/{id}/duplicate', 'SalesOrders\DuplicateSalesOrderController@index');
+    Route::get('/sales-orders/{id}/duplicate', 'SalesOrders\SalesOrderDuplicateController@index');
 
     // to download files 
     Route::get('/file-download', 'FileDownloadController@index');

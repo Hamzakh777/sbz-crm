@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Bkwld\Cloner\Cloneable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
@@ -9,7 +10,7 @@ use Laravel\Scout\Searchable;
 class SalesOrder extends Model
 {
     use Searchable;
-    use \Bkwld\Cloner\Cloneable;
+    use Cloneable;
     
     /**
      * Which relationships to clone with the model

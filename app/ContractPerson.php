@@ -2,13 +2,17 @@
 
 namespace App;
 
+use Bkwld\Cloner\Cloneable;
 use Illuminate\Database\Eloquent\Model;
 
 class ContractPerson extends Model
-{
-
+{   
     protected $table = 'contract_people';
-
+    
+    /**
+     * Which relationships to clone with the model
+     */
+    
     /**
      * Models to eager load
      */

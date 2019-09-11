@@ -325,7 +325,26 @@
              * default one
              */
             'compensation.salesOrder.people': function(newVal, oldVal) {
-                const people = this.salesOrderPeople;
+                const people = newVal;
+                try {
+                    if(people !== null && this.compensation.totalSalesCompensation === 0) {
+                        const sum = this.calcSumOfProducts(people, 'compensation');
+                        this.setTotalSalesCompensations(sum);
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
+            },
+
+
+            /**
+             * The same component will be used on the sales order page,
+             * we will have access to the sales order added products, 
+             * thus watching the compensation salesorder people will
+             * not do the job
+             */
+            'salesOrder.people': function(newVal, oldVal) {
+                const people = newVal;
                 try {
                     if(people !== null && this.compensation.totalSalesCompensation === 0) {
                         const sum = this.calcSumOfProducts(people, 'compensation');
@@ -339,7 +358,7 @@
 
         computed: {
             ...mapGetters('compensations',['isLoading', 'compensation', 'salesOrderPeople']),
-            ...mapGetters(['allInsurances', 'allSalesOrders']),
+            ...mapGetters(['allInsurances', 'salesOrder']),
 
             /**
              * years from now to 17 years later
@@ -362,7 +381,7 @@
              * @return {Number}
              */
             totalExpectedProvision() {
-                if(this.compensation.salesOrder.id === null) {
+                if(this.compensation.salesOrder.id === null && !this.salesOrderPage) {
                     return 0;
                 } else {
                     const people = this.salesOrderPeople;
@@ -390,22 +409,37 @@
             }
         },
 
-        validations: {
-            search: {
-                integer,
-                required,
-                minValue: minValue(1)
-            },
-            compensation: {
-                salesCompensationFeedback: {
-                    required
-                },
-                insuranceId: {
-                    required
-                },
-                salesOrder: {
-                    id: {
-                        required
+        validations() {
+            if(this.salesOrderPage) {
+                return {
+                    compensation: {
+                        salesCompensationFeedback: {
+                            required
+                        },
+                        insuranceId: {
+                            required
+                        }
+                    }
+                }
+            } else {
+                return {
+                    search: {
+                        integer,
+                        required,
+                        minValue: minValue(1)
+                    },
+                    compensation: {
+                        salesCompensationFeedback: {
+                            required
+                        },
+                        insuranceId: {
+                            required
+                        },
+                        salesOrder: {
+                            id: {
+                                required
+                            }
+                        }
                     }
                 }
             }

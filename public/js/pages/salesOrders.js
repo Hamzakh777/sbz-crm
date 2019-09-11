@@ -4815,7 +4815,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
      * default one
      */
     'compensation.salesOrder.people': function compensationSalesOrderPeople(newVal, oldVal) {
-      var people = this.salesOrderPeople;
+      var people = newVal;
+
+      try {
+        if (people !== null && this.compensation.totalSalesCompensation === 0) {
+          var sum = this.calcSumOfProducts(people, 'compensation');
+          this.setTotalSalesCompensations(sum);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    /**
+     * The same component will be used on the sales order page,
+     * we will have access to the sales order added products, 
+     * thus watching the compensation salesorder people will
+     * not do the job
+     */
+    'salesOrder.people': function salesOrderPeople(newVal, oldVal) {
+      var people = newVal;
 
       try {
         if (people !== null && this.compensation.totalSalesCompensation === 0) {
@@ -4827,7 +4846,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])('compensations', ['isLoading', 'compensation', 'salesOrderPeople']), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['allInsurances', 'allSalesOrders']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])('compensations', ['isLoading', 'compensation', 'salesOrderPeople']), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['allInsurances', 'salesOrder']), {
     /**
      * years from now to 17 years later
      * @return {Array}
@@ -4851,7 +4870,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
      * @return {Number}
      */
     totalExpectedProvision: function totalExpectedProvision() {
-      if (this.compensation.salesOrder.id === null) {
+      if (this.compensation.salesOrder.id === null && !this.salesOrderPage) {
         return 0;
       } else {
         var people = this.salesOrderPeople;
@@ -4876,24 +4895,39 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       salesOrdersIdsList: []
     };
   },
-  validations: {
-    search: {
-      integer: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_6__["integer"],
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_6__["required"],
-      minValue: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_6__["minValue"])(1)
-    },
-    compensation: {
-      salesCompensationFeedback: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_6__["required"]
-      },
-      insuranceId: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_6__["required"]
-      },
-      salesOrder: {
-        id: {
-          required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_6__["required"]
+  validations: function validations() {
+    if (this.salesOrderPage) {
+      return {
+        compensation: {
+          salesCompensationFeedback: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_6__["required"]
+          },
+          insuranceId: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_6__["required"]
+          }
         }
-      }
+      };
+    } else {
+      return {
+        search: {
+          integer: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_6__["integer"],
+          required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_6__["required"],
+          minValue: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_6__["minValue"])(1)
+        },
+        compensation: {
+          salesCompensationFeedback: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_6__["required"]
+          },
+          insuranceId: {
+            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_6__["required"]
+          },
+          salesOrder: {
+            id: {
+              required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_6__["required"]
+            }
+          }
+        }
+      };
     }
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])('compensations', ['fetchCompensation', 'store', 'update']), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapMutations"])('compensations', ['setSalesOrderId', 'setTotalSalesCompensations']), {
@@ -54156,36 +54190,38 @@ var actions = {
     var _store = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2) {
-      var commit, state, response;
+      var commit, state, rootState, data, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              commit = _ref2.commit, state = _ref2.state;
+              commit = _ref2.commit, state = _ref2.state, rootState = _ref2.rootState;
               state.isLoading = true;
               _context2.prev = 2;
-              _context2.next = 5;
+              data = state.compensation;
+              data.salesOrder.id = rootState.salesOrders.salesOrder.id !== null ? rootState.salesOrders.salesOrder.id : state.compensation.salesOrder.id;
+              _context2.next = 7;
               return axios.post("/api/compensations/", state.compensation);
 
-            case 5:
+            case 7:
               response = _context2.sent;
               state.isLoading = false;
               commit('setCompensationId', response.data.compensation.id);
-              _context2.next = 14;
+              _context2.next = 16;
               break;
 
-            case 10:
-              _context2.prev = 10;
+            case 12:
+              _context2.prev = 12;
               _context2.t0 = _context2["catch"](2);
               state.isLoading = false;
               alert(_context2.t0);
 
-            case 14:
+            case 16:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[2, 10]]);
+      }, _callee2, null, [[2, 12]]);
     }));
 
     function store(_x2) {
@@ -54256,7 +54292,10 @@ var getters = {
     return state.compensation;
   },
   salesOrderPeople: function salesOrderPeople(state, getters, rootState) {
-    if (rootState.salesOrders.salesOrder.id !== null) {
+    // since the same component will be used on two independ 
+    // views, one of which the salesorder people is already
+    // defined, we want to get it
+    if (rootState.salesOrders.salesOrder.id === null) {
       return state.compensation.salesOrder.people;
     } else {
       return rootState.salesOrders.salesOrder.people;
@@ -54448,7 +54487,7 @@ var state = {
   products: window.products !== undefined ? window.products : null,
   productCategories: window.productCategories !== undefined ? window.productCategories : null,
   users: window.users !== undefined ? window.users : null,
-  tasksCollections: window.tasksCo1llections !== undefined ? window.tasksCollections : null,
+  tasksCollections: window.tasksCollections !== undefined ? window.tasksCollections : null,
   dateFormat: "dd MM yyyy"
 };
 var getters = {

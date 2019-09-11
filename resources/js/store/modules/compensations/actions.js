@@ -2,6 +2,7 @@ const actions = {
     async fetchCompensation({commit, state, rootState}) {
         state.isLoading = true;
         try {
+            // compensation page
             if (state.compensation.id !== null && state.compensation.id !== undefined) {
                 const response = await axios.get(`/api/compensations/${state.compensation.id}`);
     
@@ -20,9 +21,11 @@ const actions = {
         }
     },
 
-    async store({commit, state}) {
+    async store({ commit, state, rootState}) {
         state.isLoading = true;
         try {
+            const data = state.compensation;
+            data.salesOrder.id = rootState.salesOrders.salesOrder.id !== null ? rootState.salesOrders.salesOrder.id : state.compensation.salesOrder.id ; 
             const response = await axios.post(`/api/compensations/`, state.compensation);
             
             state.isLoading = false;
