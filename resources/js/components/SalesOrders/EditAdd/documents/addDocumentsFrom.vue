@@ -24,7 +24,7 @@
             >
                 <option value="id_card">{{ trans.get('voyager.sales_orders.id_card') }}</option>
                 <option value="contract_termination_original">{{ trans.get('voyager.sales_orders.contract_termination_original') }}</option>
-                <option value="contract_termination_original">{{ trans.get('voyager.sales_orders.contract_termination_stamped') }}</option>
+                <option value="contract_termination_stamped">{{ trans.get('voyager.sales_orders.contract_termination_stamped') }}</option>
                 <option value="other">{{ trans.get('voyager.sales_orders.other') }}</option>
             </select>
             <div v-if="$v.type.$error">

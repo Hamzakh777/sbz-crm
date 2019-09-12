@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Observers\SalesOrderObserver;
+use App\SalesOrder;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +25,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        SalesOrder::observe(SalesOrderObserver::class);
     }
 }

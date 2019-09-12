@@ -11,6 +11,7 @@ return [
     'contract_start_VVG'                => 'Contract start VVG',
     'contract_start_KVG'                => 'Contract start KVG',
     'current_insurance'                 => 'Current insurance',
+    'customer_name'                     => 'Customer name',
     'insurance_status'                  => 'Insurance status',
     'actions'                           => 'Actions',
     'add_product'                       => 'Add product',

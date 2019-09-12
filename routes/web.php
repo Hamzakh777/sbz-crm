@@ -66,7 +66,7 @@ Route::group([
     Route::get('/sales-orders/{id}/duplicate', 'SalesOrders\SalesOrderDuplicateController@index');
 
     // to download files 
-    Route::get('/file-download', 'FileDownloadController@index');
+    Route::get('/file-download', 'FileDownloadController@index')->name('document.download');
 });
 
 if (config('laravel-localization.routes.enable')) {

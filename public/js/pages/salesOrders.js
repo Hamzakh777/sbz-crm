@@ -31623,7 +31623,7 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "option",
-                { attrs: { value: "contract_termination_original" } },
+                { attrs: { value: "contract_termination_stamped" } },
                 [
                   _vm._v(
                     _vm._s(

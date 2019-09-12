@@ -22,11 +22,11 @@
 .voyager .navbar, .voyager .navbar.navbar-default 
     box-shadow: 0 4px 30px rgba(0,0,0,0.10)
 
-.form-control, .form-control:focus
+.form-control, .form-control:focus, .panel-body .select2-selection
     border-radius: 0 !important
-    border-top-color: transparent
-    border-right-color: transparent
-    border-left-color: transparent
+    border-top-color: transparent !important
+    border-right-color: transparent !important
+    border-left-color: transparent !important
     border-width: 1px !important
     border-bottom-color: #e4eaec !important
 
@@ -50,3 +50,6 @@ h4.title
     z-index: 100
     .form-control[readonly]
         background-color: #fff !important
+
+#dataTable #bread-actions a.btn-download
+    margin-right: 5px !important

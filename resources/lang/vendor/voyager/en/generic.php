@@ -133,6 +133,7 @@ return [
     'yes'                    => 'Yes',
     'yes_please'             => 'Yes, Please',
 
+    'document'               => 'Document',
     'documents'              => 'Documents',
     'sales_orders'           => 'Sales orders',
     'users'                  => 'Users',

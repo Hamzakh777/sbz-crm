@@ -28,17 +28,19 @@
 }
 
 .form-control,
-.form-control:focus {
+.form-control:focus,
+.panel-body .select2-selection {
   border-radius: 0 !important;
-  border-top-color: transparent;
-  border-right-color: transparent;
-  border-left-color: transparent;
+  border-top-color: transparent !important;
+  border-right-color: transparent !important;
+  border-left-color: transparent !important;
   border-width: 1px !important;
   border-bottom-color: #e4eaec !important;
 }
 
 .form-control:focus,
-.form-control:focus:focus {
+.form-control:focus:focus,
+.panel-body .select2-selection:focus {
   border-bottom-color: #62a8ea !important;
 }
 
@@ -62,6 +64,10 @@ h4.title {
   background-color: #fff !important;
 }
 
+#dataTable #bread-actions a.btn-download {
+  margin-right: 5px !important;
+}
+
 /* Components */
 
 .voyager .side-menu.sidebar-inverse {
@@ -83,5 +89,9 @@ h4.title {
 
 .voyager nav.navbar.navbar-default.navbar-top {
   background-color: #fff !important;
+}
+
+.panel-body--no-padding {
+  padding: 0 !important;
 }
 
