@@ -257,13 +257,24 @@
                                                 @endif
                                             @endforeach
                                             @if (isset($data->path))
+                                                {{-- download the file --}}
                                                 <a 
                                                     href="{{route('document.download', ['path' => $data->path])}}" 
                                                     title="download" 
-                                                    
+                                                    target="_blank"
                                                     class="btn btn-download btn-sm btn-success pull-right view">
                                                     <i class="voyager-double-down"></i> 
                                                     <span class="hidden-xs hidden-sm">{{ __('voyager::generic.download') }}</span>
+                                                </a>
+
+                                                {{-- preview the file --}}
+                                                <a 
+                                                    href="{{route('voyager.documents.preview', ['id' => $data->id])}}" 
+                                                    title="download" 
+                                                    
+                                                    class="btn btn-download btn-sm btn-warning pull-right view">
+                                                    <i class="voyager-eye"></i> 
+                                                    <span class="hidden-xs hidden-sm">{{ __('voyager::generic.view') }}</span>
                                                 </a>
                                             @endif
                                         </td>

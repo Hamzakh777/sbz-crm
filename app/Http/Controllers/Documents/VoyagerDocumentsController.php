@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 use TCG\Voyager\Database\Schema\SchemaManager;
 use TCG\Voyager\Facades\Voyager;
 use \App\Http\Controllers\Voyager\VoyagerBaseController;
+use Illuminate\Support\Facades\Storage;
+use TCG\Voyager\Events\BreadDataDeleted;
 
 class VoyagerDocumentsController extends VoyagerBaseController
 {
@@ -134,5 +136,73 @@ class VoyagerDocumentsController extends VoyagerBaseController
             'usesSoftDeletes',
             'showSoftDeleted'
         ));
+    }
+
+    //***************************************
+    //                _____
+    //               |  __ \
+    //               | |  | |
+    //               | |  | |
+    //               | |__| |
+    //               |_____/
+    //
+    //         Delete an item BREA(D)
+    //
+    //****************************************
+
+    public function destroy(Request $request, $id)
+    {
+        $slug = $this->getSlug($request);
+
+        $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
+
+        // Check permission
+        $this->authorize('delete', app($dataType->model_name));
+
+        // Init array of IDs
+        $ids = [];
+        if (empty($id)) {
+            // Bulk delete, get IDs from POST
+            $ids = explode(',', $request->ids);
+        } else {
+            // Single item delete, get ID from URL
+            $ids[] = $id;
+        }
+        foreach ($ids as $id) {
+            $data = call_user_func([$dataType->model_name, 'findOrFail'], $id);
+
+            // delete the associated file
+            try {
+                if($data->path !== null) {
+                    Storage::disk('spaces')->delete($data->path);
+                }
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
+
+            $model = app($dataType->model_name);
+            if (!($model && in_array(SoftDeletes::class, class_uses($model)))) {
+                $this->cleanup($dataType, $data);
+            }
+        }
+
+        $displayName = count($ids) > 1 ? $dataType->display_name_plural : $dataType->display_name_singular;
+
+        $res = $data->destroy($ids);
+        $data = $res
+            ? [
+                'message'    => __('voyager::generic.successfully_deleted') . " {$displayName}",
+                'alert-type' => 'success',
+            ]
+            : [
+                'message'    => __('voyager::generic.error_deleting') . " {$displayName}",
+                'alert-type' => 'error',
+            ];
+
+        if ($res) {
+            event(new BreadDataDeleted($dataType, $data));
+        }
+
+        return redirect()->route("voyager.{$dataType->slug}.index")->with($data);
     }
 }

@@ -94,6 +94,12 @@
                                     @endif
                                 </div>
                             @endforeach
+                            <div class="col-md-4 form-group">
+                                <label class="control-label">
+                                    {{ __('voyager::sales_orders.customer_name') }}
+                                </label>
+                                <input type="text" id="sales_order_customer_name" readonly class="form-control">
+                            </div>
 
                         </div><!-- panel-body -->
 
@@ -208,6 +214,36 @@
                 $('#confirm_delete_modal').modal('hide');
             });
             $('[data-toggle="tooltip"]').tooltip();
+
+            // getting the sales order id
+            // so we can show the customer name
+            var salesOrderId = $('select[name=sales_order_id]').val();
+            if(salesOrderId !== null && salesOrderId !== '') {
+                $.ajax({
+                    url: '/api/sales-orders/' + salesOrderId,
+                    method: 'get'
+                })
+                .done(function(data) {
+                    $('#sales_order_customer_name').val(data.salesOrder.owner_full_name);
+                })
+                .catch(function(err) {
+                    console.log(err);
+                });
+            };
+
+            $('select[name=sales_order_id]').on('change', function(e) {
+                var id = $(this).val();
+                $.ajax({
+                    url: '/api/sales-orders/' + id,
+                    method: 'get'
+                })
+                .done(function(data) {
+                    $('#sales_order_customer_name').val(data.salesOrder.owner_full_name);
+                })
+                .catch(function(err) {
+                    console.log(err);
+                });
+            });
         });
     </script>
 @stop

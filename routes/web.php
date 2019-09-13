@@ -32,6 +32,8 @@ Route::group(['as' => 'voyager.'], function () {
         // Filter the appointments
         Route::post('sales-orders/filter', 'SalesOrders\SalesOrderFilterController@index')->name('salesOrder.filter');
 
+        // document preview link
+        Route::get('documents/{id}/preview', 'Documents\DocumentsPreviewController@show')->name('documents.preview');
         event(new RoutingAdminAfter());
     });
 
@@ -67,6 +69,7 @@ Route::group([
 
     // to download files 
     Route::get('/file-download', 'FileDownloadController@index')->name('document.download');
+
 });
 
 if (config('laravel-localization.routes.enable')) {
