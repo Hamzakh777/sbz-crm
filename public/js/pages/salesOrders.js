@@ -2264,13 +2264,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuejs_datepicker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuejs-datepicker */ "./node_modules/vuejs-datepicker/dist/vuejs-datepicker.esm.js");
-/* harmony import */ var _productCard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./productCard */ "./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/productCard.vue");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
-/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _productForm_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./productForm.vue */ "./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/productForm.vue");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuejs_datepicker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuejs-datepicker */ "./node_modules/vuejs-datepicker/dist/vuejs-datepicker.esm.js");
+/* harmony import */ var _productCard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./productCard */ "./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/productCard.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _productForm_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./productForm.vue */ "./resources/js/components/SalesOrders/EditAdd/SalesOrdersPeople/productForm.vue");
+
+
 var _validations;
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -2278,6 +2286,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
 //
 //
 //
@@ -2452,11 +2462,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'personForm',
   components: {
-    Datepicker: vuejs_datepicker__WEBPACK_IMPORTED_MODULE_0__["default"],
-    productForm: _productForm_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
-    productCard: _productCard__WEBPACK_IMPORTED_MODULE_1__["default"]
+    Datepicker: vuejs_datepicker__WEBPACK_IMPORTED_MODULE_1__["default"],
+    productForm: _productForm_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+    productCard: _productCard__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['DateFormat', 'salesOrder', 'allInsurances', 'allProducts']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(['DateFormat', 'salesOrder', 'allInsurances', 'allProducts']), {
     birthyear: function birthyear() {
       if (this.birthday !== null) {
         var date = new Date(this.birthday);
@@ -2499,41 +2509,78 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   validations: (_validations = {
     firstName: {
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"]
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
     },
     lastName: {
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"]
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
     },
     gender: {
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"]
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
     },
     birthday: {
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"]
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
     }
   }, _defineProperty(_validations, "birthday", {
-    required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"]
+    required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
   }), _defineProperty(_validations, "age", {
-    required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__["required"]
+    required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
   }), _validations),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])('salesOrdersPeople', ['addPerson']), {
-    submit: function submit() {
-      this.$v.$touch();
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapActions"])('salesOrdersPeople', ['addPerson']), {
+    submit: function () {
+      var _submit = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var formData;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                this.$v.$touch();
 
-      if (!this.$v.$invalid) {
-        var formData = new FormData();
-        formData.append('firstName', this.firstName);
-        formData.append('lastName', this.lastName);
-        formData.append('gender', this.gender);
-        formData.append('birthday', this.birthday);
-        formData.append('age', this.age);
-        formData.append('familyMemberType', this.familyMemberType);
-        formData.append('policeNumber', this.policeNumber);
-        formData.append('products', JSON.stringify(this.products));
-        formData.append('salesOrderId', this.salesOrder.id);
-        formData.append('documentIdCard', this.documentIdCard);
-        this.addPerson(formData);
+                if (this.$v.$invalid) {
+                  _context.next = 24;
+                  break;
+                }
+
+                formData = new FormData();
+                formData.append('firstName', this.firstName);
+                formData.append('lastName', this.lastName);
+                formData.append('gender', this.gender);
+                formData.append('birthday', this.birthday);
+                formData.append('age', this.age);
+                formData.append('familyMemberType', this.familyMemberType);
+                formData.append('policeNumber', this.policeNumber);
+                formData.append('products', JSON.stringify(this.products));
+                formData.append('salesOrderId', this.salesOrder.id);
+                formData.append('documentIdCard', this.documentIdCard);
+                _context.next = 15;
+                return this.addPerson(formData);
+
+              case 15:
+                this.firstName = null;
+                this.lastName = null;
+                this.gender = null;
+                this.birthday = null;
+                this.familyMemberType = null;
+                this.policeNumber = null;
+                this.documentIdCard = null;
+                this.products = [];
+                this.$v.$reset();
+
+              case 24:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function submit() {
+        return _submit.apply(this, arguments);
       }
-    },
+
+      return submit;
+    }(),
     addProduct: function addProduct(product) {
       this.products.unshift(product);
     },
@@ -2647,8 +2694,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
 //
 //
 //
@@ -3951,22 +3996,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             switch (_context3.prev = _context3.next) {
               case 0:
                 this.showLoader();
-                _context3.next = 3;
+                _context3.prev = 1;
+                _context3.next = 4;
                 return axios["delete"]("/api/documents/".concat(id));
 
-              case 3:
+              case 4:
                 response = _context3.sent;
                 this.hideLoader();
                 this.documents = this.documents.filter(function (doc) {
                   return doc.id !== id;
                 });
+                _context3.next = 14;
+                break;
 
-              case 6:
+              case 9:
+                _context3.prev = 9;
+                _context3.t0 = _context3["catch"](1);
+                this.hideLoader();
+                console.log(_context3.t0);
+                this.$toasted.error(this.trans.get('voyager.error.error_happened'));
+
+              case 14:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, this);
+        }, _callee3, this, [[1, 9]]);
       }));
 
       function deleteDoc(_x3) {
@@ -4048,10 +4103,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 4:
                 response = _context.sent;
-                this.$toasted.success(this.trans.get('voyager.success.duplicated_successfully'), {
-                  action: {
-                    text: this.trans.get('voyager.generic.open')
-                  }
+                this.$toasted.success(this.trans.get('voyager.success.duplicated_successfully'), {// target: `/sales-orders/${response.data.id}`
                 });
                 this.isLoading = false;
                 _context.next = 13;
@@ -4061,7 +4113,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context.prev = 9;
                 _context.t0 = _context["catch"](1);
                 this.isLoading = false;
-                this.$toasted.error(this.trans.get('voyager.error.error_happened'), {});
+                this.$toasted.error(this.trans.get('voyager.error.error_happened'));
 
               case 13:
               case "end":
@@ -4769,11 +4821,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 
@@ -4910,7 +4957,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     } else {
       return {
         search: {
-          integer: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_6__["integer"],
           required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_6__["required"],
           minValue: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_6__["minValue"])(1)
         },
@@ -4986,8 +5032,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     setSelected: function setSelected(value) {
       if (value !== undefined && value !== null && value !== '') {
         this.setSalesOrderId(value);
+        this.$v.$reset(); // reset the validation
       } else {
         this.setSalesOrderId(null);
+        this.$v.$reset(); // reset the validation
       }
     },
 
@@ -5616,7 +5664,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../node_module
 
 
 // module
-exports.push([module.i, "/* global */\n.row[data-v-bb7e3196] {\n  padding: 0px 1em;\n}\n.form-group[data-v-bb7e3196] {\n  padding-left: 0;\n}\n.col-md-6[data-v-bb7e3196] {\n  padding-left: 0;\n}\n.products-col[data-v-bb7e3196] {\n  padding-right: 0;\n}\n.products-col .row[data-v-bb7e3196] {\n  padding-right: 0;\n}\n\n/* elt */\n.card[data-v-bb7e3196] {\n  width: 100%;\n  border: 1px solid #e4eaec;\n  padding: 2em 1em;\n  margin-bottom: 2em;\n  box-shadow: none;\n}\n.card__title[data-v-bb7e3196] {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  margin-bottom: 1em;\n  padding: 0px 1em;\n}\n.card__title h3[data-v-bb7e3196] {\n  color: #58595f;\n}\n.card__actions[data-v-bb7e3196] {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-end;\n  align-items: center;\n}\n.card__action--delete[data-v-bb7e3196] {\n  font-size: 20px;\n  cursor: pointer;\n}\n.card__action--delete[data-v-bb7e3196]:hover {\n  color: #fa2a00;\n}\n.card__link[data-v-bb7e3196] {\n  color: #4e73df;\n  text-decoration: none;\n  transition: color 0.1s ease-out;\n  margin-right: 10px;\n}\n.card__link[data-v-bb7e3196]:hover {\n  color: #1e42a9;\n}", ""]);
+exports.push([module.i, "/* global */\n.row[data-v-bb7e3196] {\n  padding: 0px 1em;\n}\n.form-group[data-v-bb7e3196] {\n  padding-left: 0;\n}\n.col-md-6[data-v-bb7e3196] {\n  padding-left: 0;\n}\n.products-col[data-v-bb7e3196] {\n  padding-right: 0;\n}\n.products-col .row[data-v-bb7e3196] {\n  padding-right: 0;\n}\n\n/* elt */\n.card[data-v-bb7e3196] {\n  width: 100%;\n  border-top: 2px solid #e4eaec;\n  padding: 2em 1em;\n  margin-bottom: 2em;\n  box-shadow: 0 0 20px -2px rgba(0, 0, 0, 0.06) !important;\n  box-shadow: none;\n}\n.card__actions[data-v-bb7e3196] {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-end;\n  align-items: center;\n}\n.card__action--delete[data-v-bb7e3196] {\n  font-size: 20px;\n  cursor: pointer;\n}\n.card__action--delete[data-v-bb7e3196]:hover {\n  color: #fa2a00;\n}\n.card__link[data-v-bb7e3196] {\n  color: #4e73df;\n  text-decoration: none;\n  transition: color 0.1s ease-out;\n  margin-right: 10px;\n}\n.card__link[data-v-bb7e3196]:hover {\n  color: #1e42a9;\n}\n.card__title[data-v-bb7e3196] {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  margin-bottom: 1em;\n  padding: 0px 1em;\n}\n.card__title h3[data-v-bb7e3196] {\n  font-size: 18px;\n  font-weight: bold;\n  color: #555;\n}\n@media (max-width: 500px) {\n.card[data-v-bb7e3196] {\n    padding: 1em;\n}\n.card__title[data-v-bb7e3196] {\n    padding: 0;\n}\n.card .row[data-v-bb7e3196] {\n    padding: 0 !important;\n}\n}", ""]);
 
 // exports
 
@@ -5635,7 +5683,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../node_module
 
 
 // module
-exports.push([module.i, "/* global */\n.row[data-v-820b022e] {\n  padding: 0px 1em;\n}\n.form-group[data-v-820b022e] {\n  padding-left: 0;\n}\n.col-md-6[data-v-820b022e] {\n  padding-left: 0;\n}\n.products-col[data-v-820b022e] {\n  padding-right: 0;\n}\n.products-col .row[data-v-820b022e] {\n  padding-right: 0;\n}\n\n/* elt */\n.card[data-v-820b022e] {\n  width: 100%;\n  border: 1px solid #e4eaec;\n  padding: 2em 1em;\n  margin-bottom: 2em;\n  box-shadow: none;\n}\n.card__title[data-v-820b022e] {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  margin-bottom: 1em;\n  padding: 0px 1em;\n}\n.card__title h3[data-v-820b022e] {\n  color: #58595f;\n}", ""]);
+exports.push([module.i, "/* global */\n.row[data-v-820b022e] {\n  padding: 0px 1em;\n}\n.form-group[data-v-820b022e] {\n  padding-left: 0;\n}\n.col-md-6[data-v-820b022e] {\n  padding-left: 0;\n}\n.products-col[data-v-820b022e] {\n  padding-right: 0;\n}\n.products-col .row[data-v-820b022e] {\n  padding-right: 0;\n}\n\n/* elt */\n.card[data-v-820b022e] {\n  width: 100%;\n  border: 1px solid #e4eaec;\n  padding: 2em 1em 0em;\n  margin-bottom: 2em;\n  box-shadow: none;\n}\n.card__title[data-v-820b022e] {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  margin-bottom: 1em;\n  padding: 0px 1em;\n}\n.card__title h3[data-v-820b022e] {\n  font-size: 18px;\n  font-weight: bold;\n  color: #555;\n}\n@media (max-width: 500px) {\n.card[data-v-820b022e] {\n    padding: 1em;\n}\n.card__title[data-v-820b022e] {\n    padding: 0;\n}\n.card .row[data-v-820b022e] {\n    padding: 0 !important;\n}\n}", ""]);
 
 // exports
 
@@ -5673,7 +5721,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../node_module
 
 
 // module
-exports.push([module.i, ".form-data[data-v-7378e95a] {\n  display: block;\n  padding-left: 1em;\n  font-size: 18px;\n  min-height: 26px;\n  color: #58595f;\n  max-width: 100%;\n}", ""]);
+exports.push([module.i, ".form-data[data-v-7378e95a] {\n  display: block;\n  padding-left: 1em;\n  font-size: 18px;\n  min-height: 26px;\n  color: #58595f;\n  max-width: 100%;\n}\n.btn--add-product[data-v-7378e95a] {\n  font-size: 36px;\n  cursor: pointer;\n}\n.btn--add-product[data-v-7378e95a]:hover {\n  color: #2ecc71;\n}", ""]);
 
 // exports
 
@@ -5711,7 +5759,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".toggle-button-wrapper[data-v-5a2cc27e] {\n  margin-top: 1em;\n}\n.panel-body[data-v-5a2cc27e] {\n  padding: 2em 1em;\n}\nh4[data-v-5a2cc27e] {\n  color: #344055;\n}\n.z-index--101[data-v-5a2cc27e] {\n  position: relative;\n  z-index: 101;\n}", ""]);
+exports.push([module.i, ".toggle-button-wrapper[data-v-5a2cc27e] {\n  margin-top: 1em;\n}\n.panel-body[data-v-5a2cc27e] {\n  padding: 2em 1em;\n}\nh4[data-v-5a2cc27e] {\n  color: #555;\n  font-weight: bold;\n  font-size: 16px;\n}\n.z-index--101[data-v-5a2cc27e] {\n  position: relative;\n  z-index: 101;\n}", ""]);
 
 // exports
 
@@ -5787,7 +5835,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".path[data-v-45112115] {\n  display: flex;\n  max-width: 100%;\n  overflow-x: scroll;\n  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.08);\n}\n.path__nav[data-v-45112115] {\n  display: flex;\n  flex-direction: row;\n  align-items: flex-start;\n  list-style: none;\n  padding: 0.825em;\n  margin-bottom: 0;\n}\n.path__item[data-v-45112115] {\n  width: 200px;\n  height: 2em;\n  margin-right: 0.125rem;\n  border-right-color: transparent;\n  position: relative;\n  cursor: pointer;\n  margin-right: 1.25em;\n}\n.path__item[data-v-45112115]:after, .path__item[data-v-45112115]:before {\n  content: \"\";\n  position: absolute;\n  right: -0.575rem;\n  left: -0.5rem;\n  background-color: #4E73DF;\n}\n.path__item[data-v-45112115]:before {\n  top: 0;\n  height: 1rem;\n  transform: skew(30deg) translate3d(0, 0, 0);\n  left: -0.25rem;\n}\n.path__item[data-v-45112115]:after {\n  bottom: 0;\n  height: 1rem;\n  transform: skew(-30deg) translate3d(0, 0, 0);\n  left: -0.25rem;\n}\n.path__item[data-v-45112115]:nth-child(1) {\n  border-top-left-radius: 2rem;\n  border-bottom-left-radius: 2rem;\n  background-color: #4E73DF;\n}\n.path__item[data-v-45112115]:nth-child(1):before, .path__item[data-v-45112115]:nth-child(1):after {\n  left: 1.25rem;\n}\n.path__item[data-v-45112115]:last-child {\n  background-color: #4E73DF;\n  border-top-right-radius: 2rem;\n  border-bottom-right-radius: 2rem;\n  margin-right: 0;\n}\n.path__item[data-v-45112115]:last-child:after, .path__item[data-v-45112115]:last-child:before {\n  right: 1rem;\n}\n.path__item__text[data-v-45112115] {\n  text-align: center;\n  color: #fff;\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  font-weight: 500;\n  font-size: 13px;\n  z-index: 5;\n  transition: all 0.2s ease-in;\n}\n.path__item--done[data-v-45112115] {\n  background-color: #2ecc71;\n}\n.path__item--done[data-v-45112115]:before, .path__item--done[data-v-45112115]:after {\n  background-color: #2ecc71;\n}\n.path__item--done[data-v-45112115]:nth-child(1), .path__item--done[data-v-45112115]:last-child {\n  background-color: #2ecc71;\n}", ""]);
+exports.push([module.i, ".path[data-v-45112115] {\n  display: flex;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  max-width: 100%;\n  overflow-x: scroll;\n  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.08);\n}\n.path__nav[data-v-45112115] {\n  display: flex;\n  flex-direction: row;\n  align-items: flex-start;\n  list-style: none;\n  padding: 0.825em;\n  margin-bottom: 0;\n}\n.path__item[data-v-45112115] {\n  width: 200px;\n  height: 2em;\n  margin-right: 0.125rem;\n  border-right-color: transparent;\n  position: relative;\n  cursor: pointer;\n  margin-right: 1.25em;\n}\n.path__item[data-v-45112115]:after, .path__item[data-v-45112115]:before {\n  content: \"\";\n  position: absolute;\n  right: -0.575rem;\n  left: -0.5rem;\n  background-color: #4E73DF;\n}\n.path__item[data-v-45112115]:before {\n  top: 0;\n  height: 1rem;\n  transform: skew(30deg) translate3d(0, 0, 0);\n  left: -0.25rem;\n}\n.path__item[data-v-45112115]:after {\n  bottom: 0;\n  height: 1rem;\n  transform: skew(-30deg) translate3d(0, 0, 0);\n  left: -0.25rem;\n}\n.path__item[data-v-45112115]:nth-child(1) {\n  border-top-left-radius: 2rem;\n  border-bottom-left-radius: 2rem;\n  background-color: #4E73DF;\n}\n.path__item[data-v-45112115]:nth-child(1):before, .path__item[data-v-45112115]:nth-child(1):after {\n  left: 1.25rem;\n}\n.path__item[data-v-45112115]:last-child {\n  background-color: #4E73DF;\n  border-top-right-radius: 2rem;\n  border-bottom-right-radius: 2rem;\n  margin-right: 0;\n}\n.path__item[data-v-45112115]:last-child:after, .path__item[data-v-45112115]:last-child:before {\n  right: 1rem;\n}\n.path__item__text[data-v-45112115] {\n  text-align: center;\n  color: #fff;\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  font-weight: 500;\n  font-size: 13px;\n  z-index: 5;\n  transition: all 0.2s ease-in;\n}\n.path__item--done[data-v-45112115] {\n  background-color: #2ecc71;\n}\n.path__item--done[data-v-45112115]:before, .path__item--done[data-v-45112115]:after {\n  background-color: #2ecc71;\n}\n.path__item--done[data-v-45112115]:nth-child(1), .path__item--done[data-v-45112115]:last-child {\n  background-color: #2ecc71;\n}\n@media (max-width: 1130px) {\n.path[data-v-45112115] {\n    margin-left: 15px;\n    margin-top: 10px;\n    margin-bottom: 25px;\n    margin-right: 15px;\n}\n}\n@media (max-width: 500px) {\n.path[data-v-45112115] {\n    margin-left: 0;\n}\n}", ""]);
 
 // exports
 
@@ -5844,7 +5892,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".panel-body[data-v-409f8fd4] {\n  padding-top: 2em;\n}\n.title[data-v-409f8fd4] {\n  margin-bottom: 0.5em;\n  color: #555;\n}", ""]);
+exports.push([module.i, ".panel-body[data-v-409f8fd4] {\n  padding-top: 1em;\n}\n.title[data-v-409f8fd4] {\n  margin-bottom: 0.5em;\n  color: #555;\n}", ""]);
 
 // exports
 
@@ -29232,7 +29280,7 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-6" }, [
-        _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "row row--no-padding" }, [
           _c("div", { staticClass: "form-group col-md-6" }, [
             _c("label", { staticClass: "control-label" }, [
               _vm._v(_vm._s(_vm.trans.get("voyager.generic.first_name")))
@@ -29262,7 +29310,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "row row--no-padding" }, [
           _c("div", { staticClass: "form-group col-md-6" }, [
             _c("label", { staticClass: "control-label" }, [
               _vm._v(_vm._s(_vm.trans.get("voyager.generic.gender")))
@@ -29292,7 +29340,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "row row--no-padding" }, [
           _c("div", { staticClass: "form-group col-md-6" }, [
             _c("label", { staticClass: "control-label" }, [
               _vm._v(_vm._s(_vm.trans.get("voyager.generic.birthyear")))
@@ -29322,7 +29370,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "row row--no-padding" }, [
           _vm.isFamily
             ? _c("div", { staticClass: "form-group col-md-6" }, [
                 _c("label", { staticClass: "control-label" }, [
@@ -29403,7 +29451,7 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-6" }, [
-        _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "row row--no-padding" }, [
           _c("div", { staticClass: "form-group col-md-6" }, [
             _c("label", { staticClass: "control-label" }, [
               _vm._v(_vm._s(_vm.trans.get("voyager.generic.first_name")))
@@ -29499,7 +29547,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "row row--no-padding" }, [
           _c("div", { staticClass: "form-group col-md-6" }, [
             _c("label", { staticClass: "control-label" }, [
               _vm._v(_vm._s(_vm.trans.get("voyager.generic.gender")))
@@ -29610,7 +29658,7 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "row row--no-padding" }, [
           _c("div", { staticClass: "form-group col-md-6" }, [
             _c("label", { staticClass: "control-label" }, [
               _vm._v(_vm._s(_vm.trans.get("voyager.generic.birthyear")))
@@ -29691,7 +29739,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "row row--no-padding" }, [
           _vm.isFamily
             ? _c("div", { staticClass: "form-group col-md-6" }, [
                 _c("label", { staticClass: "control-label" }, [
@@ -29811,7 +29859,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "row row--no-padding" }, [
           _c("div", { staticClass: "form-group col-md-6" }, [
             _c("input", {
               staticClass: "btn btn-primary",
@@ -29835,23 +29883,25 @@ var render = function() {
       )
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "row row--no-padding" }, [
       _c("hr"),
       _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary pull-right",
-          on: { click: _vm.submit }
-        },
-        [
-          _vm._v(
-            "\n            " +
-              _vm._s(_vm.trans.get("voyager.generic.save")) +
-              "\n        "
-          )
-        ]
-      )
+      _c("div", { staticClass: "col-md-12" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-success pull-right",
+            on: { click: _vm.submit }
+          },
+          [
+            _vm._v(
+              "\n                " +
+                _vm._s(_vm.trans.get("voyager.generic.save")) +
+                "\n            "
+            )
+          ]
+        )
+      ])
     ])
   ])
 }
@@ -29939,125 +29989,101 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c(
-      "form",
-      {
-        staticClass: "row",
-        on: {
-          submit: function($event) {
-            $event.preventDefault()
-            return _vm.addProduct($event)
-          }
-        }
-      },
-      [
-        _vm.isEditAdd
-          ? _c("div", { staticClass: "form-group col-md-6" }, [
-              _c("label", { staticClass: "control-label" }, [
-                _vm._v(
-                  _vm._s(_vm.trans.get("voyager.sales_orders.select_product"))
-                )
-              ]),
-              _vm._v(" "),
-              _c(
-                "select",
-                {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.product,
-                      expression: "product"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  class: { "form-control--error": _vm.$v.product$error },
-                  on: {
-                    change: function($event) {
-                      var $$selectedVal = Array.prototype.filter
-                        .call($event.target.options, function(o) {
-                          return o.selected
-                        })
-                        .map(function(o) {
-                          var val = "_value" in o ? o._value : o.value
-                          return val
-                        })
-                      _vm.product = $event.target.multiple
-                        ? $$selectedVal
-                        : $$selectedVal[0]
-                    }
+    _c("div", { staticClass: "row row--no-padding" }, [
+      _vm.isEditAdd
+        ? _c("div", { staticClass: "form-group col-md-6" }, [
+            _c("label", { staticClass: "control-label" }, [
+              _vm._v(
+                _vm._s(_vm.trans.get("voyager.sales_orders.select_product"))
+              )
+            ]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.product,
+                    expression: "product"
                   }
-                },
-                _vm._l(_vm.allProducts, function(product) {
-                  return _c(
-                    "option",
-                    { key: product.id, domProps: { value: product } },
-                    [
-                      _vm._v(
-                        "\n                    " +
-                          _vm._s(product.name) +
-                          "\n                "
-                      )
-                    ]
-                  )
-                }),
-                0
-              ),
-              _vm._v(" "),
-              _vm.$v.product.$dirty
-                ? _c("div", [
-                    !_vm.$v.product.required
-                      ? _c("span", { staticClass: "error-text" }, [
-                          _vm._v(
-                            "\n                    " +
-                              _vm._s(_vm.trans.get("validation_js.required")) +
-                              "\n                "
-                          )
-                        ])
-                      : _vm._e()
-                  ])
-                : _vm._e()
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-3 form-group" }, [
-          _c("label", { staticClass: "control-label" }, [
-            _vm._v(
-              "\n                " +
-                _vm._s(_vm.trans.get("voyager.sales_orders.total_provision")) +
-                "\n            "
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", [
-            _c("b", { staticClass: "form-data" }, [
-              _vm._v(_vm._s(_vm.totalProvision))
-            ])
+                ],
+                staticClass: "form-control",
+                class: { "form-control--error": _vm.$v.product$error },
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.product = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
+                }
+              },
+              _vm._l(_vm.allProducts, function(product) {
+                return _c(
+                  "option",
+                  { key: product.id, domProps: { value: product } },
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(product.name) +
+                        "\n                "
+                    )
+                  ]
+                )
+              }),
+              0
+            ),
+            _vm._v(" "),
+            _vm.$v.product.$dirty
+              ? _c("div", [
+                  !_vm.$v.product.required
+                    ? _c("span", { staticClass: "error-text" }, [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(_vm.trans.get("validation_js.required")) +
+                            "\n                "
+                        )
+                      ])
+                    : _vm._e()
+                ])
+              : _vm._e()
           ])
+        : _vm._e(),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-3 form-group" }, [
+        _c("label", { staticClass: "control-label" }, [
+          _vm._v(
+            "\n                " +
+              _vm._s(_vm.trans.get("voyager.sales_orders.total_provision")) +
+              "\n            "
+          )
         ]),
         _vm._v(" "),
-        _vm.isEditAdd
-          ? _c("div", { staticClass: "col-md-3" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-success btn-add-new pull-right",
-                  attrs: { type: "submit" }
-                },
-                [
-                  _c("i", { staticClass: "voyager-plus" }),
-                  _vm._v(" "),
-                  _c("span", [
-                    _vm._v(
-                      _vm._s(_vm.trans.get("voyager.sales_orders.add_product"))
-                    )
-                  ])
-                ]
-              )
-            ])
-          : _vm._e()
-      ]
-    ),
+        _c("div", [
+          _c("b", { staticClass: "form-data" }, [
+            _vm._v(_vm._s(_vm.totalProvision))
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _vm.isEditAdd
+        ? _c("div", { staticClass: "col-md-3" }, [
+            _c("i", {
+              staticClass: "voyager-plus btn--add-product pull-right",
+              on: { click: _vm.addProduct }
+            })
+          ])
+        : _vm._e()
+    ]),
     _vm._v(" "),
     _c(
       "div",
@@ -32444,24 +32470,6 @@ var render = function() {
                             search: _vm.fetchSalesOrders
                           }
                         }),
-                        _vm._v(" "),
-                        _vm.$v.search.$error && !_vm.$v.search.numeric
-                          ? _c("div", [
-                              !_vm.$v.search.numeric
-                                ? _c("span", { staticClass: "error-text" }, [
-                                    _vm._v(
-                                      "\n                            " +
-                                        _vm._s(
-                                          _vm.trans.get(
-                                            "validation_js.numeric_only"
-                                          )
-                                        ) +
-                                        "\n                        "
-                                    )
-                                  ])
-                                : _vm._e()
-                            ])
-                          : _vm._e(),
                         _vm._v(" "),
                         _vm.$v.compensation.salesOrder.id.$error &&
                         !_vm.$v.compensation.salesOrder.id.required
@@ -54042,7 +54050,7 @@ __webpack_require__.r(__webpack_exports__);
 Vue.config.productionTip = false;
 Vue.use(vuelidate__WEBPACK_IMPORTED_MODULE_1___default.a);
 Vue.use(vue_toasted__WEBPACK_IMPORTED_MODULE_9___default.a, {
-  // duration: 4000,
+  duration: 4000,
   keepOnHover: true,
   className: 'toast-card'
 });
@@ -54198,10 +54206,18 @@ var actions = {
               commit = _ref2.commit, state = _ref2.state, rootState = _ref2.rootState;
               state.isLoading = true;
               _context2.prev = 2;
-              data = state.compensation;
-              data.salesOrder.id = rootState.salesOrders.salesOrder.id !== null ? rootState.salesOrders.salesOrder.id : state.compensation.salesOrder.id;
+              data = state.compensation; // the component is used on two different pages, 
+              // one where we have direct access to the sales order id
+              // one where it depends on the dropdown selected value
+
+              if (rootState.salesOrders.salesOrder.id !== null && rootState.salesOrders.salesOrder.id !== undefined) {
+                data.salesOrder.id = rootState.salesOrders.salesOrder.id;
+              } else {
+                data.salesOrder.id = state.compensation.salesOrder.id;
+              }
+
               _context2.next = 7;
-              return axios.post("/api/compensations/", state.compensation);
+              return axios.post("/api/compensations/", data);
 
             case 7:
               response = _context2.sent;
@@ -54291,17 +54307,16 @@ var getters = {
   compensation: function compensation(state) {
     return state.compensation;
   },
-  salesOrderPeople: function salesOrderPeople(state, getters, rootState) {
+  salesOrderPeople: function salesOrderPeople(state, getters, rootState, rootGetters) {
     // since the same component will be used on two independ 
     // views, one of which the salesorder people is already
     // defined, we want to get it
     if (rootState.salesOrders.salesOrder.id === null) {
       return state.compensation.salesOrder.people;
     } else {
-      return rootState.salesOrders.salesOrder.people;
+      return rootGetters['salesOrdersPeople/allPeople'];
     }
-  },
-  totalExpectedProvision: function totalExpectedProvision(state) {}
+  }
 };
 /* harmony default export */ __webpack_exports__["default"] = (getters);
 
@@ -54815,24 +54830,25 @@ var actions = {
               // we send it over and display it on the frontend
               table = document.querySelector("#table-wrapper");
               table.innerHTML = response.data.table;
-              state.tableLoader = false; // update the paginator
+              state.tableLoader = false;
+              window.watchTableCheckboxes(); // update the paginator
 
               commit("setSalesOrders", response.data.dataTypeContent);
-              _context5.next = 18;
+              _context5.next = 19;
               break;
 
-            case 14:
-              _context5.prev = 14;
+            case 15:
+              _context5.prev = 15;
               _context5.t0 = _context5["catch"](3);
               state.tableLoader = false;
               console.warn(_context5.t0);
 
-            case 18:
+            case 19:
             case "end":
               return _context5.stop();
           }
         }
-      }, _callee5, null, [[3, 14]]);
+      }, _callee5, null, [[3, 15]]);
     }));
 
     function filterSalesOrders(_x5, _x6) {

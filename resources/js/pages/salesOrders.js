@@ -14,7 +14,7 @@ Vue.config.productionTip = false;
 Vue.use(Vuelidate);
 
 Vue.use(Toasted, {
-    // duration: 4000,
+    duration: 4000,
     keepOnHover: true,
     className: 'toast-card'
 });

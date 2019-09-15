@@ -60,6 +60,7 @@
 <style lang="sass" scoped>
 .panel-body 
     margin-top: 1em    
+    
     .cards 
         margin-top: 1em
 

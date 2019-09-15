@@ -23,7 +23,7 @@
         </div>
         <div class="row">
             <div class="col-md-6">
-                <div class="row">
+                <div class="row row--no-padding">
                     <!-- first name -->
                     <div class="form-group col-md-6">
                         <label class="control-label">{{ trans.get('voyager.generic.first_name') }}</label>
@@ -45,7 +45,7 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row row--no-padding">
                     <!-- Gender -->
                     <div class="form-group col-md-6">
                         <label class="control-label">{{ trans.get('voyager.generic.gender') }}</label>
@@ -67,7 +67,7 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row row--no-padding">
                     <!-- birth year -->
                     <div class="form-group col-md-6">
                         <label class="control-label">{{ trans.get('voyager.generic.birthyear') }}</label>
@@ -89,7 +89,7 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row row--no-padding">
                     <!-- family member type -->
                     <div class="form-group col-md-6" v-if="isFamily">
                         <label class="control-label">{{ trans.get('voyager.sales_orders.family_member_type') }}</label>
@@ -202,23 +202,13 @@
 /* elt */
 .card 
     width: 100%
-    border: 1px solid #e4eaec
+    border-top: 2px solid #e4eaec
     // border: 1px solid #e4eaec
     // border-radius: 3px
     padding: 2em 1em
     margin-bottom: 2em
-    // box-shadow: 0px 26px 34px -19px rgba(0,0,0,0.12)
+    box-shadow: 0 0 20px -2px rgba(0,0,0,0.06) !important
     box-shadow: none
-
-    &__title
-        display: flex
-        flex-direction: row
-        justify-content: space-between
-        margin-bottom: 1em
-        padding: 0px 1em
-
-        h3 
-            color: #58595f
         
     &__actions 
         display: flex
@@ -242,4 +232,26 @@
 
         &:hover
             color: darken(#4e73df, 20%)
+
+
+    &__title
+        display: flex
+        flex-direction: row
+        justify-content: space-between
+        margin-bottom: 1em
+        padding: 0px 1em
+
+        h3 
+            font-size: 18px
+            font-weight: bold
+            color: #555
+
+    @media(max-width: 500px)
+        padding: 1em
+
+        &__title 
+            padding: 0
+
+        .row 
+            padding: 0 !important
 </style>

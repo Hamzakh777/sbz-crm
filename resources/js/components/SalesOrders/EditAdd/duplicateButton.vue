@@ -38,15 +38,12 @@
                     const response = await axios.get(`/api/sales-orders/${this.salesOrderId}/duplicate`);
 
                     this.$toasted.success(this.trans.get('voyager.success.duplicated_successfully'), {
-                        action: {
-                            text: this.trans.get('voyager.generic.open'),
-                        },
-                    })
+                        // target: `/sales-orders/${response.data.id}`
+                    });
                     this.isLoading = false;
                 } catch (error) {
                     this.isLoading = false;
-                    this.$toasted.error(this.trans.get('voyager.error.error_happened'), {
-                    })
+                    this.$toasted.error(this.trans.get('voyager.error.error_happened'))
                 }
             }
         },

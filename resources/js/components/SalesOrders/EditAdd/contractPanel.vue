@@ -586,7 +586,9 @@
 .panel-body
     padding: 2em 1em
 h4 
-    color: #344055
+    color: #555
+    font-weight: bold
+    font-size: 16px
 
 .z-index--101
     position: relative

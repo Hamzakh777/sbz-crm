@@ -2283,7 +2283,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".panel-body[data-v-409f8fd4] {\n  padding-top: 2em;\n}\n.title[data-v-409f8fd4] {\n  margin-bottom: 0.5em;\n  color: #555;\n}", ""]);
+exports.push([module.i, ".panel-body[data-v-409f8fd4] {\n  padding-top: 1em;\n}\n.title[data-v-409f8fd4] {\n  margin-bottom: 0.5em;\n  color: #555;\n}", ""]);
 
 // exports
 
@@ -41166,10 +41166,18 @@ var actions = {
               commit = _ref2.commit, state = _ref2.state, rootState = _ref2.rootState;
               state.isLoading = true;
               _context2.prev = 2;
-              data = state.compensation;
-              data.salesOrder.id = rootState.salesOrders.salesOrder.id !== null ? rootState.salesOrders.salesOrder.id : state.compensation.salesOrder.id;
+              data = state.compensation; // the component is used on two different pages, 
+              // one where we have direct access to the sales order id
+              // one where it depends on the dropdown selected value
+
+              if (rootState.salesOrders.salesOrder.id !== null && rootState.salesOrders.salesOrder.id !== undefined) {
+                data.salesOrder.id = rootState.salesOrders.salesOrder.id;
+              } else {
+                data.salesOrder.id = state.compensation.salesOrder.id;
+              }
+
               _context2.next = 7;
-              return axios.post("/api/compensations/", state.compensation);
+              return axios.post("/api/compensations/", data);
 
             case 7:
               response = _context2.sent;
@@ -41259,17 +41267,16 @@ var getters = {
   compensation: function compensation(state) {
     return state.compensation;
   },
-  salesOrderPeople: function salesOrderPeople(state, getters, rootState) {
+  salesOrderPeople: function salesOrderPeople(state, getters, rootState, rootGetters) {
     // since the same component will be used on two independ 
     // views, one of which the salesorder people is already
     // defined, we want to get it
     if (rootState.salesOrders.salesOrder.id === null) {
       return state.compensation.salesOrder.people;
     } else {
-      return rootState.salesOrders.salesOrder.people;
+      return rootGetters['salesOrdersPeople/allPeople'];
     }
-  },
-  totalExpectedProvision: function totalExpectedProvision(state) {}
+  }
 };
 /* harmony default export */ __webpack_exports__["default"] = (getters);
 
@@ -41783,24 +41790,25 @@ var actions = {
               // we send it over and display it on the frontend
               table = document.querySelector("#table-wrapper");
               table.innerHTML = response.data.table;
-              state.tableLoader = false; // update the paginator
+              state.tableLoader = false;
+              window.watchTableCheckboxes(); // update the paginator
 
               commit("setSalesOrders", response.data.dataTypeContent);
-              _context5.next = 18;
+              _context5.next = 19;
               break;
 
-            case 14:
-              _context5.prev = 14;
+            case 15:
+              _context5.prev = 15;
               _context5.t0 = _context5["catch"](3);
               state.tableLoader = false;
               console.warn(_context5.t0);
 
-            case 18:
+            case 19:
             case "end":
               return _context5.stop();
           }
         }
-      }, _callee5, null, [[3, 14]]);
+      }, _callee5, null, [[3, 15]]);
     }));
 
     function filterSalesOrders(_x5, _x6) {

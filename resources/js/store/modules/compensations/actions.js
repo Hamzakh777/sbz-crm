@@ -25,8 +25,15 @@ const actions = {
         state.isLoading = true;
         try {
             const data = state.compensation;
-            data.salesOrder.id = rootState.salesOrders.salesOrder.id !== null ? rootState.salesOrders.salesOrder.id : state.compensation.salesOrder.id ; 
-            const response = await axios.post(`/api/compensations/`, state.compensation);
+            // the component is used on two different pages, 
+            // one where we have direct access to the sales order id
+            // one where it depends on the dropdown selected value
+            if (rootState.salesOrders.salesOrder.id !== null && rootState.salesOrders.salesOrder.id !== undefined) {
+                data.salesOrder.id = rootState.salesOrders.salesOrder.id;
+            } else {
+                data.salesOrder.id = state.compensation.salesOrder.id;
+            }
+            const response = await axios.post(`/api/compensations/`, data);
             
             state.isLoading = false;
             commit('setCompensationId', response.data.compensation.id);

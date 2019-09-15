@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form class="row" @submit.prevent="addProduct">
+        <div class="row row--no-padding">
             <div class="form-group col-md-6" v-if="isEditAdd">
                 <label class="control-label">{{ trans.get('voyager.sales_orders.select_product') }}</label>
                 <select 
@@ -29,15 +29,13 @@
                 <div><b class="form-data">{{ totalProvision }}</b></div>
             </div>
             <div class="col-md-3" v-if="isEditAdd">
-                <button
-                    class="btn btn-success btn-add-new pull-right"
-                    type="submit"
+                <i 
+                    @click="addProduct"
+                    class="voyager-plus btn--add-product pull-right" 
                 >
-                    <i class="voyager-plus"></i>
-                    <span>{{ trans.get('voyager.sales_orders.add_product') }}</span>
-                </button>
+                </i>
             </div>
-        </form>
+        </div>
         <!-- row to show the already added products -->
         <div class="row">
             <productCard
@@ -119,4 +117,11 @@
     min-height: 26px
     color: #58595f
     max-width: 100%
+
+.btn--add-product
+    font-size: 36px 
+    cursor: pointer
+
+    &:hover 
+        color: #2ecc71
 </style>

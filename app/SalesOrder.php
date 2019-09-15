@@ -15,7 +15,7 @@ class SalesOrder extends Model
     /**
      * Which relationships to clone with the model
      */
-    protected $cloneable_relations = ['documents', 'comments', 'tasksCollections', 'compensation'];
+    protected $cloneable_relations = ['comments', 'tasksCollections', 'compensation'];
 
     /**
      * Pagination

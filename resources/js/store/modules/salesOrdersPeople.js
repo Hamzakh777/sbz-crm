@@ -72,8 +72,7 @@ const mutations = {
     },
     deletePerson(state, id) {
         state.people = state.people.filter(person => person.id !== id);
-    },
-    
+    }
 };
 
 export default {

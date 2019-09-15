@@ -103,10 +103,16 @@
 
             async deleteDoc(id) {
                 this.showLoader();
-                const response = await axios.delete(`/api/documents/${id}`);
-                this.hideLoader();
-
-                this.documents = this.documents.filter(doc => doc.id !== id);
+                try {
+                    const response = await axios.delete(`/api/documents/${id}`);
+                    this.hideLoader();
+    
+                    this.documents = this.documents.filter(doc => doc.id !== id);
+                } catch (error) {
+                    this.hideLoader();
+                    console.log(error);
+                    this.$toasted.error(this.trans.get('voyager.error.error_happened'));
+                }
             },
 
 

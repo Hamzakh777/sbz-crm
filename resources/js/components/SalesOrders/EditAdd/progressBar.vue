@@ -62,6 +62,7 @@ $green: #2ecc71
 
 .path
     display: flex
+    width: fit-content
     max-width: 100%
     overflow-x: scroll
     box-shadow: 0px 2px 6px rgba(0,0,0,0.08)
@@ -140,5 +141,12 @@ $green: #2ecc71
             &:nth-child(1), &:last-child
                 background-color: $green
 
+    @media(max-width: 1130px)
+        margin-left: 15px
+        margin-top: 10px 
+        margin-bottom: 25px
+        margin-right: 15px
 
+    @media(max-width: 500px)
+        margin-left: 0
 </style>

@@ -250,6 +250,7 @@ const actions = {
             const table = document.querySelector("#table-wrapper");
             table.innerHTML = response.data.table;
             state.tableLoader = false;
+            window.watchTableCheckboxes(); 
             // update the paginator
             commit("setSalesOrders", response.data.dataTypeContent);
         } catch (error) {

@@ -51,11 +51,6 @@
                             :options="salesOrdersIdsList"
                             @search="fetchSalesOrders">
                         </vSelect>
-                        <div v-if="$v.search.$error && !$v.search.numeric">
-                            <span class="error-text" v-if="!$v.search.numeric">
-                                {{ trans.get('validation_js.numeric_only') }}
-                            </span>
-                        </div>
                         <div v-if="$v.compensation.salesOrder.id.$error && !$v.compensation.salesOrder.id.required">
                             <span class="error-text" v-if="!$v.compensation.salesOrder.id.required">
                                 {{ trans.get('validation_js.required') }}
@@ -405,7 +400,8 @@
         data() {
             return {
                 search: null,
-                salesOrdersIdsList: []
+                salesOrdersIdsList: [],
+
             }
         },
 
@@ -424,7 +420,6 @@
             } else {
                 return {
                     search: {
-                        integer,
                         required,
                         minValue: minValue(1)
                     },
@@ -505,8 +500,10 @@
             setSelected(value) {
                 if(value !== undefined && value !== null && value !== '') {
                     this.setSalesOrderId(value);
-                } else {
+                    this.$v.$reset(); // reset the validation
+                } else { 
                     this.setSalesOrderId(null);
+                    this.$v.$reset(); // reset the validation
                 }
             },
 

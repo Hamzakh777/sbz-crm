@@ -5,7 +5,7 @@
         </div>
         <div class="row">
             <div class="col-md-6">
-                <div class="row">
+                <div class="row row--no-padding">
                     <!-- first name -->
                     <div class="form-group col-md-6">
                         <label class="control-label">{{ trans.get('voyager.generic.first_name') }}</label>
@@ -34,7 +34,7 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row row--no-padding">
                     <!-- Gender -->
                     <div class="form-group col-md-6">
                         <label class="control-label">{{ trans.get('voyager.generic.gender') }}</label>
@@ -76,7 +76,7 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row row--no-padding">
                     <!-- birth year -->
                     <div class="form-group col-md-6">
                         <label class="control-label">{{ trans.get('voyager.generic.birthyear') }}</label>
@@ -104,7 +104,7 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row row--no-padding">
                     <!-- family member type -->
                     <div class="form-group col-md-6" v-if="isFamily">
                         <label class="control-label">{{ trans.get('voyager.sales_orders.family_member_type') }}</label>
@@ -138,7 +138,7 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row row--no-padding">
                     <!-- document id card  -->
                     <div class="form-group col-md-6">
                         <input type="file" class="btn btn-primary" v-on:change="onFileChange">
@@ -155,11 +155,13 @@
                 </productForm>
             </div>
         </div>
-        <div class="row">
+        <div class="row row--no-padding">
             <hr>
-            <button class="btn btn-primary pull-right" @click="submit">
-                {{ trans.get('voyager.generic.save') }}
-            </button>
+            <div class="col-md-12">
+                <button class="btn btn-success pull-right" @click="submit">
+                    {{ trans.get('voyager.generic.save') }}
+                </button>
+            </div>
         </div>
     </div>
 </template>
@@ -252,7 +254,7 @@
         methods: {
             ...mapActions('salesOrdersPeople', ['addPerson']),
 
-            submit() {
+            async submit() {
                 this.$v.$touch();
                 if(!this.$v.$invalid) {
                     let formData = new FormData();
@@ -267,9 +269,20 @@
                     formData.append('salesOrderId', this.salesOrder.id);
                     formData.append('documentIdCard', this.documentIdCard);
 
-                    this.addPerson(
+                    await this.addPerson(
                         formData
                     );
+
+                    this.firstName = null;
+                    this.lastName = null;
+                    this.gender = null;
+                    this.birthday = null;
+                    this.familyMemberType = null;
+                    this.policeNumber = null;
+                    this.documentIdCard = null;
+                    this.products = [];
+
+                    this.$v.$reset();
                 }
             },
 
@@ -308,11 +321,8 @@
 .card 
     width: 100%
     border: 1px solid #e4eaec
-    // border: 1px solid #e4eaec
-    // border-radius: 3px
-    padding: 2em 1em
+    padding: 2em 1em 0em 
     margin-bottom: 2em
-    // box-shadow: 0px 26px 34px -19px rgba(0,0,0,0.12)
     box-shadow: none
 
     &__title
@@ -323,6 +333,17 @@
         padding: 0px 1em
 
         h3 
-            color: #58595f
+            font-size: 18px
+            font-weight: bold
+            color: #555
+
+    @media(max-width: 500px)
+        padding: 1em
+
+        &__title 
+            padding: 0
+
+        .row 
+            padding: 0 !important
     
 </style>

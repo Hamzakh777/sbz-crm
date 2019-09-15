@@ -363,6 +363,24 @@
             $('.select_all').on('click', function(e) {
                 $('input[name="row_id"]').prop('checked', $(this).prop('checked'));
             });
+
+            // we want to make the following function available gloably 
+            // so went we update the tables using vuejs
+            // we can call the function again to watch the checkboxes
+            window.watchTableCheckboxes = function() {
+                $('input[name="row_id"]').on('change', function () {
+                    var ids = [];
+                    $('input[name="row_id"]').each(function() {
+                        if ($(this).is(':checked')) {
+                            ids.push($(this).val());
+                        }
+                    });
+                    $('.selected_ids').val(ids);
+                    console.log(ids);
+                });
+            }
+
+            watchTableCheckboxes();
         });
 
 

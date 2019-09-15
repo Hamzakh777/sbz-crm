@@ -1,4 +1,4 @@
-<table class="table table-hover">
+<table class="table table-hover" id="dataTable">
     <thead>
         <tr>
             @can('delete',app($dataType->model_name))
