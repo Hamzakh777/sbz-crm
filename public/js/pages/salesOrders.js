@@ -4406,17 +4406,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _comments_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./comments.vue */ "./resources/js/components/comments/comments.vue");
-/* harmony import */ var _baseComponents_BaseLoader__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../baseComponents/BaseLoader */ "./resources/js/components/baseComponents/BaseLoader.vue");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
+/* harmony import */ var _comments_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./comments.vue */ "./resources/js/components/comments/comments.vue");
+/* harmony import */ var _baseComponents_BaseLoader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../baseComponents/BaseLoader */ "./resources/js/components/baseComponents/BaseLoader.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -4452,14 +4444,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "commentsPanel",
   components: {
-    Comments: _comments_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    Comments: _comments_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   watch: {
     'salesOrder.comments': function salesOrderComments(newVal, oldVal) {
       this.comments = newVal;
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(['salesOrder'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['salesOrder'])),
   data: function data() {
     return {
       creator: {},
@@ -4468,38 +4460,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   methods: {
-    submitComment: function () {
-      var _submitComment = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(reply) {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                console.log('adding a comment'); // try {
-                //     const response = await axios.post('/api/comments/', {
-                //       body: reply,
-                //       salesOrderId: this.salesOrder.id
-                //     }); 
-                //     this.comments.push(response.data.comment);
-                // } catch (error) {
-                //   console.log(error);
-                // }
+    submitComment: function submitComment(reply) {
+      var _this = this;
 
-              case 1:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }));
-
-      function submitComment(_x) {
-        return _submitComment.apply(this, arguments);
-      }
-
-      return submitComment;
-    }()
+      console.log('adding a comment');
+      axios.post('/api/comments', {
+        body: reply,
+        salesOrderId: this.salesOrder.id
+      }).then(function (response) {
+        _this.comments.push(response.data.comment);
+      })["catch"](function (err) {
+        return console.log(error);
+      });
+    }
   },
   created: function created() {
     // we are going to get the comments form the salesorder since they 
