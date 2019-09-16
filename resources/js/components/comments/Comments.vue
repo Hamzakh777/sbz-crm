@@ -17,7 +17,7 @@
                     type="text" 
                     v-model.trim="reply" 
                     class="reply--text" 
-                    placeholder="Kommentar erfassen..."
+                    :placeholder="trans.get('voyager.generic.start_typing')"
                     maxlength="250"
                     @keyup.enter="submitComment"
                 />
@@ -114,7 +114,7 @@ import singleComment from './SingleComment'
 
 .reply .reply--text {
     min-height: 40px;
-    padding: 10px 10px 10px 55px;
+    padding: 10px 10px 10px 10px;
     margin-right: 10px;
     border: 0;
     color: #333;
