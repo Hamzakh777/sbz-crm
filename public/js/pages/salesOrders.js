@@ -4472,35 +4472,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _submitComment = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(reply) {
-        var response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.prev = 0;
-                _context.next = 3;
-                return axios.post('/api/comments/', {
-                  body: reply,
-                  salesOrderId: this.salesOrder.id
-                });
+                console.log('adding a comment'); // try {
+                //     const response = await axios.post('/api/comments/', {
+                //       body: reply,
+                //       salesOrderId: this.salesOrder.id
+                //     }); 
+                //     this.comments.push(response.data.comment);
+                // } catch (error) {
+                //   console.log(error);
+                // }
 
-              case 3:
-                response = _context.sent;
-                this.comments.push(response.data.comment);
-                _context.next = 10;
-                break;
-
-              case 7:
-                _context.prev = 7;
-                _context.t0 = _context["catch"](0);
-                console.log(_context.t0);
-
-              case 10:
+              case 1:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[0, 7]]);
+        }, _callee);
       }));
 
       function submitComment(_x) {
