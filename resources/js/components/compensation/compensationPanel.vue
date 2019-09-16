@@ -10,7 +10,7 @@
             ></BaseLoader>
             <!-- insurance provision -->
             <div class="row">
-                <h4>{{ trans.get('voyager.compensations.insurance_provision') }}</h4>
+                <h4 class="title">{{ trans.get('voyager.compensations.insurance_provision') }}</h4>
                 <!-- insurace -->
                 <div class="form-group col-md-4">
                     <label class="control-labe">
@@ -154,7 +154,7 @@
 
             <!-- sales compensations -->
             <div class="row">
-                <h4>{{ trans.get('voyager.compensations.sales_compensations') }}</h4>
+                <h4 class="title">{{ trans.get('voyager.compensations.sales_compensations') }}</h4>
                 <div class="row">
                     <!-- period plan -->
                     <div class="form-group col-md-2">
@@ -532,9 +532,8 @@
 
 <style lang="sass" scoped>
 
-h4 
-    color: #344055
-
+// h4 
+//     color: #344055
 
 .toggle-button-wrapper 
     margin-top: 0.9em

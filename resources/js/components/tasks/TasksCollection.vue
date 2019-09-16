@@ -4,7 +4,7 @@
 			v-if="isLoading"
 		></BaseLoader>
 		<div class="row row--collection">
-			<h4>{{ trans.get('voyager.tasks_collection.tasks_collection') }}</h4>
+			<h4 class="title">{{ trans.get('voyager.tasks_collection.tasks_collection') }}</h4>
 			<div class="row">
 				<form @submit.prevent="submit">
 					<div class="form-group col-md-12">
@@ -104,6 +104,4 @@ export default {
 .row
 	&--collection 
 		margin-bottom: 2em
-h4 
-	color: #344055
 </style>

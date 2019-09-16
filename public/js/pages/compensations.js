@@ -2493,7 +2493,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "h4[data-v-4bd559e0] {\n  color: #344055;\n}\n.toggle-button-wrapper[data-v-4bd559e0] {\n  margin-top: 0.9em;\n}\n.v-select[data-v-4bd559e0] {\n  padding-top: 6px;\n}", ""]);
+exports.push([module.i, ".toggle-button-wrapper[data-v-4bd559e0] {\n  margin-top: 0.9em;\n}\n.v-select[data-v-4bd559e0] {\n  padding-top: 6px;\n}", ""]);
 
 // exports
 
@@ -23271,7 +23271,7 @@ var render = function() {
             _vm.isLoading ? _c("BaseLoader") : _vm._e(),
             _vm._v(" "),
             _c("div", { staticClass: "row" }, [
-              _c("h4", [
+              _c("h4", { staticClass: "title" }, [
                 _vm._v(
                   _vm._s(
                     _vm.trans.get("voyager.compensations.insurance_provision")
@@ -23663,7 +23663,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "row" }, [
-              _c("h4", [
+              _c("h4", { staticClass: "title" }, [
                 _vm._v(
                   _vm._s(
                     _vm.trans.get("voyager.compensations.sales_compensations")

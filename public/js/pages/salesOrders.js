@@ -5875,7 +5875,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "h4[data-v-4bd559e0] {\n  color: #344055;\n}\n.toggle-button-wrapper[data-v-4bd559e0] {\n  margin-top: 0.9em;\n}\n.v-select[data-v-4bd559e0] {\n  padding-top: 6px;\n}", ""]);
+exports.push([module.i, ".toggle-button-wrapper[data-v-4bd559e0] {\n  margin-top: 0.9em;\n}\n.v-select[data-v-4bd559e0] {\n  padding-top: 6px;\n}", ""]);
 
 // exports
 
@@ -5970,7 +5970,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".row--collection[data-v-16c45d20] {\n  margin-bottom: 2em;\n}\nh4[data-v-16c45d20] {\n  color: #344055;\n}", ""]);
+exports.push([module.i, ".row--collection[data-v-16c45d20] {\n  margin-bottom: 2em;\n}", ""]);
 
 // exports
 
@@ -32320,7 +32320,7 @@ var render = function() {
             _vm.isLoading ? _c("BaseLoader") : _vm._e(),
             _vm._v(" "),
             _c("div", { staticClass: "row" }, [
-              _c("h4", [
+              _c("h4", { staticClass: "title" }, [
                 _vm._v(
                   _vm._s(
                     _vm.trans.get("voyager.compensations.insurance_provision")
@@ -32712,7 +32712,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "row" }, [
-              _c("h4", [
+              _c("h4", { staticClass: "title" }, [
                 _vm._v(
                   _vm._s(
                     _vm.trans.get("voyager.compensations.sales_compensations")
@@ -33190,7 +33190,9 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h4", [_vm._v(_vm._s(_vm.trans.get("voyager.tasks.add_task")))]),
+    _c("h4", { staticClass: "title" }, [
+      _vm._v(_vm._s(_vm.trans.get("voyager.tasks.add_task")))
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c(
@@ -33525,7 +33527,7 @@ var render = function() {
       _vm.isLoading ? _c("BaseLoader") : _vm._e(),
       _vm._v(" "),
       _c("div", { staticClass: "row row--collection" }, [
-        _c("h4", [
+        _c("h4", { staticClass: "title" }, [
           _vm._v(
             _vm._s(_vm.trans.get("voyager.tasks_collection.tasks_collection"))
           )
