@@ -1,10 +1,16 @@
 <template>
   <div :class="{'card': 'card', 'card--done': task.completed}">
-    <div class="col-md-3">{{ task.name }}</div>
-    <div class="col-md-3">{{ ownerName }}</div>
-    <div class="col-md-3">{{ task.date | changeDateFormat }}</div>
+    <div class="col-md-3">
+        {{ trans.get('voyager.generic.name') }}: <b>{{ task.name }}</b>
+    </div>
+    <div class="col-md-3">
+        {{ trans.get('voyager.generic.owner') }}: <b>{{ ownerName }}</b>
+    </div>
+    <div class="col-md-3">
+        {{ trans.get('voyager.generic.date') }}: <b>{{ task.date | changeDateFormat }}</b>
+    </div>
     <div class="col-md-2">
-        {{ task.status }}
+        {{ trans.get('voyager.generic.status') }}: <b>{{ task.status }}</b>
     </div>
     <div class="col-md-1">
       <div class="card__actions">
@@ -87,6 +93,9 @@
     margin-bottom: 1em
     font-size: 1em
 
+    @media(max-width: 576px)
+        padding: 1em 1em 0
+
     &--done 
         border-left-color: #2ecc71
 
@@ -113,7 +122,17 @@
 
             &--green
                 color: #2ecc71
+
             &:hover
                 color: #2ecc71
 
+            @media(max-width: 576px)
+                margin-right: 0.6em
+
+    @media(max-width: 576px)
+        >[class*=col-]
+            margin-bottom: 5px
+        
+        .col-sm-2
+            maring-bottom: 0
 </style>

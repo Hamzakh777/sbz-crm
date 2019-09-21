@@ -1,16 +1,16 @@
 <template>
     <div class="product-card">
         <div class="row">
-            <div class="col-md-4">
-                {{product.name}}
+            <div class="col-sm-4">
+                {{ trans.get('voyager.product.name') }}: <b>{{product.name}}</b>
             </div>
-            <div class="col-md-4">
-                {{ category.name }}
+            <div class="col-sm-4">
+                {{trans.get('voyager.generic.category')}}: <b>{{ category.name }}</b>
             </div>
-            <div class="col-md-3" :class="{'col-md-4': !isEditAdd}">
-                {{ product.provision ?  `${product.provision} chf`: '' }}  
+            <div class="col-sm-3" :class="{'col-md-4': !isEditAdd}">
+                {{ trans.get('voyager.product.provision') }} <b>{{ product.provision ?  `${product.provision} chf`: '' }}  </b>
             </div>
-            <div class="col-md-1" v-if="isEditAdd">
+            <div class="col-1" v-if="isEditAdd">
                 <i 
                     class="voyager-trash"
                     
@@ -68,6 +68,9 @@
     padding: 1.4em 0.6em 1.1em 0.6em
     margin-bottom: 1em
 
+    @media(max-width: 576px)
+        padding: 1em
+
     .row>[class*=col-]
         margin-bottom: 0
 
@@ -80,4 +83,10 @@
         &:hover
             color: #FB4027
 
+    @media(max-width: 576px)
+        .row>[class*=col-]
+            margin-bottom: 5px
+        
+        .row .col-sm-3
+            maring-bottom: 0
 </style>

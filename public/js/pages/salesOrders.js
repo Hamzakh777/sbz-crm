@@ -2747,6 +2747,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -2772,6 +2773,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return sum += parseInt(product.provision);
       });
       return sum;
+    },
+    productsTotal: function productsTotal() {
+      return this.products.length;
     }
   }),
   data: function data() {
@@ -5264,7 +5268,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 
@@ -5326,6 +5329,12 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5628,7 +5637,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../node_module
 
 
 // module
-exports.push([module.i, "/* global */\n.row[data-v-bb7e3196] {\n  padding: 0px 1em;\n}\n.form-group[data-v-bb7e3196] {\n  padding-left: 0;\n}\n.col-md-6[data-v-bb7e3196] {\n  padding-left: 0;\n}\n.products-col[data-v-bb7e3196] {\n  padding-right: 0;\n}\n.products-col .row[data-v-bb7e3196] {\n  padding-right: 0;\n}\n\n/* elt */\n.card[data-v-bb7e3196] {\n  width: 100%;\n  border-top: 2px solid #e4eaec;\n  padding: 2em 1em;\n  margin-bottom: 2em;\n  box-shadow: 0 0 20px -2px rgba(0, 0, 0, 0.06) !important;\n  box-shadow: none;\n}\n.card__actions[data-v-bb7e3196] {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-end;\n  align-items: center;\n}\n.card__action--delete[data-v-bb7e3196] {\n  font-size: 20px;\n  cursor: pointer;\n}\n.card__action--delete[data-v-bb7e3196]:hover {\n  color: #fa2a00;\n}\n.card__link[data-v-bb7e3196] {\n  color: #4e73df;\n  text-decoration: none;\n  transition: color 0.1s ease-out;\n  margin-right: 10px;\n}\n.card__link[data-v-bb7e3196]:hover {\n  color: #1e42a9;\n}\n.card__title[data-v-bb7e3196] {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  margin-bottom: 1em;\n  padding: 0px 1em;\n}\n.card__title h3[data-v-bb7e3196] {\n  font-size: 18px;\n  font-weight: bold;\n  color: #555;\n}\n@media (max-width: 500px) {\n.card[data-v-bb7e3196] {\n    padding: 1em;\n}\n.card__title[data-v-bb7e3196] {\n    padding: 0;\n}\n.card .row[data-v-bb7e3196] {\n    padding: 0 !important;\n}\n}", ""]);
+exports.push([module.i, "/* global */\n.row[data-v-bb7e3196] {\n  padding: 0px 1em;\n}\n.form-group[data-v-bb7e3196] {\n  padding-left: 0;\n}\n.col-md-6[data-v-bb7e3196] {\n  padding-left: 0;\n}\n.products-col[data-v-bb7e3196] {\n  padding-right: 0;\n}\n.products-col .row[data-v-bb7e3196] {\n  padding-right: 0;\n}\n@media (max-width: 576px) {\n.products-col .row[data-v-bb7e3196] {\n    margin-bottom: 5px;\n}\n}\n\n/* elt */\n.card[data-v-bb7e3196] {\n  width: 100%;\n  border: 1px solid #e4eaec;\n  padding: 2em 1em;\n  margin-bottom: 2em;\n  box-shadow: none;\n}\n.card__actions[data-v-bb7e3196] {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-end;\n  align-items: center;\n}\n.card__action--delete[data-v-bb7e3196] {\n  font-size: 20px;\n  cursor: pointer;\n}\n.card__action--delete[data-v-bb7e3196]:hover {\n  color: #fa2a00;\n}\n.card__link[data-v-bb7e3196] {\n  color: #4e73df;\n  text-decoration: none;\n  transition: color 0.1s ease-out;\n  margin-right: 10px;\n}\n.card__link[data-v-bb7e3196]:hover {\n  color: #1e42a9;\n}\n.card__title[data-v-bb7e3196] {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  margin-bottom: 1em;\n  padding: 0px 1em;\n}\n.card__title h3[data-v-bb7e3196] {\n  font-size: 18px;\n  font-weight: bold;\n  color: #555;\n}\n.card .d-none[data-v-bb7e3196] {\n  display: none;\n}\n@media (max-width: 576px) {\n.card[data-v-bb7e3196] {\n    padding: 1.4em 1.4em 0;\n}\n.card .person-info[data-v-bb7e3196] {\n    margin-bottom: 0 !important;\n}\n.card__title[data-v-bb7e3196] {\n    padding: 0;\n}\n.card .row[data-v-bb7e3196] {\n    padding: 0 !important;\n}\n.card .d-sm-block[data-v-bb7e3196] {\n    display: block;\n}\n.card .police-number[data-v-bb7e3196] {\n    margin-bottom: 0 !important;\n}\n}", ""]);
 
 // exports
 
@@ -5666,7 +5675,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../node_module
 
 
 // module
-exports.push([module.i, ".product-card[data-v-acec18c2] {\n  background-color: #fff;\n  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.07);\n  border-left: 4px solid #4E73DF;\n  padding: 1.4em 0.6em 1.1em 0.6em;\n  margin-bottom: 1em;\n}\n.product-card .row > [class*=col-][data-v-acec18c2] {\n  margin-bottom: 0;\n}\n.product-card .voyager-trash[data-v-acec18c2] {\n  cursor: pointer;\n  display: block;\n  margin-top: -3px;\n  font-size: 20px;\n}\n.product-card .voyager-trash[data-v-acec18c2]:hover {\n  color: #FB4027;\n}", ""]);
+exports.push([module.i, ".product-card[data-v-acec18c2] {\n  background-color: #fff;\n  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.07);\n  border-left: 4px solid #4E73DF;\n  padding: 1.4em 0.6em 1.1em 0.6em;\n  margin-bottom: 1em;\n}\n@media (max-width: 576px) {\n.product-card[data-v-acec18c2] {\n    padding: 1em;\n}\n}\n.product-card .row > [class*=col-][data-v-acec18c2] {\n  margin-bottom: 0;\n}\n.product-card .voyager-trash[data-v-acec18c2] {\n  cursor: pointer;\n  display: block;\n  margin-top: -3px;\n  font-size: 20px;\n}\n.product-card .voyager-trash[data-v-acec18c2]:hover {\n  color: #FB4027;\n}\n@media (max-width: 576px) {\n.product-card .row > [class*=col-][data-v-acec18c2] {\n    margin-bottom: 5px;\n}\n.product-card .row .col-sm-3[data-v-acec18c2] {\n    maring-bottom: 0;\n}\n}", ""]);
 
 // exports
 
@@ -5685,7 +5694,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../node_module
 
 
 // module
-exports.push([module.i, ".form-data[data-v-7378e95a] {\n  display: block;\n  padding-left: 1em;\n  font-size: 18px;\n  min-height: 26px;\n  color: #58595f;\n  max-width: 100%;\n}\n.btn--add-product[data-v-7378e95a] {\n  font-size: 36px;\n  cursor: pointer;\n}\n.btn--add-product[data-v-7378e95a]:hover {\n  color: #2ecc71;\n}", ""]);
+exports.push([module.i, ".form-data[data-v-7378e95a] {\n  display: block;\n  padding-left: 1em;\n  font-size: 18px;\n  min-height: 26px;\n  color: #58595f;\n  max-width: 100%;\n}\n.btn--add-product[data-v-7378e95a] {\n  font-size: 36px;\n  cursor: pointer;\n}\n.btn--add-product[data-v-7378e95a]:hover {\n  color: #2ecc71;\n}\n.total-provision[data-v-7378e95a] {\n  margin-bottom: 10px !important;\n}\n.total-provision[data-v-7378e95a], .products-dropdown[data-v-7378e95a] {\n  padding-left: 0 !important;\n}", ""]);
 
 // exports
 
@@ -5723,7 +5732,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".toggle-button-wrapper[data-v-5a2cc27e] {\n  margin-top: 1em;\n}\n.panel-body[data-v-5a2cc27e] {\n  padding: 2em 1em;\n}\nh4[data-v-5a2cc27e] {\n  color: #555;\n  font-weight: bold;\n  font-size: 16px;\n}\n.z-index--101[data-v-5a2cc27e] {\n  position: relative;\n  z-index: 101;\n}", ""]);
+exports.push([module.i, ".toggle-button-wrapper[data-v-5a2cc27e] {\n  margin-top: 1em;\n}\n.panel-body[data-v-5a2cc27e] {\n  padding: 1.5em 1em;\n}\nh4[data-v-5a2cc27e] {\n  color: #555;\n  font-weight: bold;\n  font-size: 16px;\n}\n.z-index--101[data-v-5a2cc27e] {\n  position: relative;\n  z-index: 101;\n}", ""]);
 
 // exports
 
@@ -5742,7 +5751,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../node_module
 
 
 // module
-exports.push([module.i, ".document-card[data-v-1ca32f23] {\n  background-color: #fff;\n  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.07);\n  border-left: 4px solid #4E73DF;\n  padding: 1.4em 0.6em 1em 0.6em;\n  margin-bottom: 1em;\n}\n.document-card .row > [class*=col-][data-v-1ca32f23] {\n  margin-bottom: 0;\n}\n.document-card .voyager-trash[data-v-1ca32f23] {\n  cursor: pointer;\n  display: block;\n  margin-top: -3px;\n  font-size: 20px;\n  float: right;\n}\n.document-card .voyager-trash[data-v-1ca32f23]:hover {\n  color: #FB4027;\n}\n.document-card .voyager-double-down[data-v-1ca32f23] {\n  cursor: pointer;\n  display: block;\n  margin-top: -5px;\n  font-size: 24px;\n  float: right;\n  margin-right: 12px;\n}\n.document-card .voyager-double-down[data-v-1ca32f23]:hover {\n  color: #2ecc71;\n}", ""]);
+exports.push([module.i, ".document-card[data-v-1ca32f23] {\n  background-color: #fff;\n  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.07);\n  border-left: 4px solid #4E73DF;\n  padding: 1.4em 0.6em 1em 0.6em;\n  margin-bottom: 1em;\n}\n.document-card .row > [class*=col-][data-v-1ca32f23] {\n  margin-bottom: 0;\n}\n.document-card .voyager-trash[data-v-1ca32f23] {\n  cursor: pointer;\n  display: block;\n  margin-top: -3px;\n  font-size: 20px;\n  float: right;\n}\n.document-card .voyager-trash[data-v-1ca32f23]:hover {\n  color: #FB4027;\n}\n.document-card .voyager-double-down[data-v-1ca32f23] {\n  cursor: pointer;\n  display: block;\n  margin-top: -5px;\n  font-size: 24px;\n  float: right;\n  margin-right: 12px;\n}\n.document-card .voyager-double-down[data-v-1ca32f23]:hover {\n  color: #2ecc71;\n}\n@media (max-width: 576px) {\n.document-card[data-v-1ca32f23] {\n    padding: 1em 0.8em 0.5em !important;\n}\n.document-card .row > [class*=col-][data-v-1ca32f23] {\n    margin-bottom: 5px;\n}\n.document-card .row .col-sm-3[data-v-1ca32f23], .document-card .row .col-md-1[data-v-1ca32f23] {\n    maring-bottom: 0;\n}\n}", ""]);
 
 // exports
 
@@ -5761,7 +5770,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../node_module
 
 
 // module
-exports.push([module.i, "hr[data-v-30a14081] {\n  margin-bottom: 1.6em;\n}\n.list[data-v-30a14081] {\n  padding-top: 1em;\n  padding-left: 15px;\n  padding-right: 15px;\n}", ""]);
+exports.push([module.i, "hr[data-v-30a14081] {\n  margin-bottom: 1.6em;\n}\n.list[data-v-30a14081] {\n  padding-top: 1em;\n  padding-left: 15px;\n  padding-right: 15px;\n}\n@media (max-width: 567px) {\n.list[data-v-30a14081] {\n    padding: 0.6em 0 0;\n}\n}", ""]);
 
 // exports
 
@@ -5856,7 +5865,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".panel-body[data-v-409f8fd4] {\n  padding-top: 1em;\n}\n.title[data-v-409f8fd4] {\n  margin-bottom: 0.5em;\n  color: #555;\n}", ""]);
+exports.push([module.i, ".panel-body[data-v-409f8fd4] {\n  padding-top: 1.5em;\n}\n.title[data-v-409f8fd4] {\n  margin-bottom: 0.5em;\n  color: #555;\n}", ""]);
 
 // exports
 
@@ -5932,7 +5941,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".form-control[readonly][data-v-6fc60d6a] {\n  background-color: #fff;\n}", ""]);
+exports.push([module.i, ".form-control[readonly][data-v-6fc60d6a] {\n  background-color: #fff;\n}\n.btn-clear-form[data-v-6fc60d6a] {\n  cursor: pointer;\n  padding: 0.75em 0;\n  margin-right: 1.5em;\n}", ""]);
 
 // exports
 
@@ -5951,7 +5960,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".card[data-v-292727c1] {\n  background-color: #fff;\n  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.07);\n  border-left: 4px solid #4E73DF;\n  padding: 1.8em 0.6em 0.8em 0.6em;\n  margin-bottom: 1em;\n  font-size: 1em;\n}\n.card--done[data-v-292727c1] {\n  border-left-color: #2ecc71;\n}\n.card__actions[data-v-292727c1] {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-end;\n  align-items: center;\n}\n.card__actions .voyager-trash[data-v-292727c1] {\n  cursor: pointer;\n  display: block;\n  margin-top: -3px;\n  font-size: 20px;\n}\n.card__actions .voyager-trash[data-v-292727c1]:hover {\n  color: #FB4027;\n}\n.card__actions .voyager-check[data-v-292727c1] {\n  cursor: pointer;\n  display: block;\n  margin-top: -3px;\n  font-size: 26px;\n  margin-right: 1em;\n}\n.card__actions .voyager-check--green[data-v-292727c1] {\n  color: #2ecc71;\n}\n.card__actions .voyager-check[data-v-292727c1]:hover {\n  color: #2ecc71;\n}", ""]);
+exports.push([module.i, ".card[data-v-292727c1] {\n  background-color: #fff;\n  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.07);\n  border-left: 4px solid #4E73DF;\n  padding: 1.8em 0.6em 0.8em 0.6em;\n  margin-bottom: 1em;\n  font-size: 1em;\n}\n@media (max-width: 576px) {\n.card[data-v-292727c1] {\n    padding: 1em 1em 0;\n}\n}\n.card--done[data-v-292727c1] {\n  border-left-color: #2ecc71;\n}\n.card__actions[data-v-292727c1] {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-end;\n  align-items: center;\n}\n.card__actions .voyager-trash[data-v-292727c1] {\n  cursor: pointer;\n  display: block;\n  margin-top: -3px;\n  font-size: 20px;\n}\n.card__actions .voyager-trash[data-v-292727c1]:hover {\n  color: #FB4027;\n}\n.card__actions .voyager-check[data-v-292727c1] {\n  cursor: pointer;\n  display: block;\n  margin-top: -3px;\n  font-size: 26px;\n  margin-right: 1em;\n}\n.card__actions .voyager-check--green[data-v-292727c1] {\n  color: #2ecc71;\n}\n.card__actions .voyager-check[data-v-292727c1]:hover {\n  color: #2ecc71;\n}\n@media (max-width: 576px) {\n.card__actions .voyager-check[data-v-292727c1] {\n    margin-right: 0.6em;\n}\n}\n@media (max-width: 576px) {\n.card > [class*=col-][data-v-292727c1] {\n    margin-bottom: 5px;\n}\n.card .col-sm-2[data-v-292727c1] {\n    maring-bottom: 0;\n}\n}", ""]);
 
 // exports
 
@@ -29243,9 +29252,9 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-6" }, [
+      _c("div", { staticClass: "col-md-6 col-sm-3 person-info" }, [
         _c("div", { staticClass: "row row--no-padding" }, [
-          _c("div", { staticClass: "form-group col-md-6" }, [
+          _c("div", { staticClass: "form-group col-sm-6" }, [
             _c("label", { staticClass: "control-label" }, [
               _vm._v(_vm._s(_vm.trans.get("voyager.generic.first_name")))
             ]),
@@ -29259,7 +29268,7 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-6" }, [
+          _c("div", { staticClass: "form-group col-sm-6" }, [
             _c("label", { staticClass: "control-label" }, [
               _vm._v(_vm._s(_vm.trans.get("voyager.generic.last_name")))
             ]),
@@ -29275,7 +29284,7 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "row row--no-padding" }, [
-          _c("div", { staticClass: "form-group col-md-6" }, [
+          _c("div", { staticClass: "form-group col-sm-6" }, [
             _c("label", { staticClass: "control-label" }, [
               _vm._v(_vm._s(_vm.trans.get("voyager.generic.gender")))
             ]),
@@ -29289,7 +29298,7 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-6" }, [
+          _c("div", { staticClass: "form-group col-sm-6" }, [
             _c("label", { staticClass: "control-label" }, [
               _vm._v(_vm._s(_vm.trans.get("voyager.generic.birthday")))
             ]),
@@ -29305,7 +29314,7 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "row row--no-padding" }, [
-          _c("div", { staticClass: "form-group col-md-6" }, [
+          _c("div", { staticClass: "form-group col-sm-6" }, [
             _c("label", { staticClass: "control-label" }, [
               _vm._v(_vm._s(_vm.trans.get("voyager.generic.birthyear")))
             ]),
@@ -29319,7 +29328,7 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-6" }, [
+          _c("div", { staticClass: "form-group col-sm-6" }, [
             _c("label", { staticClass: "control-label" }, [
               _vm._v(_vm._s(_vm.trans.get("voyager.generic.age")))
             ]),
@@ -29336,7 +29345,7 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "row row--no-padding" }, [
           _vm.isFamily
-            ? _c("div", { staticClass: "form-group col-md-6" }, [
+            ? _c("div", { staticClass: "form-group col-sm-6" }, [
                 _c("label", { staticClass: "control-label" }, [
                   _vm._v(
                     _vm._s(
@@ -29355,7 +29364,7 @@ var render = function() {
               ])
             : _vm._e(),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-6" }, [
+          _c("div", { staticClass: "form-group col-sm-6 police-number" }, [
             _c("label", { staticClass: "control-label" }, [
               _vm._v(
                 _vm._s(_vm.trans.get("voyager.sales_orders.police_number"))
@@ -29373,9 +29382,11 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
+      _c("hr", { staticClass: "d-none d-sm-block" }),
+      _vm._v(" "),
       _c(
         "div",
-        { staticClass: "col-md-6 products-col" },
+        { staticClass: "col-md-6 col-sm-9 products-col" },
         [
           _c("productForm", {
             attrs: { isEditAdd: false, products: _vm.person.products }
@@ -29416,7 +29427,7 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-6" }, [
         _c("div", { staticClass: "row row--no-padding" }, [
-          _c("div", { staticClass: "form-group col-md-6" }, [
+          _c("div", { staticClass: "form-group col-sm-6" }, [
             _c("label", { staticClass: "control-label" }, [
               _vm._v(_vm._s(_vm.trans.get("voyager.generic.first_name")))
             ]),
@@ -29463,7 +29474,7 @@ var render = function() {
               : _vm._e()
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-6" }, [
+          _c("div", { staticClass: "form-group col-sm-6" }, [
             _c("label", { staticClass: "control-label" }, [
               _vm._v(_vm._s(_vm.trans.get("voyager.generic.last_name")))
             ]),
@@ -29512,7 +29523,7 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "row row--no-padding" }, [
-          _c("div", { staticClass: "form-group col-md-6" }, [
+          _c("div", { staticClass: "form-group col-sm-6" }, [
             _c("label", { staticClass: "control-label" }, [
               _vm._v(_vm._s(_vm.trans.get("voyager.generic.gender")))
             ]),
@@ -29582,7 +29593,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "form-group col-md-6" },
+            { staticClass: "form-group col-sm-6" },
             [
               _c("label", { staticClass: "control-label" }, [
                 _vm._v(_vm._s(_vm.trans.get("voyager.generic.birthday")))
@@ -29623,7 +29634,7 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "row row--no-padding" }, [
-          _c("div", { staticClass: "form-group col-md-6" }, [
+          _c("div", { staticClass: "form-group col-sm-6" }, [
             _c("label", { staticClass: "control-label" }, [
               _vm._v(_vm._s(_vm.trans.get("voyager.generic.birthyear")))
             ]),
@@ -29655,7 +29666,7 @@ var render = function() {
             })
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-6" }, [
+          _c("div", { staticClass: "form-group col-sm-6" }, [
             _c("label", { staticClass: "control-label" }, [
               _vm._v(_vm._s(_vm.trans.get("voyager.generic.age")))
             ]),
@@ -29705,7 +29716,7 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "row row--no-padding" }, [
           _vm.isFamily
-            ? _c("div", { staticClass: "form-group col-md-6" }, [
+            ? _c("div", { staticClass: "form-group col-sm-6" }, [
                 _c("label", { staticClass: "control-label" }, [
                   _vm._v(
                     _vm._s(
@@ -29788,7 +29799,7 @@ var render = function() {
               ])
             : _vm._e(),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-6" }, [
+          _c("div", { staticClass: "form-group col-sm-6" }, [
             _c("label", { staticClass: "control-label" }, [
               _vm._v(
                 _vm._s(_vm.trans.get("voyager.sales_orders.police_number"))
@@ -29824,7 +29835,7 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "row row--no-padding" }, [
-          _c("div", { staticClass: "form-group col-md-6" }, [
+          _c("div", { staticClass: "form-group col-sm-6" }, [
             _c("input", {
               staticClass: "btn btn-primary",
               attrs: { type: "file" },
@@ -29893,30 +29904,45 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "product-card" }, [
     _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-4" }, [
-        _vm._v("\n            " + _vm._s(_vm.product.name) + "\n        ")
+      _c("div", { staticClass: "col-sm-4" }, [
+        _vm._v(
+          "\n            " +
+            _vm._s(_vm.trans.get("voyager.product.name")) +
+            ": "
+        ),
+        _c("b", [_vm._v(_vm._s(_vm.product.name))])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-4" }, [
-        _vm._v("\n            " + _vm._s(_vm.category.name) + "\n        ")
+      _c("div", { staticClass: "col-sm-4" }, [
+        _vm._v(
+          "\n            " +
+            _vm._s(_vm.trans.get("voyager.generic.category")) +
+            ": "
+        ),
+        _c("b", [_vm._v(_vm._s(_vm.category.name))])
       ]),
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "col-md-3", class: { "col-md-4": !_vm.isEditAdd } },
+        { staticClass: "col-sm-3", class: { "col-md-4": !_vm.isEditAdd } },
         [
           _vm._v(
             "\n            " +
+              _vm._s(_vm.trans.get("voyager.product.provision")) +
+              " "
+          ),
+          _c("b", [
+            _vm._v(
               _vm._s(
                 _vm.product.provision ? _vm.product.provision + " chf" : ""
-              ) +
-              "  \n        "
-          )
+              ) + "  "
+            )
+          ])
         ]
       ),
       _vm._v(" "),
       _vm.isEditAdd
-        ? _c("div", { staticClass: "col-md-1" }, [
+        ? _c("div", { staticClass: "col-1" }, [
             _c("i", {
               staticClass: "voyager-trash",
               on: {
@@ -29955,7 +29981,7 @@ var render = function() {
   return _c("div", [
     _c("div", { staticClass: "row row--no-padding" }, [
       _vm.isEditAdd
-        ? _c("div", { staticClass: "form-group col-md-6" }, [
+        ? _c("div", { staticClass: "form-group col-md-6 products-dropdown" }, [
             _c("label", { staticClass: "control-label" }, [
               _vm._v(
                 _vm._s(_vm.trans.get("voyager.sales_orders.select_product"))
@@ -30023,7 +30049,7 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-3 form-group" }, [
+      _c("div", { staticClass: "col-sm-3 form-group total-provision" }, [
         _c("label", { staticClass: "control-label" }, [
           _vm._v(
             "\n                " +
@@ -30040,7 +30066,7 @@ var render = function() {
       ]),
       _vm._v(" "),
       _vm.isEditAdd
-        ? _c("div", { staticClass: "col-md-3" }, [
+        ? _c("div", { staticClass: "col-sm-3 pull-right" }, [
             _c("i", {
               staticClass: "voyager-plus btn--add-product pull-right",
               on: { click: _vm.addProduct }
@@ -30052,18 +30078,28 @@ var render = function() {
     _c(
       "div",
       { staticClass: "row" },
-      _vm._l(_vm.products, function(product, index) {
-        return _c("productCard", {
-          key: index,
-          attrs: { product: product, index: index, isEditAdd: _vm.isEditAdd },
-          on: {
-            delete: function($event) {
-              return _vm.$emit("deleteProduct", index)
+      [
+        _vm.productsTotal !== 0
+          ? _c("p", [
+              _vm._v(
+                _vm._s(_vm.trans.get("voyager.sales_orders.added_products"))
+              )
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm._l(_vm.products, function(product, index) {
+          return _c("productCard", {
+            key: index,
+            attrs: { product: product, index: index, isEditAdd: _vm.isEditAdd },
+            on: {
+              delete: function($event) {
+                return _vm.$emit("deleteProduct", index)
+              }
             }
-          }
+          })
         })
-      }),
-      1
+      ],
+      2
     )
   ])
 }
@@ -30254,7 +30290,7 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-4" }, [
+          _c("div", { staticClass: "form-group col-md-4 col-sm-6" }, [
             _c("label", { staticClass: "control-label" }, [
               _vm._v(
                 _vm._s(_vm.trans.get("voyager.sales_orders.current_insurance"))
@@ -30326,7 +30362,7 @@ var render = function() {
               : _vm._e()
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-4" }, [
+          _c("div", { staticClass: "form-group col-md-4 col-sm-6" }, [
             _c("label", { staticClass: "control-label" }, [
               _vm._v(_vm._s(_vm.trans.get("voyager.sales_orders.full_name")))
             ]),
@@ -30371,7 +30407,7 @@ var render = function() {
               : _vm._e()
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-4" }, [
+          _c("div", { staticClass: "form-group col-md-4 col-sm-6" }, [
             _c("label", { staticClass: "control-label" }, [
               _vm._v(_vm._s(_vm.trans.get("voyager.generic.address")))
             ]),
@@ -30416,7 +30452,7 @@ var render = function() {
               : _vm._e()
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-4" }, [
+          _c("div", { staticClass: "form-group col-md-4 col-sm-6" }, [
             _c("label", { staticClass: "control-label" }, [
               _vm._v(
                 _vm._s(_vm.trans.get("voyager.sales_orders.household_type"))
@@ -30483,7 +30519,7 @@ var render = function() {
           ]),
           _vm._v(" "),
           _vm.isHouseholdTypeFamily
-            ? _c("div", { staticClass: "form-group col-md-4" }, [
+            ? _c("div", { staticClass: "form-group col-md-4 col-sm-6" }, [
                 _c("label", { staticClass: "control-label" }, [
                   _vm._v(
                     _vm._s(
@@ -30544,7 +30580,7 @@ var render = function() {
               ])
             : _vm._e(),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-4" }, [
+          _c("div", { staticClass: "form-group col-md-4 col-sm-6" }, [
             _c("label", { staticClass: "control-label" }, [
               _vm._v(_vm._s(_vm.trans.get("voyager.sales_orders.new_born")))
             ]),
@@ -30575,7 +30611,7 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-4" }, [
+          _c("div", { staticClass: "form-group col-md-4 col-sm-6" }, [
             _c("label", { staticClass: "control-label" }, [
               _vm._v(
                 _vm._s(
@@ -30616,7 +30652,7 @@ var render = function() {
             _vm._v(_vm._s(_vm.trans.get("voyager.sales_orders.sales_details")))
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-4" }, [
+          _c("div", { staticClass: "form-group col-md-4 col-sm-6" }, [
             _c("label", { staticClass: "control-label" }, [
               _vm._v(
                 _vm._s(_vm.trans.get("voyager.sales_orders.sales_lead_source"))
@@ -30673,7 +30709,7 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-4" }, [
+          _c("div", { staticClass: "form-group col-md-4 col-sm-6" }, [
             _c("label", { staticClass: "control-label" }, [
               _vm._v(_vm._s(_vm.trans.get("voyager.sales_orders.sales_person")))
             ]),
@@ -30744,7 +30780,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "form-group col-md-4 z-index--101" },
+            { staticClass: "form-group col-md-4 col-sm-6 z-index--101" },
             [
               _c("label", { staticClass: "control-label" }, [
                 _vm._v(_vm._s(_vm.trans.get("voyager.sales_orders.sign_date")))
@@ -30793,7 +30829,7 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-4" }, [
+          _c("div", { staticClass: "form-group col-md-4 col-sm-6" }, [
             _c("label", { staticClass: "control-label" }, [
               _vm._v(
                 _vm._s(_vm.trans.get("voyager.sales_orders.new_insurance"))
@@ -30864,7 +30900,7 @@ var render = function() {
               : _vm._e()
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-4" }, [
+          _c("div", { staticClass: "form-group col-md-4 col-sm-6" }, [
             _c("label", { staticClass: "control-label" }, [
               _vm._v(
                 _vm._s(_vm.trans.get("voyager.sales_orders.sales_order_status"))
@@ -30937,7 +30973,7 @@ var render = function() {
               : _vm._e()
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-4" }, [
+          _c("div", { staticClass: "form-group col-md-4 col-sm-6" }, [
             _c("label", { staticClass: "control-label" }, [
               _vm._v(
                 _vm._s(_vm.trans.get("voyager.sales_orders.insurance_status"))
@@ -31026,7 +31062,7 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-4" }, [
+          _c("div", { staticClass: "form-group col-md-4 col-sm-6" }, [
             _c("label", { staticClass: "control-label" }, [
               _vm._v(
                 _vm._s(
@@ -31099,7 +31135,7 @@ var render = function() {
               : _vm._e()
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-4" }, [
+          _c("div", { staticClass: "form-group col-md-4 col-sm-6" }, [
             _c("label", { staticClass: "control-label" }, [
               _vm._v(
                 _vm._s(
@@ -31174,7 +31210,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "form-group col-md-4" },
+            { staticClass: "form-group col-md-4 col-sm-6" },
             [
               _c("label", { staticClass: "control-label" }, [
                 _vm._v(
@@ -31222,7 +31258,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "form-group col-md-4" },
+            { staticClass: "form-group col-md-4 col-sm-6" },
             [
               _c("label", { staticClass: "control-label" }, [
                 _vm._v(
@@ -31268,7 +31304,7 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-4" }, [
+          _c("div", { staticClass: "form-group col-md-4 col-sm-6" }, [
             _c("label", { staticClass: "control-label" }, [
               _vm._v(
                 _vm._s(
@@ -31310,7 +31346,7 @@ var render = function() {
             _vm._v(_vm._s(_vm.trans.get("voyager.sales_orders.system_details")))
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-4" }, [
+          _c("div", { staticClass: "form-group col-md-4 col-sm-6" }, [
             _c("label", { staticClass: "control-label" }, [
               _vm._v(
                 "\n                    " +
@@ -31346,7 +31382,7 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-4" }, [
+          _c("div", { staticClass: "form-group col-sm-4" }, [
             _c("label", { staticClass: "control-label" }, [
               _vm._v(
                 "\n                    " +
@@ -31383,7 +31419,7 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-4" }, [
+          _c("div", { staticClass: "form-group col-sm-4" }, [
             _c("label", { staticClass: "control-label" }, [
               _vm._v(
                 "\n                    " +
@@ -31420,7 +31456,7 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group col-md-4" }, [
+          _c("div", { staticClass: "form-group col-sm-4" }, [
             _c("label", { staticClass: "control-label" }, [
               _vm._v(
                 "\n                    " +
@@ -31763,23 +31799,39 @@ var render = function() {
   return _c("div", { staticClass: "document-card" }, [
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-4" }, [
-        _vm._v("\n            " + _vm._s(_vm.document.name) + "\n        ")
+        _vm._v(
+          "\n            " +
+            _vm._s(_vm.trans.get("voyager.generic.name")) +
+            ": "
+        ),
+        _c("b", [_vm._v(_vm._s(_vm.document.name))])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-4" }, [
         _vm._v(
           "\n            " +
-            _vm._s(_vm.trans.get("voyager.sales_orders." + _vm.document.type)) +
-            "\n        "
-        )
+            _vm._s(_vm.trans.get("voyager.generic.type")) +
+            ": "
+        ),
+        _c("b", [
+          _vm._v(
+            _vm._s(_vm.trans.get("voyager.sales_orders." + _vm.document.type))
+          )
+        ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-3" }, [
         _vm._v(
           "\n            " +
+            _vm._s(_vm.trans.get("voyager.generic.status")) +
+            ": "
+        ),
+        _c("b", [
+          _vm._v(
             _vm._s(_vm.trans.get("voyager.generic." + _vm.document.status)) +
-            "  \n        "
-        )
+              "  "
+          )
+        ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-1" }, [
@@ -32471,7 +32523,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "col-md-5" }, [
                     _c(
                       "select",
                       {
@@ -32524,7 +32576,7 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "col-md-7" }, [
                     _c(
                       "select",
                       {
@@ -32733,7 +32785,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col-md-6" }, [
+                    _c("div", { staticClass: "col-md-5" }, [
                       _c(
                         "select",
                         {
@@ -32786,7 +32838,7 @@ var render = function() {
                       )
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-md-6" }, [
+                    _c("div", { staticClass: "col-md-7" }, [
                       _c(
                         "select",
                         {
@@ -33402,7 +33454,7 @@ var render = function() {
               _c(
                 "button",
                 {
-                  staticClass: "btn btn-primary pull-right",
+                  staticClass: "btn btn-success pull-right",
                   attrs: { type: "submit" }
                 },
                 [
@@ -33413,19 +33465,12 @@ var render = function() {
               ),
               _vm._v(" "),
               _c(
-                "button",
+                "p",
                 {
-                  staticClass: "btn btn-light pull-right",
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      return _vm.clearForm($event)
-                    }
-                  }
+                  staticClass: "pull-right btn-clear-form",
+                  on: { click: _vm.clearForm }
                 },
                 [
-                  _c("i", { staticClass: "voyager-trash" }),
-                  _vm._v(" "),
                   _c("span", [
                     _vm._v(_vm._s(_vm.trans.get("voyager.generic.clear_form")))
                   ])
@@ -33464,16 +33509,32 @@ var render = function() {
     "div",
     { class: { card: "card", "card--done": _vm.task.completed } },
     [
-      _c("div", { staticClass: "col-md-3" }, [_vm._v(_vm._s(_vm.task.name))]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-3" }, [_vm._v(_vm._s(_vm.ownerName))]),
+      _c("div", { staticClass: "col-md-3" }, [
+        _vm._v(
+          "\n      " + _vm._s(_vm.trans.get("voyager.generic.name")) + ": "
+        ),
+        _c("b", [_vm._v(_vm._s(_vm.task.name))])
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-3" }, [
-        _vm._v(_vm._s(_vm._f("changeDateFormat")(_vm.task.date)))
+        _vm._v(
+          "\n      " + _vm._s(_vm.trans.get("voyager.generic.owner")) + ": "
+        ),
+        _c("b", [_vm._v(_vm._s(_vm.ownerName))])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-3" }, [
+        _vm._v(
+          "\n      " + _vm._s(_vm.trans.get("voyager.generic.date")) + ": "
+        ),
+        _c("b", [_vm._v(_vm._s(_vm._f("changeDateFormat")(_vm.task.date)))])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-2" }, [
-        _vm._v("\n      " + _vm._s(_vm.task.status) + "\n  ")
+        _vm._v(
+          "\n      " + _vm._s(_vm.trans.get("voyager.generic.status")) + ": "
+        ),
+        _c("b", [_vm._v(_vm._s(_vm.task.status))])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-1" }, [
@@ -33593,7 +33654,7 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-primary pull-right",
+                    staticClass: "btn btn-success pull-right",
                     attrs: { type: "submit" }
                   },
                   [

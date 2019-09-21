@@ -2474,7 +2474,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".panel-body[data-v-409f8fd4] {\n  padding-top: 1em;\n}\n.title[data-v-409f8fd4] {\n  margin-bottom: 0.5em;\n  color: #555;\n}", ""]);
+exports.push([module.i, ".panel-body[data-v-409f8fd4] {\n  padding-top: 1.5em;\n}\n.title[data-v-409f8fd4] {\n  margin-bottom: 0.5em;\n  color: #555;\n}", ""]);
 
 // exports
 
@@ -23422,7 +23422,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "col-md-5" }, [
                     _c(
                       "select",
                       {
@@ -23475,7 +23475,7 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "col-md-7" }, [
                     _c(
                       "select",
                       {
@@ -23684,7 +23684,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col-md-6" }, [
+                    _c("div", { staticClass: "col-md-5" }, [
                       _c(
                         "select",
                         {
@@ -23737,7 +23737,7 @@ var render = function() {
                       )
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-md-6" }, [
+                    _c("div", { staticClass: "col-md-7" }, [
                       _c(
                         "select",
                         {

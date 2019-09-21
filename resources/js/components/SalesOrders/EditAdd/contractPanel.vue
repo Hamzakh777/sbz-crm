@@ -14,7 +14,7 @@
                 <h4>{{ trans.get('voyager.sales_orders.customer_details') }}</h4>
 
                 <!-- current insurance -->
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4 col-sm-6">
                     <label class="control-label">{{ trans.get('voyager.sales_orders.current_insurance') }}</label>
                     <select 
                         class="form-control"
@@ -37,7 +37,7 @@
                 </div>
 
                 <!-- full name -->
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4 col-sm-6">
                     <label class="control-label">{{ trans.get('voyager.sales_orders.full_name') }}</label>
                     <input 
                         type="text" 
@@ -53,7 +53,7 @@
                 </div>
 
                 <!-- address  -->
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4 col-sm-6">
                     <label class="control-label">{{ trans.get('voyager.generic.address') }}</label>
                     <input 
                         type="text" 
@@ -69,7 +69,7 @@
                 </div>
                 
                 <!-- household type -->
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4 col-sm-6">
                     <label class="control-label">{{ trans.get('voyager.sales_orders.household_type') }}</label>
                     <select 
                         class="form-control"
@@ -87,7 +87,7 @@
                 </div>
 
                 <!-- number of family members in the same household  -->
-                <div class="form-group col-md-4" v-if="isHouseholdTypeFamily">
+                <div class="form-group col-md-4 col-sm-6" v-if="isHouseholdTypeFamily">
                     <label class="control-label">{{ trans.get('voyager.sales_orders.number_of_f_members') }}</label>
                     <input 
                         type="number" 
@@ -103,7 +103,7 @@
                 </div>
 
                 <!-- new born  -->
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4 col-sm-6">
                     <label class="control-label">{{ trans.get('voyager.sales_orders.new_born') }}</label>
                     <div class="toggle-button-wrapper">
                         <toggle-button
@@ -116,7 +116,7 @@
                 </div>
 
                 <!-- move to switzerland -->
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4 col-sm-6">
                     <label class="control-label">{{ trans.get('voyager.sales_orders.move_to_switzerland') }}</label>
                     <div class="toggle-button-wrapper">
                         <toggle-button
@@ -133,7 +133,7 @@
             <div class="row">
                 <h4>{{ trans.get('voyager.sales_orders.sales_details') }}</h4>
                 <!-- sales lead source  -->
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4 col-sm-6">
                     <label class="control-label">{{ trans.get('voyager.sales_orders.sales_lead_source') }}</label>
                     <select 
                         class="form-control"
@@ -146,7 +146,7 @@
                 </div>
                 
                 <!-- sales person  -->
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4 col-sm-6">
                     <label class="control-label">{{ trans.get('voyager.sales_orders.sales_person') }}</label>
                     <!-- load the sales persons using ajax
                     which means we have to create a route for that -->
@@ -171,7 +171,7 @@
                 </div>
 
                 <!-- sign date -->
-                <div class="form-group col-md-4 z-index--101">
+                <div class="form-group col-md-4 col-sm-6 z-index--101">
                     <label class="control-label">{{ trans.get('voyager.sales_orders.sign_date') }}</label>
                     <Datepicker
                         class="datePicker"
@@ -192,7 +192,7 @@
             <div class="row">
                 <h4>{{ trans.get('voyager.sales_orders.contract_details') }}</h4>
                 <!-- new insurance -->
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4 col-sm-6">
                     <label class="control-label">{{ trans.get('voyager.sales_orders.new_insurance') }}</label>
                     <!-- load the insurances using ajax
                     which means we have to create a route for that -->
@@ -217,7 +217,7 @@
                 </div>
 
                 <!-- sales order status -->
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4 col-sm-6">
                     <label class="control-label">{{ trans.get('voyager.sales_orders.sales_order_status') }}</label>
                     <select 
                         class="form-control"
@@ -236,7 +236,7 @@
                 </div>
 
                 <!-- Insurance status  -->
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4 col-sm-6">
                     <label class="control-label">{{ trans.get('voyager.sales_orders.insurance_status') }}</label>
                     <select 
                         class="form-control"
@@ -261,7 +261,7 @@
             <div class="row">
                 <h4>{{ trans.get('voyager.sales_orders.insurance_details') }}</h4>
                 <!-- contract duration VVG  -->
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4 col-sm-6">
                     <label class="control-label">{{ trans.get('voyager.sales_orders.contract_duration_VVG') }}</label>
                     <select 
                         class="form-control"
@@ -282,7 +282,7 @@
                 </div>
 
                 <!-- Contract duration KVG -->
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4 col-sm-6">
                     <label class="control-label">{{ trans.get('voyager.sales_orders.contract_duration_KVG') }}</label>
                     <select 
                         class="form-control"
@@ -303,7 +303,7 @@
                 </div>
 
                 <!-- Contract start VVG -->
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4 col-sm-6">
                     <label class="control-label">{{ trans.get('voyager.sales_orders.contract_start_VVG') }}</label>
                     <Datepicker
                         class="datePicker"
@@ -320,7 +320,7 @@
                 </div>
 
                 <!-- Contract start KVG -->
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4 col-sm-6">
                     <label class="control-label">{{ trans.get('voyager.sales_orders.contract_start_KVG') }}</label>
                     <Datepicker
                         class="datePicker"
@@ -337,7 +337,7 @@
                 </div>
 
                 <!-- Insurance tracking id -->
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4 col-sm-6">
                     <label class="control-label">{{ trans.get('voyager.sales_orders.insurance_tracking_id') }}</label>
                     <input type="text" class="form-control" v-model="salesOrder.insuranceTrackingID">
                 </div>
@@ -347,7 +347,7 @@
             <div class="row">   
                 <h4>{{ trans.get('voyager.sales_orders.system_details') }}</h4>
                 <!-- Insurance submitted date  -->
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4 col-sm-6">
                     <label class="control-label">
                         {{ trans.get('voyager.sales_orders.insurance_submitted_date') }}
                     </label>
@@ -360,7 +360,7 @@
             <div class="row">   
                 <h4>{{ trans.get('voyager.sales_orders.checkpoint_details') }}</h4>
                 <!-- Insurance submitted date  -->
-                <div class="form-group col-md-4">
+                <div class="form-group col-sm-4">
                     <label class="control-label">
                         {{ trans.get('voyager.sales_orders.cancellation_original') }}
                     </label>
@@ -375,7 +375,7 @@
                 </div>
                 
                 <!-- cancellation stamped -->
-                <div class="form-group col-md-4">
+                <div class="form-group col-sm-4">
                     <label class="control-label">
                         {{ trans.get('voyager.sales_orders.cancellation_stamped') }}
                     </label>
@@ -390,7 +390,7 @@
                 </div>
 
                 <!-- provision done -->
-                <div class="form-group col-md-4">
+                <div class="form-group col-sm-4">
                     <label class="control-label">
                         {{ trans.get('voyager.sales_orders.provision_done') }}
                     </label>
@@ -583,8 +583,10 @@
 <style lang="sass" scoped>
 .toggle-button-wrapper
     margin-top: 1em
+
 .panel-body
-    padding: 2em 1em
+    padding: 1.5em 1em
+    
 h4 
     color: #555
     font-weight: bold

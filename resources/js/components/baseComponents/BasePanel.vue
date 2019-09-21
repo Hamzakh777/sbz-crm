@@ -39,7 +39,7 @@
 
 <style lang="sass" scoped>
 .panel-body
-    padding-top: 1em
+    padding-top: 1.5em
 
 .title 
     margin-bottom: 0.5em

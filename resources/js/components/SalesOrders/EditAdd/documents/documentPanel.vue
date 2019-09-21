@@ -134,4 +134,7 @@ hr
     padding-top: 1em
     padding-left: 15px
     padding-right: 15px
+
+    @media(max-width: 567px)
+        padding: 0.6em 0 0 
 </style>

@@ -18,7 +18,7 @@
 					</div>
 					<div class="form-group col-md-12">
 						<button 
-							class="btn btn-primary pull-right"
+							class="btn btn-success pull-right"
 							type="submit"
 						>
 							<span>{{ trans.get('voyager.generic.save') }}</span>

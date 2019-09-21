@@ -7,7 +7,7 @@
             <div class="col-md-6">
                 <div class="row row--no-padding">
                     <!-- first name -->
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-sm-6">
                         <label class="control-label">{{ trans.get('voyager.generic.first_name') }}</label>
                         <input  type="text" class="form-control" :class="{'form-control--error': $v.firstName.$error }" v-model.trim="firstName">
                         <div v-if="$v.firstName.$error">
@@ -18,7 +18,7 @@
                     </div>
 
                     <!-- last name -->
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-sm-6">
                         <label class="control-label">{{ trans.get('voyager.generic.last_name') }}</label>
                         <input 
                              
@@ -36,7 +36,7 @@
 
                 <div class="row row--no-padding">
                     <!-- Gender -->
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-sm-6">
                         <label class="control-label">{{ trans.get('voyager.generic.gender') }}</label>
                         <select 
                             
@@ -59,7 +59,7 @@
                     </div>
 
                     <!-- birthday -->
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-sm-6">
                         <label class="control-label">{{ trans.get('voyager.generic.birthday') }}</label>
                         <Datepicker
                             class="datePicker"
@@ -78,7 +78,7 @@
 
                 <div class="row row--no-padding">
                     <!-- birth year -->
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-sm-6">
                         <label class="control-label">{{ trans.get('voyager.generic.birthyear') }}</label>
                         <input 
                             type="text" 
@@ -88,7 +88,7 @@
                     </div>
 
                     <!-- age -->
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-sm-6">
                         <label class="control-label">{{ trans.get('voyager.generic.age') }}</label>
                         <input
                             type="number" 
@@ -106,7 +106,7 @@
 
                 <div class="row row--no-padding">
                     <!-- family member type -->
-                    <div class="form-group col-md-6" v-if="isFamily">
+                    <div class="form-group col-sm-6" v-if="isFamily">
                         <label class="control-label">{{ trans.get('voyager.sales_orders.family_member_type') }}</label>
                         <select
                              
@@ -132,7 +132,7 @@
                     </div>
 
                     <!-- police number -->
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-sm-6">
                         <label class="control-label">{{ trans.get('voyager.sales_orders.police_number') }}</label>
                         <input  type="policeNumber" class="form-control" v-model.trim="policeNumber">
                     </div>
@@ -140,7 +140,7 @@
 
                 <div class="row row--no-padding">
                     <!-- document id card  -->
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-sm-6">
                         <input type="file" class="btn btn-primary" v-on:change="onFileChange">
                     </div>
                 </div>

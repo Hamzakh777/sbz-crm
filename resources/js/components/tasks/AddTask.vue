@@ -71,14 +71,13 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <button type="submit" class="btn btn-primary pull-right">
+                        <button type="submit" class="btn btn-success pull-right">
                             <span>{{ trans.get('voyager.generic.add') }}</span>
                         </button>
-                        <button class="btn btn-light pull-right" @click.prevent="clearForm">
-                            <i class="voyager-trash"></i>
+                        <p class="pull-right btn-clear-form" @click="clearForm">
                             <!-- clear filter -->
                             <span>{{ trans.get('voyager.generic.clear_form') }}</span>
-                        </button>
+                        </p>
                     </div>
                 </div>
             </form>
@@ -146,4 +145,9 @@ export default {
 
 .form-control[readonly]
     background-color: #fff
+
+.btn-clear-form
+    cursor: pointer
+    padding: 0.75em 0 
+    margin-right: 1.5em
 </style>

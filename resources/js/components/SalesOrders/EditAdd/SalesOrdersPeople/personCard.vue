@@ -22,10 +22,10 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 col-sm-3 person-info">
                 <div class="row row--no-padding">
                     <!-- first name -->
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-sm-6">
                         <label class="control-label">{{ trans.get('voyager.generic.first_name') }}</label>
                         <b 
                             class="form-data"
@@ -35,7 +35,7 @@
                     </div>
 
                     <!-- last name -->
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-sm-6">
                         <label class="control-label">{{ trans.get('voyager.generic.last_name') }}</label>
                         <b 
                             class="form-data" 
@@ -47,7 +47,7 @@
 
                 <div class="row row--no-padding">
                     <!-- Gender -->
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-sm-6">
                         <label class="control-label">{{ trans.get('voyager.generic.gender') }}</label>
                         <b 
                             class="form-data"
@@ -57,7 +57,7 @@
                     </div>
 
                     <!-- birthday -->
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-sm-6">
                         <label class="control-label">{{ trans.get('voyager.generic.birthday') }}</label>
                         <b 
                             class="form-data"
@@ -69,7 +69,7 @@
 
                 <div class="row row--no-padding">
                     <!-- birth year -->
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-sm-6">
                         <label class="control-label">{{ trans.get('voyager.generic.birthyear') }}</label>
                         <b 
                             class="form-data"
@@ -79,7 +79,7 @@
                     </div>
 
                     <!-- age -->
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-sm-6">
                         <label class="control-label">{{ trans.get('voyager.generic.age') }}</label>
                         <b 
                             class="form-data"
@@ -91,7 +91,7 @@
 
                 <div class="row row--no-padding">
                     <!-- family member type -->
-                    <div class="form-group col-md-6" v-if="isFamily">
+                    <div class="form-group col-sm-6" v-if="isFamily">
                         <label class="control-label">{{ trans.get('voyager.sales_orders.family_member_type') }}</label>
                         <b 
                             class="form-data"
@@ -101,7 +101,7 @@
                     </div>
 
                     <!-- police number -->
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-sm-6 police-number">
                         <label class="control-label">{{ trans.get('voyager.sales_orders.police_number') }}</label>
                         <b 
                             class="form-data"
@@ -111,8 +111,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 products-col">
-                <!-- row to select product -->
+            <hr class="d-none d-sm-block">
+            <div class="col-md-6 col-sm-9 products-col">
                 <productForm 
                     :isEditAdd="false"
                     :products="person.products"
@@ -196,18 +196,20 @@
 
 .products-col 
     padding-right: 0
+
     .row 
         padding-right: 0
+
+        @media(max-width: 576px)
+            margin-bottom: 5px
 
 /* elt */
 .card 
     width: 100%
-    border-top: 2px solid #e4eaec
-    // border: 1px solid #e4eaec
-    // border-radius: 3px
+    border: 1px solid #e4eaec
     padding: 2em 1em
     margin-bottom: 2em
-    box-shadow: 0 0 20px -2px rgba(0,0,0,0.06) !important
+    // box-shadow: 0 0 20px -2px rgba(0,0,0,0.06) !important
     box-shadow: none
         
     &__actions 
@@ -241,17 +243,31 @@
         margin-bottom: 1em
         padding: 0px 1em
 
-        h3 
+        h3
             font-size: 18px
             font-weight: bold
             color: #555
 
-    @media(max-width: 500px)
-        padding: 1em
+    .d-none
+        display: none
+
+    @media(max-width: 999px) 
+
+    @media(max-width: 576px)
+        padding: 1.4em 1.4em 0
+
+        .person-info
+            margin-bottom: 0 !important
 
         &__title 
             padding: 0
 
         .row 
             padding: 0 !important
+
+        .d-sm-block
+            display: block
+
+        .police-number 
+            margin-bottom: 0 !important
 </style>

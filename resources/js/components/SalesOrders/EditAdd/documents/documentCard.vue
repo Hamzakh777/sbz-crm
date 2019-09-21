@@ -2,13 +2,13 @@
     <div class="document-card">
         <div class="row">
             <div class="col-md-4">
-                {{document.name}}
+                {{trans.get('voyager.generic.name')}}: <b>{{document.name}}</b>
             </div>
             <div class="col-md-4">
-                {{ trans.get(`voyager.sales_orders.${document.type}`) }}
+                {{ trans.get('voyager.generic.type') }}: <b>{{ trans.get(`voyager.sales_orders.${document.type}`) }}</b>
             </div>
             <div class="col-md-3">
-                {{ trans.get(`voyager.generic.${document.status}`) }}  
+                {{ trans.get('voyager.generic.status') }}: <b>{{ trans.get(`voyager.generic.${document.status}`) }}  </b>
             </div>
             <div class="col-md-1">
                 <i 
@@ -56,7 +56,7 @@
     border-left: 4px solid #4E73DF
     padding: 1.4em 0.6em 1em 0.6em
     margin-bottom: 1em
-
+    
     .row>[class*=col-]
         margin-bottom: 0
 
@@ -80,4 +80,13 @@
 
         &:hover
             color: #2ecc71
+
+    @media(max-width: 576px)
+        padding: 1em 0.8em 0.5em !important
+
+        .row>[class*=col-]
+            margin-bottom: 5px
+        
+        .row .col-sm-3, .row .col-md-1
+            maring-bottom: 0
 </style>

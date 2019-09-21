@@ -8,5 +8,8 @@ return [
     'age_range_from'        => 'Age range from',
     'age_range_to'          => 'Age range to',
     'product_category'      => 'Product category',
-    'insurance'             => 'Insurance'
+    'product_name'          => 'Product name',
+    'insurance'             => 'Insurance',
+    'provision'             => 'Provision',
+    'comment'               => 'Comment'
 ];

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="row row--no-padding">
-            <div class="form-group col-md-6" v-if="isEditAdd">
+            <div class="form-group col-md-6 products-dropdown" v-if="isEditAdd">
                 <label class="control-label">{{ trans.get('voyager.sales_orders.select_product') }}</label>
                 <select 
                     class="form-control"
@@ -22,13 +22,13 @@
                     </span>
                 </div>
             </div>
-            <div class="col-md-3 form-group">
+            <div class="col-sm-3 form-group total-provision">
                 <label class="control-label">
                     {{ trans.get('voyager.sales_orders.total_provision') }}
                 </label>
                 <div><b class="form-data">{{ totalProvision }}</b></div>
             </div>
-            <div class="col-md-3" v-if="isEditAdd">
+            <div class="col-sm-3 pull-right" v-if="isEditAdd">
                 <i 
                     @click="addProduct"
                     class="voyager-plus btn--add-product pull-right" 
@@ -38,6 +38,7 @@
         </div>
         <!-- row to show the already added products -->
         <div class="row">
+            <p v-if="productsTotal !== 0">{{ trans.get('voyager.sales_orders.added_products') }}</p>
             <productCard
                 v-for="(product, index) in products"
                 :key="index"
@@ -81,6 +82,10 @@
                 let sum = 0;
                 this.products.forEach(product => sum += parseInt(product.provision));
                 return sum;
+            },
+            
+            productsTotal() {
+                return this.products.length;
             }
         },
 
@@ -124,4 +129,12 @@
 
     &:hover 
         color: #2ecc71
+
+.total-provision
+    margin-bottom: 10px !important
+
+@media(max-width: 999px)
+.total-provision, .products-dropdown
+    padding-left: 0 !important
+
 </style>

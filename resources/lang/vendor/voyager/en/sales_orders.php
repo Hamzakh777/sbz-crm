@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'added_products'                    => 'Added products',
+    'products'                          => 'Products',
     'sales_date_from'                   => 'Sales date from',
     'sales_date_to'                     => 'Sales date to',
     'sales_order_status'                => 'Sales order status',

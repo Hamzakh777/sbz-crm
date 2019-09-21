@@ -65,7 +65,7 @@
                         {{ trans.get('voyager.compensations.period_plan') }}
                     </label>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <select 
                                 class="form-control "
                                 v-model="compensation.insuranceProvisionPeriodPlanMonth"
@@ -79,7 +79,7 @@
                                 </option>
                             </select>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-7">
                             <select 
                                 class="form-control "
                                 v-model="compensation.insuranceProvisionPeriodPlanYear"
@@ -162,7 +162,7 @@
                             {{ trans.get('voyager.compensations.period_plan') }}
                         </label>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <select 
                                     class="form-control "
                                     v-model="compensation.salesCompensationPeriodPlanMonth"
@@ -176,7 +176,7 @@
                                     </option>
                                 </select>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-7">
                                 <select 
                                     class="form-control "
                                     v-model="compensation.salesCompensationPeriodPlanYear"

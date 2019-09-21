@@ -1874,7 +1874,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 
@@ -1936,6 +1935,12 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2283,7 +2288,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".panel-body[data-v-409f8fd4] {\n  padding-top: 1em;\n}\n.title[data-v-409f8fd4] {\n  margin-bottom: 0.5em;\n  color: #555;\n}", ""]);
+exports.push([module.i, ".panel-body[data-v-409f8fd4] {\n  padding-top: 1.5em;\n}\n.title[data-v-409f8fd4] {\n  margin-bottom: 0.5em;\n  color: #555;\n}", ""]);
 
 // exports
 
@@ -2302,7 +2307,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".form-control[readonly][data-v-6fc60d6a] {\n  background-color: #fff;\n}", ""]);
+exports.push([module.i, ".form-control[readonly][data-v-6fc60d6a] {\n  background-color: #fff;\n}\n.btn-clear-form[data-v-6fc60d6a] {\n  cursor: pointer;\n  padding: 0.75em 0;\n  margin-right: 1.5em;\n}", ""]);
 
 // exports
 
@@ -2321,7 +2326,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".card[data-v-292727c1] {\n  background-color: #fff;\n  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.07);\n  border-left: 4px solid #4E73DF;\n  padding: 1.8em 0.6em 0.8em 0.6em;\n  margin-bottom: 1em;\n  font-size: 1em;\n}\n.card--done[data-v-292727c1] {\n  border-left-color: #2ecc71;\n}\n.card__actions[data-v-292727c1] {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-end;\n  align-items: center;\n}\n.card__actions .voyager-trash[data-v-292727c1] {\n  cursor: pointer;\n  display: block;\n  margin-top: -3px;\n  font-size: 20px;\n}\n.card__actions .voyager-trash[data-v-292727c1]:hover {\n  color: #FB4027;\n}\n.card__actions .voyager-check[data-v-292727c1] {\n  cursor: pointer;\n  display: block;\n  margin-top: -3px;\n  font-size: 26px;\n  margin-right: 1em;\n}\n.card__actions .voyager-check--green[data-v-292727c1] {\n  color: #2ecc71;\n}\n.card__actions .voyager-check[data-v-292727c1]:hover {\n  color: #2ecc71;\n}", ""]);
+exports.push([module.i, ".card[data-v-292727c1] {\n  background-color: #fff;\n  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.07);\n  border-left: 4px solid #4E73DF;\n  padding: 1.8em 0.6em 0.8em 0.6em;\n  margin-bottom: 1em;\n  font-size: 1em;\n}\n@media (max-width: 576px) {\n.card[data-v-292727c1] {\n    padding: 1em 1em 0;\n}\n}\n.card--done[data-v-292727c1] {\n  border-left-color: #2ecc71;\n}\n.card__actions[data-v-292727c1] {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-end;\n  align-items: center;\n}\n.card__actions .voyager-trash[data-v-292727c1] {\n  cursor: pointer;\n  display: block;\n  margin-top: -3px;\n  font-size: 20px;\n}\n.card__actions .voyager-trash[data-v-292727c1]:hover {\n  color: #FB4027;\n}\n.card__actions .voyager-check[data-v-292727c1] {\n  cursor: pointer;\n  display: block;\n  margin-top: -3px;\n  font-size: 26px;\n  margin-right: 1em;\n}\n.card__actions .voyager-check--green[data-v-292727c1] {\n  color: #2ecc71;\n}\n.card__actions .voyager-check[data-v-292727c1]:hover {\n  color: #2ecc71;\n}\n@media (max-width: 576px) {\n.card__actions .voyager-check[data-v-292727c1] {\n    margin-right: 0.6em;\n}\n}\n@media (max-width: 576px) {\n.card > [class*=col-][data-v-292727c1] {\n    margin-bottom: 5px;\n}\n.card .col-sm-2[data-v-292727c1] {\n    maring-bottom: 0;\n}\n}", ""]);
 
 // exports
 
@@ -22496,7 +22501,7 @@ var render = function() {
               _c(
                 "button",
                 {
-                  staticClass: "btn btn-primary pull-right",
+                  staticClass: "btn btn-success pull-right",
                   attrs: { type: "submit" }
                 },
                 [
@@ -22507,19 +22512,12 @@ var render = function() {
               ),
               _vm._v(" "),
               _c(
-                "button",
+                "p",
                 {
-                  staticClass: "btn btn-light pull-right",
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      return _vm.clearForm($event)
-                    }
-                  }
+                  staticClass: "pull-right btn-clear-form",
+                  on: { click: _vm.clearForm }
                 },
                 [
-                  _c("i", { staticClass: "voyager-trash" }),
-                  _vm._v(" "),
                   _c("span", [
                     _vm._v(_vm._s(_vm.trans.get("voyager.generic.clear_form")))
                   ])
@@ -22558,16 +22556,32 @@ var render = function() {
     "div",
     { class: { card: "card", "card--done": _vm.task.completed } },
     [
-      _c("div", { staticClass: "col-md-3" }, [_vm._v(_vm._s(_vm.task.name))]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-3" }, [_vm._v(_vm._s(_vm.ownerName))]),
+      _c("div", { staticClass: "col-md-3" }, [
+        _vm._v(
+          "\n      " + _vm._s(_vm.trans.get("voyager.generic.name")) + ": "
+        ),
+        _c("b", [_vm._v(_vm._s(_vm.task.name))])
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-3" }, [
-        _vm._v(_vm._s(_vm._f("changeDateFormat")(_vm.task.date)))
+        _vm._v(
+          "\n      " + _vm._s(_vm.trans.get("voyager.generic.owner")) + ": "
+        ),
+        _c("b", [_vm._v(_vm._s(_vm.ownerName))])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-3" }, [
+        _vm._v(
+          "\n      " + _vm._s(_vm.trans.get("voyager.generic.date")) + ": "
+        ),
+        _c("b", [_vm._v(_vm._s(_vm._f("changeDateFormat")(_vm.task.date)))])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-2" }, [
-        _vm._v("\n      " + _vm._s(_vm.task.status) + "\n  ")
+        _vm._v(
+          "\n      " + _vm._s(_vm.trans.get("voyager.generic.status")) + ": "
+        ),
+        _c("b", [_vm._v(_vm._s(_vm.task.status))])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-1" }, [
@@ -22687,7 +22701,7 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-primary pull-right",
+                    staticClass: "btn btn-success pull-right",
                     attrs: { type: "submit" }
                   },
                   [
