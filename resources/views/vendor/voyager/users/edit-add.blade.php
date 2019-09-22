@@ -166,7 +166,7 @@
             <a href="{{ route('voyager.users.index') }}" class="btn pull-right btn-danger">
                 {{ __('voyager::generic.cancel') }}
             </a>
-            <button type="submit" class="btn btn-primary pull-right save">
+            <button type="submit" class="btn btn-primary pull-right save" style="margin-right: 12px">
                 {{ __('voyager::generic.save') }}
             </button>
         </form>

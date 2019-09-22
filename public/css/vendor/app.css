@@ -44,6 +44,13 @@
   border-bottom-color: #62a8ea !important;
 }
 
+form.form-search .form-control,
+form.form-search .form-control:focus,
+form.form-search .select2-selection,
+form.form-search .select2-selection:focus {
+  border-bottom-color: transparent !important;
+}
+
 .control-label {
   margin-bottom: 0;
 }
@@ -157,6 +164,11 @@
 .error-text {
   color: #fa2a00;
   font-size: 12px;
+}
+
+.has-error .form-control {
+  box-shadow: none !important;
+  border-bottom-color: #f96868 !important;
 }
 
 .voyager nav.navbar.navbar-default.navbar-top {

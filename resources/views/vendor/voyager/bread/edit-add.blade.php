@@ -76,8 +76,12 @@
                                 <div class="form-group @if($row->type == 'hidden') hidden @endif col-md-{{ $display_options->width ?? 4 }} {{ $errors->has($row->field) ? 'has-error' : '' }}" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
                                     {{ $row->slugify }}
                                     <label class="control-label" for="name">
-                                        {{ $row->display_name }}
                                         {{-- {{ __('voyager::' . strtolower(str_replace(" ","_",$dataType->display_name_singular) . '.' .$row->display_name)) }} --}}
+                                        @if (isset($row->details->trans_string))
+                                            {{ __($row->details->trans_string)}}
+                                        @else
+                                            {{ $row->display_name }}
+                                        @endif
                                     </label>
                                     @include('voyager::multilingual.input-hidden-bread-edit-add')
                                     @if (isset($row->details->view))

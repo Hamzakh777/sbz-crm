@@ -11,5 +11,5 @@ return [
     'contact'           => 'Insurance contact',
     'phone_number'      => 'Insurance phone number',
     'email'             => 'E-mail',
-    'active_partner'    => 'Insurance active partner'
+    'active_partner'    => 'Active partner'
 ];

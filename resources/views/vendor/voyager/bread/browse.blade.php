@@ -43,7 +43,7 @@
             <div class="col-md-12">
                 <div class="panel panel-bordered">
                     <div class="panel-body">
-                        {{-- @if ($isServerSide)
+                        @if ($isServerSide)
                             <form method="get" class="form-search">
                                 <div id="search-input">
                                     <select id="search_key" name="key">
@@ -69,7 +69,7 @@
                                     <input type="hidden" name="order_by" value="{{ Request::get('order_by') }}">
                                 @endif
                             </form>
-                        @endif --}}
+                        @endif
                         <div class="table-responsive">
                             <table id="dataTable" class="table table-hover">
                                 <thead>
