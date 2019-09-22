@@ -151,6 +151,7 @@
                     @addProduct="addProduct"
                     @deleteProduct="deleteProduct"
                     :products="products"
+                    :dropdown-products="productsToShow"
                 >
                 </productForm>
             </div>
@@ -213,8 +214,21 @@
                 let sum = 0;
                 this.products.forEach(product => sum += parseInt(product.provision));
                 return sum;
+            },
+
+            /**
+             * We want to show products that respect the age restrictions
+             */
+            productsToShow() {
+                return this.allProducts.filter(product => {
+                    if(product.age_range_from !== null && product.age_range_to !== null) {
+                        return ((product.age_range_from <= this.age) && (product.age_range_to >= this.age));
+                    } else {
+                        return true;
+                    }
+                });
             }
-        },
+        },  
 
         data() {
             return {

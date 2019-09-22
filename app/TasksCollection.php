@@ -7,7 +7,7 @@ use Laravel\Scout\Searchable;
 
 class TasksCollection extends Model
 {
-    use Searchable;
+    // use Searchable;
     
     protected $table = 'tasks_collections';
     /**

@@ -2454,6 +2454,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -2493,6 +2494,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return sum += parseInt(product.provision);
       });
       return sum;
+    },
+
+    /**
+     * We want to show products that respect the age restrictions
+     */
+    productsToShow: function productsToShow() {
+      var _this = this;
+
+      return this.allProducts.filter(function (product) {
+        if (product.age_range_from !== null && product.age_range_to !== null) {
+          return product.age_range_from <= _this.age && product.age_range_to >= _this.age;
+        } else {
+          return true;
+        }
+      });
     }
   }),
   data: function data() {
@@ -2764,9 +2780,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     isEditAdd: {
       type: Boolean,
       "default": true
+    },
+    dropdownProducts: {
+      type: Array,
+      required: false
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['allProducts', 'salesOrder', 'contractPersonDetails']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['salesOrder', 'contractPersonDetails']), {
     totalProvision: function totalProvision() {
       var sum = 0;
       this.products.forEach(function (product) {
@@ -29850,7 +29870,10 @@ var render = function() {
         { staticClass: "col-md-6 products-col" },
         [
           _c("productForm", {
-            attrs: { products: _vm.products },
+            attrs: {
+              products: _vm.products,
+              "dropdown-products": _vm.productsToShow
+            },
             on: { addProduct: _vm.addProduct, deleteProduct: _vm.deleteProduct }
           })
         ],
@@ -30017,7 +30040,7 @@ var render = function() {
                   }
                 }
               },
-              _vm._l(_vm.allProducts, function(product) {
+              _vm._l(_vm.dropdownProducts, function(product) {
                 return _c(
                   "option",
                   { key: product.id, domProps: { value: product } },

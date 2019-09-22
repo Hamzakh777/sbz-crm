@@ -7,7 +7,7 @@ use Laravel\Scout\Searchable;
 
 class Document extends Model
 {
-    use Searchable;
+    // use Searchable;
     
     protected $table = 'documents';
 

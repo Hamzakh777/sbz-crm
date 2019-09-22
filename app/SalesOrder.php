@@ -9,7 +9,7 @@ use Laravel\Scout\Searchable;
 
 class SalesOrder extends Model
 {
-    use Searchable;
+    // use Searchable;
     use Cloneable;
     
     /**

@@ -9,7 +9,7 @@
                     :class="{'form-control--error': $v.product$error }"
                 >
                     <option 
-                        v-for="product in allProducts" 
+                        v-for="product in dropdownProducts" 
                         :value="product" 
                         :key="product.id"
                     >
@@ -72,11 +72,15 @@
             isEditAdd: {
                 type: Boolean,
                 default: true,
+            },
+            dropdownProducts: {
+                type: Array,
+                required: false,
             }
         },
 
         computed: {
-            ...mapGetters(['allProducts', 'salesOrder', 'contractPersonDetails']),
+            ...mapGetters(['salesOrder', 'contractPersonDetails']),
 
             totalProvision() {
                 let sum = 0;
