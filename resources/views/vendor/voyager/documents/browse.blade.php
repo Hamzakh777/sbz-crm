@@ -271,7 +271,7 @@
                                                 <a 
                                                     href="{{route('voyager.documents.preview', ['id' => $data->id])}}" 
                                                     title="download" 
-                                                    
+                                                    target="_blank"
                                                     class="btn btn-download btn-sm btn-warning pull-right view">
                                                     <i class="voyager-eye"></i> 
                                                     <span class="hidden-xs hidden-sm">{{ __('voyager::generic.view') }}</span>

@@ -168,6 +168,7 @@ return [
          * Package Service Providers...
          */
         KgBot\LaravelLocalization\LaravelLocalizationServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -230,6 +231,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        // packages
+        'PDF' => Barryvdh\DomPDF\Facade::class
     ],
 
 ];

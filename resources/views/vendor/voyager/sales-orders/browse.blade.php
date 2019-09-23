@@ -90,7 +90,7 @@
                 <div class="panel panel-bordered panel-primary">
                     <div class="panel-heading">
                         {{-- appointments filter --}}
-                        <h3 class="panel-title panel-icon"><i class="voyager-search"></i>{{ __('voyager::sales_orders.title') }}</h3>
+                        <h3 class="panel-title panel-icon"><i class="voyager-company"></i>{{ __('voyager::sales_orders.title') }}</h3>
                         <div class="panel-actions">
                             <a class="panel-action voyager-angle-up" data-toggle="panel-collapse" aria-hidden="true"></a>
                         </div>

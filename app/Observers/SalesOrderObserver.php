@@ -39,6 +39,7 @@ class SalesOrderObserver
         $salesOrder->comments()->delete();
         $salesOrder->compensation()->delete();
         $salesOrder->people()->delete();
+        $salesOrder->documents()->delete();
     }
 
     /**
