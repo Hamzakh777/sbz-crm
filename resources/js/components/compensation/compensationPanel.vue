@@ -49,6 +49,7 @@
                             @input="setSelected"
                             :filterable="false"
                             :options="salesOrdersIdsList"
+                            :class="{'v-select--error': $v.compensation.salesOrder.id.$error }"
                             @search="fetchSalesOrders">
                         </vSelect>
                         <div v-if="$v.compensation.salesOrder.id.$error && !$v.compensation.salesOrder.id.required">
@@ -249,14 +250,8 @@
                         class="form-control" 
                         v-model="compensation.salesCompensationFeedback"
                         cols="30" 
-                        :class="{'form-control--error': $v.compensation.salesCompensationFeedback.$error }"
                         rows="5">
                     </textarea>
-                    <div v-if="$v.compensation.salesCompensationFeedback.$error">
-                        <span class="error-text" v-if="!$v.compensation.salesCompensationFeedback.required">
-                            {{ trans.get('validation_js.required') }}
-                        </span>
-                    </div>
                 </div>
             </div>
         </template>
@@ -316,7 +311,7 @@
              * is calculated using the sales order people products,
              * Thus we need to watch if the products change so we can recalculate it,
              * yes we could have used a computed property for this, but we need the value 
-             * to be also stored in the backend, that's why we test again 0 since its the 
+             * to be also stored in the backend, that's why we test against 0 since its the 
              * default one
              */
             'compensation.salesOrder.people': function(newVal, oldVal) {
@@ -344,6 +339,7 @@
                     if(people !== null && this.compensation.totalSalesCompensation === 0) {
                         const sum = this.calcSumOfProducts(people, 'compensation');
                         this.setTotalSalesCompensations(sum);
+
                     }
                 } catch (error) {
                     console.log(error);
@@ -401,7 +397,6 @@
             return {
                 search: null,
                 salesOrdersIdsList: [],
-
             }
         },
 
@@ -409,9 +404,6 @@
             if(this.salesOrderPage) {
                 return {
                     compensation: {
-                        salesCompensationFeedback: {
-                            required
-                        },
                         insuranceId: {
                             required
                         }
@@ -424,9 +416,6 @@
                         minValue: minValue(1)
                     },
                     compensation: {
-                        salesCompensationFeedback: {
-                            required
-                        },
                         insuranceId: {
                             required
                         },

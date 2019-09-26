@@ -139,6 +139,7 @@ return [
     'document'               => 'Document',
     'documents'              => 'Documents',
     'sales_orders'           => 'Sales orders',
+    'sales_agent'            => 'Sales agent',
     'users'                  => 'Users',
     'tasks_collections'      => 'Tasks collections'
 ];

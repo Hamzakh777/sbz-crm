@@ -4804,11 +4804,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 
@@ -4846,7 +4841,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
      * is calculated using the sales order people products,
      * Thus we need to watch if the products change so we can recalculate it,
      * yes we could have used a computed property for this, but we need the value 
-     * to be also stored in the backend, that's why we test again 0 since its the 
+     * to be also stored in the backend, that's why we test against 0 since its the 
      * default one
      */
     'compensation.salesOrder.people': function compensationSalesOrderPeople(newVal, oldVal) {
@@ -4934,9 +4929,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     if (this.salesOrderPage) {
       return {
         compensation: {
-          salesCompensationFeedback: {
-            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_6__["required"]
-          },
           insuranceId: {
             required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_6__["required"]
           }
@@ -4949,9 +4941,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           minValue: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_6__["minValue"])(1)
         },
         compensation: {
-          salesCompensationFeedback: {
-            required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_6__["required"]
-          },
           insuranceId: {
             required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_6__["required"]
           },
@@ -32499,6 +32488,10 @@ var render = function() {
                       "div",
                       [
                         _c("vSelect", {
+                          class: {
+                            "v-select--error":
+                              _vm.$v.compensation.salesOrder.id.$error
+                          },
                           attrs: {
                             value: _vm.compensation.salesOrder.id,
                             filterable: false,
@@ -33040,10 +33033,6 @@ var render = function() {
                     }
                   ],
                   staticClass: "form-control",
-                  class: {
-                    "form-control--error":
-                      _vm.$v.compensation.salesCompensationFeedback.$error
-                  },
                   attrs: { cols: "30", rows: "5" },
                   domProps: {
                     value: _vm.compensation.salesCompensationFeedback
@@ -33060,23 +33049,7 @@ var render = function() {
                       )
                     }
                   }
-                }),
-                _vm._v(" "),
-                _vm.$v.compensation.salesCompensationFeedback.$error
-                  ? _c("div", [
-                      !_vm.$v.compensation.salesCompensationFeedback.required
-                        ? _c("span", { staticClass: "error-text" }, [
-                            _vm._v(
-                              "\n                        " +
-                                _vm._s(
-                                  _vm.trans.get("validation_js.required")
-                                ) +
-                                "\n                    "
-                            )
-                          ])
-                        : _vm._e()
-                    ])
-                  : _vm._e()
+                })
               ])
             ])
           ]

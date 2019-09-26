@@ -11,6 +11,9 @@ use KgBot\LaravelLocalization\Facades\ExportLocalizations;
 
 Auth::routes(['register' => false]);
 
+// generating the compensation overview pdf
+Route::get('/compensations/overview', 'Compensations\CompensationsOverviewPdfController@index');
+
 Voyager::routes();
 
 Route::group(['as' => 'voyager.'], function () {
@@ -34,6 +37,7 @@ Route::group(['as' => 'voyager.'], function () {
 
         // document preview link
         Route::get('documents/{id}/preview', 'Documents\DocumentsPreviewController@show')->name('documents.preview');
+
         event(new RoutingAdminAfter());
     });
 
