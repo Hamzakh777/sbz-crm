@@ -30,7 +30,6 @@ class StoreCompensations extends FormRequest
             'insuranceProvisionPeriodPlanCompleted' => 'required',
             'totalProvisionPaid' => 'required',
             'payoutRate' => 'required',
-            'salesCompensationFeedback' => 'required',
             'salesCompensationPeriodPlanMonth' => 'required',
             'salesCompensationPeriodPlanYear' => 'required',
             'salesCompensationPeriodPlanCompleted' => 'required',

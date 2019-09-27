@@ -25,7 +25,7 @@ class SalesOrder extends Model
     /**
      * Fields that should be instances of Carbon
      */
-    protected $dates = ['contract_duration_VVG', 'contract_duration_KVG', 'insurance_submitted_date'];
+    protected $dates = ['contract_start_KVG', 'contract_start_VVG', 'insurance_submitted_date', 'contract_sign_date'];
 
     /**
      * The relationships that should always be loaded.

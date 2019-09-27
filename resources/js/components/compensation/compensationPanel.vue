@@ -339,7 +339,6 @@
                     if(people !== null && this.compensation.totalSalesCompensation === 0) {
                         const sum = this.calcSumOfProducts(people, 'compensation');
                         this.setTotalSalesCompensations(sum);
-
                     }
                 } catch (error) {
                     console.log(error);
