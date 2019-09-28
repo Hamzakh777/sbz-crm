@@ -54080,7 +54080,7 @@ Vue.use(vue_toasted__WEBPACK_IMPORTED_MODULE_9___default.a, {
 Vue.filter("changeDateFormat", function (value) {
   if (value != null) {
     var date = new Date(value);
-    var month = parseInt(date.getMonth()) + 1; // or some absurd reason it start counting months from 0
+    var month = parseInt(date.getMonth()) + 1; // for some absurd reason it start counting months from 0
 
     var day = date.getDate();
     var year = date.getFullYear();

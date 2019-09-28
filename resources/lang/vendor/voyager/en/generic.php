@@ -37,6 +37,8 @@ return [
     'clear_form'             => 'Clear form',
     'custom'                 => 'Custom',
     'contact'                => 'Contact',
+    'country'                => 'Country',
+    'city'                   => 'City',
     'dashboard'              => 'Dashboard',
     'date'                   => 'Date',
     'database'               => 'Database',
@@ -140,6 +142,7 @@ return [
     'whoopsie'               => 'Whoopsie!',
     'yes'                    => 'Yes',
     'yes_please'             => 'Yes, Please',
+    'zipcode'                => 'Zipcode',
 
     'document'               => 'Document',
     'documents'              => 'Documents',
