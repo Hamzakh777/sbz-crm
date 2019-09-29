@@ -63,7 +63,7 @@
 
             {{-- zip code city - compensation period from --}}
             <tr>
-                <td>{{ $zipcode !== 'null' ? $zipcode : '' }} {{ isset($city) ? $city : '' }}</td>
+                <td>{{ $zipcode !== 'null' ? $zipcode : '' }} {{ $city !== 'null' ? $city : '' }}</td>
                 <td></td>
             </tr>
 
