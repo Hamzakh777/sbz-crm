@@ -57,26 +57,26 @@
             </tr>
             {{-- street and number = bank iban --}}
             <tr>
-                <td>{{ $companyName }}</td>
+                <td>{{ $companyName !== 'null'? $companyName : '' }}</td>
                 <td>{{ __('voyager::generic.bank_IBAN') }}: @if(isset($salesAgent)) {{$salesAgent->bank_IBAN}} @endif</td>
             </tr>
 
             {{-- zip code city - compensation period from --}}
             <tr>
-                <td>{{ $zipcode }} {{ $city }}</td>
+                <td>{{ $zipcode !== 'null' ? $zipcode : '' }} {{ isset($city) ? $city : '' }}</td>
                 <td></td>
             </tr>
 
             {{-- country - compensation period from--}}
             <tr>
-                <td>{{ $country }}</td>
-                <td>test</td>
+                <td>{{ $country !== 'null' ? $country : '' }}</td>
+                <td>compensation period from</td>
             </tr>
 
             {{-- compensation period to --}}
             <tr>
                 <td></td>
-                <td>test</td>
+                <td>compensation period to</td>
             </tr>
 
             {{-- created user - compensation total volume --}}
