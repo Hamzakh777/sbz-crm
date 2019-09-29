@@ -59,12 +59,12 @@ class SalesOrderPeopleController extends Controller
         $person->last_name = $request->input('lastName');
         $person->gender = $request->input('gender');
         $person->police_number = $request->input('policeNumber');
-        // $person->birthday = Carbon::parse($request->input('birthday'))->addHour()->format('Y-m-d');
         $person->birthday = Carbon::createFromFormat('D M d Y H:i:s e+',$request->input('birthday'))->addHour()->format('Y-m-d');
         $person->sales_order_id = $request->input('salesOrderId');
         $person->document_id_path = $path;
         $products = json_decode($request->input('products'));
         
+
         $person->save();
 
         // we have to attach the products 
@@ -79,6 +79,7 @@ class SalesOrderPeopleController extends Controller
             $person->products()->attach($productsIds);
         }
 
+        dd($person->products->toArray());
         // then we need to save the product with the person
 
         return response()->json([

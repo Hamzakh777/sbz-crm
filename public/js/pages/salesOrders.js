@@ -55040,15 +55040,16 @@ var actions = {
               // }
 
               commit("addPerson", response.data.person);
-              _context2.next = 13;
+              _context2.next = 14;
               break;
 
             case 10:
               _context2.prev = 10;
               _context2.t0 = _context2["catch"](2);
+              state.isLoading = false;
               alert(_context2.t0);
 
-            case 13:
+            case 14:
             case "end":
               return _context2.stop();
           }
@@ -55079,19 +55080,28 @@ var actions = {
             case 0:
               commit = _ref3.commit;
               state.isLoading = true;
-              _context3.next = 4;
+              _context3.prev = 2;
+              _context3.next = 5;
               return axios["delete"]("/api/sales-order-people/".concat(id));
 
-            case 4:
+            case 5:
               state.isLoading = false;
               commit('deletePerson', id);
+              _context3.next = 13;
+              break;
 
-            case 6:
+            case 9:
+              _context3.prev = 9;
+              _context3.t0 = _context3["catch"](2);
+              state.isLoading = false;
+              console.log(_context3.t0);
+
+            case 13:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3);
+      }, _callee3, null, [[2, 9]]);
     }));
 
     function deletePerson(_x4, _x5) {

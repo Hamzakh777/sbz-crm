@@ -44,6 +44,7 @@ const actions = {
             // }
             commit("addPerson", response.data.person);
         } catch (error) {
+            state.isLoading = false;
             alert(error);
         }
     },
@@ -55,11 +56,16 @@ const actions = {
      */
     async deletePerson({commit}, id) {
         state.isLoading = true;
-        await axios.delete(`/api/sales-order-people/${id}`);
-
-        state.isLoading = false;
-
-        commit('deletePerson', id);
+        try {
+            await axios.delete(`/api/sales-order-people/${id}`);
+    
+            state.isLoading = false;
+    
+            commit('deletePerson', id);
+        } catch (error) {
+            state.isLoading = false;
+            console.log(error);
+        }
     },
 };
 

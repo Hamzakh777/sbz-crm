@@ -23,7 +23,7 @@ class ContractPerson extends JsonResource
             'salesOrderId' => $this->sales_order_id,
             'documentIdPath' => $this->document_id_path,
             'birthday'      => $this->birthday,
-            'products'  => $this->products
+            'products'  => $this->products()
         ];
     }
 }

@@ -36,7 +36,18 @@ class ContractPersonObserver
      */
     public function deleted(ContractPerson $contractPerson)
     {
-        //
+        // remove the associated products
+        $contractPerson->products()->detach();
+
+        // delete the associated document
+        if (isset($contractPerson->path)) {
+            // delete the associated file
+            $path = $contractPerson->path;
+            $fileExists = Storage::disk('spaces')->exists($path);
+            if ($fileExists) {
+                Storage::disk('spaces')->delete($path);
+            }
+        } 
     }
 
     /**

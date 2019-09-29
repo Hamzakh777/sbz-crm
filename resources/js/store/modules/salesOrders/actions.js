@@ -15,10 +15,10 @@ const actions = {
         }
     },
 
-    async storeSalesOrder({ commit }) {
+    storeSalesOrder({ commit }) {
         try {
             state.showContractLoader = true;
-            await setTimeout(() => {
+            setTimeout(() => {
                 const response = axios.post('/api/sales-orders', state.salesOrder);
                 state.showContractLoader = false;
             }, 4000);
