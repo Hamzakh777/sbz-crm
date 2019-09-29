@@ -32,5 +32,10 @@ class AppServiceProvider extends ServiceProvider
         SalesOrder::observe(SalesOrderObserver::class);
         Document::observe(DocumentObserver::class);
         ContractPerson::observe(ContractPersonObserver::class);
+
+        // use https
+        if (env('APP_ENV') == ('production')) {
+            $this->app['request']->server->set('HTTPS', 'on');
+        }
     }
 }
