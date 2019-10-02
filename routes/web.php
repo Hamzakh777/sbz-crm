@@ -38,6 +38,8 @@ Route::group(['as' => 'voyager.'], function () {
         // document preview link
         Route::get('documents/{id}/preview', 'Documents\DocumentsPreviewController@show')->name('documents.preview');
 
+        // reports page
+        Route::get('reports', 'Reports\ReportsPageController@index');
         event(new RoutingAdminAfter());
     });
 

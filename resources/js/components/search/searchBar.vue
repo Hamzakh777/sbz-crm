@@ -72,8 +72,8 @@
         data() {
             return {
                 searchClient: algoliasearch(
-                    'LTUJ91APSO',
-                    '453b545427930f6194b4701c5b537fd8'
+                    process.env.MIX_ALGOLIA_APPLICATION_ID,
+                    process.env.MIX_ALGOLIA_SEARCH_API_KEY
                 ),
                 query: '',
                 selectedIndex: 'sales_orders',

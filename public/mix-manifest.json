@@ -3,6 +3,7 @@
     "/css/vendor/app.css": "/css/vendor/app.css",
     "/css/app.css": "/css/app.css",
     "/js/pages/compensations.js": "/js/pages/compensations.js",
+    "/js/pages/reports.js": "/js/pages/reports.js",
     "/js/pages/salesOrders.js": "/js/pages/salesOrders.js",
     "/js/pages/tasks.js": "/js/pages/tasks.js",
     "/js/pages/users.js": "/js/pages/users.js",
