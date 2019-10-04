@@ -12,7 +12,7 @@
             <ReportsCard 
                 :title="'reports.sales_orders_processing'"
                 :value="1000"
-                :color="'#f39c12'"
+                :color="'#4e73df'"
             >
             </ReportsCard>
         </div>

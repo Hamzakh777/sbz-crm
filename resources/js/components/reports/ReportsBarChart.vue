@@ -78,5 +78,5 @@ export default {
 <style scoped lang="sass">
 .chart
     width: 100%
-    
+    padding: 0
 </style>

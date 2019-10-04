@@ -6,11 +6,14 @@
                 <!-- Sales Order Status -->
                 <reports-panel 
                     :timeFrames="['quarter', 'half_year', 'year']"
+                    :title="'reports.sales_orders_by_status'"
                 >
                 </reports-panel>
 
-                <!-- Sales Order Status All Sales Agent -->
-                
+            </div>
+            <!-- Sales Order Status All Sales Agent -->
+            <div class="col-md-8">
+                <ReportsSalesOrdersAgents></ReportsSalesOrdersAgents>
             </div>
         </div>
     </div>
@@ -19,13 +22,15 @@
 <script>
     import ReportsPanel from './ReportsPanel';
     import ReportsSalesOBS from './ReportsSalesOrdersByStatus';
+    import ReportsSalesOrdersAgents from './ReportsSalesOrdersAgents';
 
     export default {
         name: 'TheReports',
 
         components: {
             ReportsPanel,
-            ReportsSalesOBS
+            ReportsSalesOBS,
+            ReportsSalesOrdersAgents
         }
     }
 </script>

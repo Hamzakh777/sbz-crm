@@ -1,10 +1,10 @@
 <template>
     <div class="panel panel-primary panelbordered">
         <BaseLoader v-if="isLoading"></BaseLoader>
-        <div class="panel-body mt-2">
+        <div class="panel-body">
             <div class="panel__body__top">
                 <h4 class="panel__title">
-                    {{ trans.get('reports.total_sales_orders_for_each_agent') }}
+                    {{ trans.get(title) }}
                 </h4>
                 <select
                     @change="setTimeFrame"
@@ -40,6 +40,10 @@
         props: {
             timeFrames: {
                 type: Array,
+                required: true
+            },
+            title: {
+                type: String,
                 required: true
             }
         },
@@ -86,6 +90,7 @@
             flex-direction: row
             justify-content: space-between
             width: 100%
+            maring-bottom: 0.625em
 
     &__title 
         font-size: 14px

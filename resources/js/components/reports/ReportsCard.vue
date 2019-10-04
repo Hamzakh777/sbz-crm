@@ -43,7 +43,7 @@
     border-left-style: solid
     padding: 0.875em 1em
     box-shadow: 0px 2px 10px rgba(0,0,0,0.08)
-    border-radius: 4px
+    border-radius: 3px
 
     &__title 
         font-size: 14px

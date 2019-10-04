@@ -1,77 +1,31 @@
 <template>
     <div class="panel panel-primary panelbordered">
-        <BaseLoader v-if="isLoading"></BaseLoader>
         <div class="panel-body mt-2">
             <div class="panel__body__top">
                 <h4 class="panel__title">
-                    {{ trans.get('reports.total_sales_orders_for_each_agent') }}
+                    {{ trans.get(title) }}
                 </h4>
-                <select
-                    @change="setTimeFrame"
-                    class="panel__select"
-                >
-                    <option 
-                        v-for="(timeFrame, index) in timeFrames"
-                        :value="timeFrame" 
-                        :key="index"
-                        :selected="index === 0"
-                    >
-                        {{ trans.get(`reports.${timeFrame}`) }}
-                    </option>
-                </select>
+                <div>
+                    <slot name="headLeft"></slot>
+                </div>
             </div>
-            <ReportsBarChart>
-                
-            </ReportsBarChart>
+            <slot name="body"></slot>
         </div>
     </div>
 </template>
 
 <script>
-    import ReportsBarChart from './ReportsBarChart';
-    import BaseLoader from '../baseComponents/BaseLoader';
 
-    // I want to be using the same reports panel multiple times to 
-    // generate different chart for different types of data
-    // Thus, I need a prop
     export default {
-        name: 'ReportsPanel',
+        name: 'BaseReportsPanel',
 
         props: {
-            timeFrames: {
-                type: Array,
+            // this is laravel localisation string key
+            title: {
+                type: String,
                 required: true
             }
-        },
-
-        components: {
-            ReportsBarChart,
-            BaseLoader
-        },
-
-        data() {
-            return {
-                timeFrame: this.timeFrames.length ? this.timeFrames[0].id : null,
-                isLoading: false,
-            }
-        },
-
-        methods: {
-            setTimeFrame(e) {
-                console.log(e.target.value);
-                // this.timeFrame = 
-            },
-
-            async fetchData() {
-                this.isLoading = true;
-                try {
-                    const response = await axios.get();
-
-                } catch(error) {
-                    console.error(error);
-                }
-            }
-        },
+        }
     }
 </script>
 
