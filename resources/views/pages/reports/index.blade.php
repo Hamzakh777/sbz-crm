@@ -12,7 +12,7 @@
 
 @section('content')
     <div class="page-content browse container-fluid" id='app'>
-        testing babe
+        <the-reports></the-reports>
     </div>
 @stop
 

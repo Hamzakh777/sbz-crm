@@ -26,11 +26,13 @@
   "dependencies": {
     "algoliasearch": "^3.34.0",
     "bootstrap-vue": "^2.0.0",
+    "chart.js": "^2.8.0",
     "instantsearch.css": "^7.3.1",
     "lang.js": "^1.1.14",
     "laravel-vue-pagination": "^2.3.0",
     "portal-vue": "^2.1.6",
     "vue-autosuggest": "^2.0.2",
+    "vue-chartjs": "^3.4.2",
     "vue-instantsearch": "^2.4.0",
     "vue-js-modal": "^1.3.31",
     "vue-js-toggle-button": "^1.3.2",
