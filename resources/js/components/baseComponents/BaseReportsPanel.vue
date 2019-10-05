@@ -1,5 +1,8 @@
 <template>
-    <div class="panel panel-primary panelbordered">
+    <div 
+        class="panel panel-primary panelbordered"
+        :class="additionalClasses"
+    >
         <div class="panel-body mt-2">
             <div class="panel__body__top">
                 <h4 class="panel__title">
@@ -24,6 +27,11 @@
             title: {
                 type: String,
                 required: true
+            },
+
+            additionalClasses: {
+                type: Array,
+                required: false
             }
         }
     }
@@ -32,6 +40,10 @@
 <style lang="sass" scoped>
 .panel
     padding: 1.25em
+
+    &--transparent
+        background-color: transparent
+        box-shadow: none
 
     &__body
 

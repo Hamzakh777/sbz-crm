@@ -2,6 +2,9 @@
     <div>
         <ReportsSalesOBS></ReportsSalesOBS>
         <div class="row">
+            <ReportsRevenueLineChart></ReportsRevenueLineChart>
+        </div>
+        <div class="row">
             <div class="col-md-4">
                 <!-- Sales Order Status -->
                 <reports-panel 
@@ -23,6 +26,7 @@
     import ReportsPanel from './ReportsPanel';
     import ReportsSalesOBS from './ReportsSalesOrdersByStatus';
     import ReportsSalesOrdersAgents from './ReportsSalesOrdersAgents';
+    import ReportsRevenueLineChart from './revenue/ReportsRevenueLineChart';
 
     export default {
         name: 'TheReports',
@@ -30,7 +34,8 @@
         components: {
             ReportsPanel,
             ReportsSalesOBS,
-            ReportsSalesOrdersAgents
+            ReportsSalesOrdersAgents,
+            ReportsRevenueLineChart
         }
     }
 </script>

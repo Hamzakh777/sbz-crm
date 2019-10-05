@@ -10,6 +10,7 @@ return [
     'sales_orders_entry'                         => 'Sales orders: Entry',
     'sales_orders_processing'                    => 'Sales orders: Porcessing',
     'sales_orders_closing'                       => 'Sales orders: Closing',
+    'revenue'                                    => 'Revenue',
     'quarter'                                    => 'Quarter',
     'year'                                       => 'Year',
     'half_year'                                  => 'Half year',
