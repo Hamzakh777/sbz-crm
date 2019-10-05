@@ -3,6 +3,14 @@
         :additionalClasses="['panel--transparent']"
         :title="'reports.revenue'"
     >
+        <template #headLeft>
+            <div>
+                <BaseReportsDropdown
+                    :timeFrames="['quarter', 'half_year', 'year']"
+                    @select-changed="setTimeframe"
+                ></BaseReportsDropdown>
+            </div>
+        </template>
         <template #body>
             <div class="line-chart">
                 <BaseLineChart
@@ -16,21 +24,24 @@
 </template>
 
 <script>
-    import BaseReportsPanel from '../../baseComponents/BaseReportsPanel';
-    import BaseLineChart from '../../baseComponents/BaseLineChart';
+    import BaseReportsPanel from '../baseComponents/BaseReportsPanel';
+    import BaseLineChart from '../baseComponents/BaseLineChart';
+    import BaseReportsDropdown from '../baseComponents/BaseReportsDropdown';
 
     export default {
         name: 'ReportsRevenueLineChart',
 
         components: {
             BaseReportsPanel,
-            BaseLineChart
+            BaseLineChart,
+            BaseReportsDropdown
         },
 
         computed: {
             chartData() {
                 let labels = [];
                 let data = [];
+                let data2 = [];
                 // const object = this.DataToLoad;
 
                 // for (const key in object) {
@@ -44,14 +55,23 @@
 
                 labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
                 data = [12, 2, 5, 10, 9, 3, 6, 24, 4, 10, 2, 5];
+                data2 = [24, 4, 10, 2, 5, 10, 9, 3, 6, 12, 1, 4];
 
                 return {
                     labels,
                     datasets: [
                     {
                         label: this.label,
-                        backgroundColor: this.backgroundColor,
+                        // backgroundColor: this.backgroundColor,
+                        backgroundColor: 'transparent',
+                        borderColor: '#4e73df',
                         data
+                    },
+                    {
+                        label: this.label,
+                        borderColor: '#2ecc71',
+                        backgroundColor: 'transparent',
+                        data: data2
                     }
                     ]
                 };
@@ -63,6 +83,18 @@
                     },
                     maintainAspectRatio: false
                 }
+            }
+        },
+
+        data() {
+            return {
+                timeframe: null,
+            }
+        },
+
+        methods: {
+            setTimeframe(value) {
+                this.timeframe = value;
             }
         },
 

@@ -52,7 +52,7 @@
 </template>
 
 <script>
-    import BaseReportsPanel from '../baseComponents/BaseReportsPanel';
+    import BaseReportsPanel from './baseComponents/BaseReportsPanel';
 
     export default {
         name: 'ReportsSalesOrdersAgents',

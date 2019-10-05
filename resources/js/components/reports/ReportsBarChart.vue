@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import BaseChartBar from '../baseComponents/BaseChartBar';
+import BaseChartBar from './baseComponents/BaseChartBar';
 
 export default {
     name: 'ReportsChart',
