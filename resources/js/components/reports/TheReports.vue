@@ -19,6 +19,11 @@
                 <ReportsSalesOrdersAgents></ReportsSalesOrdersAgents>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-4">
+                <ReportsOpenRevenue></ReportsOpenRevenue>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -27,6 +32,7 @@
     import ReportsSalesOBS from './ReportsSalesOrdersByStatus';
     import ReportsSalesOrdersAgents from './ReportsSalesOrdersAgents';
     import ReportsRevenueLineChart from './revenue/ReportsRevenueLineChart';
+    import ReportsOpenRevenue from './revenue/ReportsOpenRevenueShare';
 
     export default {
         name: 'TheReports',
@@ -35,7 +41,8 @@
             ReportsPanel,
             ReportsSalesOBS,
             ReportsSalesOrdersAgents,
-            ReportsRevenueLineChart
+            ReportsRevenueLineChart,
+            ReportsOpenRevenue
         }
     }
 </script>

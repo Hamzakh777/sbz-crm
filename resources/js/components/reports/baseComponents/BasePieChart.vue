@@ -1,7 +1,7 @@
 <script>
 import { Pie, mixins } from "vue-chartjs";
 const { reactiveProp } = mixins;
-import ChartDataLabels from 'chartjs-plugin-datalabels';
+import ChartDataLabels from "chartjs-plugin-datalabels";
 
 export default {
   extends: Pie,

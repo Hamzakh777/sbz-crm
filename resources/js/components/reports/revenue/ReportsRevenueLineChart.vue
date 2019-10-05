@@ -27,9 +27,12 @@
     import BaseReportsPanel from '../baseComponents/BaseReportsPanel';
     import BaseLineChart from '../baseComponents/BaseLineChart';
     import BaseReportsDropdown from '../baseComponents/BaseReportsDropdown';
+    import ReportsTimeframeMixin from '../../../mixins/reports/ReportsTimeframeMixin';
 
     export default {
         name: 'ReportsRevenueLineChart',
+
+        mixins: [ReportsTimeframeMixin],
 
         components: {
             BaseReportsPanel,
@@ -88,14 +91,11 @@
 
         data() {
             return {
-                timeframe: null,
             }
         },
 
         methods: {
-            setTimeframe(value) {
-                this.timeframe = value;
-            }
+
         },
 
     }
