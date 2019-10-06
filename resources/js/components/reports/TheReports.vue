@@ -7,11 +7,9 @@
         <div class="row">
             <div class="col-md-4">
                 <!-- Sales Order Status -->
-                <reports-panel 
-                    :timeFrames="['quarter', 'half_year', 'year']"
-                    :title="'reports.sales_orders_by_status'"
+                <ReportsSalesOrdersByStatusChart
                 >
-                </reports-panel>
+                </ReportsSalesOrdersByStatusChart>
 
             </div>
             <!-- Sales Order Status All Sales Agent -->
@@ -20,29 +18,36 @@
             </div>
         </div>
         <div class="row">
+            <!-- reports open revenue - pie chart -->
             <div class="col-md-4">
                 <ReportsOpenRevenue></ReportsOpenRevenue>
+            </div>
+            <!-- sales order by status for each insurance - table  -->
+            <div class="col-md-8">
+                <ReportsSOSPI></ReportsSOSPI>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    import ReportsPanel from './ReportsPanel';
+    import ReportsSalesOrdersByStatusChart from './ReportsSalesOrdersByStatusChart';
     import ReportsSalesOBS from './ReportsSalesOrdersByStatus';
     import ReportsSalesOrdersAgents from './ReportsSalesOrdersAgents';
     import ReportsRevenueLineChart from './revenue/ReportsRevenueLineChart';
     import ReportsOpenRevenue from './revenue/ReportsOpenRevenueShare';
+    import ReportsSOSPI from './insurance/ReportsSalesOrdersStatusPerInsurance';
 
     export default {
         name: 'TheReports',
 
         components: {
-            ReportsPanel,
+            ReportsSalesOrdersByStatusChart,
             ReportsSalesOBS,
             ReportsSalesOrdersAgents,
             ReportsRevenueLineChart,
-            ReportsOpenRevenue
+            ReportsOpenRevenue,
+            ReportsSOSPI
         }
     }
 </script>

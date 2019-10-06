@@ -7,5 +7,7 @@ use App\Http\Controllers\Controller;
 
 class ReportsSalesOrdersController extends Controller
 {
-    //
+    public function index(Request $request) {
+        
+    }
 }

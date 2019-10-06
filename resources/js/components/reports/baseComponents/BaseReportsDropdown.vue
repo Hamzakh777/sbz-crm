@@ -4,7 +4,7 @@
         class="panel__select"
     >
         <option 
-            v-for="(timeframe, index) in timeFrames"
+            v-for="(timeframe, index) in timeframes"
             :value="timeframe" 
             :key="index"
             :selected="index === 0"
@@ -21,7 +21,7 @@
         name: 'BaseReportsDropdown',
 
         props: {
-            timeFrames: {
+            timeframes: {
                 type: Array,
                 required: true
             }
@@ -29,7 +29,7 @@
 
         data() {
             return {
-                timeframe: this.timeFrames.length ? this.timeFrames[0] : null
+                timeframe: this.timeframes.length ? this.timeframes[0] : null
             }
         },
 

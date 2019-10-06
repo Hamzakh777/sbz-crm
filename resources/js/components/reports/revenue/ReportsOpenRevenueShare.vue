@@ -4,7 +4,7 @@
     >
         <template #headLeft>
             <BaseReportsDropdown
-                :timeFrames="timeFrames"
+                :timeframes="timeframes"
                 @select-changed="setTimeframe"
             >
             </BaseReportsDropdown>
@@ -95,7 +95,7 @@
 
         data() {
             return {
-                timeFrames: ['month', 'quarter', 'half_year', 'year']
+                timeframes: ['month', 'quarter', 'half_year', 'year']
             }
         },
     }

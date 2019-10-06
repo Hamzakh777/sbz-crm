@@ -1,71 +1,48 @@
 <template>
-    <div class="panel panel-primary panelbordered">
-        <BaseLoader v-if="isLoading"></BaseLoader>
-        <div class="panel-body">
-            <div class="panel__body__top">
-                <h4 class="panel__title">
-                    {{ trans.get(title) }}
-                </h4>
-                <select
-                    @change="setTimeFrame"
-                    class="panel__select"
-                >
-                    <option 
-                        v-for="(timeFrame, index) in timeFrames"
-                        :value="timeFrame" 
-                        :key="index"
-                        :selected="index === 0"
-                    >
-                        {{ trans.get(`reports.${timeFrame}`) }}
-                    </option>
-                </select>
-            </div>
+    <BaseReportsPanel
+        :title="'reports.sales_orders_by_status'"
+    >
+        <template #headLeft>
+            <BaseReportsDropdown
+                :timeframes="timeframes"
+                @select-changed="setTimeframe"
+            >    
+            </BaseReportsDropdown>
+        </template>
+        <template #body>
             <ReportsBarChart>
-                
             </ReportsBarChart>
-        </div>
-    </div>
+        </template>
+    </BaseReportsPanel>
 </template>
 
 <script>
     import ReportsBarChart from './ReportsBarChart';
+    import BaseReportsPanel from './baseComponents/BaseReportsPanel';
+    import BaseReportsDropdown from './baseComponents/BaseReportsDropdown';
     import BaseLoader from '../baseComponents/BaseLoader';
+    import ReportsTimeframeMixin from '../../mixins/reports/ReportsTimeframeMixin';
 
-    // I want to be using the same reports panel multiple times to 
-    // generate different chart for different types of data
-    // Thus, I need a prop
     export default {
-        name: 'ReportsPanel',
+        name: 'ReportsSalesOrdersByStatusChart',
 
-        props: {
-            timeFrames: {
-                type: Array,
-                required: true
-            },
-            title: {
-                type: String,
-                required: true
-            }
-        },
+        mixins: [ReportsTimeframeMixin],
 
         components: {
             ReportsBarChart,
+            BaseReportsPanel,
+            BaseReportsDropdown,
             BaseLoader
         },
 
         data() {
             return {
-                timeFrame: this.timeFrames.length ? this.timeFrames[0].id : null,
+                timeframes: ['quarter', 'half_year', 'year'],
                 isLoading: false,
             }
         },
 
         methods: {
-            setTimeFrame(e) {
-                console.log(e.target.value);
-                // this.timeFrame = 
-            },
-
             async fetchData() {
                 this.isLoading = true;
                 try {

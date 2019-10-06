@@ -6,7 +6,7 @@
         <template #headLeft>
             <div>
                 <BaseReportsDropdown
-                    :timeFrames="['quarter', 'half_year', 'year']"
+                    :timeframes="['quarter', 'half_year', 'year']"
                     @select-changed="setTimeframe"
                 ></BaseReportsDropdown>
             </div>
