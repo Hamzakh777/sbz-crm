@@ -1979,19 +1979,12 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _ReportsBarChart__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ReportsBarChart */ "./resources/js/components/reports/ReportsBarChart.vue");
-/* harmony import */ var _baseComponents_BaseReportsPanel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./baseComponents/BaseReportsPanel */ "./resources/js/components/reports/baseComponents/BaseReportsPanel.vue");
-/* harmony import */ var _baseComponents_BaseReportsDropdown__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./baseComponents/BaseReportsDropdown */ "./resources/js/components/reports/baseComponents/BaseReportsDropdown.vue");
-/* harmony import */ var _baseComponents_BaseLoader__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../baseComponents/BaseLoader */ "./resources/js/components/baseComponents/BaseLoader.vue");
-/* harmony import */ var _mixins_reports_ReportsTimeframeMixin__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../mixins/reports/ReportsTimeframeMixin */ "./resources/js/mixins/reports/ReportsTimeframeMixin.js");
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
+/* harmony import */ var _ReportsBarChart__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ReportsBarChart */ "./resources/js/components/reports/ReportsBarChart.vue");
+/* harmony import */ var _baseComponents_BaseReportsPanel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./baseComponents/BaseReportsPanel */ "./resources/js/components/reports/baseComponents/BaseReportsPanel.vue");
+/* harmony import */ var _baseComponents_BaseReportsDropdown__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./baseComponents/BaseReportsDropdown */ "./resources/js/components/reports/baseComponents/BaseReportsDropdown.vue");
+/* harmony import */ var _baseComponents_BaseLoader__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../baseComponents/BaseLoader */ "./resources/js/components/baseComponents/BaseLoader.vue");
+/* harmony import */ var _mixins_reports_ReportsTimeframeMixin__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../mixins/reports/ReportsTimeframeMixin */ "./resources/js/mixins/reports/ReportsTimeframeMixin.js");
+//
 //
 //
 //
@@ -2017,58 +2010,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ReportsSalesOrdersByStatusChart',
-  mixins: [_mixins_reports_ReportsTimeframeMixin__WEBPACK_IMPORTED_MODULE_5__["default"]],
+  mixins: [_mixins_reports_ReportsTimeframeMixin__WEBPACK_IMPORTED_MODULE_4__["default"]],
   components: {
-    ReportsBarChart: _ReportsBarChart__WEBPACK_IMPORTED_MODULE_1__["default"],
-    BaseReportsPanel: _baseComponents_BaseReportsPanel__WEBPACK_IMPORTED_MODULE_2__["default"],
-    BaseReportsDropdown: _baseComponents_BaseReportsDropdown__WEBPACK_IMPORTED_MODULE_3__["default"],
-    BaseLoader: _baseComponents_BaseLoader__WEBPACK_IMPORTED_MODULE_4__["default"]
+    ReportsBarChart: _ReportsBarChart__WEBPACK_IMPORTED_MODULE_0__["default"],
+    BaseReportsPanel: _baseComponents_BaseReportsPanel__WEBPACK_IMPORTED_MODULE_1__["default"],
+    BaseReportsDropdown: _baseComponents_BaseReportsDropdown__WEBPACK_IMPORTED_MODULE_2__["default"],
+    BaseLoader: _baseComponents_BaseLoader__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   data: function data() {
     return {
       timeframes: ['quarter', 'half_year', 'year'],
-      isLoading: false
+      routeUrl: '/api/reports/sales-orders'
     };
-  },
-  methods: {
-    fetchData: function () {
-      var _fetchData = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var response;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                this.isLoading = true;
-                _context.prev = 1;
-                _context.next = 4;
-                return axios.get();
-
-              case 4:
-                response = _context.sent;
-                _context.next = 10;
-                break;
-
-              case 7:
-                _context.prev = 7;
-                _context.t0 = _context["catch"](1);
-                console.error(_context.t0);
-
-              case 10:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, this, [[1, 7]]);
-      }));
-
-      function fetchData() {
-        return _fetchData.apply(this, arguments);
-      }
-
-      return fetchData;
-    }()
   }
 });
 
@@ -56976,7 +56929,11 @@ var render = function() {
       {
         key: "body",
         fn: function() {
-          return [_c("ReportsBarChart")]
+          return [
+            _vm.isLoading ? _c("BaseLoader") : _vm._e(),
+            _vm._v(" "),
+            _c("ReportsBarChart")
+          ]
         },
         proxy: true
       }
@@ -70798,14 +70755,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var reportsTimeframeMixin = {
   watch: {
     timeframe: function timeframe(newVal, oldVal) {
-      console.log('oldVal', oldVal);
-      console.log('newVal', newVal);
+      // the route url to where we will make the request
+      // defined in the component that extends this mixin
+      if (this.routeUrl === undefined || this.routeUrl === null) {// throw "The url is required";
+      } else {
+        var timeframe = "timeframe=".concat(newVal);
+        var url = "".concat(this.routeUrl, "?").concat(timeframe);
+        this.fetchData(url);
+      }
     }
   },
   data: function data() {
     return {
       timeframe: null,
-      response: null
+      responseData: null,
+      isLoading: false
     };
   },
   methods: {
@@ -70816,15 +70780,35 @@ var reportsTimeframeMixin = {
       var _fetchData = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(url) {
+        var response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                this.isLoading = true;
+                _context.prev = 1;
+                _context.next = 4;
+                return axios.get(url);
+
+              case 4:
+                response = _context.sent;
+                this.responseData = response.data;
+                this.isLoading = false;
+                _context.next = 13;
+                break;
+
+              case 9:
+                _context.prev = 9;
+                _context.t0 = _context["catch"](1);
+                this.isLoading = false;
+                console.error(_context.t0);
+
+              case 13:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee);
+        }, _callee, this, [[1, 9]]);
       }));
 
       function fetchData(_x) {

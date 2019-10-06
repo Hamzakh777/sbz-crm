@@ -10,6 +10,7 @@
             </BaseReportsDropdown>
         </template>
         <template #body>
+            <BaseLoader v-if="isLoading"></BaseLoader>
             <ReportsBarChart>
             </ReportsBarChart>
         </template>
@@ -38,19 +39,7 @@
         data() {
             return {
                 timeframes: ['quarter', 'half_year', 'year'],
-                isLoading: false,
-            }
-        },
-
-        methods: {
-            async fetchData() {
-                this.isLoading = true;
-                try {
-                    const response = await axios.get();
-
-                } catch(error) {
-                    console.error(error);
-                }
+                routeUrl: '/api/reports/sales-orders'
             }
         },
     }

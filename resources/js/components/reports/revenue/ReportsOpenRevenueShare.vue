@@ -95,7 +95,7 @@
 
         data() {
             return {
-                timeframes: ['month', 'quarter', 'half_year', 'year']
+                timeframes: ['month', 'quarter', 'half_year', 'year'],
             }
         },
     }

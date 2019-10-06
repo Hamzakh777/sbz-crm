@@ -76,6 +76,8 @@ Route::group([
     // to download files 
     Route::get('/file-download', 'FileDownloadController@index')->name('document.download');
 
+    Route::get('/reports/sales-orders', 'Reports\ReportsSalesOrdersController@index');
+
 });
 
 if (config('laravel-localization.routes.enable')) {
