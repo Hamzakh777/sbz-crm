@@ -31,9 +31,9 @@
 </template>
 
 <script>
-    import ReportsSalesOrdersByStatusChart from './ReportsSalesOrdersByStatusChart';
-    import ReportsSalesOBS from './ReportsSalesOrdersByStatus';
-    import ReportsSalesOrdersAgents from './ReportsSalesOrdersAgents';
+    import ReportsSalesOrdersByStatusChart from './salesOrders/ReportsSalesOrdersByStatusChart';
+    import ReportsSalesOBS from './salesOrders/ReportsSalesOrdersByStatus';
+    import ReportsSalesOrdersAgents from './salesOrders/ReportsSalesOrdersAgents';
     import ReportsRevenueLineChart from './revenue/ReportsRevenueLineChart';
     import ReportsOpenRevenue from './revenue/ReportsOpenRevenueShare';
     import ReportsSOSPI from './insurance/ReportsSalesOrdersStatusPerInsurance';

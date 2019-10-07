@@ -11,18 +11,22 @@
         </template>
         <template #body>
             <BaseLoader v-if="isLoading"></BaseLoader>
-            <ReportsBarChart>
-            </ReportsBarChart>
+            <div class="chart">
+                <BaseChartBar
+
+                ></BaseChartBar>
+            </div>
         </template>
     </BaseReportsPanel>
 </template>
 
 <script>
-    import ReportsBarChart from './ReportsBarChart';
-    import BaseReportsPanel from './baseComponents/BaseReportsPanel';
-    import BaseReportsDropdown from './baseComponents/BaseReportsDropdown';
-    import BaseLoader from '../baseComponents/BaseLoader';
-    import ReportsTimeframeMixin from '../../mixins/reports/ReportsTimeframeMixin';
+    import ReportsBarChart from '../ReportsBarChart';
+    import BaseReportsPanel from '../baseComponents/BaseReportsPanel';
+    import BaseReportsDropdown from '../baseComponents/BaseReportsDropdown';
+    import BaseLoader from '../../baseComponents/BaseLoader';
+    import ReportsTimeframeMixin from '../../../mixins/reports/ReportsTimeframeMixin';
+    import BaseChartBar from '../baseComponents/BaseChartBar';
 
     export default {
         name: 'ReportsSalesOrdersByStatusChart',
@@ -33,7 +37,50 @@
             ReportsBarChart,
             BaseReportsPanel,
             BaseReportsDropdown,
-            BaseLoader
+            BaseLoader,
+            BaseChartBar
+        },
+
+        computed: {
+            ChartData() {
+                let labels = [];
+                let data = [];
+
+                for (const key in this.DataToLoad) {
+                    if (this.DataToLoad.hasOwnProperty(key)) {
+                        const element = this.DataToLoad[key];
+                        
+                        labels.push(key);
+                        data.push(element);
+                    }
+                };
+
+                labels = ['test1', 'test2'];
+                data = [20, 30];
+
+                return {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: this.label,
+                            backgroundColor: this.backgroundColor, //'#E4572E'
+                            data: data
+                        }
+                    ]
+                };
+            },
+
+            /**
+             * 
+             * @return {object} chart options
+             */
+            chartOption() {
+                return { 
+                    plugins: {
+                        datalabels: false
+                    }
+                }
+            }
         },
 
         data() {
