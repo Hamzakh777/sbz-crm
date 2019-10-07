@@ -2565,6 +2565,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -2584,26 +2585,37 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     ChartData: function ChartData() {
       var labels = [];
-      var data = [];
+      var open = []; // sales orders with status open
 
-      for (var key in this.DataToLoad) {
-        if (this.DataToLoad.hasOwnProperty(key)) {
-          var element = this.DataToLoad[key];
-          labels.push(key);
-          data.push(element);
+      var closed = []; // sales orders with status closed
+
+      if (this.responseData === null) {
+        return;
+      }
+
+      var salesOrdersByStatusForEachMonth = this.responseData.salesOrdersByStatusForEachMonth;
+
+      for (var key in salesOrdersByStatusForEachMonth) {
+        if (salesOrdersByStatusForEachMonth.hasOwnProperty(key)) {
+          var element = salesOrdersByStatusForEachMonth[key];
+          labels.push(key); // the months 
+
+          open.push(element.open);
+          closed.push(element.closed);
         }
       }
 
       ;
-      labels = ['test1', 'test2'];
-      data = [20, 30];
       return {
         labels: labels,
         datasets: [{
-          label: this.label,
-          backgroundColor: this.backgroundColor,
-          //'#E4572E'
-          data: data
+          label: this.trans.get('reports.open'),
+          backgroundColor: '#4e73df',
+          data: open
+        }, {
+          label: this.trans.get('reports.closed'),
+          backgroundColor: '#2ecc71',
+          data: closed
         }]
       };
     },
@@ -57406,7 +57418,19 @@ var render = function() {
           return [
             _vm.isLoading ? _c("BaseLoader") : _vm._e(),
             _vm._v(" "),
-            _c("div", { staticClass: "chart" }, [_c("BaseChartBar")], 1)
+            _c(
+              "div",
+              { staticClass: "chart" },
+              [
+                _c("BaseChartBar", {
+                  attrs: {
+                    "chart-data": _vm.ChartData,
+                    options: _vm.chartOption
+                  }
+                })
+              ],
+              1
+            )
           ]
         },
         proxy: true

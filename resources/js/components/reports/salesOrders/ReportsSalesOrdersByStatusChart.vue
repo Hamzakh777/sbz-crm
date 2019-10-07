@@ -13,7 +13,8 @@
             <BaseLoader v-if="isLoading"></BaseLoader>
             <div class="chart">
                 <BaseChartBar
-
+                    :chart-data="ChartData"
+                    :options="chartOption"
                 ></BaseChartBar>
             </div>
         </template>
@@ -44,28 +45,39 @@
         computed: {
             ChartData() {
                 let labels = [];
-                let data = [];
+                let open = []; // sales orders with status open
+                let closed = []; // sales orders with status closed
 
-                for (const key in this.DataToLoad) {
-                    if (this.DataToLoad.hasOwnProperty(key)) {
-                        const element = this.DataToLoad[key];
+                if(this.responseData === null) {
+                    return;
+                }
+                
+                const salesOrdersByStatusForEachMonth = this.responseData.salesOrdersByStatusForEachMonth;
+                for (const key in salesOrdersByStatusForEachMonth) {
+                    if (salesOrdersByStatusForEachMonth.hasOwnProperty(key)) {
+                        const element = salesOrdersByStatusForEachMonth[key];
                         
-                        labels.push(key);
-                        data.push(element);
+                        labels.push(key); // the months 
+
+                        open.push(element.open);
+                        closed.push(element.closed);
                     }
                 };
 
-                labels = ['test1', 'test2'];
-                data = [20, 30];
 
                 return {
                     labels: labels,
                     datasets: [
                         {
-                            label: this.label,
-                            backgroundColor: this.backgroundColor, //'#E4572E'
-                            data: data
-                        }
+                            label: this.trans.get('reports.open'),
+                            backgroundColor: '#4e73df', 
+                            data: open
+                        },
+                        {
+                            label: this.trans.get('reports.closed'),
+                            backgroundColor: '#2ecc71',
+                            data: closed
+                        },
                     ]
                 };
             },

@@ -56,6 +56,7 @@ class ReportsSalesOrdersController extends Controller
                 $salesOrdersByMonth = SalesOrder::whereDate('contract_sign_date', '>=', $quarterStart)
                     ->where('contract_sign_date', '<=', $quarterEnd)
                     ->whereYear('contract_sign_date', $currentyear)
+                    ->orderBy('contract_sign_date', 'desc')
                     ->get()
                     ->groupBy(function ($d) {
                         return Carbon::parse($d->contract_sign_date)->format('m');
@@ -70,6 +71,7 @@ class ReportsSalesOrdersController extends Controller
                 $salesOrdersByMonth = SalesOrder::whereMonth('contract_sign_date', '>=', $month)
                     ->whereMonth('contract_sign_date', '<=', $month + 5)
                     ->whereYear('contract_sign_date', $currentyear)
+                    ->orderBy('contract_sign_date', 'desc')
                     ->get()
                     ->groupBy(function ($d) {
                         return Carbon::parse($d->contract_sign_date)->format('m');
@@ -78,7 +80,12 @@ class ReportsSalesOrdersController extends Controller
                 break;
 
             case 'year':
-                # code...
+                $salesOrdersByMonth = SalesOrder::whereYear('contract_sign_date', $currentyear)
+                    ->orderBy('contract_sign_date', 'desc')
+                    ->get()
+                    ->groupBy(function ($d) {
+                        return Carbon::parse($d->contract_sign_date)->format('m');
+                    });
                 break;
 
             default:
@@ -105,7 +112,9 @@ class ReportsSalesOrdersController extends Controller
             }
         }
 
-
+        # to sort the array in ascending order by key ( which is the month in our case )
+        ksort($salesOrdersByStatusForEachMonth);
+        
         return response()->json([
             'salesOrdersByStatusYearly' => $salesOrdersByStatusYearly,
             'salesOrdersByStatusForEachMonth' => $salesOrdersByStatusForEachMonth

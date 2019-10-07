@@ -1,6 +1,7 @@
 <?php 
 
 return [
+    'closed'                                     => 'Closed',
     'reports'                                    => 'Reports',
     'analytics_overview'                         => 'Analytics Overview',
     'sales_orders_by_status'                     => 'Sales orders by status',
