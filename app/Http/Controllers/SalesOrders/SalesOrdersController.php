@@ -98,7 +98,7 @@ class SalesOrdersController extends Controller
         // with the response
         // also we need to add some fields like documentId and so on
         // fortunatly laravel provides a native way to eager load the modals related to this one
-        $salesOrder = SalesOrder::findOrFail($id);
+        $salesOrder = SalesOrder::with(['documents', 'people', 'comments', 'tasksCollections'])->findOrFail($id);
 
         $salesOrder->people->transform(function ($item, $key) { 
             return [
@@ -131,8 +131,7 @@ class SalesOrdersController extends Controller
      */
     public function edit($id)
     {
-        $order = SalesOrder::findOrFail($id);
-
+        $order = SalesOrder::with(['documents', 'people', 'comments', 'tasksCollections'])->findOrFail($id);
 
         return response()->json([
             'order' => $order
@@ -151,7 +150,7 @@ class SalesOrdersController extends Controller
         // only the ids that in the intermediate table will remaine
         // $validate = $request->validated();
 
-        $salesOrder = SalesOrder::findOrFail($id);
+        $salesOrder = SalesOrder::with(['documents', 'people', 'comments', 'tasksCollections'])->findOrFail($id);
 
         // contract info
         $salesOrder->current_insurance_id = $request->input('currentInsuranceId');

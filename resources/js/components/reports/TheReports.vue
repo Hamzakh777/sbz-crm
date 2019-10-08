@@ -10,10 +10,9 @@
                 <ReportsSalesOrdersByStatusChart
                 >
                 </ReportsSalesOrdersByStatusChart>
-
             </div>
             <!-- Sales Order Status All Sales Agent -->
-            <div class="col-md-8">
+            <div class="col-md-8 ">
                 <ReportsSalesOrdersAgents></ReportsSalesOrdersAgents>
             </div>
         </div>

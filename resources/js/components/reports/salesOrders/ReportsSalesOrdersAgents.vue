@@ -18,33 +18,22 @@
             <table class="vtable">
                 <thead class="thead">
                     <tr>
-                        <th>Agent</th>
-                        <th>Month</th>
-                        <th>Quarter</th>
-                        <th>Half Year</th>
-                        <th>Year</th>
+                        <th>{{ trans.get('reports.agent') }}</th>
+                        <th>{{ trans.get('reports.month') }}</th>
+                        <th>{{ trans.get('reports.quarter') }}</th>
+                        <th>{{ trans.get('reports.half_year') }}</th>
+                        <th>{{ trans.get('reports.year') }}</th>
                     </tr>
                 </thead>
                 <tbody class="tbody">
-                    <tr>
-                        <td>Test agent</td>
-                        <td><span class="won">20</span><b> / </b><span class="open">30</span></td>
-                        <td><span class="won">20</span><b> / </b><span class="open">30</span></td>
-                        <td><span class="won">20</span><b> / </b><span class="open">30</span></td>
-                        <td><span class="won">20</span> / <span class="open">30</span></td>
-                    </tr>
-                    <tr>
-                        <td>Test agent</td>
-                        <td><span class="won">20</span><b> / </b><span class="open">30</span></td>
-                        <td><span class="won">20</span><b> / </b><span class="open">30</span></td>
-                        <td><span class="won">20</span><b> / </b><span class="open">30</span></td>
-                        <td><span class="won">20</span> / <span class="open">30</span></td>
-                    </tr>
-                    <tr>
-                        <td>Test agent</td>
-                        <td><span class="won">20</span><b> / </b><span class="open">30</span></td>
-                        <td><span class="won">20</span><b> / </b><span class="open">30</span></td>
-                        <td><span class="won">20</span><b> / </b><span class="open">30</span></td>
+                    <tr 
+                        v-for="(salesAgent, index) in salesAgents" 
+                        :key="index"
+                    >
+                        <td>{{ salesAgent.username }}</td>
+                        <td><span class="won">{{ salesAgent.month.closed }}</span><b> / </b><span class="open">{{ salesAgent.month.open }}</span></td>
+                        <td><span class="won">{{ salesAgent.quarter.closed }}</span><b> / </b><span class="open">{{ salesAgent.quarter.open }}</span></td>
+                        <td><span class="won">{{ salesAgent.half_year. }}</span><b> / </b><span class="open">30</span></td>
                         <td><span class="won">20</span> / <span class="open">30</span></td>
                     </tr>
                 </tbody>
@@ -80,7 +69,8 @@
         data() {
             return {
                 url: '/api/reports/sales-orders-for-each-agent',
-                isLoading: false
+                isLoading: false,
+                salesAgents: []
             }
         },
 
@@ -90,6 +80,7 @@
              */
             changePage(page) {
                 console.log(page);
+                this.fetchData();
             },
 
             async fetchData() {
@@ -98,7 +89,8 @@
                     const response = await axios.get(this.url);
 
                     this.isLoading = false;
-                    console.log(response)
+                    this.salesAgents = response.data.salesAgents;
+                    console.log(response.data)
                 } catch (error) {
                     this.isLoading = false;
                     throw error;

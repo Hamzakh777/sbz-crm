@@ -28,13 +28,6 @@ class SalesOrder extends Model
     protected $dates = ['contract_start_KVG', 'contract_start_VVG', 'insurance_submitted_date', 'contract_sign_date'];
 
     /**
-     * The relationships that should always be loaded.
-     *
-     * @var array
-     */
-    protected $with = ['documents', 'people', 'comments', 'tasksCollections'];
-
-    /**
      * Sales order has one unique associated document
      */
     public function documents() {

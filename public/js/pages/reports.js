@@ -1848,7 +1848,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -2461,17 +2460,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -2485,7 +2473,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       url: '/api/reports/sales-orders-for-each-agent',
-      isLoading: false
+      isLoading: false,
+      salesAgents: []
     };
   },
   methods: {
@@ -2494,6 +2483,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
      */
     changePage: function changePage(page) {
       console.log(page);
+      this.fetchData();
     },
     fetchData: function () {
       var _fetchData = _asyncToGenerator(
@@ -2512,22 +2502,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 4:
                 response = _context.sent;
                 this.isLoading = false;
-                console.log(response);
-                _context.next = 13;
+                this.salesAgents = response.data.salesAgents;
+                console.log(response.data);
+                _context.next = 14;
                 break;
 
-              case 9:
-                _context.prev = 9;
+              case 10:
+                _context.prev = 10;
                 _context.t0 = _context["catch"](1);
                 this.isLoading = false;
                 throw _context.t0;
 
-              case 13:
+              case 14:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[1, 9]]);
+        }, _callee, this, [[1, 10]]);
       }));
 
       function fetchData() {
@@ -56837,7 +56828,7 @@ var render = function() {
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: "col-md-8" },
+          { staticClass: "col-md-8 " },
           [_c("ReportsSalesOrdersAgents")],
           1
         )
@@ -57255,173 +57246,9 @@ render._withStripped = true
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/reports/salesOrders/ReportsSalesOrdersAgents.vue?vue&type=template&id=1faf04f9&scoped=true& ***!
   \***********************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("BaseReportsPanel", {
-    attrs: { title: "reports.sales_orders_for_each_agent" },
-    scopedSlots: _vm._u([
-      {
-        key: "headLeft",
-        fn: function() {
-          return [
-            _c("div", { staticClass: "legend" }, [
-              _c("div", { staticClass: "square square--won" }),
-              _vm._v(" "),
-              _c("span", [_vm._v(_vm._s(_vm.trans.get("reports.won")))])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "legend" }, [
-              _c("div", { staticClass: "square square--open" }),
-              _vm._v(" "),
-              _c("span", [_vm._v(_vm._s(_vm.trans.get("reports.open")))])
-            ])
-          ]
-        },
-        proxy: true
-      },
-      {
-        key: "body",
-        fn: function() {
-          return [
-            _vm.isLoading ? _c("BaseLoader") : _vm._e(),
-            _vm._v(" "),
-            _c("table", { staticClass: "vtable" }, [
-              _c("thead", { staticClass: "thead" }, [
-                _c("tr", [
-                  _c("th", [_vm._v("Agent")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("Month")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("Quarter")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("Half Year")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("Year")])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("tbody", { staticClass: "tbody" }, [
-                _c("tr", [
-                  _c("td", [_vm._v("Test agent")]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c("span", { staticClass: "won" }, [_vm._v("20")]),
-                    _c("b", [_vm._v(" / ")]),
-                    _c("span", { staticClass: "open" }, [_vm._v("30")])
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c("span", { staticClass: "won" }, [_vm._v("20")]),
-                    _c("b", [_vm._v(" / ")]),
-                    _c("span", { staticClass: "open" }, [_vm._v("30")])
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c("span", { staticClass: "won" }, [_vm._v("20")]),
-                    _c("b", [_vm._v(" / ")]),
-                    _c("span", { staticClass: "open" }, [_vm._v("30")])
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c("span", { staticClass: "won" }, [_vm._v("20")]),
-                    _vm._v(" / "),
-                    _c("span", { staticClass: "open" }, [_vm._v("30")])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("tr", [
-                  _c("td", [_vm._v("Test agent")]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c("span", { staticClass: "won" }, [_vm._v("20")]),
-                    _c("b", [_vm._v(" / ")]),
-                    _c("span", { staticClass: "open" }, [_vm._v("30")])
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c("span", { staticClass: "won" }, [_vm._v("20")]),
-                    _c("b", [_vm._v(" / ")]),
-                    _c("span", { staticClass: "open" }, [_vm._v("30")])
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c("span", { staticClass: "won" }, [_vm._v("20")]),
-                    _c("b", [_vm._v(" / ")]),
-                    _c("span", { staticClass: "open" }, [_vm._v("30")])
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c("span", { staticClass: "won" }, [_vm._v("20")]),
-                    _vm._v(" / "),
-                    _c("span", { staticClass: "open" }, [_vm._v("30")])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("tr", [
-                  _c("td", [_vm._v("Test agent")]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c("span", { staticClass: "won" }, [_vm._v("20")]),
-                    _c("b", [_vm._v(" / ")]),
-                    _c("span", { staticClass: "open" }, [_vm._v("30")])
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c("span", { staticClass: "won" }, [_vm._v("20")]),
-                    _c("b", [_vm._v(" / ")]),
-                    _c("span", { staticClass: "open" }, [_vm._v("30")])
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c("span", { staticClass: "won" }, [_vm._v("20")]),
-                    _c("b", [_vm._v(" / ")]),
-                    _c("span", { staticClass: "open" }, [_vm._v("30")])
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c("span", { staticClass: "won" }, [_vm._v("20")]),
-                    _vm._v(" / "),
-                    _c("span", { staticClass: "open" }, [_vm._v("30")])
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "pagination" },
-              [
-                _c("paginate", {
-                  attrs: {
-                    "page-count": 6,
-                    "click-handler": _vm.changePage,
-                    "prev-text": _vm.trans.get("voyager.generic.next"),
-                    "next-text": _vm.trans.get("voyager.generic.previous"),
-                    "container-class": "pagination"
-                  }
-                })
-              ],
-              1
-            )
-          ]
-        },
-        proxy: true
-      }
-    ])
-  })
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
+throw new Error("Module build failed (from ./node_modules/vue-loader/lib/loaders/templateLoader.js):\nSyntaxError: Unexpected token (1:1463)\n    at Parser.pp$4.raise (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2757:13)\n    at Parser.pp.unexpected (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:647:8)\n    at Parser.pp$3.parseIdent (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2712:10)\n    at Parser.pp$3.parseSubscripts (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2067:68)\n    at Parser.pp$3.parseExprSubscripts (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2050:21)\n    at Parser.pp$3.parseMaybeUnary (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2024:17)\n    at Parser.pp$3.parseExprOps (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:1966:19)\n    at Parser.pp$3.parseMaybeConditional (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:1949:19)\n    at Parser.pp$3.parseMaybeAssign (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:1925:19)\n    at Parser.pp$3.parseExprList (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2663:20)\n    at Parser.pp$3.parseSubscripts (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2075:29)\n    at Parser.pp$3.parseExprSubscripts (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2050:21)\n    at Parser.pp$3.parseMaybeUnary (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2024:17)\n    at Parser.pp$3.parseExprOps (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:1966:19)\n    at Parser.pp$3.parseMaybeConditional (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:1949:19)\n    at Parser.pp$3.parseMaybeAssign (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:1925:19)\n    at Parser.pp$3.parseExprList (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2663:20)\n    at Parser.pp$3.parseSubscripts (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2075:29)\n    at Parser.pp$3.parseExprSubscripts (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2050:21)\n    at Parser.pp$3.parseMaybeUnary (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2024:17)\n    at Parser.pp$3.parseExprOps (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:1966:19)\n    at Parser.pp$3.parseMaybeConditional (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:1949:19)\n    at Parser.pp$3.parseMaybeAssign (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:1925:19)\n    at Parser.pp$3.parseExprList (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2663:20)\n    at Parser.pp$3.parseExprAtom (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2175:26)\n    at Parser.<anonymous> (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:6003:24)\n    at Parser.parseExprAtom (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:6129:31)\n    at Parser.pp$3.parseExprSubscripts (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2047:19)\n    at Parser.pp$3.parseMaybeUnary (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2024:17)\n    at Parser.pp$3.parseExprOps (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:1966:19)\n    at Parser.pp$3.parseMaybeConditional (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:1949:19)\n    at Parser.pp$3.parseMaybeAssign (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:1925:19)\n    at Parser.pp$3.parseExprList (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2663:20)\n    at Parser.pp$3.parseSubscripts (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2075:29)\n    at Parser.pp$3.parseExprSubscripts (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2050:21)\n    at Parser.pp$3.parseMaybeUnary (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2024:17)");
 
 /***/ }),
 

@@ -1,6 +1,7 @@
 <?php 
 
 return [
+    'agent'                                      => 'Agent',    
     'closed'                                     => 'Closed',
     'reports'                                    => 'Reports',
     'analytics_overview'                         => 'Analytics Overview',
