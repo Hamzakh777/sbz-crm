@@ -82,4 +82,8 @@ class User extends \TCG\Voyager\Models\User
             $this->attributes['end_date'] = \Carbon\Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
         }
     }
+
+    public function agentSalesOrders() {
+        return $this->hasMany('App\SalesOrder', 'sales_user_id');
+    }
 }
