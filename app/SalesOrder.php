@@ -70,6 +70,13 @@ class SalesOrder extends Model
     }
 
     /**
+     * Has one sales agent
+     */
+    public function salesAgent() {
+        return $this->belongsTo('App\User', 'sales_user_id');
+    }
+
+    /**
      * Scope filter sales orders
      */
     public function scopeFilterSalesOrders($query, $request) {
