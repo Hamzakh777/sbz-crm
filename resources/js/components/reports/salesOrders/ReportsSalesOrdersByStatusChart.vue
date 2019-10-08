@@ -49,7 +49,17 @@
                 let closed = []; // sales orders with status closed
 
                 if(this.responseData === null) {
-                    return;
+                    // return empty data set
+                    return {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'null',
+                            backgroundColor: '#4e73df', 
+                            data: []
+                        },
+                    ]
+                };
                 }
                 
                 const salesOrdersByStatusForEachMonth = this.responseData.salesOrdersByStatusForEachMonth;
@@ -136,5 +146,9 @@
         border-radius: 0
         background-color: transparent
         border-color: transparent
+
+    .chart 
+        padding: 0 !important
+        margin-top: 0.825em
 
 </style>

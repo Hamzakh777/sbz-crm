@@ -115,6 +115,8 @@ class ReportsSalesOrdersController extends Controller
         # to sort the array in ascending order by key ( which is the month in our case )
         ksort($salesOrdersByStatusForEachMonth);
         
+        # sales order by status for each agent
+        
         return response()->json([
             'salesOrdersByStatusYearly' => $salesOrdersByStatusYearly,
             'salesOrdersByStatusForEachMonth' => $salesOrdersByStatusForEachMonth

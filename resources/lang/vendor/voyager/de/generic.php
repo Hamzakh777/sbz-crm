@@ -79,6 +79,7 @@ return [
     'profile'                => 'Profil',
     'public_url'             => 'Öffentliche URL',
     'people'                 => 'People',
+    'previous'               => 'Previous',
     'read'                   => 'Lesen',
     'rename'                 => 'Umbenennen',
     'remember_me'            => 'Angemeldet bleiben',

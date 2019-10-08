@@ -13,6 +13,8 @@
             </div>
         </template>
         <template #body>
+            <BaseLoader v-if="isLoading">
+            </BaseLoader>
             <table class="vtable">
                 <thead class="thead">
                     <tr>
@@ -47,18 +49,65 @@
                     </tr>
                 </tbody>
             </table>
+            <div class="pagination">
+                <paginate
+                    :page-count="6"
+                    :click-handler="changePage"
+                    :prev-text="trans.get('voyager.generic.next')"
+                    :next-text="trans.get('voyager.generic.previous')"
+                    :container-class="'pagination'"
+                    >
+                </paginate>
+            </div>
         </template>
     </BaseReportsPanel>
 </template>
 
 <script>
     import BaseReportsPanel from '../baseComponents/BaseReportsPanel';
+    import BaseLoader from '../../baseComponents/BaseLoader';
+    import Paginate from 'vuejs-paginate';
 
     export default {
         name: 'ReportsSalesOrdersAgents',
 
         components: {
-            BaseReportsPanel
+            BaseReportsPanel,
+            Paginate,
+            BaseLoader
+        },
+
+        data() {
+            return {
+                url: '/api/reports/sales-orders-for-each-agent',
+                isLoading: false
+            }
+        },
+
+        methods: {
+            /**
+             * 
+             */
+            changePage(page) {
+                console.log(page);
+            },
+
+            async fetchData() {
+                this.isLoading = true;
+                try {
+                    const response = await axios.get(this.url);
+
+                    this.isLoading = false;
+                    console.log(response)
+                } catch (error) {
+                    this.isLoading = false;
+                    throw error;
+                }
+            }
+        },
+
+        mounted() {
+            this.fetchData();
         }
     }
 </script>
@@ -107,5 +156,8 @@ $green: #2ecc71
 
     .open 
         color: $blue
+
+.pagination
+    margin-bottom: -10px !important    
 
 </style>

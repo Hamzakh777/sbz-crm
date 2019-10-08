@@ -78,10 +78,7 @@ class SalesOrderPeopleController extends Controller
             }
             $person->products()->attach($productsIds);
         }
-
-        dd($person->products->toArray());
-        // then we need to save the product with the person
-
+        
         return response()->json([
             'person' => new ContractPersonResource($person),
         ]);
