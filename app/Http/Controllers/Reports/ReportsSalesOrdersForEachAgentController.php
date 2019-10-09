@@ -28,7 +28,8 @@ class ReportsSalesOrdersForEachAgentController extends Controller
                 $query->whereYear('contract_sign_date', $currentYear)
                 ->select(['id', 'sales_user_id', 'sales_order_status', 'contract_sign_date']);
             }]) 
-            ->get();
+            ->paginate(8);
+
 
         # group by timeFrame - current month / quarter / half_year / year 
         $salesOrderByTimeframeForSalesAgents = [];
@@ -99,7 +100,9 @@ class ReportsSalesOrdersForEachAgentController extends Controller
         }
         
         return response()->json([
-            'salesAgents' => $salesOrderByTimeframeForSalesAgents
+            'salesAgents' => $salesOrderByTimeframeForSalesAgents,
+            'numOfPages' => $salesAgents->lastPage(),
+            'currentPage' => $salesAgents->currentPage()
         ]);
     }
 }

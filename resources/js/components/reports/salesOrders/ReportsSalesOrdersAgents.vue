@@ -31,16 +31,17 @@
                         :key="index"
                     >
                         <td>{{ salesAgent.username }}</td>
-                        <td><span class="won">{{ salesAgent.month.closed }}</span><b> / </b><span class="open">{{ salesAgent.month.open }}</span></td>
-                        <td><span class="won">{{ salesAgent.quarter.closed }}</span><b> / </b><span class="open">{{ salesAgent.quarter.open }}</span></td>
-                        <td><span class="won">{{ salesAgent.half_year. }}</span><b> / </b><span class="open">30</span></td>
-                        <td><span class="won">20</span> / <span class="open">30</span></td>
+                        <td><span class="won">{{ salesAgent.salesOrders.month.closed }}</span><b> / </b><span class="open">{{ salesAgent.salesOrders.month.open }}</span></td>
+                        <td><span class="won">{{ salesAgent.salesOrders.quarter.closed }}</span><b> / </b><span class="open">{{ salesAgent.salesOrders.quarter.open }}</span></td>
+                        <td><span class="won">{{ salesAgent.salesOrders.half_year.closed }}</span><b> / </b><span class="open">{{ salesAgent.salesOrders.half_year.open }}</span></td>
+                        <td><span class="won">{{ salesAgent.salesOrders.year.closed }}</span> / <span class="open">{{ salesAgent.salesOrders.year.open }}</span></td>
                     </tr>
                 </tbody>
             </table>
             <div class="pagination">
                 <paginate
-                    :page-count="6"
+                    v-if="numOfPages > 1"
+                    :page-count="numOfPages"
                     :click-handler="changePage"
                     :prev-text="trans.get('voyager.generic.next')"
                     :next-text="trans.get('voyager.generic.previous')"
@@ -70,6 +71,7 @@
             return {
                 url: '/api/reports/sales-orders-for-each-agent',
                 isLoading: false,
+                numOfPages: 1,
                 salesAgents: []
             }
         },
@@ -79,18 +81,19 @@
              * 
              */
             changePage(page) {
-                console.log(page);
-                this.fetchData();
+                this.fetchData(page);
             },
 
-            async fetchData() {
+            async fetchData(page = 1) {
                 this.isLoading = true;
+
                 try {
-                    const response = await axios.get(this.url);
+                    const response = await axios.get(this.url + '?page=' + page);
 
                     this.isLoading = false;
+
                     this.salesAgents = response.data.salesAgents;
-                    console.log(response.data)
+                    this.numOfPages = response.data.numOfPages;
                 } catch (error) {
                     this.isLoading = false;
                     throw error;

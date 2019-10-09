@@ -2460,6 +2460,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 
@@ -2474,6 +2475,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       url: '/api/reports/sales-orders-for-each-agent',
       isLoading: false,
+      numOfPages: 1,
       salesAgents: []
     };
   },
@@ -2482,43 +2484,45 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
      * 
      */
     changePage: function changePage(page) {
-      console.log(page);
-      this.fetchData();
+      this.fetchData(page);
     },
     fetchData: function () {
       var _fetchData = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var response;
+        var page,
+            response,
+            _args = arguments;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                page = _args.length > 0 && _args[0] !== undefined ? _args[0] : 1;
                 this.isLoading = true;
-                _context.prev = 1;
-                _context.next = 4;
-                return axios.get(this.url);
+                _context.prev = 2;
+                _context.next = 5;
+                return axios.get(this.url + '?page=' + page);
 
-              case 4:
+              case 5:
                 response = _context.sent;
                 this.isLoading = false;
                 this.salesAgents = response.data.salesAgents;
-                console.log(response.data);
-                _context.next = 14;
+                this.numOfPages = response.data.numOfPages;
+                _context.next = 15;
                 break;
 
-              case 10:
-                _context.prev = 10;
-                _context.t0 = _context["catch"](1);
+              case 11:
+                _context.prev = 11;
+                _context.t0 = _context["catch"](2);
                 this.isLoading = false;
                 throw _context.t0;
 
-              case 14:
+              case 15:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[1, 10]]);
+        }, _callee, this, [[2, 11]]);
       }));
 
       function fetchData() {
@@ -57246,9 +57250,142 @@ render._withStripped = true
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/reports/salesOrders/ReportsSalesOrdersAgents.vue?vue&type=template&id=1faf04f9&scoped=true& ***!
   \***********************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/vue-loader/lib/loaders/templateLoader.js):\nSyntaxError: Unexpected token (1:1463)\n    at Parser.pp$4.raise (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2757:13)\n    at Parser.pp.unexpected (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:647:8)\n    at Parser.pp$3.parseIdent (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2712:10)\n    at Parser.pp$3.parseSubscripts (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2067:68)\n    at Parser.pp$3.parseExprSubscripts (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2050:21)\n    at Parser.pp$3.parseMaybeUnary (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2024:17)\n    at Parser.pp$3.parseExprOps (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:1966:19)\n    at Parser.pp$3.parseMaybeConditional (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:1949:19)\n    at Parser.pp$3.parseMaybeAssign (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:1925:19)\n    at Parser.pp$3.parseExprList (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2663:20)\n    at Parser.pp$3.parseSubscripts (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2075:29)\n    at Parser.pp$3.parseExprSubscripts (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2050:21)\n    at Parser.pp$3.parseMaybeUnary (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2024:17)\n    at Parser.pp$3.parseExprOps (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:1966:19)\n    at Parser.pp$3.parseMaybeConditional (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:1949:19)\n    at Parser.pp$3.parseMaybeAssign (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:1925:19)\n    at Parser.pp$3.parseExprList (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2663:20)\n    at Parser.pp$3.parseSubscripts (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2075:29)\n    at Parser.pp$3.parseExprSubscripts (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2050:21)\n    at Parser.pp$3.parseMaybeUnary (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2024:17)\n    at Parser.pp$3.parseExprOps (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:1966:19)\n    at Parser.pp$3.parseMaybeConditional (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:1949:19)\n    at Parser.pp$3.parseMaybeAssign (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:1925:19)\n    at Parser.pp$3.parseExprList (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2663:20)\n    at Parser.pp$3.parseExprAtom (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2175:26)\n    at Parser.<anonymous> (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:6003:24)\n    at Parser.parseExprAtom (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:6129:31)\n    at Parser.pp$3.parseExprSubscripts (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2047:19)\n    at Parser.pp$3.parseMaybeUnary (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2024:17)\n    at Parser.pp$3.parseExprOps (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:1966:19)\n    at Parser.pp$3.parseMaybeConditional (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:1949:19)\n    at Parser.pp$3.parseMaybeAssign (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:1925:19)\n    at Parser.pp$3.parseExprList (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2663:20)\n    at Parser.pp$3.parseSubscripts (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2075:29)\n    at Parser.pp$3.parseExprSubscripts (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2050:21)\n    at Parser.pp$3.parseMaybeUnary (/Users/MarshMallow1/Sites/SBZ_CRM/node_modules/vue-template-es2015-compiler/buble.js:2024:17)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("BaseReportsPanel", {
+    attrs: { title: "reports.sales_orders_for_each_agent" },
+    scopedSlots: _vm._u([
+      {
+        key: "headLeft",
+        fn: function() {
+          return [
+            _c("div", { staticClass: "legend" }, [
+              _c("div", { staticClass: "square square--won" }),
+              _vm._v(" "),
+              _c("span", [_vm._v(_vm._s(_vm.trans.get("reports.won")))])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "legend" }, [
+              _c("div", { staticClass: "square square--open" }),
+              _vm._v(" "),
+              _c("span", [_vm._v(_vm._s(_vm.trans.get("reports.open")))])
+            ])
+          ]
+        },
+        proxy: true
+      },
+      {
+        key: "body",
+        fn: function() {
+          return [
+            _vm.isLoading ? _c("BaseLoader") : _vm._e(),
+            _vm._v(" "),
+            _c("table", { staticClass: "vtable" }, [
+              _c("thead", { staticClass: "thead" }, [
+                _c("tr", [
+                  _c("th", [_vm._v(_vm._s(_vm.trans.get("reports.agent")))]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v(_vm._s(_vm.trans.get("reports.month")))]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v(_vm._s(_vm.trans.get("reports.quarter")))]),
+                  _vm._v(" "),
+                  _c("th", [
+                    _vm._v(_vm._s(_vm.trans.get("reports.half_year")))
+                  ]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v(_vm._s(_vm.trans.get("reports.year")))])
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                { staticClass: "tbody" },
+                _vm._l(_vm.salesAgents, function(salesAgent, index) {
+                  return _c("tr", { key: index }, [
+                    _c("td", [_vm._v(_vm._s(salesAgent.username))]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("span", { staticClass: "won" }, [
+                        _vm._v(_vm._s(salesAgent.salesOrders.month.closed))
+                      ]),
+                      _c("b", [_vm._v(" / ")]),
+                      _c("span", { staticClass: "open" }, [
+                        _vm._v(_vm._s(salesAgent.salesOrders.month.open))
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("span", { staticClass: "won" }, [
+                        _vm._v(_vm._s(salesAgent.salesOrders.quarter.closed))
+                      ]),
+                      _c("b", [_vm._v(" / ")]),
+                      _c("span", { staticClass: "open" }, [
+                        _vm._v(_vm._s(salesAgent.salesOrders.quarter.open))
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("span", { staticClass: "won" }, [
+                        _vm._v(_vm._s(salesAgent.salesOrders.half_year.closed))
+                      ]),
+                      _c("b", [_vm._v(" / ")]),
+                      _c("span", { staticClass: "open" }, [
+                        _vm._v(_vm._s(salesAgent.salesOrders.half_year.open))
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("span", { staticClass: "won" }, [
+                        _vm._v(_vm._s(salesAgent.salesOrders.year.closed))
+                      ]),
+                      _vm._v(" / "),
+                      _c("span", { staticClass: "open" }, [
+                        _vm._v(_vm._s(salesAgent.salesOrders.year.open))
+                      ])
+                    ])
+                  ])
+                }),
+                0
+              )
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "pagination" },
+              [
+                _vm.numOfPages > 1
+                  ? _c("paginate", {
+                      attrs: {
+                        "page-count": _vm.numOfPages,
+                        "click-handler": _vm.changePage,
+                        "prev-text": _vm.trans.get("voyager.generic.next"),
+                        "next-text": _vm.trans.get("voyager.generic.previous"),
+                        "container-class": "pagination"
+                      }
+                    })
+                  : _vm._e()
+              ],
+              1
+            )
+          ]
+        },
+        proxy: true
+      }
+    ])
+  })
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
 
 /***/ }),
 
