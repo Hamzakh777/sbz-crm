@@ -79,6 +79,8 @@ Route::group([
     // reports
     Route::get('/reports/sales-orders', 'Reports\ReportsSalesOrdersController@index');
     Route::get('/reports/sales-orders-for-each-agent', 'Reports\ReportsSalesOrdersForEachAgentController@index');
+    Route::get('/reports/revenue/total-revenue', 'Reports\Revenue\RevenueTotalController@index');
+
 });
 
 if (config('laravel-localization.routes.enable')) {
