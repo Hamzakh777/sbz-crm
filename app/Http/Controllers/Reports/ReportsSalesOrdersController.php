@@ -66,10 +66,10 @@ class ReportsSalesOrdersController extends Controller
 
             case 'half_year':
                 // to determine if we are on the first or second part of the year
-                $month = now()->month >= 7 ? 7 : 1;
+                $month = now()->month >= 7 ? 6 : 1;
                 
                 $salesOrdersByMonth = SalesOrder::whereMonth('contract_sign_date', '>=', $month)
-                    ->whereMonth('contract_sign_date', '<=', $month + 5)
+                    ->whereMonth('contract_sign_date', '<=', $month + 6)
                     ->whereYear('contract_sign_date', $currentyear)
                     ->orderBy('contract_sign_date', 'desc')
                     ->get()

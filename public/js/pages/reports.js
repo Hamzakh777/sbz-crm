@@ -2293,32 +2293,35 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     chartData: function chartData() {
       var labels = [];
-      var data = [];
-      var data2 = []; // const object = this.DataToLoad;
-      // for (const key in object) {
-      //     if (object.hasOwnProperty(key)) {
-      //     const element = object[key];
-      //     labels.push(key.replace("_", " ").toUpperCase());
-      //     data.push(element);
-      //     }
-      // }
+      var closedProvision = [];
+      var openProvision = [];
 
-      labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
-      data = [12, 2, 5, 10, 9, 3, 6, 24, 4, 10, 2, 5];
-      data2 = [24, 4, 10, 2, 5, 10, 9, 3, 6, 12, 1, 4];
+      if (this.responseData !== null && this.responseData !== undefined) {
+        var object = this.responseData.cols;
+
+        for (var key in object) {
+          if (object.hasOwnProperty(key)) {
+            var element = object[key];
+            labels.push(key);
+            closedProvision.push(element.closedProvision);
+            openProvision.push(element.openProvision);
+          }
+        }
+      }
+
       return {
         labels: labels,
         datasets: [{
-          label: this.label,
+          label: this.trans.get('voyager.open'),
           // backgroundColor: this.backgroundColor,
           backgroundColor: 'transparent',
           borderColor: '#4e73df',
-          data: data
+          data: openProvision
         }, {
-          label: this.label,
+          label: this.trans.get('reports.closed'),
           borderColor: '#2ecc71',
           backgroundColor: 'transparent',
-          data: data2
+          data: closedProvision
         }]
       };
     },
@@ -2332,9 +2335,10 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   data: function data() {
-    return {};
-  },
-  methods: {}
+    return {
+      routeUrl: '/api/reports/revenue/total-revenue'
+    };
+  }
 });
 
 /***/ }),
@@ -57171,7 +57175,9 @@ var render = function() {
               "div",
               [
                 _c("BaseReportsDropdown", {
-                  attrs: { timeframes: ["quarter", "half_year", "year"] },
+                  attrs: {
+                    timeframes: ["month", "quarter", "half_year", "year"]
+                  },
                   on: { "select-changed": _vm.setTimeframe }
                 })
               ],
@@ -70993,6 +70999,9 @@ var reportsTimeframeMixin = {
 
       return fetchData;
     }()
+  },
+  mounted: function mounted() {
+    this.fetchData();
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (reportsTimeframeMixin);

@@ -14,6 +14,7 @@ var reportsTimeframeMixin = {
             }
         }
     },
+
     data() {
         return {
             timeframe: null,
@@ -21,6 +22,7 @@ var reportsTimeframeMixin = {
             isLoading: false
         };
     },
+
     methods: {
         setTimeframe(value) {
             this.timeframe = value;
@@ -39,6 +41,10 @@ var reportsTimeframeMixin = {
             }
         }   
     },
+
+    mounted() {
+        this.fetchData();
+    }
 };
 
 export default reportsTimeframeMixin;

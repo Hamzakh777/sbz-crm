@@ -6,7 +6,7 @@
         <template #headLeft>
             <div>
                 <BaseReportsDropdown
-                    :timeframes="['quarter', 'half_year', 'year']"
+                    :timeframes="['month', 'quarter', 'half_year', 'year']"
                     @select-changed="setTimeframe"
                 ></BaseReportsDropdown>
             </div>
@@ -43,38 +43,38 @@
         computed: {
             chartData() {
                 let labels = [];
-                let data = [];
-                let data2 = [];
-                // const object = this.DataToLoad;
+                let closedProvision = [];
+                let openProvision = [];
 
-                // for (const key in object) {
-                //     if (object.hasOwnProperty(key)) {
-                //     const element = object[key];
+                if(this.responseData !== null && this.responseData !== undefined) {
+                    const object = this.responseData.cols;
 
-                //     labels.push(key.replace("_", " ").toUpperCase());
-                //     data.push(element);
-                //     }
-                // }
+                    for (const key in object) {
+                        if (object.hasOwnProperty(key)) {
+                            const element = object[key];
 
-                labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
-                data = [12, 2, 5, 10, 9, 3, 6, 24, 4, 10, 2, 5];
-                data2 = [24, 4, 10, 2, 5, 10, 9, 3, 6, 12, 1, 4];
-
+                            labels.push(key);
+                            closedProvision.push(element.closedProvision);
+                            openProvision.push(element.openProvision);
+                        }
+                    }
+                }
+                
                 return {
                     labels,
                     datasets: [
                     {
-                        label: this.label,
+                        label: this.trans.get('voyager.open'),
                         // backgroundColor: this.backgroundColor,
                         backgroundColor: 'transparent',
                         borderColor: '#4e73df',
-                        data
+                        data: openProvision
                     },
                     {
-                        label: this.label,
+                        label: this.trans.get('reports.closed'),
                         borderColor: '#2ecc71',
                         backgroundColor: 'transparent',
-                        data: data2
+                        data: closedProvision
                     }
                     ]
                 };
@@ -82,7 +82,7 @@
             chartOption() {
                 return { 
                     plugins: {
-                    datalabels: false
+                        datalabels: false
                     },
                     maintainAspectRatio: false
                 }
@@ -91,13 +91,9 @@
 
         data() {
             return {
+                routeUrl: '/api/reports/revenue/total-revenue'
             }
         },
-
-        methods: {
-
-        },
-
     }
 </script>
 
