@@ -37,8 +37,7 @@ class StoreSalesOrders extends FormRequest
             'contractDurationVVG' => 'required',
             'contractDurationKVG' => 'required',
             'contractStartVVG' => 'required',
-            'contractStartKVG' => 'required',
-            'signDate' => 'required',
+            'contractStartKVG' => 'required'
         ];
     }
 }

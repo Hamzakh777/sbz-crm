@@ -10,7 +10,7 @@ use Laravel\Scout\Searchable;
 class SalesOrder extends Model
 {
     use Cloneable;
-    use Searchable;
+    // use Searchable;
     
     /**
      * Which relationships to clone with the model

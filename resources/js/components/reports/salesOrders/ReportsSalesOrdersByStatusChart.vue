@@ -100,7 +100,8 @@
                 return { 
                     plugins: {
                         datalabels: false
-                    }
+                    },
+                    maintainAspectRatio: false
                 }
             }
         },
@@ -150,5 +151,7 @@
     .chart 
         padding: 0 !important
         margin-top: 0.825em
+        width: 100%
+        height: 100%
 
 </style>

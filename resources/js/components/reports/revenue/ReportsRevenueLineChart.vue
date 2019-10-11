@@ -64,16 +64,14 @@
                     labels,
                     datasets: [
                     {
-                        label: this.trans.get('voyager.open'),
+                        label: this.trans.get('reports.open'),
                         // backgroundColor: this.backgroundColor,
-                        backgroundColor: 'transparent',
-                        borderColor: '#4e73df',
+                        backgroundColor: '#4e73df',
                         data: openProvision
                     },
                     {
                         label: this.trans.get('reports.closed'),
-                        borderColor: '#2ecc71',
-                        backgroundColor: 'transparent',
+                        backgroundColor: '#2ecc71',
                         data: closedProvision
                     }
                     ]

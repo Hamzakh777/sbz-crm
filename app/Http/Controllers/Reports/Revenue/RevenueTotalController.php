@@ -69,7 +69,8 @@ class RevenueTotalController extends Controller
                 break;
 
             default:
-                # code...
+                $salesOrders = collect();
+
                 break;
         }
 

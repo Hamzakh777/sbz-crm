@@ -3,14 +3,9 @@ var reportsTimeframeMixin = {
         timeframe: function (newVal, oldVal) {
             // the route url to where we will make the request
             // defined in the component that extends this mixin
-            if (this.routeUrl === undefined || this.routeUrl === null) {
-                // throw "The url is required";
-            }
-            else {
-                const timeframe = `timeframe=${newVal}`;
-                const url = `${this.routeUrl}?${timeframe}`;
-                
-                this.fetchData(url);
+            if (typeof newVal !== undefined) {
+                const timeframe = `timeframe=${newVal}`;    
+                this.fetchData(timeframe);
             }
         }
     },
@@ -28,9 +23,13 @@ var reportsTimeframeMixin = {
             this.timeframe = value;
         },
 
-        async fetchData(url) {
+        async fetchData(timeframe) {
+            if (this.routeUrl === undefined || this.routeUrl === null) {
+                throw "The url is required";
+            }
             this.isLoading = true;
             try {
+                const url = `${this.routeUrl}?${timeframe}`
                 const response = await axios.get(url);
 
                 this.responseData = response.data;
@@ -43,7 +42,8 @@ var reportsTimeframeMixin = {
     },
 
     mounted() {
-        this.fetchData();
+        const timeframe = `timeframe=${this.timeframe}`;    
+        this.fetchData(timeframe);
     }
 };
 

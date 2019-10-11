@@ -2312,15 +2312,13 @@ __webpack_require__.r(__webpack_exports__);
       return {
         labels: labels,
         datasets: [{
-          label: this.trans.get('voyager.open'),
+          label: this.trans.get('reports.open'),
           // backgroundColor: this.backgroundColor,
-          backgroundColor: 'transparent',
-          borderColor: '#4e73df',
+          backgroundColor: '#4e73df',
           data: openProvision
         }, {
           label: this.trans.get('reports.closed'),
-          borderColor: '#2ecc71',
-          backgroundColor: 'transparent',
+          backgroundColor: '#2ecc71',
           data: closedProvision
         }]
       };
@@ -2720,7 +2718,8 @@ __webpack_require__.r(__webpack_exports__);
       return {
         plugins: {
           datalabels: false
-        }
+        },
+        maintainAspectRatio: false
       };
     }
   },
@@ -18964,7 +18963,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".panel[data-v-3be75f9a] {\n  padding: 1.25em;\n}\n.panel__body__top[data-v-3be75f9a] {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  width: 100%;\n  maring-bottom: 0.625em;\n}\n.panel__title[data-v-3be75f9a] {\n  font-size: 14px;\n  font-weight: bold;\n  color: #555;\n}\n.panel__select[data-v-3be75f9a] {\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  background-position: right 50%;\n  background-repeat: no-repeat;\n  font-size: 14px;\n  margin-top: -6px;\n  background-image: url('data:image/svg+xml;utf8,<?xml version=\"1.0\" encoding=\"utf-8\"?><!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"12\" version=\"1\"><path d=\"M4 8L0 4h8z\"/></svg>');\n  padding-right: 1.5em;\n  font-weight: bold;\n  color: #555;\n  border-radius: 0;\n  background-color: transparent;\n  border-color: transparent;\n}\n.panel .chart[data-v-3be75f9a] {\n  padding: 0 !important;\n  margin-top: 0.825em;\n}", ""]);
+exports.push([module.i, ".panel[data-v-3be75f9a] {\n  padding: 1.25em;\n}\n.panel__body__top[data-v-3be75f9a] {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  width: 100%;\n  maring-bottom: 0.625em;\n}\n.panel__title[data-v-3be75f9a] {\n  font-size: 14px;\n  font-weight: bold;\n  color: #555;\n}\n.panel__select[data-v-3be75f9a] {\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  background-position: right 50%;\n  background-repeat: no-repeat;\n  font-size: 14px;\n  margin-top: -6px;\n  background-image: url('data:image/svg+xml;utf8,<?xml version=\"1.0\" encoding=\"utf-8\"?><!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"14\" height=\"12\" version=\"1\"><path d=\"M4 8L0 4h8z\"/></svg>');\n  padding-right: 1.5em;\n  font-weight: bold;\n  color: #555;\n  border-radius: 0;\n  background-color: transparent;\n  border-color: transparent;\n}\n.panel .chart[data-v-3be75f9a] {\n  padding: 0 !important;\n  margin-top: 0.825em;\n  width: 100%;\n  height: 100%;\n}", ""]);
 
 // exports
 
@@ -70934,16 +70933,16 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 var reportsTimeframeMixin = {
   watch: {
     timeframe: function timeframe(newVal, oldVal) {
       // the route url to where we will make the request
       // defined in the component that extends this mixin
-      if (this.routeUrl === undefined || this.routeUrl === null) {// throw "The url is required";
-      } else {
+      if (_typeof(newVal) !== undefined) {
         var timeframe = "timeframe=".concat(newVal);
-        var url = "".concat(this.routeUrl, "?").concat(timeframe);
-        this.fetchData(url);
+        this.fetchData(timeframe);
       }
     }
   },
@@ -70961,36 +70960,45 @@ var reportsTimeframeMixin = {
     fetchData: function () {
       var _fetchData = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(url) {
-        var response;
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(timeframe) {
+        var url, response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                if (!(this.routeUrl === undefined || this.routeUrl === null)) {
+                  _context.next = 2;
+                  break;
+                }
+
+                throw "The url is required";
+
+              case 2:
                 this.isLoading = true;
-                _context.prev = 1;
-                _context.next = 4;
+                _context.prev = 3;
+                url = "".concat(this.routeUrl, "?").concat(timeframe);
+                _context.next = 7;
                 return axios.get(url);
 
-              case 4:
+              case 7:
                 response = _context.sent;
                 this.responseData = response.data;
                 this.isLoading = false;
-                _context.next = 13;
+                _context.next = 16;
                 break;
 
-              case 9:
-                _context.prev = 9;
-                _context.t0 = _context["catch"](1);
+              case 12:
+                _context.prev = 12;
+                _context.t0 = _context["catch"](3);
                 this.isLoading = false;
                 console.error(_context.t0);
 
-              case 13:
+              case 16:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[1, 9]]);
+        }, _callee, this, [[3, 12]]);
       }));
 
       function fetchData(_x) {
@@ -71001,7 +71009,8 @@ var reportsTimeframeMixin = {
     }()
   },
   mounted: function mounted() {
-    this.fetchData();
+    var timeframe = "timeframe=".concat(this.timeframe);
+    this.fetchData(timeframe);
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (reportsTimeframeMixin);

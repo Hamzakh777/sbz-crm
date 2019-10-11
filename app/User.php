@@ -12,7 +12,7 @@ class User extends \TCG\Voyager\Models\User
 {
     use Notifiable;
     use SoftDeletes;
-    use Searchable;
+    // use Searchable;
 
     /**
      * The attributes that are mass assignable.
