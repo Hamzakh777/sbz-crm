@@ -21,13 +21,14 @@ class ReportsSalesOrdersForEachAgentController extends Controller
         $salesAgentRole = Role::where('name', 'sales_person')->first();
         $salesAgents = User::select(['id', 'username'])
             ->where('role_id', $salesAgentRole->id)
-            ->withCount('agentSalesOrders')
-            # we always need foreign key/primary key,
-            # involved in the relation, to be selected. 
             ->with(['agentSalesOrders' => function($query) use ($currentYear){
                 $query->whereYear('contract_sign_date', $currentYear)
                 ->select(['id', 'sales_user_id', 'sales_order_status', 'contract_sign_date']);
             }]) 
+            ->withCount(['agentSalesOrders as agentSalesOrders_count' => function ($query) use ($currentYear) {
+                return $query->whereYear('contract_sign_date', $currentYear);
+            }])
+            ->orderByRaw('agentSalesOrders_count desc')
             ->paginate(8);
 
 
