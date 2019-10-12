@@ -80,6 +80,7 @@ Route::group([
     Route::get('/reports/sales-orders', 'Reports\ReportsSalesOrdersController@index');
     Route::get('/reports/sales-orders-for-each-agent', 'Reports\ReportsSalesOrdersForEachAgentController@index');
     Route::get('/reports/revenue/total-revenue', 'Reports\Revenue\RevenueTotalController@index');
+    Route::get('/reports/insurance/sales-orders-for-each-insurance', 'Reports\Insurance\ReportsInsuranceController@index');
 
 });
 

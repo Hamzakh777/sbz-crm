@@ -15,8 +15,8 @@
         <template #body>
             <BaseLoader v-if="isLoading">
             </BaseLoader>
-            <table class="vtable">
-                <thead class="thead">
+            <BaseReportsTable>
+                <template #thead>
                     <tr>
                         <th>{{ trans.get('reports.agent') }}</th>
                         <th>{{ trans.get('reports.month') }}</th>
@@ -24,20 +24,20 @@
                         <th>{{ trans.get('reports.half_year') }}</th>
                         <th>{{ trans.get('reports.year') }}</th>
                     </tr>
-                </thead>
-                <tbody class="tbody">
+                </template>
+                <template #tbody>
                     <tr 
                         v-for="(salesAgent, index) in salesAgents" 
                         :key="index"
                     >
-                        <td>{{ salesAgent.username }}</td>
+                        <td>{{ salesAgent.username | capitalize }}</td>
                         <td><span class="won">{{ salesAgent.salesOrders.month.closed }}</span><b> / </b><span class="open">{{ salesAgent.salesOrders.month.open }}</span></td>
                         <td><span class="won">{{ salesAgent.salesOrders.quarter.closed }}</span><b> / </b><span class="open">{{ salesAgent.salesOrders.quarter.open }}</span></td>
                         <td><span class="won">{{ salesAgent.salesOrders.half_year.closed }}</span><b> / </b><span class="open">{{ salesAgent.salesOrders.half_year.open }}</span></td>
                         <td><span class="won">{{ salesAgent.salesOrders.year.closed }}</span> / <span class="open">{{ salesAgent.salesOrders.year.open }}</span></td>
                     </tr>
-                </tbody>
-            </table>
+                </template>
+            </BaseReportsTable>
             <div class="pagination">
                 <paginate
                     v-if="numOfPages > 1"
@@ -55,6 +55,7 @@
 
 <script>
     import BaseReportsPanel from '../baseComponents/BaseReportsPanel';
+    import BaseReportsTable from '../baseComponents/BaseReportsTable';
     import BaseLoader from '../../baseComponents/BaseLoader';
     import Paginate from 'vuejs-paginate';
 
@@ -63,6 +64,7 @@
 
         components: {
             BaseReportsPanel,
+            BaseReportsTable,
             Paginate,
             BaseLoader
         },
