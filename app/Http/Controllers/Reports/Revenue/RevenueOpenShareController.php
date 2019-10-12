@@ -4,12 +4,11 @@ namespace App\Http\Controllers\Reports\Revenue;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\SalesOrder;
-use Carbon\Carbon;
 
-class RevenueTotalController extends Controller
+class RevenueOpenShareController extends Controller
 {
-    public function index(Request $request) {
+    public function index(Request $request)
+    {   
         $timeframe = (string) $request->query('timeframe');
 
         $currentYear = (int) now()->year;
@@ -27,6 +26,7 @@ class RevenueTotalController extends Controller
                 }
             ])
             ->whereYear('contract_sign_date', $currentYear);
+
         switch ($timeframe) {
             case 'month':
                 $salesOrders = $query->whereMonth('contract_sign_date', $currentMonth)
@@ -66,37 +66,26 @@ class RevenueTotalController extends Controller
                 break;
 
             default:
+                // emty sales orders collection
                 $salesOrders = collect();
 
                 break;
         }
 
-        // group the sales orders 
-        // and calculate the total provision
-        // for each group
-        $cols = $salesOrders->map(function ($item, $key) {
-            // each key is a month or day
-            // since we are grouping the sales orders 
-            // by either months or days
-            $dayOrMonth = [
-                'openProvision' => 0,
-                'closedProvision' => 0
-            ];
+        $openProvision = 0;
+        $closedProvision = 0;
 
-            foreach ($item as $key => $salesOrder) {
-                // group by status
-                if($salesOrder->sales_order_status === 'closing') {   
-                    $dayOrMonth['closedProvision'] += $salesOrder->compensation->total_provision_paid;
-                } else {
-                    $dayOrMonth['openProvision'] += $salesOrder->compensation->total_provision_paid;
-                }
-            }
-
-            return $dayOrMonth;
-        });
+        $salesOrders->each(function($salesOrder, $key) use (&$openProvision, &$closedProvision){
+            if($salesOrder->sales_order_status === 'closing') {
+                $closedProvision += $salesOrder->compensation->total_provision_paid;
+            } else {
+                $openProvision += $salesOrder->compensation->total_provision_paid;
+            }   
+        });  
 
         return response()->json([
-            'cols' => $cols
+            'openProvision' => $openProvision,
+            'closedProvision' => $closedProvision
         ]);
     }
 }

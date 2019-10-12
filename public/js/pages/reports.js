@@ -2318,7 +2318,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      timeframes: ['month', 'quarter', 'half_year', 'year']
+      timeframes: ['month', 'quarter', 'half_year', 'year'],
+      routeUrl: '/api/reports/revenue/open-share'
     };
   }
 });

@@ -96,6 +96,7 @@
         data() {
             return {
                 timeframes: ['month', 'quarter', 'half_year', 'year'],
+                routeUrl: '/api/reports/revenue/open-share',
             }
         },
     }
