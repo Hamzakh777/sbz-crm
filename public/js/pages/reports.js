@@ -2389,7 +2389,6 @@ __webpack_require__.r(__webpack_exports__);
         for (var key in object) {
           if (object.hasOwnProperty(key)) {
             var element = object[key];
-            console.log('key', key);
             labels.push(key);
             closedProvision.push(element.closedProvision);
             openProvision.push(element.openProvision);
@@ -2776,6 +2775,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       var salesOrdersByStatusForEachMonth = this.responseData.salesOrdersByStatusForEachMonth;
+      console.log(Object.keys(this.responseData.salesOrdersByStatusForEachMonth)[0]);
 
       for (var key in salesOrdersByStatusForEachMonth) {
         if (salesOrdersByStatusForEachMonth.hasOwnProperty(key)) {

@@ -94,6 +94,7 @@ class ReportsSalesOrdersController extends Controller
         }
 
         # group the sales orders by month
+        $salesOrdersByMonth = $salesOrdersByMonth->sortKeys();
         foreach ($salesOrdersByMonth as $month => $salesOrders) {
             # $key is the month in this case
             $salesOrdersByStatusForEachMonth[$month] = [

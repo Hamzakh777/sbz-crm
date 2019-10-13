@@ -71,10 +71,14 @@ class RevenueTotalController extends Controller
                 break;
         }
 
+        // sales orders are grooped by month and day
+        // we want to sort them in an asc order
+        $sortedSalesOrders = $salesOrders->sortKeys();
+
         // group the sales orders 
         // and calculate the total provision
         // for each group
-        $cols = $salesOrders->map(function ($item, $key) {
+        $cols = $sortedSalesOrders->map(function ($item, $key) {
             // each key is a month or day
             // since we are grouping the sales orders 
             // by either months or days
@@ -96,7 +100,8 @@ class RevenueTotalController extends Controller
         });
 
         return response()->json([
-            'cols' => $cols
+            'cols' => $cols,
+            'first' => $cols->first()
         ]);
     }
 }

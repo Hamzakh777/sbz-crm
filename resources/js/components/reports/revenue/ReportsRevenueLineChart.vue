@@ -53,7 +53,6 @@
                         if (object.hasOwnProperty(key)) {
                             const element = object[key];
 
-                            console.log('key', key);
                             labels.push(key);
                             closedProvision.push(element.closedProvision);
                             openProvision.push(element.openProvision);

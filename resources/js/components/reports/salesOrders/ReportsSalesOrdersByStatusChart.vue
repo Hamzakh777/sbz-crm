@@ -63,6 +63,7 @@
                 }
                 
                 const salesOrdersByStatusForEachMonth = this.responseData.salesOrdersByStatusForEachMonth;
+                console.log(Object.keys(this.responseData.salesOrdersByStatusForEachMonth)[0]);
                 for (const key in salesOrdersByStatusForEachMonth) {
                     if (salesOrdersByStatusForEachMonth.hasOwnProperty(key)) {
                         const element = salesOrdersByStatusForEachMonth[key];
