@@ -3,6 +3,7 @@
 return [
     'agent'                                      => 'Agent',    
     'closed'                                     => 'Closed',
+    'closed_provision'                           => 'Closed provision',
     'reports'                                    => 'Reports',
     'analytics_overview'                         => 'Analytics Overview',
     'sales_orders_by_status'                     => 'Sales orders by status',
@@ -13,6 +14,7 @@ return [
     'sales_orders_processing'                    => 'Sales orders: Porcessing',
     'sales_orders_closing'                       => 'Sales orders: Closing',
     'sales_orders_by_status_for_each_insurance'  => 'Sales orders by status for each insurance',
+    'open_provision'                             => 'Open provision',
     'month'                                      => 'Month',
     'revenue'                                    => 'Revenue',
     'quarter'                                    => 'Quarter',

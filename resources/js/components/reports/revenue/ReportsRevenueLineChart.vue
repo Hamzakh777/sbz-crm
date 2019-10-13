@@ -53,6 +53,7 @@
                         if (object.hasOwnProperty(key)) {
                             const element = object[key];
 
+                            console.log('key', key);
                             labels.push(key);
                             closedProvision.push(element.closedProvision);
                             openProvision.push(element.openProvision);
@@ -65,13 +66,14 @@
                     datasets: [
                     {
                         label: this.trans.get('reports.open'),
-                        // backgroundColor: this.backgroundColor,
-                        backgroundColor: '#4e73df',
+                        backgroundColor: "transparent",
+                        borderColor: '#4e73df',
                         data: openProvision
                     },
                     {
                         label: this.trans.get('reports.closed'),
-                        backgroundColor: '#2ecc71',
+                        backgroundColor: "transparent",
+                        borderColor: '#2ecc71',
                         data: closedProvision
                     }
                     ]

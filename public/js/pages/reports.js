@@ -2275,21 +2275,22 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     chartData: function chartData() {
-      var labels = [];
-      var data = []; // const object = this.DataToLoad;
-      // for (const key in object) {
-      //     if (object.hasOwnProperty(key)) {
-      //     const element = object[key];
-      //     labels.push(key.replace("_", " ").toUpperCase());
-      //     data.push(element);
-      //     }
-      // }
+      var labels = [this.trans.get('reports.closed_provision'), this.trans.get('reports.open_provision')];
+      var data = [0, 0];
 
-      data = [20, 40, 10, 60, 80, 23];
+      if (this.responseData !== null) {
+        var closedProvision = this.responseData.closedProvision;
+        var openProvision = this.responseData.openProvision;
+        data = [];
+        data.push(closedProvision, openProvision);
+      }
+
       return {
         labels: labels,
         datasets: [{
-          backgroundColor: ["#41B883", "#E46651", "#00D8FF", "#DD1B16", "#00ffff", "#a4a4a4"],
+          backgroundColor: ["#2ecc71", // closed provision - green
+          "#4e73df" // open provision - blue
+          ],
           data: data
         }]
       };
@@ -2388,6 +2389,7 @@ __webpack_require__.r(__webpack_exports__);
         for (var key in object) {
           if (object.hasOwnProperty(key)) {
             var element = object[key];
+            console.log('key', key);
             labels.push(key);
             closedProvision.push(element.closedProvision);
             openProvision.push(element.openProvision);
@@ -2399,12 +2401,13 @@ __webpack_require__.r(__webpack_exports__);
         labels: labels,
         datasets: [{
           label: this.trans.get('reports.open'),
-          // backgroundColor: this.backgroundColor,
-          backgroundColor: '#4e73df',
+          backgroundColor: "transparent",
+          borderColor: '#4e73df',
           data: openProvision
         }, {
           label: this.trans.get('reports.closed'),
-          backgroundColor: '#2ecc71',
+          backgroundColor: "transparent",
+          borderColor: '#2ecc71',
           data: closedProvision
         }]
       };

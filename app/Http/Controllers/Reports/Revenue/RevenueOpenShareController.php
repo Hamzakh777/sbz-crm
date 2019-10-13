@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Reports\Revenue;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\SalesOrder;
+use Carbon\Carbon;
 
 class RevenueOpenShareController extends Controller
 {
@@ -30,38 +32,26 @@ class RevenueOpenShareController extends Controller
         switch ($timeframe) {
             case 'month':
                 $salesOrders = $query->whereMonth('contract_sign_date', $currentMonth)
-                    ->get()
-                    ->groupBy(function ($d) {
-                        return Carbon::parse($d->contract_sign_date)->format('d');
-                    });
+                    ->get();
 
                 break;
 
             case 'quarter':
                 $salesOrders =  $query->whereMonth('contract_sign_date', '>=', $quarterStartMonth)
                     ->whereMonth('contract_sign_date', '<=', $quarterEndMonth)
-                    ->get()
-                    ->groupBy(function ($d) {
-                        return Carbon::parse($d->contract_sign_date)->format('m');
-                    });
+                    ->get();
 
                 break;
 
             case 'half_year':
                 $salesOrders =  $query->whereMonth('contract_sign_date', '>=', $halfYearStartMonth)
                     ->whereMonth('contract_sign_date', '<=', $halfYearEndMonth)
-                    ->get()
-                    ->groupBy(function ($d) {
-                        return Carbon::parse($d->contract_sign_date)->format('m');
-                    });
+                    ->get();
 
                 break;
 
             case 'year':
-                $salesOrders =  $query->get()
-                    ->groupBy(function ($d) {
-                        return Carbon::parse($d->contract_sign_date)->format('m');
-                    });
+                $salesOrders =  $query->get();
 
                 break;
 
@@ -74,7 +64,7 @@ class RevenueOpenShareController extends Controller
 
         $openProvision = 0;
         $closedProvision = 0;
-
+        
         $salesOrders->each(function($salesOrder, $key) use (&$openProvision, &$closedProvision){
             if($salesOrder->sales_order_status === 'closing') {
                 $closedProvision += $salesOrder->compensation->total_provision_paid;

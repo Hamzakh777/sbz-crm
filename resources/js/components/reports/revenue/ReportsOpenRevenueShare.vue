@@ -39,34 +39,30 @@
 
         computed: {
             chartData() {
-                let labels = [];
-                let data = [];
-                // const object = this.DataToLoad;
+                let labels = [
+                    this.trans.get('reports.closed_provision'),
+                    this.trans.get('reports.open_provision')
+                ];
+                let data = [0,0];
 
-                // for (const key in object) {
-                //     if (object.hasOwnProperty(key)) {
-                //     const element = object[key];
+                if(this.responseData !== null) {
+                    const closedProvision = this.responseData.closedProvision;
+                    const openProvision = this.responseData.openProvision;
+    
+                    data = [];
+                    data.push(closedProvision, openProvision);
+                }
 
-                //     labels.push(key.replace("_", " ").toUpperCase());
-                //     data.push(element);
-                //     }
-                // }
-
-                data = [20, 40, 10, 60, 80, 23];
                 return {
                     labels,
                     datasets: [
-                    {
-                        backgroundColor: [
-                        "#41B883",
-                        "#E46651",
-                        "#00D8FF",
-                        "#DD1B16",
-                        "#00ffff",
-                        "#a4a4a4"
-                        ],
-                        data
-                    }
+                        {
+                            backgroundColor: [
+                            "#2ecc71", // closed provision - green
+                            "#4e73df", // open provision - blue
+                            ],
+                            data
+                        }
                     ]
                 };
             },
