@@ -1846,8 +1846,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 
@@ -2340,6 +2338,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _baseComponents_BaseLineChart__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../baseComponents/BaseLineChart */ "./resources/js/components/reports/baseComponents/BaseLineChart.vue");
 /* harmony import */ var _baseComponents_BaseReportsDropdown__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../baseComponents/BaseReportsDropdown */ "./resources/js/components/reports/baseComponents/BaseReportsDropdown.vue");
 /* harmony import */ var _mixins_reports_ReportsTimeframeMixin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../mixins/reports/ReportsTimeframeMixin */ "./resources/js/mixins/reports/ReportsTimeframeMixin.js");
+/* harmony import */ var _baseComponents_BaseLoader__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../baseComponents/BaseLoader */ "./resources/js/components/baseComponents/BaseLoader.vue");
 //
 //
 //
@@ -2365,6 +2364,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 
 
 
@@ -2375,7 +2376,8 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     BaseReportsPanel: _baseComponents_BaseReportsPanel__WEBPACK_IMPORTED_MODULE_0__["default"],
     BaseLineChart: _baseComponents_BaseLineChart__WEBPACK_IMPORTED_MODULE_1__["default"],
-    BaseReportsDropdown: _baseComponents_BaseReportsDropdown__WEBPACK_IMPORTED_MODULE_2__["default"]
+    BaseReportsDropdown: _baseComponents_BaseReportsDropdown__WEBPACK_IMPORTED_MODULE_2__["default"],
+    BaseLoader: _baseComponents_BaseLoader__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
   computed: {
     chartData: function chartData() {
@@ -2775,7 +2777,6 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       var salesOrdersByStatusForEachMonth = this.responseData.salesOrdersByStatusForEachMonth;
-      console.log(Object.keys(this.responseData.salesOrdersByStatusForEachMonth)[0]);
 
       for (var key in salesOrdersByStatusForEachMonth) {
         if (salesOrdersByStatusForEachMonth.hasOwnProperty(key)) {
@@ -56966,10 +56967,10 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [_c("ReportsRevenueLineChart")], 1),
       _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "row d-md-flex align-items-stretch" }, [
         _c(
           "div",
-          { staticClass: "col-md-4" },
+          { staticClass: "col-md-4 d-flex align-items-stretch" },
           [_c("ReportsSalesOrdersByStatusChart")],
           1
         ),
@@ -57381,6 +57382,8 @@ var render = function() {
         key: "body",
         fn: function() {
           return [
+            _vm.isLoading ? _c("BaseLoader") : _vm._e(),
+            _vm._v(" "),
             _c(
               "div",
               { staticClass: "line-chart" },

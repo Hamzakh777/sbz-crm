@@ -4,12 +4,10 @@
         <div class="row">
             <ReportsRevenueLineChart></ReportsRevenueLineChart>
         </div>
-        <div class="row">
-            <div class="col-md-4">
-                <!-- Sales Order Status -->
-                <ReportsSalesOrdersByStatusChart
-                >
-                </ReportsSalesOrdersByStatusChart>
+        <div class="row d-md-flex align-items-stretch">
+            <!-- Sales Order Status -->
+            <div class="col-md-4 d-flex align-items-stretch">
+                <ReportsSalesOrdersByStatusChart></ReportsSalesOrdersByStatusChart>
             </div>
             <!-- Sales Order Status All Sales Agent -->
             <div class="col-md-8 ">
@@ -51,6 +49,6 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="sass" scoped>
 
 </style>

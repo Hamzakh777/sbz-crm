@@ -12,6 +12,7 @@
             </div>
         </template>
         <template #body>
+            <BaseLoader v-if="isLoading"></BaseLoader>
             <div class="line-chart">
                 <BaseLineChart
                     :chartData="chartData"
@@ -28,6 +29,7 @@
     import BaseLineChart from '../baseComponents/BaseLineChart';
     import BaseReportsDropdown from '../baseComponents/BaseReportsDropdown';
     import ReportsTimeframeMixin from '../../../mixins/reports/ReportsTimeframeMixin';
+    import BaseLoader from '../../baseComponents/BaseLoader';
 
     export default {
         name: 'ReportsRevenueLineChart',
@@ -37,7 +39,8 @@
         components: {
             BaseReportsPanel,
             BaseLineChart,
-            BaseReportsDropdown
+            BaseReportsDropdown,
+            BaseLoader
         },
 
         computed: {
@@ -100,4 +103,5 @@
 .line-chart 
     max-height: 400px
     position: relative
+
 </style>

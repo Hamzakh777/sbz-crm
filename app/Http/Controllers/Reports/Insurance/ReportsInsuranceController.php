@@ -31,7 +31,7 @@ class ReportsInsuranceController extends Controller
                 return $query->whereYear('contract_sign_date', $currentYear);
             }])
             ->orderByRaw('salesOrders_count desc')
-            ->paginate(8);
+            ->paginate(7);
 
         // group the sales orders by timeframe and status (open or closed)
         // for each insurance

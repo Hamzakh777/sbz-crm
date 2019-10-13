@@ -77,8 +77,8 @@ Route::group([
     Route::get('/file-download', 'FileDownloadController@index')->name('document.download');
 
     // reports
-    Route::get('/reports/sales-orders', 'Reports\ReportsSalesOrdersController@index');
-    Route::get('/reports/sales-orders-for-each-agent', 'Reports\ReportsSalesOrdersForEachAgentController@index');
+    Route::get('/reports/sales-orders', 'Reports\SalesOrders\ReportsSalesOrdersController@index');
+    Route::get('/reports/sales-orders-for-each-agent', 'Reports\SalesOrders\ReportsSalesOrdersForEachAgentController@index');
     Route::get('/reports/revenue/total-revenue', 'Reports\Revenue\RevenueTotalController@index');
     Route::get('reports/revenue/open-share', 'Reports\Revenue\RevenueOpenShareController@index');
     Route::get('/reports/insurance/sales-orders-for-each-insurance', 'Reports\Insurance\ReportsInsuranceController@index');

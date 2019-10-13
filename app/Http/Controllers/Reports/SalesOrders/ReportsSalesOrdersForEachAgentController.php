@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Reports;
+namespace App\Http\Controllers\Reports\SalesOrders;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -29,7 +29,7 @@ class ReportsSalesOrdersForEachAgentController extends Controller
                 return $query->whereYear('contract_sign_date', $currentYear);
             }])
             ->orderByRaw('agentSalesOrders_count desc')
-            ->paginate(8);
+            ->paginate(7);
 
 
         # group by timeFrame - current month / quarter / half_year / year 
