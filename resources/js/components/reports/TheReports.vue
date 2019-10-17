@@ -4,9 +4,9 @@
         <div class="row">
             <ReportsRevenueLineChart></ReportsRevenueLineChart>
         </div>
-        <div class="row d-md-flex align-items-stretch">
+        <div class="row custom-row">
             <!-- Sales Order Status -->
-            <div class="col-md-4 d-flex align-items-stretch">
+            <div class="col-md-4 custom-row__col">
                 <ReportsSalesOrdersByStatusChart></ReportsSalesOrdersByStatusChart>
             </div>
             <!-- Sales Order Status All Sales Agent -->
@@ -14,9 +14,9 @@
                 <ReportsSalesOrdersAgents></ReportsSalesOrdersAgents>
             </div>
         </div>
-        <div class="row">
+        <div class="row custom-row">
             <!-- reports open revenue - pie chart -->
-            <div class="col-md-4">
+            <div class="col-md-4 custom-row__col">
                 <ReportsOpenRevenue></ReportsOpenRevenue>
             </div>
             <!-- sales order by status for each insurance - table  -->
@@ -50,5 +50,14 @@
 </script>
 
 <style lang="sass" scoped>
+.custom-row
+    display: flex 
+    align-items: stretch
 
+    &__col
+        display: flex 
+        align-items: stretch
+
+        .panel.panel-primary
+            flex-grow: 1
 </style>

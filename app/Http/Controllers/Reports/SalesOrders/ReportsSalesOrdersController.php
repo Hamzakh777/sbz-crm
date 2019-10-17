@@ -10,10 +10,6 @@ use Illuminate\Support\Facades\DB;
 
 class ReportsSalesOrdersController extends Controller
 {
-    private function salesOrders() {
-
-    }
-
     public function index(Request $request) {
         $timeframe = (string)$request->query('timeframe');
 

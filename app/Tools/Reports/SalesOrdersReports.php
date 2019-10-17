@@ -3,8 +3,9 @@
 namespace App\Tools\Reports;
 
 class SalesOrdersReports {
-    public function FunctionName(Type $var = null)
+    
+    public function test()
     {
-        # code...
+        echo 'test';
     }
 }

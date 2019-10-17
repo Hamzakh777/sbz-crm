@@ -178,6 +178,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\ReportsServiceProvider::class,
 
     ],
 
@@ -231,7 +232,10 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         // packages
-        'PDF' => Barryvdh\DomPDF\Facade::class
+        'PDF' => Barryvdh\DomPDF\Facade::class,
+
+        // Custom Facades
+        'Reports' => App\Tools\Reports\ReportsFacade::class
     ],
 
 ];

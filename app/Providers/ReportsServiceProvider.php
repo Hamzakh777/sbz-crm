@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Tools\Reports\Reports;
+
 use Illuminate\Support\ServiceProvider;
 
 class ReportsServiceProvider extends ServiceProvider
@@ -13,7 +15,10 @@ class ReportsServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind('reports', function () {
+
+            return new Reports();
+        });
     }
 
     /**
