@@ -65,7 +65,7 @@ class ReportsInsuranceRevenueController extends Controller
             # group sales orders by closed - open status
             foreach ($item->salesOrders as $key => $salesOrder) {
                 # skip of the sales order has no compensation
-                if (isset($salesOrder->compensation)) {
+                if (!isset($salesOrder->compensation)) {
                     continue;
                 }
 
