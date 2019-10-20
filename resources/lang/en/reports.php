@@ -14,6 +14,7 @@ return [
     'sales_orders_processing'                    => 'Sales orders: Porcessing',
     'sales_orders_closing'                       => 'Sales orders: Closing',
     'sales_orders_by_status_for_each_insurance'  => 'Sales orders by status for each insurance',
+    'revenue_per_insurance'                      => 'Revenue per insurance',
     'open_provision'                             => 'Open provision',
     'month'                                      => 'Month',
     'revenue'                                    => 'Revenue',

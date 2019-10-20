@@ -1,6 +1,6 @@
 <template>
     <BaseReportsPanel
-        :title="'reports.sales_orders_by_status_for_each_insurance'"
+        :title="'reports.revenue_per_insurance'"
     >
         <template #headLeft>
             <div class="legend">
@@ -31,10 +31,10 @@
                         :key="index"
                     >
                         <td>{{ insurance.name | capitalize }}</td>
-                        <td><span class="won">{{ insurance.revenue.month.closed }}</span><b> / </b><span class="open">{{ insurance.revenue.month.open }}</span></td>
-                        <td><span class="won">{{ insurance.revenue.quarter.closed }}</span><b> / </b><span class="open">{{ insurance.revenue.quarter.open }}</span></td>
-                        <td><span class="won">{{ insurance.revenue.half_year.closed }}</span><b> / </b><span class="open">{{ insurance.revenue.half_year.open }}</span></td>
-                        <td><span class="won">{{ insurance.revenue.year.closed }}</span> / <span class="open">{{ insurance.revenue.year.open }}</span></td>
+                        <td><span class="won">{{ insurance.revenue.month.closed }}chf</span><b> / </b><span class="open">{{ insurance.revenue.month.open }}chf</span></td>
+                        <td><span class="won">{{ insurance.revenue.quarter.closed }}chf</span><b> / </b><span class="open">{{ insurance.revenue.quarter.open }}chf</span></td>
+                        <td><span class="won">{{ insurance.revenue.half_year.closed }}chf</span><b> / </b><span class="open">{{ insurance.revenue.half_year.open }}chf</span></td>
+                        <td><span class="won">{{ insurance.revenue.year.closed }}chf</span> / <span class="open">{{ insurance.revenue.year.open }}chf</span></td>
                     </tr>
                 </template>
             </BaseReportsTable>

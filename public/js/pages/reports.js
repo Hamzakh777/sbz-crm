@@ -57263,7 +57263,7 @@ var render = function() {
       _c("div", { staticClass: "row" }, [
         _c(
           "div",
-          { staticClass: "col-12" },
+          { staticClass: "col-md-12" },
           [_c("ReportsRevenuePerInsurance")],
           1
         )
@@ -57416,7 +57416,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("BaseReportsPanel", {
-    attrs: { title: "reports.sales_orders_by_status_for_each_insurance" },
+    attrs: { title: "reports.revenue_per_insurance" },
     scopedSlots: _vm._u([
       {
         key: "headLeft",
@@ -57487,41 +57487,53 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", [
                           _c("span", { staticClass: "won" }, [
-                            _vm._v(_vm._s(insurance.revenue.month.closed))
+                            _vm._v(
+                              _vm._s(insurance.revenue.month.closed) + "chf"
+                            )
                           ]),
                           _c("b", [_vm._v(" / ")]),
                           _c("span", { staticClass: "open" }, [
-                            _vm._v(_vm._s(insurance.revenue.month.open))
+                            _vm._v(_vm._s(insurance.revenue.month.open) + "chf")
                           ])
                         ]),
                         _vm._v(" "),
                         _c("td", [
                           _c("span", { staticClass: "won" }, [
-                            _vm._v(_vm._s(insurance.revenue.quarter.closed))
+                            _vm._v(
+                              _vm._s(insurance.revenue.quarter.closed) + "chf"
+                            )
                           ]),
                           _c("b", [_vm._v(" / ")]),
                           _c("span", { staticClass: "open" }, [
-                            _vm._v(_vm._s(insurance.revenue.quarter.open))
+                            _vm._v(
+                              _vm._s(insurance.revenue.quarter.open) + "chf"
+                            )
                           ])
                         ]),
                         _vm._v(" "),
                         _c("td", [
                           _c("span", { staticClass: "won" }, [
-                            _vm._v(_vm._s(insurance.revenue.half_year.closed))
+                            _vm._v(
+                              _vm._s(insurance.revenue.half_year.closed) + "chf"
+                            )
                           ]),
                           _c("b", [_vm._v(" / ")]),
                           _c("span", { staticClass: "open" }, [
-                            _vm._v(_vm._s(insurance.revenue.half_year.open))
+                            _vm._v(
+                              _vm._s(insurance.revenue.half_year.open) + "chf"
+                            )
                           ])
                         ]),
                         _vm._v(" "),
                         _c("td", [
                           _c("span", { staticClass: "won" }, [
-                            _vm._v(_vm._s(insurance.revenue.year.closed))
+                            _vm._v(
+                              _vm._s(insurance.revenue.year.closed) + "chf"
+                            )
                           ]),
                           _vm._v(" / "),
                           _c("span", { staticClass: "open" }, [
-                            _vm._v(_vm._s(insurance.revenue.year.open))
+                            _vm._v(_vm._s(insurance.revenue.year.open) + "chf")
                           ])
                         ])
                       ])
