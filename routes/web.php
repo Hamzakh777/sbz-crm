@@ -82,6 +82,7 @@ Route::group([
     Route::get('/reports/revenue/total-revenue', 'Reports\Revenue\RevenueTotalController@index');
     Route::get('reports/revenue/open-share', 'Reports\Revenue\RevenueOpenShareController@index');
     Route::get('/reports/insurance/sales-orders-for-each-insurance', 'Reports\Insurance\ReportsInsuranceController@index');
+    Route::get('/reports/insurance/revenue', 'Reports\Insurance\ReportsInsuranceRevenueController@index');
 
 });
 

@@ -1817,6 +1817,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _revenue_ReportsRevenueLineChart__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./revenue/ReportsRevenueLineChart */ "./resources/js/components/reports/revenue/ReportsRevenueLineChart.vue");
 /* harmony import */ var _revenue_ReportsOpenRevenueShare__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./revenue/ReportsOpenRevenueShare */ "./resources/js/components/reports/revenue/ReportsOpenRevenueShare.vue");
 /* harmony import */ var _insurance_ReportsSalesOrdersStatusPerInsurance__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./insurance/ReportsSalesOrdersStatusPerInsurance */ "./resources/js/components/reports/insurance/ReportsSalesOrdersStatusPerInsurance.vue");
+/* harmony import */ var _insurance_ReportsRevenuePerInsurance__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./insurance/ReportsRevenuePerInsurance */ "./resources/js/components/reports/insurance/ReportsRevenuePerInsurance.vue");
 //
 //
 //
@@ -1846,6 +1847,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+
 
 
 
@@ -1860,6 +1867,7 @@ __webpack_require__.r(__webpack_exports__);
     ReportsSalesOrdersAgents: _salesOrders_ReportsSalesOrdersAgents__WEBPACK_IMPORTED_MODULE_2__["default"],
     ReportsRevenueLineChart: _revenue_ReportsRevenueLineChart__WEBPACK_IMPORTED_MODULE_3__["default"],
     ReportsOpenRevenue: _revenue_ReportsOpenRevenueShare__WEBPACK_IMPORTED_MODULE_4__["default"],
+    ReportsRevenuePerInsurance: _insurance_ReportsRevenuePerInsurance__WEBPACK_IMPORTED_MODULE_6__["default"],
     ReportsSOSPI: _insurance_ReportsSalesOrdersStatusPerInsurance__WEBPACK_IMPORTED_MODULE_5__["default"]
   }
 });
@@ -2060,6 +2068,166 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'BaseReportsTable'
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reports/insurance/ReportsRevenuePerInsurance.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/reports/insurance/ReportsRevenuePerInsurance.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _baseComponents_BaseReportsPanel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../baseComponents/BaseReportsPanel */ "./resources/js/components/reports/baseComponents/BaseReportsPanel.vue");
+/* harmony import */ var _baseComponents_BaseReportsTable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../baseComponents/BaseReportsTable */ "./resources/js/components/reports/baseComponents/BaseReportsTable.vue");
+/* harmony import */ var _baseComponents_BaseLoader__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../baseComponents/BaseLoader */ "./resources/js/components/baseComponents/BaseLoader.vue");
+/* harmony import */ var _baseComponents_BaseReportsDropdown__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../baseComponents/BaseReportsDropdown */ "./resources/js/components/reports/baseComponents/BaseReportsDropdown.vue");
+/* harmony import */ var _mixins_reports_ReportsTimeframeMixin__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../mixins/reports/ReportsTimeframeMixin */ "./resources/js/mixins/reports/ReportsTimeframeMixin.js");
+/* harmony import */ var vuejs_paginate__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuejs-paginate */ "./node_modules/vuejs-paginate/dist/index.js");
+/* harmony import */ var vuejs_paginate__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(vuejs_paginate__WEBPACK_IMPORTED_MODULE_6__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+ // all order status per insurance
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'ReportsRevenuePerInsurance',
+  components: {
+    BaseReportsPanel: _baseComponents_BaseReportsPanel__WEBPACK_IMPORTED_MODULE_1__["default"],
+    BaseReportsTable: _baseComponents_BaseReportsTable__WEBPACK_IMPORTED_MODULE_2__["default"],
+    BaseReportsDropdown: _baseComponents_BaseReportsDropdown__WEBPACK_IMPORTED_MODULE_4__["default"],
+    Paginate: vuejs_paginate__WEBPACK_IMPORTED_MODULE_6___default.a,
+    BaseLoader: _baseComponents_BaseLoader__WEBPACK_IMPORTED_MODULE_3__["default"]
+  },
+  data: function data() {
+    return {
+      url: '/api/reports/insurance/revenue',
+      isLoading: false,
+      numOfPages: 1,
+      insurances: []
+    };
+  },
+  methods: {
+    changePage: function changePage(page) {
+      this.fetchData(page);
+    },
+    fetchData: function () {
+      var _fetchData = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var page,
+            response,
+            _args = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                page = _args.length > 0 && _args[0] !== undefined ? _args[0] : 1;
+                this.isLoading = true;
+                _context.prev = 2;
+                _context.next = 5;
+                return axios.get(this.url + '?page=' + page);
+
+              case 5:
+                response = _context.sent;
+                this.isLoading = false;
+                this.insurances = response.data.revenueForEachInsurance;
+                this.numOfPages = response.data.numOfPages;
+                _context.next = 15;
+                break;
+
+              case 11:
+                _context.prev = 11;
+                _context.t0 = _context["catch"](2);
+                this.isLoading = false;
+                throw _context.t0;
+
+              case 15:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[2, 11]]);
+      }));
+
+      function fetchData() {
+        return _fetchData.apply(this, arguments);
+      }
+
+      return fetchData;
+    }()
+  },
+  mounted: function mounted() {
+    this.fetchData();
+  }
 });
 
 /***/ }),
@@ -19000,6 +19168,25 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 // module
 exports.push([module.i, ".vtable[data-v-5fc90c5d] {\n  width: 100%;\n  margin-top: 0.75em;\n}\n.vtable .tbody tr td[data-v-5fc90c5d] {\n  padding: 1em 0;\n  border-top: 1px solid #B5B9C1;\n}\n.vtable .tbody tr:nth-child(1) td[data-v-5fc90c5d] {\n  border-top: none;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reports/insurance/ReportsRevenuePerInsurance.vue?vue&type=style&index=0&id=a8b0916c&lang=sass&scoped=true&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--9-2!./node_modules/sass-loader/dist/cjs.js??ref--9-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/reports/insurance/ReportsRevenuePerInsurance.vue?vue&type=style&index=0&id=a8b0916c&lang=sass&scoped=true& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".legend[data-v-a8b0916c] {\n  display: inline-block;\n}\n.legend .square[data-v-a8b0916c] {\n  height: 16px;\n  width: 16px;\n  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);\n  background-color: #555;\n  display: inline-block;\n  margin-right: 4px;\n}\n.legend .square--won[data-v-a8b0916c] {\n  background-color: #2ecc71;\n}\n.legend .square--open[data-v-a8b0916c] {\n  background-color: #4e73df;\n}\n.legend[data-v-a8b0916c]:nth-child(1) {\n  margin-right: 10px;\n}\n.vtable[data-v-a8b0916c] {\n  width: 100%;\n  margin-top: 0.75em;\n}\n.vtable .tbody tr td[data-v-a8b0916c] {\n  padding: 1em 0;\n  border-top: 1px solid #B5B9C1;\n}\n.vtable .tbody tr:nth-child(1) td[data-v-a8b0916c] {\n  border-top: none;\n}\n.vtable .won[data-v-a8b0916c] {\n  color: #2ecc71;\n}\n.vtable .open[data-v-a8b0916c] {\n  color: #4e73df;\n}\n.pagination[data-v-a8b0916c] {\n  margin-bottom: -10px !important;\n}", ""]);
 
 // exports
 
@@ -55910,6 +56097,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reports/insurance/ReportsRevenuePerInsurance.vue?vue&type=style&index=0&id=a8b0916c&lang=sass&scoped=true&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--9-2!./node_modules/sass-loader/dist/cjs.js??ref--9-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/reports/insurance/ReportsRevenuePerInsurance.vue?vue&type=style&index=0&id=a8b0916c&lang=sass&scoped=true& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../node_modules/css-loader!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--9-2!../../../../../node_modules/sass-loader/dist/cjs.js??ref--9-3!../../../../../node_modules/vue-loader/lib??vue-loader-options!./ReportsRevenuePerInsurance.vue?vue&type=style&index=0&id=a8b0916c&lang=sass&scoped=true& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reports/insurance/ReportsRevenuePerInsurance.vue?vue&type=style&index=0&id=a8b0916c&lang=sass&scoped=true&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reports/insurance/ReportsSalesOrdersStatusPerInsurance.vue?vue&type=style&index=0&id=35f3875e&lang=sass&scoped=true&":
 /*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--9-2!./node_modules/sass-loader/dist/cjs.js??ref--9-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/reports/insurance/ReportsSalesOrdersStatusPerInsurance.vue?vue&type=style&index=0&id=35f3875e&lang=sass&scoped=true& ***!
@@ -57041,6 +57258,15 @@ var render = function() {
         ),
         _vm._v(" "),
         _c("div", { staticClass: "col-md-8" }, [_c("ReportsSOSPI")], 1)
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c(
+          "div",
+          { staticClass: "col-12" },
+          [_c("ReportsRevenuePerInsurance")],
+          1
+        )
       ])
     ],
     1
@@ -57166,6 +57392,170 @@ var render = function() {
     _vm._v(" "),
     _c("tbody", { staticClass: "tbody" }, [_vm._t("tbody")], 2)
   ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reports/insurance/ReportsRevenuePerInsurance.vue?vue&type=template&id=a8b0916c&scoped=true&":
+/*!***********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/reports/insurance/ReportsRevenuePerInsurance.vue?vue&type=template&id=a8b0916c&scoped=true& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("BaseReportsPanel", {
+    attrs: { title: "reports.sales_orders_by_status_for_each_insurance" },
+    scopedSlots: _vm._u([
+      {
+        key: "headLeft",
+        fn: function() {
+          return [
+            _c("div", { staticClass: "legend" }, [
+              _c("div", { staticClass: "square square--won" }),
+              _vm._v(" "),
+              _c("span", [_vm._v(_vm._s(_vm.trans.get("reports.won")))])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "legend" }, [
+              _c("div", { staticClass: "square square--open" }),
+              _vm._v(" "),
+              _c("span", [_vm._v(_vm._s(_vm.trans.get("reports.open")))])
+            ])
+          ]
+        },
+        proxy: true
+      },
+      {
+        key: "body",
+        fn: function() {
+          return [
+            _vm.isLoading ? _c("BaseLoader") : _vm._e(),
+            _vm._v(" "),
+            _c("BaseReportsTable", {
+              scopedSlots: _vm._u([
+                {
+                  key: "thead",
+                  fn: function() {
+                    return [
+                      _c("tr", [
+                        _c("th", [
+                          _vm._v(
+                            _vm._s(_vm.trans.get("voyager.insurance.insurance"))
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("th", [
+                          _vm._v(_vm._s(_vm.trans.get("reports.month")))
+                        ]),
+                        _vm._v(" "),
+                        _c("th", [
+                          _vm._v(_vm._s(_vm.trans.get("reports.quarter")))
+                        ]),
+                        _vm._v(" "),
+                        _c("th", [
+                          _vm._v(_vm._s(_vm.trans.get("reports.half_year")))
+                        ]),
+                        _vm._v(" "),
+                        _c("th", [
+                          _vm._v(_vm._s(_vm.trans.get("reports.year")))
+                        ])
+                      ])
+                    ]
+                  },
+                  proxy: true
+                },
+                {
+                  key: "tbody",
+                  fn: function() {
+                    return _vm._l(_vm.insurances, function(insurance, index) {
+                      return _c("tr", { key: index }, [
+                        _c("td", [
+                          _vm._v(_vm._s(_vm._f("capitalize")(insurance.name)))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c("span", { staticClass: "won" }, [
+                            _vm._v(_vm._s(insurance.revenue.month.closed))
+                          ]),
+                          _c("b", [_vm._v(" / ")]),
+                          _c("span", { staticClass: "open" }, [
+                            _vm._v(_vm._s(insurance.revenue.month.open))
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c("span", { staticClass: "won" }, [
+                            _vm._v(_vm._s(insurance.revenue.quarter.closed))
+                          ]),
+                          _c("b", [_vm._v(" / ")]),
+                          _c("span", { staticClass: "open" }, [
+                            _vm._v(_vm._s(insurance.revenue.quarter.open))
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c("span", { staticClass: "won" }, [
+                            _vm._v(_vm._s(insurance.revenue.half_year.closed))
+                          ]),
+                          _c("b", [_vm._v(" / ")]),
+                          _c("span", { staticClass: "open" }, [
+                            _vm._v(_vm._s(insurance.revenue.half_year.open))
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c("span", { staticClass: "won" }, [
+                            _vm._v(_vm._s(insurance.revenue.year.closed))
+                          ]),
+                          _vm._v(" / "),
+                          _c("span", { staticClass: "open" }, [
+                            _vm._v(_vm._s(insurance.revenue.year.open))
+                          ])
+                        ])
+                      ])
+                    })
+                  },
+                  proxy: true
+                }
+              ])
+            }),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "pagination" },
+              [
+                _vm.numOfPages > 1
+                  ? _c("paginate", {
+                      attrs: {
+                        "page-count": _vm.numOfPages,
+                        "click-handler": _vm.changePage,
+                        "prev-text": _vm.trans.get("voyager.generic.next"),
+                        "next-text": _vm.trans.get("voyager.generic.previous"),
+                        "container-class": "pagination"
+                      }
+                    })
+                  : _vm._e()
+              ],
+              1
+            )
+          ]
+        },
+        proxy: true
+      }
+    ])
+  })
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -70648,6 +71038,93 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BaseReportsTable_vue_vue_type_template_id_5fc90c5d_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BaseReportsTable_vue_vue_type_template_id_5fc90c5d_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/reports/insurance/ReportsRevenuePerInsurance.vue":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/reports/insurance/ReportsRevenuePerInsurance.vue ***!
+  \**********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ReportsRevenuePerInsurance_vue_vue_type_template_id_a8b0916c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ReportsRevenuePerInsurance.vue?vue&type=template&id=a8b0916c&scoped=true& */ "./resources/js/components/reports/insurance/ReportsRevenuePerInsurance.vue?vue&type=template&id=a8b0916c&scoped=true&");
+/* harmony import */ var _ReportsRevenuePerInsurance_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ReportsRevenuePerInsurance.vue?vue&type=script&lang=js& */ "./resources/js/components/reports/insurance/ReportsRevenuePerInsurance.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _ReportsRevenuePerInsurance_vue_vue_type_style_index_0_id_a8b0916c_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ReportsRevenuePerInsurance.vue?vue&type=style&index=0&id=a8b0916c&lang=sass&scoped=true& */ "./resources/js/components/reports/insurance/ReportsRevenuePerInsurance.vue?vue&type=style&index=0&id=a8b0916c&lang=sass&scoped=true&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _ReportsRevenuePerInsurance_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ReportsRevenuePerInsurance_vue_vue_type_template_id_a8b0916c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ReportsRevenuePerInsurance_vue_vue_type_template_id_a8b0916c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "a8b0916c",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/reports/insurance/ReportsRevenuePerInsurance.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/reports/insurance/ReportsRevenuePerInsurance.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************!*\
+  !*** ./resources/js/components/reports/insurance/ReportsRevenuePerInsurance.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ReportsRevenuePerInsurance_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./ReportsRevenuePerInsurance.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reports/insurance/ReportsRevenuePerInsurance.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ReportsRevenuePerInsurance_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/reports/insurance/ReportsRevenuePerInsurance.vue?vue&type=style&index=0&id=a8b0916c&lang=sass&scoped=true&":
+/*!********************************************************************************************************************************************!*\
+  !*** ./resources/js/components/reports/insurance/ReportsRevenuePerInsurance.vue?vue&type=style&index=0&id=a8b0916c&lang=sass&scoped=true& ***!
+  \********************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_dist_cjs_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_ReportsRevenuePerInsurance_vue_vue_type_style_index_0_id_a8b0916c_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader!../../../../../node_modules/css-loader!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--9-2!../../../../../node_modules/sass-loader/dist/cjs.js??ref--9-3!../../../../../node_modules/vue-loader/lib??vue-loader-options!./ReportsRevenuePerInsurance.vue?vue&type=style&index=0&id=a8b0916c&lang=sass&scoped=true& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reports/insurance/ReportsRevenuePerInsurance.vue?vue&type=style&index=0&id=a8b0916c&lang=sass&scoped=true&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_dist_cjs_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_ReportsRevenuePerInsurance_vue_vue_type_style_index_0_id_a8b0916c_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_dist_cjs_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_ReportsRevenuePerInsurance_vue_vue_type_style_index_0_id_a8b0916c_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_dist_cjs_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_ReportsRevenuePerInsurance_vue_vue_type_style_index_0_id_a8b0916c_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_dist_cjs_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_ReportsRevenuePerInsurance_vue_vue_type_style_index_0_id_a8b0916c_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_dist_cjs_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_ReportsRevenuePerInsurance_vue_vue_type_style_index_0_id_a8b0916c_lang_sass_scoped_true___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/reports/insurance/ReportsRevenuePerInsurance.vue?vue&type=template&id=a8b0916c&scoped=true&":
+/*!*****************************************************************************************************************************!*\
+  !*** ./resources/js/components/reports/insurance/ReportsRevenuePerInsurance.vue?vue&type=template&id=a8b0916c&scoped=true& ***!
+  \*****************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ReportsRevenuePerInsurance_vue_vue_type_template_id_a8b0916c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./ReportsRevenuePerInsurance.vue?vue&type=template&id=a8b0916c&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/reports/insurance/ReportsRevenuePerInsurance.vue?vue&type=template&id=a8b0916c&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ReportsRevenuePerInsurance_vue_vue_type_template_id_a8b0916c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ReportsRevenuePerInsurance_vue_vue_type_template_id_a8b0916c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

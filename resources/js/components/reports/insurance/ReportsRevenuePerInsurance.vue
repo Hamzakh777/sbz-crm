@@ -31,10 +31,10 @@
                         :key="index"
                     >
                         <td>{{ insurance.name | capitalize }}</td>
-                        <td><span class="won">{{ insurance.salesOrders.month.closed }}</span><b> / </b><span class="open">{{ insurance.salesOrders.month.open }}</span></td>
-                        <td><span class="won">{{ insurance.salesOrders.quarter.closed }}</span><b> / </b><span class="open">{{ insurance.salesOrders.quarter.open }}</span></td>
-                        <td><span class="won">{{ insurance.salesOrders.half_year.closed }}</span><b> / </b><span class="open">{{ insurance.salesOrders.half_year.open }}</span></td>
-                        <td><span class="won">{{ insurance.salesOrders.year.closed }}</span> / <span class="open">{{ insurance.salesOrders.year.open }}</span></td>
+                        <td><span class="won">{{ insurance.revenue.month.closed }}</span><b> / </b><span class="open">{{ insurance.revenue.month.open }}</span></td>
+                        <td><span class="won">{{ insurance.revenue.quarter.closed }}</span><b> / </b><span class="open">{{ insurance.revenue.quarter.open }}</span></td>
+                        <td><span class="won">{{ insurance.revenue.half_year.closed }}</span><b> / </b><span class="open">{{ insurance.revenue.half_year.open }}</span></td>
+                        <td><span class="won">{{ insurance.revenue.year.closed }}</span> / <span class="open">{{ insurance.revenue.year.open }}</span></td>
                     </tr>
                 </template>
             </BaseReportsTable>
@@ -63,7 +63,7 @@
 
     // all order status per insurance
     export default {
-        name: 'ReportsSalesOrdersStatusPerInsurance',
+        name: 'ReportsRevenuePerInsurance',
 
         components: {
             BaseReportsPanel,
@@ -75,7 +75,7 @@
 
         data() {
             return {
-                url: '/api/reports/insurance/sales-orders-for-each-insurance',
+                url: '/api/reports/insurance/revenue',
                 isLoading: false,
                 numOfPages: 1,
                 insurances: []
@@ -96,7 +96,7 @@
 
                     this.isLoading = false;
 
-                    this.insurances = response.data.insurances;
+                    this.insurances = response.data.revenueForEachInsurance;
                     this.numOfPages = response.data.numOfPages;
 
                 } catch (error) {

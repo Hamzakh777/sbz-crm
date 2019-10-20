@@ -6,13 +6,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Insurance;
 
-class ReportsInsuranceController extends Controller
+class ReportsInsuranceRevenueController extends Controller
 {
-    /**
-     * For each Insurance we group the salesorders by 
-     * status and by timeframe
-     */
-    public function index() {
+    public function index(Request $request)
+    {
+        $timeframe = (string) $request->query('timeframe');
+
         $currentYear = (int) now()->year;
         $currentMonth = (int) now()->month;
         $quarterStartMonth = now()->firstOfQuarter()->month;
@@ -22,27 +21,29 @@ class ReportsInsuranceController extends Controller
 
         $insurances = Insurance::select(['name', 'id'])
             ->where('active_partner', 1)
-            ->with(['salesOrders' => function($query) use ($currentYear){
+            ->with(['salesOrders' => function ($query) use ($currentYear) {
                 return $query
                     ->select(['id', 'new_insurance_id', 'sales_order_status', 'contract_sign_date'])
+                    ->has('compensation')
+                    ->with(['compensation' => function ($query) {
+                        return $query->select(['id', 'sales_order_id', 'total_provision_paid']);
+                    }])
                     ->whereYear('contract_sign_date', $currentYear);
             }])
-            ->withCount(['salesOrders as salesOrders_count' => function($query) use ($currentYear) {
+            ->withCount(['salesOrders as salesOrders_count' => function ($query) use ($currentYear) {
                 return $query->whereYear('contract_sign_date', $currentYear);
             }])
             ->orderByRaw('salesOrders_count desc')
             ->paginate(7);
 
-        // group the sales orders by timeframe and status (open or closed)
-        // for each insurance
-        $salesOrderByTimeframeForEachInsurance = [];
-
+        // calcute the revenue for each insurance by timeframe
+        $revenueForEachInsurance = [];
         foreach ($insurances as $key => $item) {
             // each item is an insurance
             $insurance = [];
             $insurance['name'] = $item->name;
 
-            $insurance['salesOrders'] = [
+            $insurance['revenue'] = [
                 'month' => [
                     'open' => 0,
                     'closed' => 0
@@ -63,49 +64,54 @@ class ReportsInsuranceController extends Controller
 
             # group sales orders by closed - open status
             foreach ($item->salesOrders as $key => $salesOrder) {
+                # skip of the sales order has no compensation
+                if (isset($salesOrder->compensation)) {
+                    continue;
+                }
+
                 # yearly timeframe
-                if($salesOrder->contract_sign_date->year === $currentYear) {
-                    if($salesOrder->sales_order_status === 'closing') {
-                        $insurance['salesOrders']['year']['closed'] += 1;
+                if ($salesOrder->contract_sign_date->year === $currentYear) {
+                    if ($salesOrder->sales_order_status === 'closing') {
+                        $insurance['revenue']['year']['closed'] += $salesOrder->compensation->total_provision_paid;
                     } else {
-                        $insurance['salesOrders']['year']['open'] += 1;
+                        $insurance['revenue']['year']['open'] += $salesOrder->compensation->total_provision_paid;
                     }
                 }
 
                 # half year timeframe
                 if ($salesOrder->contract_sign_date->month >= $halfYearStartMonth && $salesOrder->contract_sign_date->month <= $halfYearEndMonth) {
                     if ($salesOrder->sales_order_status === 'closing') {
-                        $insurance['salesOrders']['half_year']['closed'] += 1;
+                        $insurance['revenue']['half_year']['closed'] += $salesOrder->compensation->total_provision_paid;
                     } else {
-                        $insurance['salesOrders']['half_year']['open'] += 1;
+                        $insurance['revenue']['half_year']['open'] += $salesOrder->compensation->total_provision_paid;
                     }
                 }
 
                 # quarterly timeframe
                 if ($salesOrder->contract_sign_date->month >= $quarterStartMonth && $salesOrder->contract_sign_date->month <= $quarterEndMonth) {
                     if ($salesOrder->sales_order_status === 'closing') {
-                        $insurance['salesOrders']['quarter']['closed'] += 1;
+                        $insurance['revenue']['quarter']['closed'] += $salesOrder->compensation->total_provision_paid;
                     } else {
-                        $insurance['salesOrders']['quarter']['open'] += 1;
+                        $insurance['revenue']['quarter']['open'] += $salesOrder->compensation->total_provision_paid;
                     }
                 }
 
                 # monthly timeframe
                 if ($salesOrder->contract_sign_date->month === $currentMonth) {
                     if ($salesOrder->sales_order_status === 'closing') {
-                        $insurance['salesOrders']['month']['closed'] += 1;
+                        $insurance['revenue']['month']['closed'] += $salesOrder->compensation->total_provision_paid;
                     } else {
-                        $insurance['salesOrders']['month']['open'] += 1;
+                        $insurance['revenue']['month']['open'] += $salesOrder->compensation->total_provision_paid;
                     }
                 }
             }
-            
+
             # add the insurance to the array
-            array_push($salesOrderByTimeframeForEachInsurance, $insurance);
+            array_push($revenueForEachInsurance, $insurance);
         }
 
         return response()->json([
-            'insurances' => $salesOrderByTimeframeForEachInsurance,
+            'revenueForEachInsurance' => $revenueForEachInsurance,
             'numOfPages' => $insurances->lastPage(),
             'currentPage' => $insurances->currentPage()
         ]);

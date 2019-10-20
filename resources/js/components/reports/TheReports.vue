@@ -24,6 +24,11 @@
                 <ReportsSOSPI></ReportsSOSPI>
             </div>
         </div>
+        <div class="row">
+            <div class="col-12">
+                <ReportsRevenuePerInsurance></ReportsRevenuePerInsurance>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -34,6 +39,7 @@
     import ReportsRevenueLineChart from './revenue/ReportsRevenueLineChart';
     import ReportsOpenRevenue from './revenue/ReportsOpenRevenueShare';
     import ReportsSOSPI from './insurance/ReportsSalesOrdersStatusPerInsurance';
+    import ReportsRevenuePerInsurance from './insurance/ReportsRevenuePerInsurance';
 
     export default {
         name: 'TheReports',
@@ -44,6 +50,7 @@
             ReportsSalesOrdersAgents,
             ReportsRevenueLineChart,
             ReportsOpenRevenue,
+            ReportsRevenuePerInsurance,
             ReportsSOSPI
         }
     }
